@@ -5,27 +5,27 @@
  */
 'use strict';
 
-var app = require('../speedt/index');
+var colors = require('colors');
 
-/**
- * Init app for client.
- */
-app.createApp(null, function(){
+var speedt = require('../speedt');
+
+speedt.createApp({}, function(){
   var self = this;
 
-  // app configuration
+  self.set('name', 'logonServer');
+
   self.configure('production|development', 'connector', () => {
     self.set('connectorConfig', {
-      connector : speedt.connector.udpconnector,
-      heartbeat : 3,
-      useDict : true,
-      useProtobuf : true
+      connector: speedt.connector.udpconnector,
+      heartbeat: 3,
+      useDict: true,
+      useProtobuf: true
     });
   });
 
   self.start((err) => {
     if(err){
-      console.error('[ERROR] [%s] app start error: %j.'.red, '12:01', err.message);
+      console.error('[ERROR] [%s] speedt start error: %j.'.red, '12:01', err.message);
       return;
     }
   });
