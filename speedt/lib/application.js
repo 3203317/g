@@ -9,7 +9,8 @@ var path = require('path'),
 	fs = require('fs'),
 	EventEmitter = require('events').EventEmitter;
 
-var Constants = require('./util/constants');
+var Constants = require('./util/constants'),
+	utils = require('./util/utils');
 
 var Application = module.exports = {};
 
@@ -20,8 +21,10 @@ var STATE_INITED  = 1,	// app has inited
 
 Application.init = function(opts){
 	var self = this;
-	opts = opts || {};
-	self.settings = {};
+	self.settings = opts || {};
+
+	self.state = STATE_INITED;
+	console.info('[INFO ] [%s] application inited: %j.'.green, utils.format(null, 'mm:ss.S'), self.settings.name);
 };
 
 Application.start = function(cb){

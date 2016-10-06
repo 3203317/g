@@ -7,12 +7,11 @@
 
 var colors = require('colors');
 
-var speedt = require('../speedt');
+var speedt = require('../speedt'),
+    utils = require('../speedt/lib/util/utils');
 
-speedt.createApp({}, function(){
+speedt.createApp({ name: 'logonServer' }, function(){
   var self = this;
-
-  self.set('name', 'logonServer');
 
   self.configure('production|development', 'connector', () => {
     self.set('connectorConfig', {
@@ -25,7 +24,7 @@ speedt.createApp({}, function(){
 
   self.start((err) => {
     if(err){
-      console.error('[ERROR] [%s] speedt start error: %j.'.red, '12:01', err.message);
+      console.error('[ERROR] [%s] speedt start error: %j.'.red, utils.format(null, 'mm:ss.S'), err.message);
       return;
     }
   });
