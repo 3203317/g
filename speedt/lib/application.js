@@ -23,13 +23,24 @@ Application.init = function(opts){
 	var self = this;
 	self.settings = opts || {};
 
+	self.event = new EventEmitter();	// event object to sub/pub events
+
 	self.state = STATE_INITED;
-	console.info('[INFO ] [%s] application inited: %j.'.green, utils.format(null, 'mm:ss.S'), self.settings.name);
+	console.info('[INFO ] [%s] application inited: %j.'.green, utils.format(), self.get('name'));
 };
 
 Application.start = function(cb){
 	var self = this;
 	self.startTime = Date.now();
+
+	if(self.state > STATE_INITED){
+		utils.invokeCallback(cb, new Error('application has already start.'));
+		return;
+	}
+};
+
+Application.stop = function(force){
+	var self = this;
 };
 
 Application.afterStart = function(cb){
@@ -41,7 +52,8 @@ Application.load = function(name, component, opts){
 };
 
 Application.configure = function(env, type, fn){
-	
+	fn.call(this);
+	return this;
 };
 
 Application.before = function(filter){

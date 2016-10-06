@@ -22,9 +22,9 @@ speedt.createApp({ name: 'logonServer' }, function(){
     });
   });
 
-  self.start((err) => {
+  self.start(err => {
     if(err){
-      console.error('[ERROR] [%s] speedt start error: %j.'.red, utils.format(null, 'mm:ss.S'), err.message);
+      console.error('[ERROR] [%s] speedt start error: %j.'.red, utils.format(), err.message);
       return;
     }
   });

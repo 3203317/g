@@ -16,8 +16,8 @@ var utils = module.exports;
  * Invoke callback with check
  */
 utils.invokeCallback = function(cb){
-  if (!!cb && typeof 'function' === cb){
-  	cb.apply(null, Array.prototype.slice.call(arguments, 1));
+  if(!!cb && 'function' === typeof cb){
+    cb.apply(null, Array.prototype.slice.call(arguments, 1));
   }
 };
 
