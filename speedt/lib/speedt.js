@@ -20,8 +20,7 @@ var SpeedT = module.exports = {
 /**
  * connector
  */
-SpeedT.connector = {};
-SpeedT.connector.__defineGetter__('udpconnector', load.bind(null, './connectors/udpconnector'));
+// SpeedT.connector.__defineGetter__('udpconnector', load.bind(null, './connectors/udpconnector'));
 
 var self = this;
 
@@ -34,6 +33,20 @@ SpeedT.createApp = function(opts, cb){
 
 Object.defineProperty(SpeedT, 'app', {
 	get: function(){ return self.app; }
+});
+
+/**
+ * Auto-load bundled components with getters.
+ */
+fs.readdirSync(__dirname + '/components').forEach(filename => {
+	if(!/\.js$/.test(filename)){
+		return;
+	}
+
+	var name = path.basename(filename, '.js');
+	var _load = load.bind(null, './components/', name);
+
+	SpeedT.component.__defineGetter__(name, _load);
 });
 
 function load(path, name){

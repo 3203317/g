@@ -31,12 +31,14 @@ Application.init = function(opts){
 
 Application.start = function(cb){
 	var self = this;
-	self.startTime = Date.now();
+	self.startTime = Date.now();	// current server start time
 
 	if(self.state > STATE_INITED){
 		utils.invokeCallback(cb, new Error('application has already start.'));
 		return;
 	}
+
+	loadDefaultComponents();
 };
 
 Application.stop = function(force){
@@ -94,4 +96,8 @@ var addFilter = function(app, type, filter){
 		app.set(type, filters);
 	}
 	filters.push(filter);
+};
+
+var loadDefaultComponents = function(){
+	console.log('loadDefaultComponents')
 };
