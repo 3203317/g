@@ -13,14 +13,8 @@ var application = require('./application');
 var SpeedT = module.exports = {
 	version: require('../package.json').version,	// Current version
 	component: {},
-	filter: {},
-	connector: {}
+	filter: {}
 };
-
-/**
- * connector
- */
-// SpeedT.connector.__defineGetter__('udpconnector', load.bind(null, './connectors/udpconnector'));
 
 var self = this;
 

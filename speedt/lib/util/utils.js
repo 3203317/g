@@ -57,3 +57,16 @@ utils.format = function(date, format){
 utils.padRight = function(str, char, len){
 	return (str + Array(len).join(char)).slice(0, len);
 };
+
+/**
+ * Get the count of elements of object
+ */
+utils.size = function(obj){
+  var count = 0;
+  for(var i in obj){
+    if(obj.hasOwnProperty(i) && 'function' !== typeof obj[i]){
+      count++;
+    }
+  }
+  return count;
+};
