@@ -10,26 +10,26 @@ var colors = require('colors');
 var speedt = require('../speedt'),
     utils = require('../speedt/lib/util/utils');
 
-speedt.createApp({ name: 'logonServer' }, function(){
-  var self = this;
+process.on('uncaughtException', (err) => {
+  console.error(`caught exception:\n${err.stack}`);
+});
 
-  self.configure('production|development', 'connector', () => {
-    self.set('connectorConfig', {
-      connector: speedt.connector.udpconnector,
-      heartbeat: 3,
-      useDict: true,
-      useProtobuf: true
-    });
-  });
+var app = speedt.createApp();
 
-  self.start(err => {
-    if(err){
-      console.error('[ERROR] [%s] speedt start error: %j.'.red, utils.format(), err.message);
-      return;
-    }
+app.set('name', 'logonServer');
+
+app.configure('production|development', 'connector', () => {
+  app.set('connectorConfig', {
+    connector: speedt.connector.udpconnector,
+    heartbeat: 3,
+    useDict: true,
+    useProtobuf: true
   });
 });
 
-process.on('uncaughtException', (err) => {
-  console.error(`caught exception:\n${err.stack}`);
+app.start(err => {
+  if(err){
+    console.error('[ERROR] [%s] speedt start error: %j.'.red, utils.format(), err.message);
+    return;
+  }
 });

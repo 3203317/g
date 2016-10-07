@@ -8,26 +8,17 @@
 var fs = require('fs'),
 	path = require('path');
 
-var application = require('./application');
-
 var SpeedT = module.exports = {
 	version: require('../package.json').version,	// Current version
 	component: {},
 	filter: {}
 };
 
-var self = this;
-
-SpeedT.createApp = function(opts, cb){
-	var app = application;
+SpeedT.createApp = function(opts){
+	var app = require('./application');
 	app.init(opts);
-	self.app = app;
-	cb.bind(app)();
+	return app;
 };
-
-Object.defineProperty(SpeedT, 'app', {
-	get: function(){ return self.app; }
-});
 
 /**
  * Auto-load bundled components with getters.
@@ -43,7 +34,21 @@ fs.readdirSync(__dirname + '/components').forEach(filename => {
 	SpeedT.component.__defineGetter__(name, _load);
 });
 
+fs.readdirSync(__dirname + '/filters/handler').forEach(filename => {
+	if(!/\.js$/.test(filename)){
+		return;
+	}
+
+	var name = path.basename(filename, '.js');
+	var _load = load.bind(null, './filters/handler/', name);
+
+	Object.defineProperty(SpeedT.filter, name, {
+		get: _load,
+		enumerable: !0
+	});
+});
+
 function load(path, name){
-	if(name) return require(path + name);
+	if(!!name) return require(path + name);
 	return require(path);
 };
