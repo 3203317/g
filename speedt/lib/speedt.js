@@ -10,9 +10,12 @@ var fs = require('fs'),
 
 var SpeedT = module.exports = {
 	version: require('../package.json').version,	// Current version
-	component: {},
-	filter: {}
+	components: {},
+	connectors: {},
+	filters: {}
 };
+
+SpeedT.connectors.__defineGetter__('udpconnector', load.bind(null, './connectors/udpconnector'));
 
 SpeedT.createApp = function(opts){
 	var app = require('./application');
@@ -24,25 +27,21 @@ SpeedT.createApp = function(opts){
  * Auto-load bundled components with getters.
  */
 fs.readdirSync(__dirname + '/components').forEach(filename => {
-	if(!/\.js$/.test(filename)){
-		return;
-	}
+	if(!/\.js$/.test(filename)) return;
 
 	var name = path.basename(filename, '.js');
 	var _load = load.bind(null, './components/', name);
 
-	SpeedT.component.__defineGetter__(name, _load);
+	SpeedT.components.__defineGetter__(name, _load);
 });
 
 fs.readdirSync(__dirname + '/filters/handler').forEach(filename => {
-	if(!/\.js$/.test(filename)){
-		return;
-	}
+	if(!/\.js$/.test(filename)) return;
 
 	var name = path.basename(filename, '.js');
 	var _load = load.bind(null, './filters/handler/', name);
 
-	Object.defineProperty(SpeedT.filter, name, {
+	Object.defineProperty(SpeedT.filters, name, {
 		get: _load,
 		enumerable: !0
 	});

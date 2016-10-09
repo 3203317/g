@@ -16,11 +16,9 @@ process.on('uncaughtException', (err) => {
 
 var app = speedt.createApp();
 
-app.set('name', 'logonServer');
-
 app.configure('production|development', 'connector', () => {
   app.set('connectorConfig', {
-    connector: speedt.connector.udpconnector,
+    connector: speedt.connectors.udpconnector,
     heartbeat: 3,
     useDict: true,
     useProtobuf: true
@@ -29,7 +27,7 @@ app.configure('production|development', 'connector', () => {
 
 app.start(err => {
   if(err){
-    console.error('[ERROR] [%s] speedt start error: %j.'.red, utils.format(), err.message);
+    console.error('[ERROR] [%s] %s start error: %j.'.red, utils.format(), app.get('name'), err.message);
     return;
   }
 });

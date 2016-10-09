@@ -14,31 +14,42 @@ var Constants = require('./util/constants'),
 
 var Application = module.exports = {};
 
-var STATE_INITED  = 1,	// app has inited
-	STATE_START   = 2,	// app start
-	STATE_STARTED = 3,	// app has started
-	STATE_STOPED  = 4;	// app has stoped
+var STATE_INITED  = 1,  // app has inited
+    STATE_START   = 2,  // app start
+    STATE_STARTED = 3,  // app has started
+    STATE_STOPED  = 4;  // app has stoped
 
 Application.init = function(opts){
 	var self = this;
-	self.settings = opts || {};
+	opts = opts || {};
 
-	self.event = new EventEmitter();	// event object to sub/pub events
+	self.settings = {};                 // collection keep set/get
+	self.components = {};               // name -> component map
+	self.event = new EventEmitter();    // event object to sub/pub events
+
+	var base = opts.base || path.dirname(require.main.filename);
+	self.set(Constants.RESERVED.BASE, base, false);
+
+	// current server info
+	self.serverId = null;               // current server id
+	self.startTime = null;              // current server start time
+
+	loadDefaultConfiguration.call(self);
 
 	self.state = STATE_INITED;
-	console.info('[INFO ] [%s] application inited: %j.'.green, utils.format(), self.get('name'));
+	console.info('[INFO ] [%s] application inited: %j.'.green, utils.format(), self.serverId);
 };
 
 Application.start = function(cb){
 	var self = this;
-	self.startTime = Date.now();	// current server start time
+	self.startTime = Date.now();  // current server start time
 
 	if(self.state > STATE_INITED){
 		utils.invokeCallback(cb, new Error('application has already start.'));
 		return;
 	}
 
-	loadDefaultComponents();
+	loadDefaultComponents.call(self);
 };
 
 Application.stop = function(force){
@@ -71,13 +82,20 @@ Application.after = function(filter){
 	addFilter(this, Constants.KEYWORDS.AFTER_FILTER, filter);
 };
 
-Application.set = function(key, val){
+/**
+ *
+ * @param {String} key
+ * @param {String} val
+ * @param {Boolean} attach whether attach the settings to application
+ */
+Application.set = function(key, val, attach){
 	this.settings[key] = val;
+	if(attach) this[key] = val;
 	return this;
 };
 
-Application.get = function(setting){
-	return this.settings[setting];
+Application.get = function(key){
+	return this.settings[key];
 };
 
 var contains = function(str, settings){
@@ -98,6 +116,32 @@ var addFilter = function(app, type, filter){
 	filters.push(filter);
 };
 
+/**
+ * Initialize application configuration.
+ */
+function loadDefaultConfiguration(){
+
+	var self = this;
+
+	// loadServerConfig
+	(() => {
+		var originPath = path.join(self.get(Constants.RESERVED.BASE), Constants.FILEPATH.SERVER);
+		var serverInfo = require(originPath);
+		self.serverId = serverInfo.id;
+	})();
+
+	// configLogger
+	(() => {
+	})();
+}
+
+/**
+ * Load default components for application.
+ */
 var loadDefaultComponents = function(){
-	console.log('loadDefaultComponents')
+	var self = this;
+
+	var speedt = require('./speedt');
+
+	self.load(speedt.components.connector, self.get('connectorConfig'));
 };
