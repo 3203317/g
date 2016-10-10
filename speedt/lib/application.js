@@ -117,7 +117,7 @@ var addFilter = function(app, type, filter){
 };
 
 /**
- * Initialize application configuration.
+ * initialize application configuration.
  */
 function loadDefaultConfiguration(){
 
@@ -138,11 +138,10 @@ function loadDefaultConfiguration(){
 }
 
 /**
- * Load default components for application.
+ * load default components for application.
  */
 var loadDefaultComponents = function(){
 	var self = this;
-
 	var speedt = require('./speedt');
 
 	self.load(speedt.components.connector, self.get('connectorConfig'));
