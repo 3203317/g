@@ -126,12 +126,14 @@ function loadDefaultConfiguration(){
 	// loadServerConfig
 	(() => {
 		var originPath = path.join(self.get(Constants.RESERVED.BASE), Constants.FILEPATH.SERVER);
-		var serverInfo = require(originPath);
-		self.serverId = serverInfo.id;
+		var serverCfg = require(originPath);
+		self.serverId = serverCfg.id;
 	})();
 
 	// configLogger
 	(() => {
+		var originPath = path.join(self.get(Constants.RESERVED.BASE), Constants.FILEPATH.LOG);
+		var logCfg = require(originPath);
 	})();
 }
 

@@ -27,7 +27,7 @@ app.configure('production|development', 'connector', () => {
 
 app.start(err => {
   if(err){
-    console.error('[ERROR] [%s] %s start error: %j.'.red, utils.format(), app.get('name'), err.message);
+    console.error('[ERROR] [%s] %j start error: %j.'.red, utils.format(), app.serverId, err.message);
     return;
   }
 });
