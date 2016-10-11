@@ -18,6 +18,8 @@ module.exports = {
   },
 
   RESERVED: {
+    START: 'start',
+    AFTER_START: 'afterStart',
     BASE: 'base'
   }
 };

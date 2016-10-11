@@ -3,9 +3,6 @@
   "version": "0.1.5",
   "description": "socket",
   "main": "index.js",
-  "bin": {
-    "g": "./bin/g"
-  },
   "dependencies": {
     "colors": "1.0.3",
     "cliff": "0.1.8",

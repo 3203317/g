@@ -7,6 +7,7 @@
 
 var path = require('path'),
 	fs = require('fs'),
+	async = require('async'),
 	EventEmitter = require('events').EventEmitter;
 
 var Constants = require('./util/constants'),
@@ -33,6 +34,7 @@ Application.init = function(opts){
 	// current server info
 	self.serverId = null;               // current server id
 	self.startTime = null;              // current server start time
+	self.serverInfo = null;             // current server info
 
 	loadDefaultConfiguration.call(self);
 
@@ -50,6 +52,10 @@ Application.start = function(cb){
 	}
 
 	loadDefaultComponents.call(self);
+
+	optComponents(self.components, Constants.RESERVED.START, err => {
+		console.log(err);
+	});
 };
 
 Application.stop = function(force){
@@ -62,6 +68,31 @@ Application.afterStart = function(cb){
 
 Application.load = function(name, component, opts){
 	var self = this;
+
+	if('string' !== typeof name){
+		opts = component;
+		component = name;
+		name = null;
+	}
+
+	if('function' === typeof component){
+		component = component(self, opts);
+	}
+
+	name = name || component.name;
+
+	if(name && self.components[name]){
+		// ignore duplicat component
+		console.warn('[WARN ] [%s] ignore duplicate component: %j.'.yellow, utils.format(), name);
+		return;
+	}
+
+	if(name){
+		// components with a name would get by name throught app.components later.
+		self.components[name] = component;
+	}
+
+	return self;
 };
 
 Application.configure = function(env, type, fn){
@@ -126,8 +157,8 @@ function loadDefaultConfiguration(){
 	// loadServerConfig
 	(() => {
 		var originPath = path.join(self.get(Constants.RESERVED.BASE), Constants.FILEPATH.SERVER);
-		var serverCfg = require(originPath);
-		self.serverId = serverCfg.id;
+		self.serverInfo = require(originPath);
+		self.serverId = self.serverInfo.id;
 	})();
 
 	// configLogger
@@ -145,4 +176,8 @@ var loadDefaultComponents = function(){
 	var speedt = require('./speedt');
 
 	self.load(speedt.components.connector, self.get('connectorConfig'));
+};
+
+var optComponents = function(comps, method, cb){
+	console.log(arguments);
 };
