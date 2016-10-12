@@ -10,8 +10,11 @@ var util = require('util');
 var dgram = require("dgram");
 var EventEmitter = require('events').EventEmitter;
 
-var Connector = function(port, host, opts){
+var utils = require('../util/utils');
 
+var curId = 1;
+
+var Connector = function(port, host, opts){
 	var self = this;
 
 	if(!(self instanceof Connector)){
@@ -53,11 +56,11 @@ Connector.prototype.start = function(cb){
 	});
 
 	server.on('listening', () => {
-		var address = server.address();
-		console.log(`server listening ${address.address}:${address.port}`);
+		var addr = server.address();
+		console.info('[INFO ] [%s] connector listening %s:%s'.green, utils.format(), addr.address, addr.port);
 	});
 
-	server.bind(self.port);
+	server.bind(self.port, self.host);
 
 	process.nextTick(cb);
 };
@@ -67,6 +70,6 @@ Connector.prototype.stop = function(force, cb){
 	process.nextTick(cb);
 };
 
-var genKey = function(rinfo) {
-  return rinfo.address +':'+ rinfo.port;
+var genKey = (rinfo) => {
+	return rinfo.address +':'+ rinfo.port;
 };

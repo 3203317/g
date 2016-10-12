@@ -46,7 +46,7 @@ pro.start = function(cb){
 };
 
 pro.afterStart = function(cb){
-  process.nextTick(cb);
+  this.connector.start(cb);
 };
 
 pro.stop = function(force, cb){
