@@ -11,6 +11,7 @@ var path = require('path'),
 	EventEmitter = require('events').EventEmitter;
 
 var Constants = require('./util/constants'),
+    events = require('./util/events'),
 	utils = require('./util/utils');
 
 var Application = module.exports = {};
@@ -39,7 +40,7 @@ Application.init = function(opts){
 	loadDefaultConfiguration.call(self);
 
 	self.state = STATE_INITED;
-	console.info('[INFO ] [%s] application inited: %j.'.green, utils.format(), self.serverId);
+	console.info('[INFO ] [%s] application inited: %j'.green, utils.format(), self.serverId);
 };
 
 Application.start = function(cb){
@@ -54,7 +55,14 @@ Application.start = function(cb){
 	loadDefaultComponents.call(self);
 
 	optComponents(self.components, Constants.RESERVED.START, err => {
-		console.log(err);
+		if(err){
+			utils.invokeCallback(cb, err);
+			return;
+		}
+
+		self.state = STATE_START;
+		console.info('[INFO ] [%s] %j enter after start ...'.green, utils.format(), self.serverId);
+		self.afterStart(cb);
 	});
 };
 
@@ -64,6 +72,27 @@ Application.stop = function(force){
 
 Application.afterStart = function(cb){
 	var self = this;
+
+	if(self.state !== STATE_START){
+		utils.invokeCallback(cb, new Error('application is not running now.'));
+		return;
+	}
+
+	optComponents(self.components, Constants.RESERVED.AFTER_START, err => {
+		if(err){
+			utils.invokeCallback(cb, err);
+			return;
+		}
+
+		utils.invokeCallback(cb, err);
+
+		// next step
+		self.state = STATE_STARTED;
+		var usedTime = Date.now() - self.startTime;
+		console.info('[INFO ] [%s] %j startup in %s ms'.green, utils.format(), self.serverId, usedTime);
+
+		self.event.emit(events.START_SERVER, self.serverId);
+	});
 };
 
 Application.load = function(name, component, opts){
@@ -83,7 +112,7 @@ Application.load = function(name, component, opts){
 
 	if(name && self.components[name]){
 		// ignore duplicat component
-		console.warn('[WARN ] [%s] ignore duplicate component: %j.'.yellow, utils.format(), name);
+		console.warn('[WARN ] [%s] ignore duplicate component: %j'.yellow, utils.format(), name);
 		return;
 	}
 
@@ -176,8 +205,32 @@ var loadDefaultComponents = function(){
 	var speedt = require('./speedt');
 
 	self.load(speedt.components.connector, self.get('connectorConfig'));
+	self.load(speedt.components.monitor, self.get('monitorConfig'));
 };
 
 var optComponents = function(comps, method, cb){
-	console.log(arguments);
+	var loaded = [];
+
+	for(var i in comps){
+		if(comps.hasOwnProperty(i) && 'function' !== typeof comps[i]){
+			loaded.push(comps[i]);
+		}
+	}
+
+	async.forEachSeries(loaded, function (comp, done){
+		if('function' === typeof comp[method]){
+			comp[method](done);
+			return;
+		}
+		done();
+	}, function (err){
+		if(err){
+			if('string' === typeof err){
+				console.error('[ERROR] [%s] fail to operate component, method: %s, err: %j'.red, utils.format(), method, err);
+			}else{
+				console.error('[ERROR] [%s] fail to operate component, method: %s, err: %j'.red, utils.format(), method, err.stack);
+			}
+		}
+		utils.invokeCallback(cb, err);
+	});
 };

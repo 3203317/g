@@ -21,7 +21,7 @@ var Component = function(app, opts){
 
 var pro = Component.prototype;
 
-pro.name = '__connector__';
+pro.name = '__monitor__';
 
 pro.start = function(cb){
   process.nextTick(cb);
