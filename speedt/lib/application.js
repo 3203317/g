@@ -206,6 +206,7 @@ var loadDefaultComponents = function(){
 
 	self.load(speedt.components.connector, self.get('connectorConfig'));
 	self.load(speedt.components.monitor, self.get('monitorConfig'));
+	self.load(speedt.components.session, self.get('sessionConfig'));
 };
 
 var optComponents = function(comps, method, cb){
@@ -228,7 +229,7 @@ var optComponents = function(comps, method, cb){
 			if('string' === typeof err){
 				console.error('[ERROR] [%s] fail to operate component, method: %s, err: %j'.red, utils.format(), method, err);
 			}else{
-				console.error('[ERROR] [%s] fail to operate component, method: %s, err: %j'.red, utils.format(), method, err.stack);
+				console.error(`[ERROR] [%s] fail to operate component, method: %s, err:\n  %s`.red, utils.format(), method, err.stack);
 			}
 		}
 		utils.invokeCallback(cb, err);
