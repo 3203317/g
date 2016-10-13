@@ -47,6 +47,9 @@ pro.start = function(cb){
 
 pro.afterStart = function(cb){
   this.connector.start(cb);
+  this.connector.on('connection', function(){
+    console.log('connection');
+  });
 };
 
 pro.stop = function(force, cb){

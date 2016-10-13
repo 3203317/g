@@ -11,6 +11,7 @@ var dgram = require("dgram");
 var EventEmitter = require('events').EventEmitter;
 
 var utils = require('../util/utils');
+var UdpSocket = require('./udpsocket');
 
 var curId = 1;
 
@@ -42,22 +43,37 @@ pro.start = function(cb){
 
 	var self = this;
 
-	var socket = self.socket = dgram.createSocket(self.type, () => {
-		console.log(arguments.length);
+	var socket = self.socket = dgram.createSocket(self.type, (msg, rinfo) => {
+		var key = genKey(rinfo);
+
+		if(!self.clients[key]){
+
+			var udpsocket = new UdpSocket(curId++, self.socket, rinfo);
+			self.clients[key] = udpsocket;
+
+			udpsocket.on('disconnect', () => {
+				delete self.clients[genKey(udpsocket.rinfo)];
+			});
+
+			self.emit('connection', udpsocket);
+		}
 	});
 
 	socket.on('error', (err) => {
-		console.log(`socket error:\n${err.stack}`);
-		socket.close();
+		console.error('[ERROR] [%s] udp socket encounters with error: %j'.red, utils.format(), err.stack);
+		return;
 	});
 
 	socket.on('message', (msg, rinfo) => {
-		console.log(arguments.length);
+		var socket = self.clients[genKey(rinfo)];
+		if(!!socket){
+			socket.emit('package', msg);
+		}
 	});
 
 	socket.on('listening', () => {
 		var rinfo = socket.address();
-		console.info('[INFO ] [%s] connector listening %s:%s'.green, utils.format(), rinfo.address, rinfo.port);
+		console.info('[INFO ] [%s] udp socket listening %s:%s'.green, utils.format(), rinfo.address, rinfo.port);
 	});
 
 	socket.bind(self.port, self.host);
