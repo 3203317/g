@@ -50,6 +50,13 @@ pro.afterStart = function(cb){
 };
 
 pro.stop = function(force, cb){
+  if(this.connector){
+    this.connector.stop(force, cb);
+    this.connector = null;
+    return;
+  }
+
+  process.nextTick(cb);
 };
 
 var getConnector = (app, opts) => {

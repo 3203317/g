@@ -36,36 +36,36 @@ util.inherits(Connector, EventEmitter);
 
 module.exports = Connector;
 
-Connector.prototype.start = function(cb){
+var pro = Connector.prototype;
+
+pro.start = function(cb){
 
 	var self = this;
 
-	var server = dgram.createSocket(self.type, () => {
+	var socket = self.socket = dgram.createSocket(self.type, () => {
 		console.log(arguments.length);
 	});
 
-	self.server = server;
-
-	server.on('error', (err) => {
-		console.log(`server error:\n${err.stack}`);
-		server.close();
+	socket.on('error', (err) => {
+		console.log(`socket error:\n${err.stack}`);
+		socket.close();
 	});
 
-	server.on('message', (msg, rinfo) => {
+	socket.on('message', (msg, rinfo) => {
 		console.log(arguments.length);
 	});
 
-	server.on('listening', () => {
-		var addr = server.address();
-		console.info('[INFO ] [%s] connector listening %s:%s'.green, utils.format(), addr.address, addr.port);
+	socket.on('listening', () => {
+		var rinfo = socket.address();
+		console.info('[INFO ] [%s] connector listening %s:%s'.green, utils.format(), rinfo.address, rinfo.port);
 	});
 
-	server.bind(self.port, self.host);
+	socket.bind(self.port, self.host);
 
 	process.nextTick(cb);
 };
 
-Connector.prototype.stop = function(force, cb){
+pro.stop = function(force, cb){
 	this.socket.close();
 	process.nextTick(cb);
 };
