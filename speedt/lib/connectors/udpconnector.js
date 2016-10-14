@@ -43,12 +43,12 @@ pro.start = function(cb){
 
 	var self = this;
 
-	var socket = self.socket = dgram.createSocket(self.type, (msg, rinfo) => {
+	var server = self.server = dgram.createSocket(self.type, (msg, rinfo) => {
 		var key = genKey(rinfo);
 
 		if(!self.clients[key]){
 
-			var udpsocket = new UdpSocket(curId++, self.socket, rinfo);
+			var udpsocket = new UdpSocket(curId++, self.server, rinfo);
 			self.clients[key] = udpsocket;
 
 			udpsocket.on('disconnect', () => {
@@ -59,30 +59,30 @@ pro.start = function(cb){
 		}
 	});
 
-	socket.on('error', (err) => {
-		console.error('[ERROR] [%s] udp socket encounters with error: %j'.red, utils.format(), err.stack);
+	server.on('error', (err) => {
+		console.error('[ERROR] [%s] udp server encounters with error: %j'.red, utils.format(), err.stack);
 		return;
 	});
 
-	socket.on('message', (msg, rinfo) => {
-		var socket = self.clients[genKey(rinfo)];
-		if(!!socket){
-			socket.emit('package', msg);
+	server.on('message', (msg, rinfo) => {
+		var server = self.clients[genKey(rinfo)];
+		if(!!server){
+			server.emit('package', msg);
 		}
 	});
 
-	socket.on('listening', () => {
-		var rinfo = socket.address();
-		console.info('[INFO ] [%s] udp socket listening %s:%s'.green, utils.format(), rinfo.address, rinfo.port);
+	server.on('listening', () => {
+		var rinfo = server.address();
+		console.info('[INFO ] [%s] udp server listening %s:%s'.green, utils.format(), rinfo.address, rinfo.port);
 	});
 
-	socket.bind(self.port, self.host);
+	server.bind(self.port, self.host);
 
 	process.nextTick(cb);
 };
 
 pro.stop = function(force, cb){
-	this.socket.close();
+	this.server.close();
 	process.nextTick(cb);
 };
 

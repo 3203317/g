@@ -13,11 +13,11 @@ var ST_INITED = 0,
     ST_WORKING = 2,
     ST_CLOSED = 3;
 
-var Socket = function(id, socket, rinfo){
+var Socket = function(id, server, rinfo){
   var self = this;
 
   self.id = id;
-  self.socket = socket;
+  self.server = server;
   self.rinfo = rinfo;
 
   self.host = rinfo.address;

@@ -21,6 +21,8 @@ var Component = function(app, opts){
   self.app = app;
   self.connector = getConnector(app, opts);
 
+  self.blacklistFun = opts.blacklistFun;
+
   // component dependencies
   self.session = null;
 };
@@ -47,9 +49,7 @@ pro.start = function(cb){
 
 pro.afterStart = function(cb){
   this.connector.start(cb);
-  this.connector.on('connection', function(){
-    console.log('connection');
-  });
+  this.connector.on('connection', hostFilter.bind(this, bindEvents));
 };
 
 pro.stop = function(force, cb){
@@ -78,4 +78,33 @@ var getConnector = (app, opts) => {
 
 var getDefaultConnector = (app, opts) => {
 	return null;
+};
+
+var hostFilter = function(bindEvents, socket){
+  var self = this;
+
+  if(!!self.blacklistFun && 'function' === typeof self.blacklistFun){
+
+    self.blacklistFun(socket.host, (err, result) => {
+      if(err){
+        console.error('[ERROR] [%s] connector blacklist error: %j'.red, utils.format(), err.stack);
+        socket.disconnect();
+        return;
+      }
+
+      if(!result){
+        socket.disconnect();
+        return;
+      }
+
+      bindEvents.call(self, socket);
+    });
+    return;
+  }
+
+  bindEvents.call(self, socket);
+};
+
+var bindEvents = function(socket){
+  var self = this;
 };

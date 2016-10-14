@@ -23,3 +23,8 @@ client.on('message',function(data){
         }
     }
 });
+
+client.on('error', function(err){
+    console.log(`server error:\n${err.stack}`);
+    server.close();
+})

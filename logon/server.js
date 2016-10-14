@@ -21,7 +21,11 @@ app.configure('production|development', 'connector', () => {
     connector: speedt.connectors.udpconnector,
     heartbeat: 3,
     useDict: true,
-    useProtobuf: true
+    useProtobuf: true,
+    blacklistFun: (ip, cb) => {
+      console.log(ip);
+      cb(null, true);
+    }
   });
 });
 
