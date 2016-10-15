@@ -117,7 +117,15 @@ var hostFilter = function(bindEvents, socket){
 var bindEvents = function(socket){
   var self = this;
 
-  console.log(self.connection.start);
+  var serverInfo = self.app.serverInfo;
+  var connectionConfig = serverInfo.connection || {};
+  var maxConnections = connectionConfig.maxConnections || opts.maxConnections || 100;
+
+  if(self.connection.increaseConnectionCount() <= maxConnections){
+    console.warn('[WARN ] [%s] %j has reached the max connections %s'.yellow, utils.format(), self.app.serverId, maxConnections);
+    socket.disconnect();
+    return;
+  }
 
   socket.on('disconnect', () => {
 

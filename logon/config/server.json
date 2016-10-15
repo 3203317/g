@@ -6,5 +6,8 @@
     "heartbeat": 3,
     "useDict": true,
     "useProtobuf": true
+  },
+  "connection": {
+    "maxConnections": 1
   }
 }

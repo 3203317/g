@@ -31,7 +31,7 @@ app.configure('production|development', 'connector', () => {
 
 app.configure('production', 'connection', () => {
   app.set('connectionConfig', {
-    maxConnections: 1
+    maxConnections: 20
   });
 });
 
