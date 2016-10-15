@@ -158,7 +158,7 @@ Application.get = function(key){
 	return this.settings[key];
 };
 
-var contains = function(str, settings){
+var contains = (str, settings) => {
 	if(!settings) return false;
 	var ss = settings.split('|');
 	for(var i in ss){
@@ -167,7 +167,7 @@ var contains = function(str, settings){
 	return false;
 };
 
-var addFilter = function(app, type, filter){
+var addFilter = (app, type, filter) => {
 	var filters = app.get(type);
 	if(!filters){
 		filters = [];
@@ -204,6 +204,7 @@ var loadDefaultComponents = function(){
 	var self = this;
 	var speedt = require('./speedt');
 
+	self.load(speedt.components.connection, self.get('connectionConfig'));
 	self.load(speedt.components.connector, self.get('connectorConfig'));
 	self.load(speedt.components.monitor, self.get('monitorConfig'));
 	self.load(speedt.components.session, self.get('sessionConfig'));
@@ -218,13 +219,13 @@ var optComponents = function(comps, method, cb){
 		}
 	}
 
-	async.forEachSeries(loaded, function (comp, done){
+	async.forEachSeries(loaded, (comp, done) => {
 		if('function' === typeof comp[method]){
 			comp[method](done);
 			return;
 		}
 		done();
-	}, function (err){
+	}, err => {
 		if(err){
 			if('string' === typeof err){
 				console.error('[ERROR] [%s] fail to operate component, method: %s, err: %j'.red, utils.format(), method, err);

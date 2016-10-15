@@ -25,6 +25,7 @@ var Component = function(app, opts){
 
   // component dependencies
   self.session = null;
+  self.connection = null;
 };
 
 var pro = Component.prototype;
@@ -35,11 +36,19 @@ pro.start = function(cb){
   var self = this;
 
   self.session = self.app.components.__session__;
+  self.connection = self.app.components.__connection__;
 
   // check component dependencies
-  if(!self.session) {
+  if(!self.session){
     process.nextTick(() => {
       utils.invokeCallback(cb, new Error('fail to start connector component for no session component loaded'));
+    });
+    return;
+  }
+
+  if(!self.connection){
+    process.nextTick(() => {
+      utils.invokeCallback(cb, new Error('fail to start connector component for no connection component loaded'));
     });
     return;
   }
@@ -107,4 +116,19 @@ var hostFilter = function(bindEvents, socket){
 
 var bindEvents = function(socket){
   var self = this;
+
+  console.log(self.connection.start);
+
+  socket.on('disconnect', () => {
+
+  });
+
+  socket.on('error', () => {
+
+  });
+
+  // new message
+  socket.on('message', (msg) => {
+
+  });
 };

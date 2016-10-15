@@ -29,6 +29,12 @@ app.configure('production|development', 'connector', () => {
   });
 });
 
+app.configure('production', 'connection', () => {
+  app.set('connectionConfig', {
+    maxConnections: 1
+  });
+});
+
 app.start(err => {
   if(err){
     console.error('[ERROR] [%s] %j start error: %j'.red, utils.format(), app.serverId, err.message);
