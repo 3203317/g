@@ -51,9 +51,19 @@ pro.start = function(cb){
 			var udpsocket = new UdpSocket(curId++, self.server, rinfo);
 			self.clients[key] = udpsocket;
 
-			udpsocket.on('disconnect', () => {
-				delete self.clients[genKey(udpsocket.rinfo)];
-			});
+			((rinfo) => {
+				udpsocket.on('disconnect', (code) => {
+					var content = JSON.stringify({content: code});
+					server.send(content, 0, Buffer.byteLength(content, 'utf8'), rinfo.port, rinfo.address, (err, bytes) => {
+						if(err){
+							//发送失败
+							return;
+						}
+
+						delete self.clients[genKey(rinfo)];
+					});
+				});
+			})(rinfo);
 
 			self.emit('connection', udpsocket);
 		}

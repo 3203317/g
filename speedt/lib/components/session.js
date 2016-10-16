@@ -17,19 +17,17 @@ module.exports = function(app, opts){
 var Component = function(app, opts){
   var self = this;
   opts = opts || {};
+
+  self.sessions = {};
 };
 
 var pro = Component.prototype;
 
 pro.name = '__session__';
 
-pro.start = function(cb){
-  process.nextTick(cb);
-};
+pro.create = function(serverId, socket) {
+  var session = new Session(serverId, socket, this);
+  this.sessions[session.id] = session;
 
-pro.afterStart = function(cb){
-  process.nextTick(cb);
-};
-
-pro.stop = function(force, cb){
+  return session;
 };

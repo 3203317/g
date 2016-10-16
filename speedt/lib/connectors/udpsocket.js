@@ -44,10 +44,10 @@ pro.send = function(msg){
   }
 };
 
-pro.disconnect = function(){
+pro.disconnect = function(code){
   if(this.state === ST_CLOSED){
     return;
   }
   this.state = ST_CLOSED;
-  this.emit('disconnect', 'the connection is disconnected.');
+  this.emit('disconnect', code);
 };

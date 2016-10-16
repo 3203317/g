@@ -118,20 +118,40 @@ var bindEvents = function(socket){
   var self = this;
 
   if(!self.connection.increaseConnectionCount()){
-    socket.disconnect();
+    socket.disconnect(101);
     return;
   }
 
-  socket.on('disconnect', () => {
+  (() => {
+    //create session for connection
+    // var session = getSession.call(self, socket);
+    var closed = false;
 
-  });
+    socket.on('disconnect', () => {
+      if(closed) return;
+      closed = true;
+      self.connection.decreaseConnectionCount();
+    });
 
-  socket.on('error', () => {
+    socket.on('error', () => {
+      if(closed) return;
+      closed = true;
+      self.connection.decreaseConnectionCount();
+    });
 
-  });
+    // new message
+    socket.on('message', (msg) => {
 
-  // new message
-  socket.on('message', (msg) => {
+    });
+  })();
+};
 
-  });
+var getSession = function(socket){
+  var self = this;
+
+  var sid = socket.id;
+  var session = self.session.get(sid);
+  if(session) return session;
+
+  session = self.session.create(self.app.serverId, socket);
 };

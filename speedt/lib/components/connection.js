@@ -21,7 +21,6 @@ var Component = function(app, opts){
   self.app = app;
 
   self.connCount = 0;
-  self.logined = {};
 
   (() => {
     var serverInfo = app.serverInfo;
@@ -49,43 +48,22 @@ pro.increaseConnectionCount = function(){
 /**
  * Decrease connection count
  *
- * @param uid {String} uid
  */
-pro.decreaseConnectionCount = function(uid){
+pro.decreaseConnectionCount = function(){
 	this.connCount--;
-  if(!!uid) delete this.logined[uid];
 };
 
-pro.replaceLoginedUser = function(uid, info){
-  var self = this;
-  info = info || {};
+(() => {
+  var info = {};
 
-  var user = self.logined[uid];
-
-  if(!!user){
-    updateUserInfo.call(self, uid, info);
-    return;
-  }
-
-  info.uid = uid;
-  self.logined[uid] = info;
-};
-
-var updateUserInfo = function(uid, info){
-  var self = this;
-};
-
-/**
- * Get statistics info
- *
- * @return {Object} statistics info
- */
-pro.getStatisticsInfo = function(){
-  var self = this;
-  return {
-    serverId: self.app.serverId,
-    connCount: self.connCount,
-    loginedCount: utils.size(self.logined),
-    logined: self.logined
-  }
-};
+  /**
+   * Get statistics info
+   *
+   * @return {Object} statistics info
+   */
+  pro.getStatisticsInfo = function(){
+    info.serverId = this.app.serverId;
+    info.connCount = this.connCount;
+    return info;
+  };
+})();
