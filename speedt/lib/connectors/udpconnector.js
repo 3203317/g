@@ -13,6 +13,8 @@ var EventEmitter = require('events').EventEmitter;
 var utils = require('../util/utils');
 var UdpSocket = require('./udpsocket');
 
+var coder = require('./common/coder');
+
 var curId = 1;
 
 var Connector = function(port, host, opts){
@@ -95,6 +97,9 @@ pro.stop = function(force, cb){
 	this.server.close();
 	process.nextTick(cb);
 };
+
+Connector.decode = Connector.prototype.decode = coder.decode;
+Connector.encode = Connector.prototype.encode = coder.encode;
 
 var genKey = (rinfo) => {
 	return rinfo.address +':'+ rinfo.port;

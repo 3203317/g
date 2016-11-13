@@ -21,6 +21,10 @@ var Component = function(app, opts){
   self.app = app;
   self.connector = getConnector(app, opts);
 
+  self.encode = self.connector.encode || opts.encode;
+  self.decode = self.connector.decode || opts.decode;
+  self.useCrypto = opts.useCrypto;
+
   self.blacklistFun = opts.blacklistFun;
 
   // component dependencies
@@ -124,7 +128,7 @@ var bindEvents = function(socket){
 
   (() => {
     //create session for connection
-    // var session = getSession.call(self, socket);
+    var session = getSession.call(self, socket);
     var closed = false;
 
     socket.on('disconnect', () => {
@@ -142,6 +146,23 @@ var bindEvents = function(socket){
     // new message
     socket.on('message', (msg) => {
 
+      var dmsg = self.decode.call(self, msg, session);
+
+      if(!dmsg){
+        // discard invalid message
+        return;
+      }
+
+      // use rsa crypto
+      if(self.useCrypto){
+        var verified = verifyMessage.call(self, session, dmsg);
+        if(!verified){
+          logger.error('fail to verify the data received from client.');
+          return;
+        }
+      }
+
+      handleMessage.call(self, session, dmsg);
     });
   })();
 };
@@ -151,7 +172,22 @@ var getSession = function(socket){
 
   var sid = socket.id;
   var session = self.session.get(sid);
-  if(session) return session;
+  if(session){
+    return session;
+  }
 
   session = self.session.create(self.app.serverId, socket);
+
+  socket.on('disconnect', session.closed.bind(session));
+  socket.on('error', session.closed.bind(session));
+
+  return session;
+};
+
+var verifyMessage = function(session, msg){
+
+};
+
+var handleMessage = function(session, msg){
+
 };
