@@ -24,6 +24,13 @@ var Socket = function(id, server, rinfo){
   self.port = rinfo.port;
 
   EventEmitter.call(self);
+
+  self.on('package', (pkg) => {
+    if(!!pkg){
+      // TODO
+    }
+  });
+
   self.state = ST_INITED;
 };
 
