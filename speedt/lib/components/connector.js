@@ -93,7 +93,7 @@ var getDefaultConnector = (app, opts) => {
 	return null;
 };
 
-var hostFilter = function(bindEvents, socket){
+var hostFilter = function(cb, socket){
   var self = this;
 
   if(!!self.blacklistFun && 'function' === typeof self.blacklistFun){
@@ -110,21 +110,23 @@ var hostFilter = function(bindEvents, socket){
         return;
       }
 
-      bindEvents.call(self, socket);
+      cb.call(self, socket);
     });
     return;
   }
 
-  bindEvents.call(self, socket);
+  cb.call(self, socket);
 };
 
 var bindEvents = function(socket){
   var self = this;
 
   if(!self.connection.increaseConnectionCount()){
-    socket.disconnect(101);
+    socket.disconnect();
     return;
   }
+
+  // see here
 
   (() => {
     //create session for connection
