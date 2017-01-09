@@ -1,0 +1,57 @@
+#table1 {
+	font-size: 12px;
+	tbody {
+		td {
+			&:nth-child(2) a {
+				color: black;
+			}
+			a {
+				font-size: 12px;
+				&:hover {
+					color: #d9534f;
+				}
+			}
+		}
+	}
+}
+body {
+	a {
+		color: #999999;
+	}
+	.owner {
+		.owner-left {
+			float: left;
+			overflow: hidden;
+			width: 60px;
+			padding-bottom: 10px;
+			.face {
+				img {
+					border: 1px solid #ccc;
+					padding: 2px;
+				}
+			}
+		}
+		.owner-right {
+			padding-left: 60px;
+			.user_name {
+				margin-bottom: 2px;
+				padding: 4px;
+				a {
+					font-weight: bold;
+					font-size: 14px;
+					color: #663300;
+				}
+			}
+			.opt {
+				font-size: 12px;
+				img {
+					vertical-align: top
+				}
+			}
+		}
+		.owner-bot {
+			clear: both;
+			font-size: 12px;
+		}
+	}
+}

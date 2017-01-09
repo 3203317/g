@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+	<head>
+		#parse('front/_pagelet/Common.IndexHeader.html')
+		<link rel='stylesheet' type='text/css' media='screen' href='$!{conf.html.external_res}site/css/artintro.css?v3' />
+		<link rel='stylesheet' type='text/css' media='screen' href='$!{conf.html.external_res}site/css/loadmore.css?v3' />
+	</head>
+	<body>
+		#parse('front/_pagelet/Side.TopBanner.html')
+		<header id='header'></header>
+		<section class='container'>
+			<div class='row'>
+				<div class='col-sm-12 col-md-8'>
+					#parse('front/_pagelet/Side.TopMessage.html')
+					#parse('front/_pagelet/Side.TopBookmarkTopN.vm.html')
+					#parse('front/_pagelet/Side.ArticleIntros.vm.html')
+				</div>
+				<div class='col-sm-12 col-md-4'>
+					#parse('front/_pagelet/Side.HotArticleTopN.vm.html')
+					#parse('front/_pagelet/Side.NewCommentTopN.vm.html')
+					#parse('front/_pagelet/Side.UsefulLink.vm.html')
+					#parse('front/_pagelet/Side.QrCode.html')
+				</div>
+				#parse('front/_pagelet/Side.LoadMore.html')
+			</div>
+		</section>
+		#parse('front/_pagelet/Side.IndexFooter.html')
+		#parse('front/_pagelet/Side.BackTop.html')
+		#parse('front/_pagelet/Common.IndexJs.html')
+		<!-- Own -->
+		#parse('front/_pagelet/Common.LastJs.html')
+	</body>
+</html>

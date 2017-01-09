@@ -1,0 +1,273 @@
+body, h1, h2, h3, h4, h5, h6 {
+	font-family: 'Microsoft Yahei',Helvetica,Arial,sans-serif;
+}
+
+.breadcrumb > li + li:before {
+	padding: 0 2px;
+}
+
+body {
+	background: url('images/bg.jpg') repeat scroll 0 0 rgba(0, 0, 0, 0);
+
+	#backTop {
+		&:hover {
+			opacity: 1;
+			transform: rotate(180deg);
+			-ms-transform: rotate(180deg); /* IE 9 */
+			-moz-transform: rotate(180deg); /* Firefox */
+			-webkit-transform: rotate(180deg); /* Safari and Chrome */
+			-o-transform: rotate(180deg); /* Opera */
+		}
+		&:before {
+			content: '\e114';
+		}
+		display: inline-block;
+		font-family: 'Glyphicons Halflings';
+		font-style: normal;
+		font-weight: normal;
+		line-height: 1px;
+		bottom: 50px;
+		color: #3D4450;
+		cursor: pointer;
+		display: block;
+		font-size: 30px;
+		position: fixed;
+		right: 40px;
+		top: auto;
+		z-index: 999;
+		display: none;
+	}
+
+	#archives, #tags {
+		margin-bottom: 10px;
+		a {
+			color: #B94A48;
+			&:hover, &:focus {
+				text-decoration: underline;
+			}
+		}
+		p {
+			font-size: 12px;
+			.badge {
+				background-color: #999999;
+			}
+		}
+		.badge {
+			&:hover {
+				background-color: #d9534f
+			}
+		}
+	}
+
+	.breadcrumb {
+		font-size: 12px;
+		a {
+			color: #D2322D;
+		}
+	}
+
+	.alert-info {
+		background-image: linear-gradient(to bottom, #F5F5F5 0px, #E8E8E8 100%);
+		border-color: #DDDDDD;
+		color: #D9534F;
+	}
+
+	#banner {
+		.navbar-brand {
+			font-weight: bold;
+		}
+	}
+
+	#header {
+		margin-top: 70px;
+	}
+
+	#footer {
+		border-top: 1px solid #E5E5E5;
+		margin-top: 20px;
+		padding-bottom: 30px;
+		padding-top: 10px;
+		box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15) inset, 0 1px 5px rgba(0, 0, 0, 0.075);
+
+		>div {
+			>div {
+				&:first-child {
+					float: left;
+				}
+
+				&:last-child {
+					float: right;
+				}
+
+				p {
+					margin-bottom: 0;
+					&:last-child {
+						a {
+							color: black;
+						}
+					}
+
+					a {
+						color: #CC0000;
+						font-weight: bold;
+					}
+				}
+			}
+		}
+	}
+
+	#qrCode {
+		margin-bottom: 20px;
+		img {
+			width: 100px;
+			height: 100px
+		}
+	}
+}
+
+.clearfix {
+	clear: both;
+}
+
+.fl {
+	float: left;
+}
+
+.ta {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.badge {
+	background-color: #D9534F;
+}
+
+.olx-text-ellipsis {
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.olx-panel {
+	.panel-title {
+		font-size: 14px;
+		font-weight: bold;
+	}
+	.panel-body {
+		.list-group {
+			.list-group-item {
+				border-left: 0 none;
+				border-right: 0 none;
+				border-bottom: 0 none;
+				&:first-child {
+					border-top: 0 none;
+				}
+			}
+			li {
+				&:hover, &:focus {
+					background-color: #F5F5F5;
+				}
+				a {
+					&:hover, &:focus {
+						color: #D9534F;
+					}
+					div {
+						.olx-text-ellipsis;
+						padding-right: 10px;
+					}
+					color: #555555;
+				}
+			}
+			a {
+				&:hover, &:focus {
+					color: #D9534F;
+				}
+				font-size: 12px;
+			}
+			margin-bottom: 0;
+		}
+		padding: 0;
+	}
+}
+
+.olx-panel-comment {
+	.list-group-item {
+		.comment-left {
+			float: left;
+			>div {
+				img {
+					border: 1px solid #ccc;
+					padding: 2px;
+					&:hover {
+						transform: scale(1.25);
+						transition: all 0.25s ease-in-out 0s;
+					}
+				}
+			}
+		}
+		.comment-right {
+			line-height: 20px;
+			font-size: 12px;
+			margin-left: 65px;
+			.content {
+				padding-top: 7px;
+			}
+			.opt {
+				span {
+					a {
+						color: rgb(153, 102, 0);
+						&:hover {
+							text-decoration: underline;
+						}
+					}
+					margin-right: 5px
+				}
+			}
+			div {
+				/*background-color: #f1f1f1;
+				border-radius: 4px;*/
+			}
+		}
+	}
+}
+
+@font-face {
+	font-family: Spinnaker;
+	font-style:  normal;
+	font-weight: 400;
+	src: url('../../fonts/Spinnaker-Regular.ttf');
+}
+
+@media screen and (min-width: 768px) and (max-width: 1010px) {
+	body {
+		#backTop {
+			right: 5px;
+		}
+	}
+	#topSearchFrm {
+		display: none !important;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	body {
+		#backTop {
+			right: 5px;
+		}
+	}
+	#footer {
+		>div {
+			>div {
+				&:last-child {
+					float: left !important;
+				}
+			}
+		}
+	}
+}

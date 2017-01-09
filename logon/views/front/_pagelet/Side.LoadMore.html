@@ -1,0 +1,37 @@
+<div class='col-sm-12 col-md-8'>
+	<a id='loadMore' href='javascript:;' data-current-page='1' class='btn btn-block' data-url='/$!{loadMore}/more'>
+		<i class='fa fa-spin'></i>
+		<span>加载更多...</span></a>
+</div>
+<script type='text/javascript'>
+$(function(){
+	$('#loadMore').click(function(){
+		var widget = $(this);
+		widget.attr('disabled', true);
+		var text = widget.text();
+		widget.find('i').addClass('fa-spinner');
+		widget.find('span').text('费劲儿加载中...');
+		var curPage = Math.ceil($('.artIntro').length / $!{conf.html.pagesize}) + 1;
+		var data = {
+			data: JSON.stringify({
+				curPage: curPage
+			})
+		};
+		$.ajax({
+			url: $().olxUtilRandomUrl(encodeURI(widget.data('url'))),
+			type: 'GET',
+			dataType: 'json',
+			data: data
+		}).done(function (data){
+			if(data.success){
+				// widget.data('current-page', curPage);
+				$('.artIntro').parent().append(data.data);
+			}
+		}).complete(function(){
+			widget.find('i').removeClass('fa-spinner');
+			widget.find('span').text(text);
+			widget.attr('disabled', false);
+		});
+	});
+});
+</script>

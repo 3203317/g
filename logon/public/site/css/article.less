@@ -1,0 +1,180 @@
+.md-preview {
+	word-wrap: break-word;
+	word-break: normal;
+	font-size: 12px;
+	margin-bottom: 20px;
+
+	.bs-callout {
+		padding: 10px;
+		>h4 {
+			font-size: 14px
+		}
+		>p {
+			margin: 0 0 5px;
+		}
+	}
+}
+
+.article {
+	.title {
+		padding: 0 30px;
+		margin: 0 auto;
+		text-align: center;
+		a {
+			color: #555555;
+			&:hover {
+				color: #D9534F;
+				transition: all 0.25s ease-in-out 0s;
+			}
+		}
+	}
+
+	.nav {
+		margin-bottom: 10px
+	}
+
+	.tag {
+		font-size: 12px;
+		line-height: 31px;
+		>span {
+			background-color: #3D4450;
+			margin-right: 5px;
+			a {
+				color: #FFFFFF
+			}
+			&:hover {
+				background-color: #d9534f;
+				transition: all 0.25s ease-in-out 0s;
+			}
+		}
+	}
+
+	.content {
+		.md-preview;
+		ol,ul {
+			padding-left: 20px;
+		}
+		a {
+			color: #d9534f;
+		}
+	}
+
+	.copyright, .page {
+		font-size: 12px;
+		word-wrap: break-word;
+		word-break: normal;
+		a {
+			color: #64A765;
+			&:focus, &:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.footer {
+		margin-bottom: 10px;
+		a {
+			&:hover {
+				text-decoration: underline
+			}
+		}
+	}
+
+	figure {
+		padding: 0;
+		margin-bottom: 10px;
+		img {
+			max-width: 100%;
+			height: auto;
+			border: 5px solid #E3E3E3;
+			border-radius: 3px;
+			margin-left: auto;
+			margin-right: auto;
+			transition: all 0.2s ease-in-out 0s;
+			&:hover {
+				opacity: 0.8;
+				border: 5px solid #D9534F;
+			}
+		}
+	}
+}
+
+.fav {
+	font-size: 12px;
+}
+
+.fav3 {
+	min-height: 200px;
+	font-size: 12px;
+	p {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		word-break: break-all;
+		&:nth-child(2) {
+			height: 105px;
+		}
+	}
+	.caption {
+		padding: 5px 5px 0 5px;
+		>div {
+			height: 33px;
+			margin-bottom: 5px;
+			a {
+				div {
+					overflow: hidden;
+					word-break: break-all;
+					height: 100%;
+					color: #D2322D;
+					&:hover, &:focus {
+						text-decoration: underline;
+					}
+				}
+			}
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+	.btn {
+		font-size: 12px;
+	}
+}
+
+@media screen and (max-width: 640px){
+	.article {
+		.title {
+			margin: 5px 0;
+			>h2 {
+				font-size: 18px;
+			}
+		}
+		.nav, .footer {
+			margin-bottom: 5px
+		}
+	}
+	.fav3 {
+		min-height: 152px;
+		p {
+			&:first-child {
+				height: 15px;
+			}
+			&:nth-child(2) {
+				height: 70px;
+			}
+		}
+		.btn {
+			width: 100%;
+		}
+		.caption {
+			>div {
+				height: 20px;
+				a {
+					div {
+						text-overflow: ellipsis;
+						white-space: nowrap;
+					}
+				}
+			}
+		}
+	}
+}
