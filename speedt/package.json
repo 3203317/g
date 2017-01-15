@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "colors": "1.0.3",
-    "cliff": "0.1.8",
     "ws": "0.4.25",
     "commander": "2.0.0",
     "async": "^0.9.0",

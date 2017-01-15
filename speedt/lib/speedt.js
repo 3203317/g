@@ -5,49 +5,29 @@
  */
 'use strict';
 
-var fs = require('fs'),
-	path = require('path');
+const fs = require('fs'),
+      path = require('path');
 
-var SpeedT = module.exports = {
-	version: require('../package.json').version,	// Current version
-	components: {},
-	connectors: {},
-	filters: {}
+const SpeedT = module.exports = {
+      version: require('../package.json').version,  // Current version
+      components: {},
+      connectors: {},
+      filters: {}
 };
 
-SpeedT.connectors.__defineGetter__('udpconnector', load.bind(null, './connectors/udpconnector'));
+const load = (p, name) => require(!name ? p : path.join(p, name));
 
 SpeedT.createApp = function(opts){
-	var app = require('./application');
-	app.init(opts);
-	return app;
+  var app = require('./application');
+  app.init(opts);
+  return app;
 };
 
-/**
- * Auto-load bundled components with getters.
- */
-fs.readdirSync(__dirname + '/components').forEach(filename => {
-	if(!/\.js$/.test(filename)) return;
-
-	var name = path.basename(filename, '.js');
-	var _load = load.bind(null, './components/', name);
-
-	SpeedT.components.__defineGetter__(name, _load);
+fs.readdirSync(path.join(__dirname, 'components')).forEach(filename => {
+  if(!/\.js$/.test(filename)) return;
+  var name = path.basename(filename, '.js');
+  Object.defineProperty(SpeedT.components, name, {
+    get: load.bind(null, 'components', name),
+    enumerable: true
+  });
 });
-
-fs.readdirSync(__dirname + '/filters/handler').forEach(filename => {
-	if(!/\.js$/.test(filename)) return;
-
-	var name = path.basename(filename, '.js');
-	var _load = load.bind(null, './filters/handler/', name);
-
-	Object.defineProperty(SpeedT.filters, name, {
-		get: _load,
-		enumerable: !0
-	});
-});
-
-function load(path, name){
-	if(!!name) return require(path + name);
-	return require(path);
-};
