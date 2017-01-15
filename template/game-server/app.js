@@ -12,7 +12,8 @@ process.on('uncaughtException', err => {
 });
 
 process.on('exit', code => {
-  if(0 === code) return;
+  if(0 === code) return console.log('process exit.');
+  console.error('process exit with code: %s.', code);
 });
 
 const app = speedt.createApp({});
@@ -22,6 +23,6 @@ app.configure('production|development', () => {
 });
 
 app.start(err => {
-  if(err) return;
-  console.log('start');
+  if(err) return console.error('app start error: %s.', err.message);
+  console.log('app started.');
 });
