@@ -12,7 +12,8 @@ const path = require('path'),
 
 const Application = module.exports = {};
 
-const Constants = require('./util/constants');
+const Constants = require('./util/constants'),
+      utils = require('./util/utils');
 
 const STATE_INITED  = 1,  // app has inited
       STATE_START   = 2,  // app start
@@ -22,9 +23,13 @@ const STATE_INITED  = 1,  // app has inited
 Application.init = function(opts){
   var self = this;
   opts = opts || {};
-  self.settings = {};                 // collection keep set/get
-  self.components = {};               // name -> component map
-  self.event = new EventEmitter();    // event object to sub/pub events
+  self.settings = {};               // collection keep set/get
+  self.components = {};             // name -> component map
+  self.event = new EventEmitter();  // event object to sub/pub events
+
+  // current server info
+  self.startTime = null;
+  self.serverId = null;
 
   defaultConfiguration.call(self);
   self.state = STATE_INITED;
@@ -33,18 +38,32 @@ Application.init = function(opts){
 
 Application.start = function(cb){
   var self = this;
+  self.startTime = new Date();
+  if(self.state > STATE_INITED){
+    return utils.invokeCallback(cb, new Error('application has already start.'));
+  }
+
+  loadDefaultComponents.call(self);
 };
 
 Application.stop = function(force){
   var self = this;
+  if(self.state > STATE_STARTED){
+    return utils.invokeCallback(cb, new Error('application is not running now.'));
+  }
+  self.state = STATE_STOPED;
 };
 
 Application.afterStart = function(cb){
   var self = this;
 };
 
+Application.load = function(name, component, opts){
+  return this;
+};
+
 Application.configure = function(env, type, fn){
-  fn.call(this);
+  // fn.call(this);
   return this;
 };
 
@@ -98,6 +117,7 @@ const defaultConfiguration = function(){
   var args = parseArgs(process.argv);
   setupEnv.call(self, args);
   processArgs.call(self, args);
+  configLogger.call(self);
 };
 
 const parseArgs = args => {
@@ -133,4 +153,15 @@ const setupEnv = function(args){
 const processArgs = function(args){
   var self = this;
   self.set(Constants.RESERVED.SERVER_ID, args.id, true);
+};
+
+const configLogger = function(){
+  // todo
+};
+
+/**
+ * load default components for application
+ */
+const loadDefaultComponents = function(){
+  console.log('loadDefaultComponents');
 };
