@@ -24,6 +24,7 @@ Application.init = function(opts){
   var self = this;
   opts = opts || {};
   self.settings = {};               // collection keep set/get
+  self.loaded = [];
   self.components = {};             // name -> component map
   self.event = new EventEmitter();  // event object to sub/pub events
 
@@ -58,13 +59,48 @@ Application.afterStart = function(cb){
   var self = this;
 };
 
+
+/**
+ *
+ * @return {Object}  app instance for chain invoke
+ */
 Application.load = function(name, component, opts){
-  return this;
+  var self = this;
+
+  if('string' !== typeof name){
+    opts = component;
+    component = name;
+    name = null;
+  }
+
+  if('function' === typeof component){
+    component = component(self, opts);
+  }
+
+  if(!name && 'string' === typeof component.name){
+    name = component.name;
+  }
+
+  if(name && self.components[name]){
+    console.warn('[WARN ] ignore duplicate component: %j.', name);
+    return self;
+  }
+
+  self.loaded.push(component);
+  self.components[name] = component;
+  return self;
 };
 
 Application.configure = function(env, type, fn){
-  // fn.call(this);
-  return this;
+  var args = [].slice.call(arguments);
+  fn = args.pop();
+
+  if(0 < args.length) env = args[0];
+  if(1 < args.length) type = args[1];
+
+  var self = this;
+  fn.call(self);
+  return self;
 };
 
 Application.before = function(filter){
@@ -163,5 +199,7 @@ const configLogger = function(){
  * load default components for application
  */
 const loadDefaultComponents = function(){
-  console.log('loadDefaultComponents');
+  var speedt = require('../');
+  var self = this;
+  self.load(speedt.components.connector, self.get('connectorConfig'));
 };

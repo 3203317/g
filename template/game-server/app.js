@@ -19,7 +19,11 @@ process.on('exit', code => {
 const app = speedt.createApp({});
 
 app.configure('production|development', () => {
-  // todo
+  app.set('connectorConfig', {
+    heartbeat: 3,
+    useDict: true,
+    useProtobuf: true
+  });
 });
 
 app.start(err => {
