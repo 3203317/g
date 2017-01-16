@@ -115,7 +115,7 @@ const parseArgs = args => {
     let value = arg.slice(++sep);
     if(!value) continue;
 
-    if(!isNaN(Number(value)) && 0 > (value.indexOf('.'))){
+    if(!isNaN(Number(value)) && (0 > value.indexOf('.'))){
       value = Number(value);
     }
 
