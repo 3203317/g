@@ -45,6 +45,12 @@ Application.start = function(cb){
   }
 
   loadDefaultComponents.call(self);
+
+  optComponents(self.loaded, Constants.RESERVED.START, err => {
+    if(err) return utils.invokeCallback(cb, err);
+    self.state = STATE_START;
+    self.afterStart(cb);
+  });
 };
 
 Application.stop = function(force){
@@ -202,4 +208,16 @@ const loadDefaultComponents = function(){
   var speedt = require('../');
   var self = this;
   self.load(speedt.components.connector, self.get('connectorConfig'));
+};
+
+
+const optComponents = (comps, method, cb) => {
+  async.forEachSeries(comps, function (comp, done){
+    if('function' === typeof comp[method]){
+      return comp[method](done);
+    }
+    done();
+  }, function (err){
+    utils.invokeCallback(cb, err);
+  })
 };

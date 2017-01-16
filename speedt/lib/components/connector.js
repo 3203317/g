@@ -26,6 +26,7 @@ pro.name = '__connector__';
 
 pro.start = function(cb){
   var self = this;
+  console.log('__connector__ start');
 };
 
 pro.afterStart = function(cb){
