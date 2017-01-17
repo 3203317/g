@@ -208,6 +208,7 @@ const loadDefaultComponents = function(){
   var speedt = require('../');
   var self = this;
   self.load(speedt.components.connector, self.get('connectorConfig'));
+  self.load(speedt.components.monitor, self.get('monitorConfig'));
 };
 
 

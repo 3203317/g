@@ -17,6 +17,7 @@ module.exports = function(app, opts){
 var Component = function(app, opts){
   var self = this;
   opts = opts || {};
+  self.app = app;
 };
 
 var pro = Component.prototype;
@@ -24,12 +25,15 @@ var pro = Component.prototype;
 pro.name = '__monitor__';
 
 pro.start = function(cb){
-  process.nextTick(cb);
+  var self = this;
+  console.log('__monitor__ start');
+  setImmediate(cb);
 };
 
 pro.afterStart = function(cb){
-  process.nextTick(cb);
+  setImmediate(cb);
 };
 
 pro.stop = function(force, cb){
+  setImmediate(cb);
 };
