@@ -70,6 +70,11 @@ const hostFilter = function(cb, socket){
 };
 
 const bindEvents = function(socket){
-  console.log(socket);
+  var self = this;
+  if(!self.connection.increaseConnectionCount()){
+    return socket.disconnect();
+  }
+
+  // console.log(socket);
   console.log('++++');
 };

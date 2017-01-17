@@ -31,7 +31,7 @@ pro.increaseConnectionCount = function(){
   var self = this;
 
   if(++self.connCount > self.maxConnections){
-    console.warn('[WARN ] The server %s has reached the max connections %s.'.yellow, self.app.serverId, self.maxConnections);
+    console.warn('[WARN ] The server %j has reached the max connections %s.'.yellow, self.app.serverId, self.maxConnections);
     self.connCount--;
     return false;
   }

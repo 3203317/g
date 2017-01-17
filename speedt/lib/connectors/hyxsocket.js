@@ -21,6 +21,11 @@ var Socket = function(id, socket){
   self.id = id;
   self.socket = socket;
 
+  socket.on('data', msg => {
+    if(!msg) return;
+    console.log(msg);
+  });
+
   self.state = ST_INITED;
 };
 
@@ -30,9 +35,19 @@ module.exports = Socket;
 
 var pro = Socket.prototype;
 
-pro.sendRaw = function(msg){};
+pro.sendRaw = function(msg){
+  var self = this;
+  if(self.state !== ST_WORKING) return;
+};
 
-pro.send = function(msg){};
+pro.send = function(msg){
+  if(msg instanceof String){
+    msg = new Buffer(msg);
+  }else if(!(msg instanceof Buffer)){
+    msg = new Buffer(JSON.stringify(msg));
+  }
+  this.sendRaw(msg);
+};
 
 pro.disconnect = function(msg){
   var self = this;
