@@ -6,8 +6,11 @@
 'use strict';
 
 const net = require('net');
+const tls = require('tls');
 const util = require('util');
 const EventEmitter = require('events');
+
+var curId = 1;
 
 var Connector = function(port, host, opts){
 	var self = this;
@@ -17,6 +20,12 @@ var Connector = function(port, host, opts){
  	EventEmitter.call(self);
 
 	self.opts = opts || {};
+  self.ssl = opts.ssl;
+  self.port = port;
+  self.host = host;
+
+  // info
+  self.tcpServer = null;
 };
 
 util.inherits(Connector, EventEmitter);
@@ -25,15 +34,31 @@ module.exports = Connector;
 
 var pro = Connector.prototype;
 
-pro.start = function(cb){
-  var self = this;
-  console.log('hyxconnector start.');
-  setImmediate(cb);
-};
+(pro => {
+  var genSocket = function(socket){
+    var hyxSocket = new HyxSocket(curId++, socket);
+  };
+
+  pro.start = function(cb){
+    var self = this;
+    console.log('hyxconnector start.');
+
+
+    if(self.ssl){
+      self.tcpServer = tls.createServer(self.ssl);
+    }else{
+      self.tcpServer = net.createServer();
+    }
+
+    self.tcpServer.listen(self.port, self.host);
+    setImmediate(cb);
+  };
+})(pro);
 
 pro.stop = function(force, cb){
   var self = this;
   console.log('hyxconnector stop.');
+  self.tcpServer.close();
   setImmediate(cb);
 };
 
