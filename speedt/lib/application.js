@@ -10,6 +10,8 @@ const path = require('path'),
       async = require('async'),
       EventEmitter = require('events');
 
+const colors = require('colors');
+
 const Application = module.exports = {};
 
 const Constants = require('./util/constants'),
@@ -35,7 +37,7 @@ Application.init = function(opts){
 
   defaultConfiguration.call(self);
   self.state = STATE_INITED;
-  console.info('[INFO ] Application inited: %j.', self.getServerId());
+  console.info('[INFO ] Application inited: %j.'.green, self.getServerId());
 };
 
 Application.start = function(cb){
@@ -72,7 +74,7 @@ Application.afterStart = function(cb){
     if(err) return utils.invokeCallback(cb, err);
     self.state = STATE_STARTED;
     var usedTime = Date.now() - self.startTime;
-    console.info('[INFO ] %j startup in %s ms.', self.getServerId(), usedTime);
+    console.info('[INFO ] %j startup in %s ms.'.green, self.getServerId(), usedTime);
     self.event.emit(events.START_SERVER, self.getServerId());
   });
 };
@@ -100,7 +102,7 @@ Application.load = function(name, component, opts){
   }
 
   if(name && self.components[name]){
-    console.warn('[WARN ] ignore duplicate component: %j.', name);
+    console.warn('[WARN ] ignore duplicate component: %j.'.yellow, name);
     return self;
   }
 
@@ -221,6 +223,7 @@ const configLogger = function(){
 const loadDefaultComponents = function(){
   var speedt = require('../');
   var self = this;
+  self.load(speedt.components.connection, self.get('connectionConfig'));
   self.load(speedt.components.connector, self.get('connectorConfig'));
   self.load(speedt.components.monitor, self.get('monitorConfig'));
 };
@@ -232,7 +235,7 @@ const optComponents = (comps, method, cb) => {
       return comp[method](done);
     }
     done();
-  }, function (err){
+  }, err => {
     utils.invokeCallback(cb, err);
   })
 };

@@ -29,6 +29,15 @@ pro.name = '__connector__';
 
 pro.start = function(cb){
   var self = this;
+  self.connection = self.app.components.__connection__;
+
+  // check component dependencies
+  if(!self.connection){
+    return setImmediate(() => {
+      utils.invokeCallback(cb, new Error('fail to start connector component for no connection component loaded.'));
+    });
+  }
+
   console.log('__connector__ start');
   setImmediate(cb);
 };
@@ -57,8 +66,10 @@ const getDefaultConnector = (app, opts) => {
 };
 
 const hostFilter = function(cb, socket){
-  console.log(socket);
-  console.log('----');
+  cb.call(this, socket);
 };
 
-const bindEvents = function(){};
+const bindEvents = function(socket){
+  console.log(socket);
+  console.log('++++');
+};
