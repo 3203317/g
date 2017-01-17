@@ -35,6 +35,7 @@ pro.start = function(cb){
 
 pro.afterStart = function(cb){
   this.connector.start(cb);
+  this.connector.on('connection', hostFilter.bind(this, bindEvents));
 };
 
 pro.stop = function(force, cb){
@@ -54,3 +55,10 @@ const getDefaultConnector = (app, opts) => {
   var DefaultConnector = require('../connectors/hyxconnector');
   return new DefaultConnector(app.port, app.host, opts);
 };
+
+const hostFilter = function(cb, socket){
+  console.log(socket);
+  console.log('----');
+};
+
+const bindEvents = function(){};

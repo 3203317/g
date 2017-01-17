@@ -10,7 +10,7 @@ const tls = require('tls');
 const util = require('util');
 const EventEmitter = require('events');
 
-var curId = 1;
+const HyxSocket = require('./hyxsocket');
 
 var Connector = function(port, host, opts){
 	var self = this;
@@ -35,22 +35,25 @@ module.exports = Connector;
 var pro = Connector.prototype;
 
 (pro => {
+  var curId = 1;
+
   var genSocket = function(socket){
-    var hyxSocket = new HyxSocket(curId++, socket);
+    var hyxsocket = new HyxSocket(curId++, socket);
+    this.emit('connection', hyxsocket);
   };
 
   pro.start = function(cb){
     var self = this;
     console.log('hyxconnector start.');
 
-
     if(self.ssl){
       self.tcpServer = tls.createServer(self.ssl);
     }else{
       self.tcpServer = net.createServer();
+      self.tcpServer.on('connection', genSocket.bind(self));
     }
 
-    self.tcpServer.listen(self.port, self.host);
+    self.tcpServer.listen(self.port);
     setImmediate(cb);
   };
 })(pro);
