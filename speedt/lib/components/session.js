@@ -17,17 +17,9 @@ module.exports = function(app, opts){
 var Component = function(app, opts){
   var self = this;
   opts = opts || {};
-
-  self.sessions = {};
+  self.app = app;
 };
 
 var pro = Component.prototype;
 
 pro.name = '__session__';
-
-pro.create = function(serverId, socket) {
-  var session = new Session(serverId, socket, this);
-  this.sessions[session.id] = session;
-
-  return session;
-};

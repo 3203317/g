@@ -75,6 +75,22 @@ const bindEvents = function(socket){
     return socket.disconnect();
   }
 
-  // console.log(socket);
+  console.log(self.connection.getStatisticsInfo());
   console.log('++++');
+
+  socket.on('disconnect', () => {
+
+  });
+
+  socket.on('error', () => {
+
+  });
+
+  socket.on('message', (msg) => {
+    handleMessage.call(self, session, msg);
+  });
+};
+
+const handleMessage = function(session, msg){
+  // todo
 };

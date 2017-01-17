@@ -118,9 +118,8 @@ Application.configure = function(env, type, fn){
   if(0 < args.length) env = args[0];
   if(1 < args.length) type = args[1];
 
-  var self = this;
-  fn.call(self);
-  return self;
+  fn.call(this);
+  return this;
 };
 
 Application.before = function(filter){
@@ -155,7 +154,7 @@ Application.getServerId = function(){
  *
  * @param {String} key
  * @param {String} val
- * @param {Boolean} attach whether attach the settings to application
+ * @param {Boolean} attach  whether attach the settings to application
  */
 Application.set = function(key, val, attach){
   this.settings[key] = val;
@@ -230,7 +229,7 @@ const loadDefaultComponents = function(){
 
 
 const optComponents = (comps, method, cb) => {
-  async.forEachSeries(comps, function (comp, done){
+  async.forEachSeries(comps, (comp, done) => {
     if('function' === typeof comp[method]){
       return comp[method](done);
     }
