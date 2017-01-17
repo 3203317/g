@@ -5,7 +5,7 @@
  */
 'use strict';
 
-var utils = require('../util/utils');
+const utils = require('../util/utils');
 
 module.exports = function(app, opts){
   return new Component(app, opts);
@@ -34,11 +34,13 @@ pro.start = function(cb){
 };
 
 pro.afterStart = function(cb){
-  setImmediate(cb);
+  this.connector.start(cb);
 };
 
 pro.stop = function(force, cb){
-  setImmediate(cb);
+  if(!this.connector) return setImmediate(cb);
+  this.connector.stop(force, cb);
+  this.connector = null;
 };
 
 const getConnector = (app, opts) => {

@@ -13,7 +13,8 @@ const path = require('path'),
 const Application = module.exports = {};
 
 const Constants = require('./util/constants'),
-      utils = require('./util/utils');
+      utils = require('./util/utils'),
+      events = require('./util/events');
 
 const STATE_INITED  = 1,  // app has inited
       STATE_START   = 2,  // app start
@@ -63,6 +64,17 @@ Application.stop = function(force){
 
 Application.afterStart = function(cb){
   var self = this;
+  if(self.state > STATE_STARTED){
+    return utils.invokeCallback(cb, new Error('application is not running now.'));
+  }
+
+  optComponents(self.loaded, Constants.RESERVED.AFTER_START, err => {
+    if(err) return utils.invokeCallback(cb, err);
+    self.state = STATE_STARTED;
+    var usedTime = Date.now() - self.startTime;
+    console.info('[INFO ] %j startup in %s ms.', self.getServerId(), usedTime);
+    self.event.emit(events.START_SERVER, self.getServerId());
+  });
 };
 
 
