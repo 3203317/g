@@ -25,5 +25,7 @@ module.exports = {
     ENV_DEV: 'development',
     ENV_PRO: 'production',
     SERVER_ID: 'serverId',
+    SERVER_HOST: 'host',
+    SERVER_PORT: 'port',
   }
 };

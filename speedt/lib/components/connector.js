@@ -18,6 +18,9 @@ var Component = function(app, opts){
   var self = this;
   opts = opts || {};
   self.app = app;
+  self.encode = opts.encode;
+  self.decode = opts.decode;
+  self.connector = getConnector(app, opts);
 };
 
 var pro = Component.prototype;
@@ -36,4 +39,16 @@ pro.afterStart = function(cb){
 
 pro.stop = function(force, cb){
   setImmediate(cb);
+};
+
+const getConnector = (app, opts) => {
+  var connector = opts.connector;
+  if(!connector) return getDefaultConnector(app, opts);
+  if('function' !== typeof connector) return connector;
+  return connector(app.port, app.host, opts);
+};
+
+const getDefaultConnector = (app, opts) => {
+  var DefaultConnector = require('../connectors/hyxconnector');
+  return new DefaultConnector(app.port, app.host, opts);
 };

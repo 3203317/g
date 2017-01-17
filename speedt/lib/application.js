@@ -195,6 +195,8 @@ const setupEnv = function(args){
 const processArgs = function(args){
   var self = this;
   self.set(Constants.RESERVED.SERVER_ID, args.id, true);
+  self.set(Constants.RESERVED.SERVER_HOST, args.host, true);
+  self.set(Constants.RESERVED.SERVER_PORT, args.port, true);
 };
 
 const configLogger = function(){
