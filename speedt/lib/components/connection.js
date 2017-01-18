@@ -19,6 +19,8 @@ var Component = function(app, opts){
   opts = opts || {};
   self.app = app;
   self.connCount = 0;
+  self.loginedCount = 0;
+  self.logined = {};
   self.maxConnections = opts.maxConnections || 5000;
 };
 
@@ -38,14 +40,37 @@ pro.increaseConnectionCount = function(){
   return true;
 };
 
-/**
- * Decrease connection count
- */
-pro.decreaseConnectionCount = function(){
-  this.connCount--;
+
+pro.upsertUser = function(uid, info){
+  var user = this.logined[uid];
+  if(!user){
+    info.uid = uid;
+    this.logined[uid] = info;
+    return;
+  }
+
+  // update user info
 };
 
-(pro => {
+
+(() => {
+  var removeLoginedUser = function(uid){
+    if(this.logined[uid]) this.loginedCount--;
+    delete this.logined[uid];
+  };
+
+  /**
+   * Decrease connection count
+   *
+   * @param uid
+   */
+  pro.decreaseConnectionCount = function(uid){
+    this.connCount--;
+    if(uid) removeLoginedUser.call(this, uid);
+  };
+})();
+
+(() => {
   var info = {};
 
   /**
@@ -56,6 +81,7 @@ pro.decreaseConnectionCount = function(){
   pro.getStatisticsInfo = function(){
     info.serverId = this.app.serverId;
     info.connCount = this.connCount;
+    info.loginedCount = this.loginedCount;
     return info;
   };
-})(pro);
+})();

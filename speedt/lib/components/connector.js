@@ -88,22 +88,22 @@ const bindEvents = function(socket){
 
   console.log(self.connection.getStatisticsInfo());
 
-  var session = getSession.call(self, socket);
-
   // socket event
   (() => {
+    var session = getSession.call(self, socket);
+
     var disconnect = () => {
       socket.removeListener('disconnect', disconnect);
       socket.removeListener('error', error);
       socket.removeListener('message', message);
-      self.connection.decreaseConnectionCount();
+      self.connection.decreaseConnectionCount(session.uid);
     };
 
     var error = () => {
       socket.removeListener('disconnect', disconnect);
       socket.removeListener('error', error);
       socket.removeListener('message', message);
-      self.connection.decreaseConnectionCount();
+      self.connection.decreaseConnectionCount(session.uid);
     };
 
     var message = (msg) => {
