@@ -17,7 +17,6 @@ module.exports = function(app, opts){
 var Component = function(app, opts){
   var self = this;
   opts = opts || {};
-
   self.app = app;
   self.connCount = 0;
   self.maxConnections = opts.maxConnections || 5000;

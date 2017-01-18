@@ -21,6 +21,10 @@ var Component = function(app, opts){
   self.encode = opts.encode;
   self.decode = opts.decode;
   self.connector = getConnector(app, opts);
+
+  // component dependencies
+  self.session = null;
+  self.connection = null;
 };
 
 var pro = Component.prototype;
@@ -30,12 +34,15 @@ pro.name = '__connector__';
 pro.start = function(cb){
   var self = this;
   self.connection = self.app.components.__connection__;
+  self.session = self.app.components.__session__;
 
   // check component dependencies
+  if(!self.session){
+    return setImmediate(utils.invokeCallback.bind(null, cb, new Error('fail to start connector component for no session component loaded')));
+  }
+
   if(!self.connection){
-    return setImmediate(() => {
-      utils.invokeCallback(cb, new Error('fail to start connector component for no connection component loaded.'));
-    });
+    return setImmediate(utils.invokeCallback.bind(null, cb, new Error('fail to start connector component for no connection component loaded')));
   }
 
   console.log('__connector__ start');
@@ -51,6 +58,10 @@ pro.stop = function(force, cb){
   if(!this.connector) return setImmediate(cb);
   this.connector.stop(force, cb);
   this.connector = null;
+};
+
+pro.send = function(reqId, route, msg, opts, cb){
+  // todo
 };
 
 const getConnector = (app, opts) => {
@@ -76,21 +87,43 @@ const bindEvents = function(socket){
   }
 
   console.log(self.connection.getStatisticsInfo());
-  console.log('++++');
 
-  socket.on('disconnect', () => {
+  var session = getSession.call(self, socket);
 
-  });
+  // socket event
+  (() => {
+    var disconnect = () => {
+      socket.removeListener('disconnect', disconnect);
+      socket.removeListener('error', error);
+      socket.removeListener('message', message);
+      self.connection.decreaseConnectionCount();
+    };
 
-  socket.on('error', () => {
+    var error = () => {
+      socket.removeListener('disconnect', disconnect);
+      socket.removeListener('error', error);
+      socket.removeListener('message', message);
+      self.connection.decreaseConnectionCount();
+    };
 
-  });
+    var message = (msg) => {
+      handleMessage.call(self, session, msg);
+    };
 
-  socket.on('message', (msg) => {
-    handleMessage.call(self, session, msg);
-  });
+    socket.on('disconnect', disconnect);
+    socket.on('error', error);
+    socket.on('message', message);
+  })();
 };
 
 const handleMessage = function(session, msg){
   // todo
+};
+
+const getSession = function(socket){
+  var self = this;
+  var sid = socket.id;
+  var session = self.session.get(sid);
+  if(session) return session;
+  return session;
 };

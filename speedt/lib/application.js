@@ -44,7 +44,7 @@ Application.start = function(cb){
   var self = this;
   self.startTime = new Date();
   if(self.state > STATE_INITED){
-    return utils.invokeCallback(cb, new Error('application has already start.'));
+    return utils.invokeCallback(cb, new Error('application has already start'));
   }
 
   loadDefaultComponents.call(self);
@@ -59,7 +59,7 @@ Application.start = function(cb){
 Application.stop = function(force){
   var self = this;
   if(self.state > STATE_STARTED){
-    return utils.invokeCallback(cb, new Error('application is not running now.'));
+    return utils.invokeCallback(cb, new Error('application is not running now'));
   }
   self.state = STATE_STOPED;
 };
@@ -67,7 +67,7 @@ Application.stop = function(force){
 Application.afterStart = function(cb){
   var self = this;
   if(self.state > STATE_STARTED){
-    return utils.invokeCallback(cb, new Error('application is not running now.'));
+    return utils.invokeCallback(cb, new Error('application is not running now'));
   }
 
   optComponents(self.loaded, Constants.RESERVED.AFTER_START, err => {
@@ -102,7 +102,7 @@ Application.load = function(name, component, opts){
   }
 
   if(name && self.components[name]){
-    console.warn('[WARN ] ignore duplicate component: %j.'.yellow, name);
+    console.warn('[WARN ] Ignore duplicate component: %j.'.yellow, name);
     return self;
   }
 
@@ -225,6 +225,7 @@ const loadDefaultComponents = function(){
   self.load(speedt.components.connection, self.get('connectionConfig'));
   self.load(speedt.components.connector, self.get('connectorConfig'));
   self.load(speedt.components.monitor, self.get('monitorConfig'));
+  self.load(speedt.components.session, self.get('sessionConfig'));
 };
 
 
