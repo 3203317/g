@@ -38,7 +38,7 @@ pro.start = function(cb){
 
   // check component dependencies
   if(!self.session){
-    return setImmediate(utils.invokeCallback.bind(null, cb, new Error('fail to start connector component for no session component loaded')));
+    return setImmediate(utils.invokeCallback.bind(null, cb, new Error('fail to start session component for no session component loaded')));
   }
 
   if(!self.connection){
@@ -86,24 +86,20 @@ const bindEvents = function(socket){
     return socket.disconnect();
   }
 
-  console.log(self.connection.getStatisticsInfo());
-
   // socket event
   (() => {
     var session = getSession.call(self, socket);
 
     var disconnect = () => {
+      socket.removeListener('message', message);
       socket.removeListener('disconnect', disconnect);
       socket.removeListener('error', error);
-      socket.removeListener('message', message);
       self.connection.decreaseConnectionCount(session.uid);
     };
 
-    var error = () => {
-      socket.removeListener('disconnect', disconnect);
-      socket.removeListener('error', error);
-      socket.removeListener('message', message);
-      self.connection.decreaseConnectionCount(session.uid);
+    var error = (cb, err) => {
+      utils.invokeCallback(null, cb);
+      console.error('[ERROR] Socket error: %j.'.red, err.message);
     };
 
     var message = (msg) => {
@@ -111,13 +107,14 @@ const bindEvents = function(socket){
     };
 
     socket.on('disconnect', disconnect);
-    socket.on('error', error);
+    socket.on('error', error.bind(null, disconnect));
     socket.on('message', message);
   })();
 };
 
 const handleMessage = function(session, msg){
-  // todo
+  var self = this;
+  console.log(self.connection.getStatisticsInfo());
 };
 
 const getSession = function(socket){
