@@ -5,10 +5,10 @@
  */
 'use strict';
 
-const net = require('net');
-const tls = require('tls');
-const util = require('util');
-const EventEmitter = require('events');
+const net = require('net'),
+      tls = require('tls'),
+      util = require('util'),
+      EventEmitter = require('events');
 
 const HyxSocket = require('./hyxsocket');
 
@@ -34,7 +34,7 @@ module.exports = Connector;
 
 var pro = Connector.prototype;
 
-(pro => {
+(() => {
   var curId = 1;
 
   var genSocket = function(socket){
@@ -56,7 +56,7 @@ var pro = Connector.prototype;
     self.tcpServer.listen(self.port);
     setImmediate(cb);
   };
-})(pro);
+})();
 
 pro.stop = function(force, cb){
   var self = this;

@@ -99,7 +99,7 @@ const bindEvents = function(socket){
 
     var error = (cb, err) => {
       utils.invokeCallback(null, cb);
-      console.error('[ERROR] Socket error: %j.'.red, err.message);
+      console.error('[ERROR] Socket exception: %j.'.red, err.message);
     };
 
     var message = (msg) => {

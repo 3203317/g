@@ -34,18 +34,19 @@ pro.get = function(sid){
 };
 
 pro.create = function(socket){
-  var session = new Session(socket);
+  var session = new Session(socket, this);
   this.sessions[session.id] = session;
   return session;
 };
 
-var Session = function(socket){
+var Session = function(socket, service){
   var self = this;
   EventEmitter.call(self);
   self.id = socket.id;
 
   // private
   self.__socket__ = socket;
+  self.__sessionService__ = service;
 }
 
 util.inherits(Session, EventEmitter);

@@ -41,15 +41,25 @@ pro.increaseConnectionCount = function(){
 };
 
 
+/**
+ *
+ * @param {String} uid
+ * @param {Object} info
+ */
 pro.upsertUser = function(uid, info){
-  var user = this.logined[uid];
+  var self = this;
+  var user = self.logined[uid];
   if(!user){
     info.uid = uid;
-    this.logined[uid] = info;
+    self.logined[uid] = info;
+    self.loginedCount++;
     return;
   }
 
   // update user info
+  for(let p in info){
+    console.log(p);
+  }
 };
 
 
