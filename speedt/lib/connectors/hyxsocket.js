@@ -5,8 +5,10 @@
  */
 'use strict';
 
-const util = require('util');
-const EventEmitter = require('events');
+const util = require('util'),
+      EventEmitter = require('events');
+
+const handler = require('./common/handler');
 
 const ST_INITED = 0,
       ST_WAIT_ACK = 1,
@@ -15,7 +17,6 @@ const ST_INITED = 0,
 
 var Socket = function(id, socket){
   var self = this;
-
   EventEmitter.call(self);
 
   self.id = id;
@@ -23,7 +24,7 @@ var Socket = function(id, socket){
 
   socket.on('data', msg => {
     if(!msg) return;
-    console.log(msg);
+    handler(self, msg);
   });
 
   self.state = ST_INITED;
