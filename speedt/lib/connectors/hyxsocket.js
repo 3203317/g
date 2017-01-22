@@ -20,7 +20,10 @@ var Socket = function(id, socket){
   EventEmitter.call(self);
 
   self.id = id;
-  self.socket = socket;
+  self.__socket__ = socket;
+
+  socket.once('close', self.emit.bind(self, 'disconnect'));
+  socket.on('error', self.emit.bind(self, 'error'));
 
   socket.on('data', msg => {
     if(!msg) return;
@@ -55,6 +58,6 @@ pro.disconnect = function(msg){
   if(self.state === ST_CLOSED) return;
 
   self.state = ST_CLOSED;
-  self.socket.emit('close');
-  self.socket.close();
+  self.__socket__.emit('close');
+  self.__socket__.close();
 };

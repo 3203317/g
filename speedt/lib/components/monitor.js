@@ -26,7 +26,7 @@ pro.name = '__monitor__';
 
 pro.start = function(cb){
   var self = this;
-  console.log('__monitor__ start');
+  console.info('[INFO ] Monitor component is start.'.green);
   setImmediate(cb);
 };
 

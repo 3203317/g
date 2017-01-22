@@ -23,8 +23,8 @@ var Component = function(app, opts){
   self.connector = getConnector(app, opts);
 
   // component dependencies
-  self.session = null;
-  self.connection = null;
+  self.__session__ = null;
+  self.__connection__ = null;
 };
 
 var pro = Component.prototype;
@@ -33,19 +33,19 @@ pro.name = '__connector__';
 
 pro.start = function(cb){
   var self = this;
-  self.connection = self.app.components.__connection__;
-  self.session = self.app.components.__session__;
+  self.__connection__ = self.app.components.__connection__;
+  self.__session__ = self.app.components.__session__;
 
   // check component dependencies
-  if(!self.session){
+  if(!self.__session__){
     return setImmediate(utils.invokeCallback.bind(null, cb, new Error('fail to start session component for no session component loaded')));
   }
 
-  if(!self.connection){
+  if(!self.__connection__){
     return setImmediate(utils.invokeCallback.bind(null, cb, new Error('fail to start connector component for no connection component loaded')));
   }
 
-  console.log('__connector__ start');
+  console.info('[INFO ] Connector component is start.'.green);
   setImmediate(cb);
 };
 
@@ -82,7 +82,7 @@ const hostFilter = function(cb, socket){
 
 const bindEvents = function(socket){
   var self = this;
-  if(!self.connection.increaseConnectionCount()){
+  if(!self.__connection__.increaseConnectionCount()){
     return socket.disconnect();
   }
 
@@ -94,7 +94,7 @@ const bindEvents = function(socket){
       socket.removeListener('message', message);
       socket.removeListener('disconnect', disconnect);
       socket.removeListener('error', error);
-      self.connection.decreaseConnectionCount(session.uid);
+      self.__connection__.decreaseConnectionCount(session.uid);
     };
 
     var error = (cb, err) => {
@@ -114,13 +114,13 @@ const bindEvents = function(socket){
 
 const handleMessage = function(session, msg){
   var self = this;
-  console.log(self.connection.getStatisticsInfo());
+  console.log(self.__connection__.getStatisticsInfo());
 };
 
 const getSession = function(socket){
   var self = this;
   var sid = socket.id;
-  var session = self.session.get(sid);
+  var session = self.__session__.get(sid);
   if(session) return session;
   return session;
 };

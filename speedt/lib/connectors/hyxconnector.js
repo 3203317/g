@@ -13,13 +13,13 @@ const net = require('net'),
 const HyxSocket = require('./hyxsocket');
 
 var Connector = function(port, host, opts){
-	var self = this;
-	if(!(self instanceof Connector)){
-		return new Connector(port, host, opts);
-	}
- 	EventEmitter.call(self);
+  var self = this;
+  if(!(self instanceof Connector)){
+    return new Connector(port, host, opts);
+  }
+  EventEmitter.call(self);
 
-	self.opts = opts || {};
+  self.opts = opts || {};
   self.ssl = opts.ssl;
   self.port = port;
   self.host = host;
@@ -44,7 +44,6 @@ var pro = Connector.prototype;
 
   pro.start = function(cb){
     var self = this;
-    console.log('hyxconnector start.');
 
     if(self.ssl){
       self.tcpServer = tls.createServer(self.ssl);
@@ -59,11 +58,9 @@ var pro = Connector.prototype;
 })();
 
 pro.stop = function(force, cb){
-  var self = this;
-  console.log('hyxconnector stop.');
-  self.tcpServer.close();
+  this.tcpServer.close();
+  console.info('[INFO ] hyxconnector is stoped.'.green);
   setImmediate(cb);
 };
-
 
 const genKey = (rinfo) => rinfo.address +':'+ rinfo.port;
