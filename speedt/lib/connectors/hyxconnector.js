@@ -52,7 +52,7 @@ var pro = Connector.prototype;
       self.tcpServer.on('connection', genSocket.bind(self));
     }
 
-    self.tcpServer.listen(self.port);
+    self.tcpServer.listen(self.port, self.host);
     setImmediate(cb);
   };
 })();
