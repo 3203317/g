@@ -25,7 +25,7 @@ var Connector = function(port, host, opts){
   self.host = host;
 
   // info
-  self.tcpServer = null;
+  self.__tcpServer__ = null;
 };
 
 util.inherits(Connector, EventEmitter);
@@ -46,21 +46,18 @@ var pro = Connector.prototype;
     var self = this;
 
     if(self.ssl){
-      self.tcpServer = tls.createServer(self.ssl);
+      self.__tcpServer__ = tls.createServer(self.ssl);
     }else{
-      self.tcpServer = net.createServer();
-      self.tcpServer.on('connection', genSocket.bind(self));
+      self.__tcpServer__ = net.createServer();
+      self.__tcpServer__.on('connection', genSocket.bind(self));
     }
 
-    self.tcpServer.listen(self.port, self.host);
+    self.__tcpServer__.listen(self.port, self.host);
     setImmediate(cb);
   };
 })();
 
 pro.stop = function(force, cb){
-  this.tcpServer.close();
   console.info('[INFO ] hyxconnector is stoped.'.green);
-  setImmediate(cb);
+  this.__tcpServer__.close(setImmediate.bind(null, cb));
 };
-
-const genKey = (rinfo) => rinfo.address +':'+ rinfo.port;
