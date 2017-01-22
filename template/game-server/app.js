@@ -26,7 +26,10 @@ app.configure('production|development', () => {
   app.set('connectorConfig', {
     heartbeat: 3,
     useDict: true,
-    useProtobuf: true
+    useProtobuf: true,
+    blacklistFun: (client, cb) => {
+      cb(true);
+    }
   });
 });
 

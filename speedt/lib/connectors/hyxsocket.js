@@ -22,6 +22,11 @@ var Socket = function(id, socket){
   self.id = id;
   self.__socket__ = socket;
 
+  self.remoteAddress = {
+    ip:   socket.remoteAddress,
+    port: socket.remotePort
+  };
+
   socket.once('close', self.emit.bind(self, 'disconnect'));
   socket.on('error', self.emit.bind(self, 'error'));
 

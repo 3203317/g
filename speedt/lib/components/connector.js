@@ -17,6 +17,7 @@ module.exports = function(app, opts){
 var Component = function(app, opts){
   var self = this;
   opts = opts || {};
+  self.blacklistFun = opts.blacklistFun;
   self.app = app;
   self.encode = opts.encode;
   self.decode = opts.decode;
@@ -77,7 +78,13 @@ const getDefaultConnector = (app, opts) => {
 };
 
 const hostFilter = function(cb, socket){
-  cb.call(this, socket);
+  var self = this;
+  if(!self.blacklistFun) return cb.call(self, socket);
+
+  self.blacklistFun(socket.remoteAddress, bool => {
+    if(!bool) return socket.disconnect();
+    cb.call(self, socket);
+  });
 };
 
 const bindEvents = function(socket){
