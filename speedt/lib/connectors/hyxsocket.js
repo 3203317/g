@@ -15,7 +15,7 @@ const ST_INITED = 0,
       ST_WORKING = 2,
       ST_CLOSED = 3;
 
-var Socket = function(id, socket){
+var Socket = function(id, timeout, socket){
   var self = this;
   EventEmitter.call(self);
 
@@ -29,6 +29,11 @@ var Socket = function(id, socket){
 
   socket.once('close', self.emit.bind(self, 'disconnect'));
   socket.on('error', self.emit.bind(self, 'error'));
+
+  socket.setTimeout(timeout, () => {
+    self.disconnect();
+    self.emit.bind(self, 'timeout');
+  });
 
   socket.on('data', msg => {
     if(!msg) return;
@@ -44,25 +49,25 @@ module.exports = Socket;
 
 var pro = Socket.prototype;
 
-pro.sendRaw = function(msg){
-  var self = this;
-  if(self.state !== ST_WORKING) return;
-};
+// pro.sendRaw = function(msg){
+//   var self = this;
+//   if(self.state !== ST_WORKING) return;
+// };
 
-pro.send = function(msg){
-  if(msg instanceof String){
-    msg = new Buffer(msg);
-  }else if(!(msg instanceof Buffer)){
-    msg = new Buffer(JSON.stringify(msg));
-  }
-  this.sendRaw(msg);
-};
+// pro.send = function(msg){
+//   if(msg instanceof String){
+//     msg = new Buffer(msg);
+//   }else if(!(msg instanceof Buffer)){
+//     msg = new Buffer(JSON.stringify(msg));
+//   }
+//   this.sendRaw(msg);
+// };
 
-pro.disconnect = function(msg){
-  var self = this;
-  if(self.state === ST_CLOSED) return;
-
-  self.state = ST_CLOSED;
-  self.__socket__.emit('close');
-  self.__socket__.close();
-};
+// pro.disconnect = function(){
+//   var self = this;
+//   if(self.state === ST_CLOSED) return;
+//   self.state = ST_CLOSED;
+//   self.__socket__.destroy(err => {
+//     console.error('[ERROR] Socket destroy exception: %j.'.red, err.message);
+//   });
+// };

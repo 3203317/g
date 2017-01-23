@@ -12,6 +12,8 @@ const net = require('net'),
 
 const HyxSocket = require('./hyxsocket');
 
+const DEFAULT_TIMEOUT = 2;
+
 var Connector = function(port, host, opts){
   var self = this;
   if(!(self instanceof Connector)){
@@ -19,10 +21,12 @@ var Connector = function(port, host, opts){
   }
   EventEmitter.call(self);
 
-  self.opts = opts || {};
+  opts = opts || {};
   self.ssl = opts.ssl;
   self.port = port;
   self.host = host;
+
+  self.timeout = (opts.timeout || DEFAULT_TIMEOUT) * 1000;
 
   // info
   self.__tcpServer__ = null;
@@ -38,7 +42,7 @@ var pro = Connector.prototype;
   var curId = 1;
 
   var newSocket = function(socket){
-    var hyxsocket = new HyxSocket(curId++, socket);
+    var hyxsocket = new HyxSocket(curId++, this.timeout, socket);
     this.emit('connection', hyxsocket);
   };
 

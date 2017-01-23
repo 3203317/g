@@ -103,7 +103,6 @@ const bindEvents = function(socket){
     var disconnect = () => {
       socket.removeListener('disconnect', disconnect);
       socket.removeListener('error', error);
-      socket.removeListener('timeout', timeout);
       socket.removeListener('message', message);
       self.__connection__.decreaseConnectionCount(session.uid);
     };
@@ -113,17 +112,12 @@ const bindEvents = function(socket){
       console.error('[ERROR] Socket exception: %j.'.red, err.message);
     };
 
-    var timeout = (cb) => {
-      utils.invokeCallback(null, cb);
-    };
-
     var message = (msg) => {
       handleMessage.call(self, session, msg);
     };
 
     socket.on('disconnect', disconnect);
     socket.on('error', error.bind(null, disconnect));
-    socket.on('timeout', timeout.bind(null, disconnect));
     socket.on('message', message);
   })();
 };
