@@ -27,6 +27,7 @@ var Connector = function(port, host, opts){
   self.host = host;
 
   self.timeout = (opts.timeout || DEFAULT_TIMEOUT) * 1000;
+  self.noDelay = !!opts.noDelay;
 
   // info
   self.__tcpServer__ = null;
@@ -42,7 +43,7 @@ var pro = Connector.prototype;
   var curId = 1;
 
   var newSocket = function(socket){
-    var hyxsocket = new HyxSocket(curId++, this.timeout, socket);
+    var hyxsocket = new HyxSocket(curId++, socket, this.timeout, this.noDelay);
     this.emit('connection', hyxsocket);
   };
 

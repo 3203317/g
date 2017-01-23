@@ -15,7 +15,7 @@ const ST_INITED = 0,
       ST_WORKING = 2,
       ST_CLOSED = 3;
 
-var Socket = function(id, timeout, socket){
+var Socket = function(id, socket, timeout, noDelay){
   var self = this;
   EventEmitter.call(self);
 
@@ -26,6 +26,9 @@ var Socket = function(id, timeout, socket){
     ip:   socket.remoteAddress,
     port: socket.remotePort
   };
+
+
+  socket.setNoDelay(noDelay);
 
   socket.once('close', self.emit.bind(self, 'disconnect'));
   socket.once('error', self.emit.bind(self, 'error'));
