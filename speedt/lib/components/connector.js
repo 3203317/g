@@ -116,8 +116,8 @@ const bindEvents = function(socket){
       handleMessage.call(self, session, msg);
     };
 
-    socket.on('disconnect', disconnect);
-    socket.on('error', error.bind(null, disconnect));
+    socket.once('disconnect', disconnect);
+    socket.once('error', error.bind(null, disconnect));
     socket.on('message', message);
   })();
 };

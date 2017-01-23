@@ -28,12 +28,9 @@ var Socket = function(id, timeout, socket){
   };
 
   socket.once('close', self.emit.bind(self, 'disconnect'));
-  socket.on('error', self.emit.bind(self, 'error'));
+  socket.once('error', self.emit.bind(self, 'error'));
 
-  socket.setTimeout(timeout, () => {
-    self.disconnect();
-    self.emit.bind(self, 'timeout');
-  });
+  socket.setTimeout(timeout, self.disconnect.bind(self));
 
   socket.on('data', msg => {
     if(!msg) return;
@@ -63,11 +60,9 @@ var pro = Socket.prototype;
 //   this.sendRaw(msg);
 // };
 
-// pro.disconnect = function(){
-//   var self = this;
-//   if(self.state === ST_CLOSED) return;
-//   self.state = ST_CLOSED;
-//   self.__socket__.destroy(err => {
-//     console.error('[ERROR] Socket destroy exception: %j.'.red, err.message);
-//   });
-// };
+pro.disconnect = function(){
+  var self = this;
+  if(self.state === ST_CLOSED) return;
+  self.state = ST_CLOSED;
+  self.__socket__.destroy();
+};
