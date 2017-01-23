@@ -37,7 +37,7 @@ var pro = Connector.prototype;
 (() => {
   var curId = 1;
 
-  var genSocket = function(socket){
+  var newSocket = function(socket){
     var hyxsocket = new HyxSocket(curId++, socket);
     this.emit('connection', hyxsocket);
   };
@@ -49,7 +49,7 @@ var pro = Connector.prototype;
       self.__tcpServer__ = tls.createServer(self.ssl);
     }else{
       self.__tcpServer__ = net.createServer();
-      self.__tcpServer__.on('connection', genSocket.bind(self));
+      self.__tcpServer__.on('connection', newSocket.bind(self));
     }
 
     self.__tcpServer__.listen(self.port, self.host);

@@ -77,6 +77,9 @@ const getDefaultConnector = (app, opts) => {
   return new DefaultConnector(app.port, app.host, opts);
 };
 
+/**
+ * 黑名单过滤
+ */
 const hostFilter = function(cb, socket){
   var self = this;
   if(!self.blacklistFun) return cb.call(self, socket);
@@ -98,9 +101,10 @@ const bindEvents = function(socket){
     var session = getSession.call(self, socket);
 
     var disconnect = () => {
-      socket.removeListener('message', message);
       socket.removeListener('disconnect', disconnect);
       socket.removeListener('error', error);
+      socket.removeListener('timeout', timeout);
+      socket.removeListener('message', message);
       self.__connection__.decreaseConnectionCount(session.uid);
     };
 
@@ -109,12 +113,17 @@ const bindEvents = function(socket){
       console.error('[ERROR] Socket exception: %j.'.red, err.message);
     };
 
+    var timeout = (cb) => {
+      utils.invokeCallback(null, cb);
+    };
+
     var message = (msg) => {
       handleMessage.call(self, session, msg);
     };
 
     socket.on('disconnect', disconnect);
     socket.on('error', error.bind(null, disconnect));
+    socket.on('timeout', timeout.bind(null, disconnect));
     socket.on('message', message);
   })();
 };
@@ -129,5 +138,6 @@ const getSession = function(socket){
   var sid = socket.id;
   var session = self.__session__.get(sid);
   if(session) return session;
+  // create new session
   return session;
 };
