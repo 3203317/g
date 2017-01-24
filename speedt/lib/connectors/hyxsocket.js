@@ -66,5 +66,6 @@ pro.disconnect = function(){
   var self = this;
   if(self.state === ST_CLOSED) return;
   self.state = ST_CLOSED;
+  self.__socket__.end('Bye!');
   self.__socket__.destroy();
 };
