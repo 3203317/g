@@ -19,6 +19,18 @@ var Socket = function(id, socket, timeout, noDelay){
   var self = this;
   EventEmitter.call(self);
 
+  socket.once('error', self.emit.bind(self, 'error'));
+  socket.once('error', self.disconnect.bind(self));
+  socket.once('close', self.emit.bind(self, 'disconnect'));
+
+  socket.setNoDelay(noDelay);
+  socket.setTimeout(timeout, self.disconnect.bind(self));
+
+  socket.on('data', msg => {
+    if(!msg) return;
+    handler(self, msg);
+  });
+
   self.id = id;
   self.__socket__ = socket;
 
@@ -26,19 +38,6 @@ var Socket = function(id, socket, timeout, noDelay){
     ip:   socket.remoteAddress,
     port: socket.remotePort
   };
-
-
-  socket.setNoDelay(noDelay);
-
-  socket.once('close', self.emit.bind(self, 'disconnect'));
-  socket.once('error', self.emit.bind(self, 'error'));
-
-  socket.setTimeout(timeout, self.disconnect.bind(self));
-
-  socket.on('data', msg => {
-    if(!msg) return;
-    handler(self, msg);
-  });
 
   self.state = ST_INITED;
 };
