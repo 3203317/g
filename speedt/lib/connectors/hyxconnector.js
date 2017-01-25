@@ -12,7 +12,7 @@ const net = require('net'),
 
 const HyxSocket = require('./hyxsocket');
 
-const DEFAULT_TIMEOUT = 2;
+const DEFAULT_TIMEOUT = 5;
 
 var Connector = function(port, host, opts){
   var self = this;

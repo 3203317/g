@@ -104,7 +104,7 @@ const bindEvents = function(socket){
       socket.removeListener('disconnect', disconnect);
       socket.removeListener('error', error);
       socket.removeListener('message', message);
-      self.__connection__.decreaseConnectionCount(session.uid);
+      self.__connection__.decreaseConnectionCount(session.id);
     };
 
     var error = (cb, err) => {
@@ -132,6 +132,14 @@ const getSession = function(socket){
   var sid = socket.id;
   var session = self.__session__.get(sid);
   if(session) return session;
+
   // create new session
+  session = self.__session__.create(socket);
+  socket.once('disconnect', session.closed.bind(session));
+  socket.once('error', session.closed.bind(session));
+
+  session.once('bind', uid => console.log('bind'));
+  session.once('unbind', uid => console.log('unbind'));
+
   return session;
 };

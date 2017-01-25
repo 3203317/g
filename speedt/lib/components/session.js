@@ -28,9 +28,14 @@ var pro = Component.prototype;
 
 pro.name = '__session__';
 
-
 pro.get = function(sid){
   return this.sessions[sid];
+};
+
+pro.remove = function(sid){
+  var session = this.sessions[sid];
+  if(session) delete this.sessions[sid];
+  return this;
 };
 
 pro.create = function(socket){
@@ -39,14 +44,22 @@ pro.create = function(socket){
   return session;
 };
 
+pro.bind = function(){
+  console.log('bind');
+};
+
+/*-----分割线-----*/
+
 var Session = function(socket, service){
   var self = this;
   EventEmitter.call(self);
   self.id = socket.id;
+  self.settings = {};
 
   // private
   self.__socket__ = socket;
   self.__sessionService__ = service;
+  console.info('[INFO ] Session is created with session id: %s.', self.id);
 }
 
 util.inherits(Session, EventEmitter);
@@ -66,7 +79,8 @@ Session.prototype.send = function(msg){
   return this;
 };
 
-Session.prototype.close = function(reason){
+Session.prototype.closed = function(reason){
   var self = this;
-  setImmediate(self.__socket__.disconnect.bind(null));
+  self.__sessionService__.remove(self.id);
+  console.info('[INFO ] Session is closed with session id: %s.', self.id);
 };
