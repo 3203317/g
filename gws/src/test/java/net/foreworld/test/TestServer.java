@@ -1,4 +1,6 @@
-package net.foreworld.gws;
+package net.foreworld.test;
+
+import net.foreworld.gws.Server;
 
 /**
  *
@@ -8,7 +10,8 @@ package net.foreworld.gws;
 public class TestServer {
 
 	public static void main(String[] args) {
-		System.out.println("TestServer");
+		Server gs = new GameServer();
+		gs.start();
 	}
 
 }

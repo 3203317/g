@@ -2,20 +2,16 @@ package net.foreworld.gws;
 
 /**
  *
- * @author huangxin
+ * @author huangxin <3203317@qq.com>
  *
  */
 public abstract class Server {
 
-	protected void start() {
+	public abstract void start();
 
-	}
+	public abstract void stop();
 
-	protected void stop() {
-
-	}
-
-	protected void restart() {
+	public void restart() {
 		stop();
 		start();
 	}
