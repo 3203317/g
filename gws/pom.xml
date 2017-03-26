@@ -30,7 +30,7 @@
 	</properties>
 
 	<dependencies>
-	
+
 		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
 		<dependency>
 		    <groupId>io.netty</groupId>
@@ -66,7 +66,7 @@
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
@@ -285,7 +285,8 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<repositories>
+
+	<!-- <repositories>
 		<repository>
 			<id>nexus</id>
 			<name>local private nexus</name>
@@ -319,7 +320,8 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-	</repositories>
+	</repositories> -->
+
 	<build>
 		<resources>
 			<resource>
