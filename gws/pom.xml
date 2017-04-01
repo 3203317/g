@@ -299,7 +299,7 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
-		<repository>
+		<!-- <repository>
 			<id>nexus</id>
 			<name>local private nexus</name>
 			<url>http://maven.oschina.net/content/groups/public/</url>
@@ -331,7 +331,7 @@
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>
+		</repository> -->
 	</repositories>
 
 	<build>

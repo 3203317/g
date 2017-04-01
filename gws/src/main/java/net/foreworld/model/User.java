@@ -27,30 +27,23 @@ public class User implements Serializable {
 	/* 推荐人 */
 	private String pid;
 
-	/* only */
 	private String user_name;
 
 	private String user_pass;
 
 	private String real_name;
 
-	/* only */
 	private String mobile;
 
 	/* 昵称 */
-	/* only */
 	private String nickname;
 
-	/* only */
 	private String email;
 
-	/* only */
 	private String alipay_account;
 
-	/* only */
 	private String wx_account;
 
-	/* only */
 	private String qq;
 
 	private Date create_time;
