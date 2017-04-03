@@ -9,6 +9,9 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.http.HttpObjectAggregator;
+import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.stream.ChunkedWriteHandler;
 import net.foreworld.gws.handler.WsServerHandler;
 
 import org.slf4j.Logger;
@@ -42,12 +45,16 @@ public class WsServer extends Server {
 		b.channel(NioServerSocketChannel.class);
 
 		b.option(ChannelOption.SO_BACKLOG, 128);
+		b.option(ChannelOption.SO_KEEPALIVE, true);
 
 		b.childHandler(new ChannelInitializer<Channel>() {
 
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
+				pipe.addLast(new HttpServerCodec());
+				pipe.addLast(new HttpObjectAggregator(65536));
+				pipe.addLast(new ChunkedWriteHandler());
 				pipe.addLast(new WsServerHandler());
 			}
 		});
