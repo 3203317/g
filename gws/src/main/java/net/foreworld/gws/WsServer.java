@@ -44,18 +44,18 @@ public class WsServer extends Server {
 		b.group(bossGroup, workerGroup);
 		b.channel(NioServerSocketChannel.class);
 
-		b.option(ChannelOption.SO_BACKLOG, 128);
-		b.option(ChannelOption.SO_KEEPALIVE, true);
+		b.option(ChannelOption.SO_BACKLOG, 128).option(
+				ChannelOption.SO_KEEPALIVE, true);
 
 		b.childHandler(new ChannelInitializer<Channel>() {
 
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
-				pipe.addLast(new HttpServerCodec());
-				pipe.addLast(new HttpObjectAggregator(65536));
-				pipe.addLast(new ChunkedWriteHandler());
-				pipe.addLast(new WsServerHandler());
+				pipe.addLast("http-codec", new HttpServerCodec());
+				pipe.addLast("aggregator", new HttpObjectAggregator(65536));
+				pipe.addLast("http-chunked", new ChunkedWriteHandler());
+				pipe.addLast("handler", new WsServerHandler());
 			}
 		});
 
