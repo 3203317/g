@@ -1,5 +1,8 @@
 package net.foreworld.gws;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -14,9 +17,6 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import net.foreworld.gws.handler.WsServerHandler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  *
  * @author huangxin <3203317@qq.com>
@@ -24,8 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WsServer extends Server {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(WsServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
 
 	private int port;
 
@@ -35,8 +34,8 @@ public class WsServer extends Server {
 
 	@Override
 	public void start() {
-		EventLoopGroup bossGroup = new NioEventLoopGroup();
-		EventLoopGroup workerGroup = new NioEventLoopGroup();
+		EventLoopGroup bossGroup = new NioEventLoopGroup(8);
+		EventLoopGroup workerGroup = new NioEventLoopGroup(1024);
 
 		ServerBootstrap b = new ServerBootstrap();
 
@@ -44,8 +43,7 @@ public class WsServer extends Server {
 		b.group(bossGroup, workerGroup);
 		b.channel(NioServerSocketChannel.class);
 
-		b.option(ChannelOption.SO_BACKLOG, 128).option(
-				ChannelOption.SO_KEEPALIVE, true);
+		b.option(ChannelOption.SO_BACKLOG, 128).option(ChannelOption.SO_KEEPALIVE, true);
 
 		b.childHandler(new ChannelInitializer<Channel>() {
 
@@ -55,7 +53,7 @@ public class WsServer extends Server {
 				pipe.addLast("http-codec", new HttpServerCodec());
 				pipe.addLast("aggregator", new HttpObjectAggregator(65536));
 				pipe.addLast("http-chunked", new ChunkedWriteHandler());
-				pipe.addLast("handler", new WsServerHandler());
+				pipe.addLast("ws-server-handler", new WsServerHandler());
 			}
 		});
 
