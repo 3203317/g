@@ -11,7 +11,7 @@ import net.foreworld.gws.WsServer;
 public class TestServer {
 
 	public static void main(String[] args) {
-		Server s = new WsServer(9988);
+		Server s = new WsServer(9988, 2, 128);
 		s.start();
 	}
 

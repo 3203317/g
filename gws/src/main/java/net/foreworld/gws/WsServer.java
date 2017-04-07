@@ -27,15 +27,23 @@ public class WsServer extends Server {
 	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
 
 	private int port;
+	private int bossThread;
+	private int workerThread;
 
 	public WsServer(int port) {
 		this.port = port;
 	}
 
+	public WsServer(int port, int bossThread, int workerThread) {
+		this.port = port;
+		this.bossThread = bossThread;
+		this.workerThread = workerThread;
+	}
+
 	@Override
 	public void start() {
-		EventLoopGroup bossGroup = new NioEventLoopGroup(8);
-		EventLoopGroup workerGroup = new NioEventLoopGroup(1024);
+		EventLoopGroup bossGroup = new NioEventLoopGroup(bossThread);
+		EventLoopGroup workerGroup = new NioEventLoopGroup(workerThread);
 
 		ServerBootstrap b = new ServerBootstrap();
 
