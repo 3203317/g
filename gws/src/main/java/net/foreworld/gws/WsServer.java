@@ -93,7 +93,7 @@ public class WsServer extends Server {
 			if (null != f)
 				f.channel().closeFuture().sync();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (null != bossGroup) {
 				bossGroup.shutdownGracefully();
