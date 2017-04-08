@@ -35,15 +35,18 @@ public class WsServer extends Server {
 	}
 
 	public WsServer(int port, int bossThread, int workerThread) {
-		this.port = port;
+		this(port);
 		this.bossThread = bossThread;
 		this.workerThread = workerThread;
 	}
 
+	private ChannelFuture f;
+	private EventLoopGroup bossGroup, workerGroup;
+
 	@Override
 	public void start() {
-		EventLoopGroup bossGroup = new NioEventLoopGroup(bossThread);
-		EventLoopGroup workerGroup = new NioEventLoopGroup(workerThread);
+		bossGroup = new NioEventLoopGroup(bossThread);
+		workerGroup = new NioEventLoopGroup(workerThread);
 
 		ServerBootstrap b = new ServerBootstrap();
 
@@ -51,7 +54,8 @@ public class WsServer extends Server {
 		b.group(bossGroup, workerGroup);
 		b.channel(NioServerSocketChannel.class);
 
-		b.option(ChannelOption.SO_BACKLOG, 128).option(ChannelOption.SO_KEEPALIVE, true);
+		b.option(ChannelOption.SO_BACKLOG, 128);
+		b.option(ChannelOption.SO_KEEPALIVE, true);
 
 		b.childHandler(new ChannelInitializer<Channel>() {
 
@@ -59,20 +63,20 @@ public class WsServer extends Server {
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
 				pipe.addLast("http-codec", new HttpServerCodec());
-				pipe.addLast("aggregator", new HttpObjectAggregator(65536));
+				pipe.addLast("aggregator", new HttpObjectAggregator(64 * 1024)); // 65536
 				pipe.addLast("http-chunked", new ChunkedWriteHandler());
 				pipe.addLast("ws-server-handler", new WsServerHandler());
 			}
 		});
 
 		try {
-			ChannelFuture f = b.bind().sync();
+			f = b.bind().sync();
 			if (f.isSuccess()) {
 				logger.info("start {}", port);
 				f.channel().closeFuture().sync();
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		} finally {
 			if (null != bossGroup) {
 				bossGroup.shutdownGracefully();
@@ -85,6 +89,19 @@ public class WsServer extends Server {
 
 	@Override
 	public void stop() {
+		try {
+			if (null != f)
+				f.channel().closeFuture().sync();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} finally {
+			if (null != bossGroup) {
+				bossGroup.shutdownGracefully();
+			}
+			if (null != workerGroup) {
+				workerGroup.shutdownGracefully();
+			}
+		}
 	}
 
 }
