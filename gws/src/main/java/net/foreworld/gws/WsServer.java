@@ -54,7 +54,7 @@ public class WsServer extends Server {
 		b.group(bossGroup, workerGroup);
 		b.channel(NioServerSocketChannel.class);
 
-		b.option(ChannelOption.SO_BACKLOG, 128);
+		b.option(ChannelOption.SO_BACKLOG, 1024);
 		b.option(ChannelOption.SO_KEEPALIVE, true);
 
 		b.childHandler(new ChannelInitializer<Channel>() {
@@ -73,22 +73,16 @@ public class WsServer extends Server {
 			f = b.bind().sync();
 			if (f.isSuccess()) {
 				logger.info("start {}", port);
-				f.channel().closeFuture().sync();
 			}
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
-			if (null != bossGroup) {
-				bossGroup.shutdownGracefully();
-			}
-			if (null != workerGroup) {
-				workerGroup.shutdownGracefully();
-			}
+			shutdown();
 		}
 	}
 
 	@Override
-	public void stop() {
+	public void shutdown() {
 		try {
 			if (null != f)
 				f.channel().closeFuture().sync();

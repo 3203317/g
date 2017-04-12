@@ -9,10 +9,10 @@ public abstract class Server {
 
 	public abstract void start();
 
-	public abstract void stop();
+	public abstract void shutdown();
 
 	public void restart() {
-		stop();
+		shutdown();
 		start();
 	}
 
