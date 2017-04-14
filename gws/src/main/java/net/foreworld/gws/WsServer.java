@@ -1,5 +1,7 @@
 package net.foreworld.gws;
 
+import java.util.concurrent.TimeUnit;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,7 +16,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import net.foreworld.gws.handler.WsServerHandler;
 
 /**
@@ -56,12 +61,16 @@ public class WsServer extends Server {
 
 		b.option(ChannelOption.SO_BACKLOG, 1024);
 		b.option(ChannelOption.SO_KEEPALIVE, true);
+		b.option(ChannelOption.TCP_NODELAY, false);
+
+		b.handler(new LoggingHandler(LogLevel.INFO));
 
 		b.childHandler(new ChannelInitializer<Channel>() {
 
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
+				pipe.addLast(new IdleStateHandler(30, 15, 3, TimeUnit.SECONDS));
 				pipe.addLast("http-codec", new HttpServerCodec());
 				pipe.addLast("aggregator", new HttpObjectAggregator(64 * 1024)); // 65536
 				pipe.addLast("http-chunked", new ChunkedWriteHandler());
