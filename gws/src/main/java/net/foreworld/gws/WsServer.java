@@ -1,10 +1,5 @@
 package net.foreworld.gws;
 
-import java.util.concurrent.TimeUnit;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -14,13 +9,20 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.http.HttpObjectAggregator;
-import io.netty.handler.codec.http.HttpServerCodec;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-import net.foreworld.gws.handler.WsServerHandler;
+
+import java.util.concurrent.TimeUnit;
+
+import net.foreworld.gws.handler.ChatHandler;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -29,7 +31,8 @@ import net.foreworld.gws.handler.WsServerHandler;
  */
 public class WsServer extends Server {
 
-	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(WsServer.class);
 
 	private int port;
 	private int bossThread;
@@ -71,10 +74,14 @@ public class WsServer extends Server {
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
 				pipe.addLast(new IdleStateHandler(30, 15, 3, TimeUnit.SECONDS));
-				pipe.addLast("http-codec", new HttpServerCodec());
-				pipe.addLast("aggregator", new HttpObjectAggregator(64 * 1024)); // 65536
-				pipe.addLast("http-chunked", new ChunkedWriteHandler());
-				pipe.addLast("ws-server-handler", new WsServerHandler());
+
+				pipe.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters
+						.lineDelimiter()));
+
+				pipe.addLast(new StringDecoder());
+				pipe.addLast(new StringEncoder());
+
+				pipe.addLast("chat-handler", new ChatHandler());
 			}
 		});
 
