@@ -1,5 +1,10 @@
 package net.foreworld.gws;
 
+import java.util.concurrent.TimeUnit;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -16,13 +21,8 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.concurrent.TimeUnit;
-
 import net.foreworld.gws.handler.ChatHandler;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import net.foreworld.gws.handler.CloseHandler;
 
 /**
  *
@@ -31,8 +31,7 @@ import org.slf4j.LoggerFactory;
  */
 public class WsServer extends Server {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(WsServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
 
 	private int port;
 	private int bossThread;
@@ -62,7 +61,7 @@ public class WsServer extends Server {
 		b.group(bossGroup, workerGroup);
 		b.channel(NioServerSocketChannel.class);
 
-		b.option(ChannelOption.SO_BACKLOG, 1024);
+		b.option(ChannelOption.SO_BACKLOG, 2);
 		b.option(ChannelOption.SO_KEEPALIVE, true);
 		b.option(ChannelOption.TCP_NODELAY, false);
 
@@ -73,15 +72,15 @@ public class WsServer extends Server {
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
-				pipe.addLast(new IdleStateHandler(30, 15, 3, TimeUnit.SECONDS));
+				pipe.addLast(new IdleStateHandler(9, 6, 3, TimeUnit.SECONDS));
 
-				pipe.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters
-						.lineDelimiter()));
+				pipe.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
 
 				pipe.addLast(new StringDecoder());
 				pipe.addLast(new StringEncoder());
 
 				pipe.addLast("chat-handler", new ChatHandler());
+				pipe.addLast(new CloseHandler());
 			}
 		});
 

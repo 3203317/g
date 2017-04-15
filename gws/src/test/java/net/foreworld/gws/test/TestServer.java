@@ -1,4 +1,4 @@
-package net.foreworld.test;
+package net.foreworld.gws.test;
 
 import net.foreworld.gws.Server;
 import net.foreworld.gws.WsServer;

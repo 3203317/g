@@ -1,4 +1,4 @@
-package net.foreworld.model;
+package net.foreworld.gws.model;
 
 import java.io.Serializable;
 import java.util.Date;
