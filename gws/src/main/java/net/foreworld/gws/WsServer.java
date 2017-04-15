@@ -21,6 +21,7 @@ import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.CharsetUtil;
 import net.foreworld.gws.handler.ChatHandler;
 import net.foreworld.gws.handler.CloseHandler;
 
@@ -72,11 +73,11 @@ public class WsServer extends Server {
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
-				pipe.addLast(new IdleStateHandler(9, 6, 3, TimeUnit.SECONDS));
 
+				pipe.addLast(new IdleStateHandler(9, 6, 3, TimeUnit.SECONDS));
 				pipe.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
 
-				pipe.addLast(new StringDecoder());
+				pipe.addLast(new StringDecoder(CharsetUtil.UTF_8));
 				pipe.addLast(new StringEncoder());
 
 				pipe.addLast("chat-handler", new ChatHandler());
