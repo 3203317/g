@@ -9,9 +9,19 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
+import io.netty.util.CharsetUtil;
+
+import java.util.concurrent.TimeUnit;
+
 import net.foreworld.gws.handler.CloseHandler;
+import net.foreworld.gws.handler.LoginHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,20 +31,20 @@ import org.slf4j.LoggerFactory;
  * @author huangxin <3203317@qq.com>
  *
  */
-public class WsServer extends Server {
+public class LoginServer extends Server {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(WsServer.class);
+			.getLogger(LoginServer.class);
 
 	private int port;
 	private int bossThread;
 	private int workerThread;
 
-	public WsServer(int port) {
+	public LoginServer(int port) {
 		this.port = port;
 	}
 
-	public WsServer(int port, int bossThread, int workerThread) {
+	public LoginServer(int port, int bossThread, int workerThread) {
 		this(port);
 		this.bossThread = bossThread;
 		this.workerThread = workerThread;
@@ -65,6 +75,15 @@ public class WsServer extends Server {
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
+
+				pipe.addLast(new IdleStateHandler(9, 6, 3, TimeUnit.SECONDS));
+				pipe.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters
+						.lineDelimiter()));
+
+				pipe.addLast(new StringDecoder(CharsetUtil.UTF_8));
+				pipe.addLast(new StringEncoder());
+
+				pipe.addLast("login-handler", new LoginHandler());
 				pipe.addLast(new CloseHandler());
 			}
 		});

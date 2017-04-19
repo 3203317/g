@@ -1,7 +1,5 @@
 package net.foreworld.gws.test;
 
-import net.foreworld.gws.TimeClient;
-
 /**
  *
  * @author huangxin
@@ -16,7 +14,6 @@ public class TestClient {
 			port = Integer.valueOf(args[0]);
 		}
 
-		new TimeClient(port, "127.0.0.1");
 	}
 
 }

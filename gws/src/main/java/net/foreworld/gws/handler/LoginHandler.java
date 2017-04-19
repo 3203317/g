@@ -1,21 +1,21 @@
 package net.foreworld.gws.handler;
 
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelOutboundHandlerAdapter;
-import io.netty.channel.ChannelPromise;
+import io.netty.channel.SimpleChannelInboundHandler;
+import net.foreworld.gws.model.Login;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author huangxin <3203317@qq.com>
+ * @author huangxin
  *
  */
-public class CloseHandler extends ChannelOutboundHandlerAdapter {
+public class LoginHandler extends SimpleChannelInboundHandler<Login> {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(CloseHandler.class);
+			.getLogger(LoginHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -24,9 +24,10 @@ public class CloseHandler extends ChannelOutboundHandlerAdapter {
 	}
 
 	@Override
-	public void close(ChannelHandlerContext ctx, ChannelPromise promise) {
-		logger.info("close channel");
-		ctx.close(promise);
+	protected void channelRead0(ChannelHandlerContext ctx, Login msg)
+			throws Exception {
+		// TODO Auto-generated method stub
+
 	}
 
 }
