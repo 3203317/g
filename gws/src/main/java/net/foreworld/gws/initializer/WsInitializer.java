@@ -24,7 +24,7 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(new HttpServerCodec());
 		pipe.addLast(new ChunkedWriteHandler());
 		pipe.addLast(new HttpObjectAggregator(1024 * 64));
-		pipe.addLast(new WebSocketServerProtocolHandler("/chat"));
+		pipe.addLast(new WebSocketServerProtocolHandler("/ws"));
 
 	}
 

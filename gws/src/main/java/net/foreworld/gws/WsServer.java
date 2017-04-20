@@ -3,6 +3,8 @@ package net.foreworld.gws;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -20,20 +22,24 @@ import net.foreworld.gws.initializer.WsInitializer;
  * @author huangxin <3203317@qq.com>
  *
  */
+@PropertySource("classpath:server.properties")
 @Component
 public class WsServer extends Server {
 
 	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
 
+	@Value("${server.port:1234}")
 	private int port;
+	@Value("${server.bossThread:2}")
 	private int bossThread;
+	@Value("${server.workerThread:8}")
 	private int workerThread;
 
 	@Autowired
 	private WsInitializer wsInitializer;
 
 	public WsServer() {
-		this.port = 9988;
+
 	}
 
 	public WsServer(int port) {
