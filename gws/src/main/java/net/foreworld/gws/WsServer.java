@@ -32,6 +32,10 @@ public class WsServer extends Server {
 	@Autowired
 	private WsInitializer wsInitializer;
 
+	public WsServer() {
+		this.port = 9988;
+	}
+
 	public WsServer(int port) {
 		this.port = port;
 	}
@@ -63,7 +67,7 @@ public class WsServer extends Server {
 
 		b.handler(new LoggingHandler(LogLevel.INFO));
 
-		b.childHandler(new WsInitializer());
+		b.childHandler(wsInitializer);
 
 		try {
 			f = b.bind().sync();
