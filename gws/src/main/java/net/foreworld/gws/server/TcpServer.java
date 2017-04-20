@@ -15,7 +15,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import net.foreworld.gws.initializer.WsInitializer;
+import net.foreworld.gws.initializer.TcpInitializer;
 
 /**
  *
@@ -36,7 +36,7 @@ public class TcpServer extends Server {
 	private int workerThread;
 
 	@Autowired
-	private WsInitializer wsInitializer;
+	private TcpInitializer tcpInitializer;
 
 	public TcpServer() {
 
@@ -73,12 +73,12 @@ public class TcpServer extends Server {
 
 		b.handler(new LoggingHandler(LogLevel.INFO));
 
-		b.childHandler(wsInitializer);
+		b.childHandler(tcpInitializer);
 
 		try {
 			f = b.bind().sync();
 			if (f.isSuccess()) {
-				logger.info("start {}", port);
+				logger.info("start tcp {}", port);
 			}
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage(), e);
