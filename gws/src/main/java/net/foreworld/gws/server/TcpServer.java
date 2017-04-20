@@ -1,4 +1,4 @@
-package net.foreworld.gws;
+package net.foreworld.gws.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +24,9 @@ import net.foreworld.gws.initializer.WsInitializer;
  */
 @PropertySource("classpath:server.properties")
 @Component
-public class WsServer extends Server {
+public class TcpServer extends Server {
 
-	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(TcpServer.class);
 
 	@Value("${server.port:1234}")
 	private int port;
@@ -38,15 +38,15 @@ public class WsServer extends Server {
 	@Autowired
 	private WsInitializer wsInitializer;
 
-	public WsServer() {
+	public TcpServer() {
 
 	}
 
-	public WsServer(int port) {
+	public TcpServer(int port) {
 		this.port = port;
 	}
 
-	public WsServer(int port, int bossThread, int workerThread) {
+	public TcpServer(int port, int bossThread, int workerThread) {
 		this(port);
 		this.bossThread = bossThread;
 		this.workerThread = workerThread;

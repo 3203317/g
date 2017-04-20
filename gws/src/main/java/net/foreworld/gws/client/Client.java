@@ -1,4 +1,4 @@
-package net.foreworld.gws;
+package net.foreworld.gws.client;
 
 /**
  *

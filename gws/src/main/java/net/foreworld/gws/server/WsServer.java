@@ -1,50 +1,52 @@
-package net.foreworld.gws;
-
-import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
-import io.netty.handler.timeout.IdleStateHandler;
-import io.netty.util.CharsetUtil;
-
-import java.util.concurrent.TimeUnit;
-
-import net.foreworld.gws.handler.CloseHandler;
-import net.foreworld.gws.handler.LoginHandler;
+package net.foreworld.gws.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
+import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelOption;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
+import net.foreworld.gws.initializer.WsInitializer;
 
 /**
  *
  * @author huangxin <3203317@qq.com>
  *
  */
-public class LoginServer extends Server {
+@PropertySource("classpath:server.properties")
+@Component
+public class WsServer extends Server {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
 
+	@Value("${server.port:1234}")
 	private int port;
+	@Value("${server.bossThread:2}")
 	private int bossThread;
+	@Value("${server.workerThread:8}")
 	private int workerThread;
 
-	public LoginServer(int port) {
+	@Autowired
+	private WsInitializer wsInitializer;
+
+	public WsServer() {
+
+	}
+
+	public WsServer(int port) {
 		this.port = port;
 	}
 
-	public LoginServer(int port, int bossThread, int workerThread) {
+	public WsServer(int port, int bossThread, int workerThread) {
 		this(port);
 		this.bossThread = bossThread;
 		this.workerThread = workerThread;
@@ -55,6 +57,7 @@ public class LoginServer extends Server {
 
 	@Override
 	public void start() {
+
 		bossGroup = new NioEventLoopGroup(bossThread);
 		workerGroup = new NioEventLoopGroup(workerThread);
 
@@ -70,23 +73,7 @@ public class LoginServer extends Server {
 
 		b.handler(new LoggingHandler(LogLevel.INFO));
 
-		b.childHandler(new ChannelInitializer<Channel>() {
-
-			@Override
-			protected void initChannel(Channel ch) throws Exception {
-				ChannelPipeline pipe = ch.pipeline();
-
-				pipe.addLast(new IdleStateHandler(9, 6, 3, TimeUnit.SECONDS));
-				pipe.addLast(new DelimiterBasedFrameDecoder(8192, Delimiters
-						.lineDelimiter()));
-
-				pipe.addLast(new StringDecoder(CharsetUtil.UTF_8));
-				pipe.addLast(new StringEncoder());
-
-				pipe.addLast("login-handler", new LoginHandler());
-				pipe.addLast(new CloseHandler());
-			}
-		});
+		b.childHandler(wsInitializer);
 
 		try {
 			f = b.bind().sync();
