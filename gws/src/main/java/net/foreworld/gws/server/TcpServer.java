@@ -83,24 +83,25 @@ public class TcpServer extends Server {
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
-			shutdown();
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					shutdown();
+				}
+			});
 		}
 	}
 
 	@Override
 	public void shutdown() {
-		try {
-			if (null != f)
-				f.channel().closeFuture().sync();
-		} catch (InterruptedException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (null != bossGroup) {
-				bossGroup.shutdownGracefully();
-			}
-			if (null != workerGroup) {
-				workerGroup.shutdownGracefully();
-			}
+		if (null != f) {
+			f.channel().close().syncUninterruptibly();
+		}
+		if (null != bossGroup) {
+			bossGroup.shutdownGracefully();
+		}
+		if (null != workerGroup) {
+			workerGroup.shutdownGracefully();
 		}
 	}
 
