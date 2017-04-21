@@ -34,6 +34,8 @@ public class TcpServer extends Server {
 	private int bossThread;
 	@Value("${server.workerThread:8}")
 	private int workerThread;
+	@Value("${server.so.backlog:1024}")
+	private int so_backlog;
 
 	@Autowired
 	private TcpInitializer tcpInitializer;
@@ -68,9 +70,9 @@ public class TcpServer extends Server {
 		b.group(bossGroup, workerGroup);
 		b.channel(NioServerSocketChannel.class);
 
-		b.option(ChannelOption.SO_BACKLOG, 2);
+		b.option(ChannelOption.SO_BACKLOG, so_backlog);
 		b.option(ChannelOption.SO_KEEPALIVE, true);
-		b.option(ChannelOption.TCP_NODELAY, false);
+		b.option(ChannelOption.TCP_NODELAY, true);
 
 		b.handler(new LoggingHandler(LogLevel.INFO));
 

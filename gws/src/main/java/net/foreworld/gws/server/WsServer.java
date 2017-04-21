@@ -34,6 +34,8 @@ public class WsServer extends Server {
 	private int bossThread;
 	@Value("${server.workerThread:8}")
 	private int workerThread;
+	@Value("${server.so.backlog:1024}")
+	private int so_backlog;
 
 	@Autowired
 	private WsInitializer wsInitializer;
@@ -68,7 +70,7 @@ public class WsServer extends Server {
 		b.group(bossGroup, workerGroup);
 		b.channel(NioServerSocketChannel.class);
 
-		b.option(ChannelOption.SO_BACKLOG, 2);
+		b.option(ChannelOption.SO_BACKLOG, so_backlog);
 		b.option(ChannelOption.SO_KEEPALIVE, true);
 		b.option(ChannelOption.TCP_NODELAY, false);
 
