@@ -48,7 +48,7 @@ public class TcpClient extends Client {
 	private EventLoopGroup workerGroup;
 
 	@Autowired
-	private TimeClientHandler timeHandler;
+	private TimeClientHandler timeClientHandler;
 
 	@Override
 	public void start() {
@@ -74,7 +74,7 @@ public class TcpClient extends Client {
 				ByteBuf delimiter = Unpooled.copiedBuffer("$_".getBytes());
 				pipe.addLast(new DelimiterBasedFrameDecoder(1024, delimiter));
 				pipe.addLast(new StringDecoder());
-				pipe.addLast(timeHandler);
+				pipe.addLast(timeClientHandler);
 			}
 		});
 
