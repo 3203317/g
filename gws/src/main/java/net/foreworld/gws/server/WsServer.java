@@ -43,6 +43,7 @@ public class WsServer extends Server {
 	}
 
 	public WsServer(int port) {
+		this();
 		this.port = port;
 	}
 

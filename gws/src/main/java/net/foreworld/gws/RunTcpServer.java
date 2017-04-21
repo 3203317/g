@@ -1,5 +1,7 @@
 package net.foreworld.gws;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,6 +19,8 @@ import net.foreworld.gws.server.TcpServer;
 @ComponentScan("net.foreworld.gws")
 public class RunTcpServer implements CommandLineRunner {
 
+	private static final Logger logger = LoggerFactory.getLogger(RunTcpServer.class);
+
 	@Autowired
 	private TcpServer tcpServer;
 
@@ -29,7 +33,7 @@ public class RunTcpServer implements CommandLineRunner {
 			tcpServer.start();
 			Thread.currentThread().join();
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage(), e);
 		}
 	}
 

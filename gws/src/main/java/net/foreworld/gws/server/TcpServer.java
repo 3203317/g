@@ -43,6 +43,7 @@ public class TcpServer extends Server {
 	}
 
 	public TcpServer(int port) {
+		this();
 		this.port = port;
 	}
 
