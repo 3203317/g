@@ -1,0 +1,14 @@
+syntax = "proto2";
+
+package gws;
+
+option java_package = "net.foreworld.gws.protobuf";
+option java_outer_classname = "Msg";
+
+message MsgProtobuf {
+  required string version = 1;
+  required string method = 2;
+  required string token = 3;
+  required string seqId = 4;
+  required string body = 5;
+}
