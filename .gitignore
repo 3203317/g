@@ -48,3 +48,6 @@ node_modules
 **/webapp/logs/*.*
 **/WEB-INF/classes/**
 **/WEB-INF/classes/**/*.*
+
+
+*.exe

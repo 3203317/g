@@ -1,0 +1,11 @@
+syntax = "proto2";
+
+package gws;
+
+option java_package = "net.foreworld.gws.protobuf";
+option java_outer_classname = "Login";
+
+message LoginProtobuf {
+  required string user_name = 1;
+  required string user_pass = 2;
+}
