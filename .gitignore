@@ -53,5 +53,4 @@ node_modules
 *.exe
 
 
-**/net/foreworld/gws/protobuf/**
-**/net/foreworld/gws/protobuf/**/*.*
+**/net/foreworld/gws/protobuf/*.*
