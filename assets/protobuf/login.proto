@@ -5,7 +5,13 @@ package gws;
 option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Login";
 
-message LoginProtobuf {
+message LoginRequest {
   required string user_name = 1;
   required string user_pass = 2;
+}
+
+message LoginResponse {
+  required bool success = 1 [default=false];
+  optional string msg = 2;
+  optional string code = 3;
 }
