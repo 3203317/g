@@ -1,15 +1,6 @@
 package net.foreworld.gws.client;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
-
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -18,11 +9,21 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.protobuf.ProtobufDecoder;
+import io.netty.handler.codec.protobuf.ProtobufEncoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
+import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import net.foreworld.gws.handler.TimeClientHandler;
+import net.foreworld.gws.protobuf.Login;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -33,7 +34,8 @@ import net.foreworld.gws.handler.TimeClientHandler;
 @Component
 public class TcpClient extends Client {
 
-	private static final Logger logger = LoggerFactory.getLogger(TcpClient.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(TcpClient.class);
 
 	@Value("${server.port:1234}")
 	private int port;
@@ -71,9 +73,11 @@ public class TcpClient extends Client {
 			protected void initChannel(Channel ch) throws Exception {
 				ChannelPipeline pipe = ch.pipeline();
 
-				ByteBuf delimiter = Unpooled.copiedBuffer("$_".getBytes());
-				pipe.addLast(new DelimiterBasedFrameDecoder(1024, delimiter));
-				pipe.addLast(new StringDecoder());
+				pipe.addLast(new ProtobufVarint32FrameDecoder());
+				pipe.addLast(new ProtobufDecoder(Login.LoginResponse
+						.getDefaultInstance()));
+				pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
+				pipe.addLast(new ProtobufEncoder());
 				pipe.addLast(timeClientHandler);
 			}
 		});

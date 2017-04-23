@@ -1,12 +1,5 @@
 package net.foreworld.gws.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -17,6 +10,13 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import net.foreworld.gws.initializer.TcpInitializer;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
 /**
  *
  * @author huangxin <3203317@qq.com>
@@ -26,7 +26,8 @@ import net.foreworld.gws.initializer.TcpInitializer;
 @Component
 public class TcpServer extends Server {
 
-	private static final Logger logger = LoggerFactory.getLogger(TcpServer.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(TcpServer.class);
 
 	@Value("${server.port:1234}")
 	private int port;
@@ -74,7 +75,7 @@ public class TcpServer extends Server {
 		b.option(ChannelOption.SO_KEEPALIVE, true);
 		b.option(ChannelOption.TCP_NODELAY, true);
 
-		b.handler(new LoggingHandler(LogLevel.INFO));
+		b.handler(new LoggingHandler(LogLevel.DEBUG));
 
 		b.childHandler(tcpInitializer);
 

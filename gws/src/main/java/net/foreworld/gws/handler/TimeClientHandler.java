@@ -1,13 +1,13 @@
 package net.foreworld.gws.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import net.foreworld.gws.protobuf.Login;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -18,7 +18,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 @Sharable
 public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
-	private static final Logger logger = LoggerFactory.getLogger(TimeClientHandler.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(TimeClientHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -28,9 +29,11 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-		for (int i = 0; i < 10; i++) {
-			ctx.writeAndFlush(Unpooled.copiedBuffer(("hello " + i + "$_").getBytes()));
-		}
+		Login.LoginRequest.Builder loginInfo = Login.LoginRequest.newBuilder();
+		loginInfo.setUserName("" + Math.random());
+		loginInfo.setUserPass("" + System.currentTimeMillis());
+
+		ctx.writeAndFlush(loginInfo.build());
 	}
 
 	@Override

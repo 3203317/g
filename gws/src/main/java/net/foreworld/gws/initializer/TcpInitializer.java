@@ -27,11 +27,13 @@ public class TcpInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Override
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
+
 		pipe.addLast(new ProtobufVarint32FrameDecoder());
 		pipe.addLast(new ProtobufDecoder(Login.LoginRequest
 				.getDefaultInstance()));
 		pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 		pipe.addLast(new ProtobufEncoder());
+		pipe.addLast(new TimeHandler());
 	}
 
 }
