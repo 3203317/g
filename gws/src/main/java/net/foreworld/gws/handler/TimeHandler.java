@@ -34,7 +34,7 @@ public class TimeHandler extends ChannelInboundHandlerAdapter {
 
 		Login.LoginResponse.Builder resp = Login.LoginResponse.newBuilder();
 		resp.setSuccess(true);
-		resp.setCode("001");
+		resp.setCode(login.getUserName());
 		resp.setMsg("登陆成功");
 		ctx.writeAndFlush(resp);
 	}
