@@ -3,7 +3,6 @@ syntax = "proto2";
 package gws;
 
 option java_package = "net.foreworld.gws.protobuf";
-option java_outer_classname = "ErrorProtobuf";
 
 message Error {
   required string code = 1;

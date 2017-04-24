@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-package gws.method;
+package gws;
 
 import "protobuf/error.proto";
 
@@ -12,7 +12,7 @@ message Request {
   required uint32 method = 2;
   required string token = 3;
   required string seqId = 4;
-  required bytes params = 5;
+  optional bytes params = 5;
 }
 
 message Response {

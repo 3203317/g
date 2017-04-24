@@ -1,30 +1,37 @@
 package net.foreworld.gws.codec;
 
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToMessageCodec;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import java.util.List;
+
+import net.foreworld.gws.protobuf.Method.Request;
+import net.foreworld.gws.protobuf.Method.Response;
+
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author huangxin
  *
  */
-public class MsgCodec extends MessageToMessageCodec<TextWebSocketFrame, Object> {
+@Component
+@Sharable
+public class MsgCodec extends MessageToMessageCodec<Request, Response> {
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, Object msg,
+	protected void encode(ChannelHandlerContext ctx, Response msg,
 			List<Object> out) throws Exception {
-		// TODO Auto-generated method stub
+
+		out.add(msg);
 
 	}
 
 	@Override
-	protected void decode(ChannelHandlerContext ctx, TextWebSocketFrame msg,
+	protected void decode(ChannelHandlerContext ctx, Request msg,
 			List<Object> out) throws Exception {
-		// TODO Auto-generated method stub
-
+		out.add(msg);
 	}
 
 }
