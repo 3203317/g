@@ -1,0 +1,19 @@
+syntax = "proto2";
+
+package gws.model;
+
+option java_package = "net.foreworld.gws.protobuf.model";
+option java_outer_classname = "User";
+
+message UserProtobuf {
+  required string id = 1;
+  required string user_name = 2;
+  optional string user_pass = 3;
+
+  enum Sex {
+    MALE = 1;
+    FEMALE = 2;
+  }
+
+  optional Sex sex = 4;
+}

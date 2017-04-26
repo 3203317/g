@@ -2,21 +2,22 @@ syntax = "proto2";
 
 package gws;
 
-import "protobuf/error.proto";
-
 option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Method";
 
-message Request {
-  required int32 version = 1 [default = 1];
+message RequestProtobuf {
+  required uint32 version = 1 [default = 1];
   required uint32 method = 2;
-  required string token = 3;
-  required string seqId = 4;
-  optional bytes params = 5;
+  required string seqId = 3;
+  required uint32 timestamp = 4;
+  optional string token = 5;
+  optional bytes data = 6;
 }
 
-message Response {
-  optional bytes data = 1;
-  optional Error error = 2;
+message ResponseProtobuf {
+  required uint32 version = 1 [default = 1];
+  required uint32 protobuf = 2;
+  required string seqId = 3;
+  required uint32 timestamp = 4;
+  optional bytes data = 5;
 }
-

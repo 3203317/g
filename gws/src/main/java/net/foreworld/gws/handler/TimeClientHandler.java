@@ -29,7 +29,8 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-		Method.Request.Builder req = Method.Request.newBuilder();
+		Method.RequestProtobuf.Builder req = Method.RequestProtobuf
+				.newBuilder();
 		req.setVersion(101);
 		req.setMethod(202);
 		req.setSeqId("" + Math.random());
