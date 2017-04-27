@@ -5,10 +5,13 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.foreworld.gws.protobuf.Method;
 import net.foreworld.gws.protobuf.method.user.Login;
+import net.foreworld.gws.protobuf.model.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -54,6 +57,14 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-		logger.info(msg.toString());
+		Method.ResponseProtobuf req = (Method.ResponseProtobuf) msg;
+		logger.info(req.getSeqId() + "");
+
+		try {
+			User.UserProtobuf user = User.UserProtobuf.parseFrom(req.getData());
+			logger.info(user.getId() + ":" + user.getUserName());
+		} catch (InvalidProtocolBufferException e) {
+			logger.error("InvalidProtocolBufferException", e);
+		}
 	}
 }

@@ -3,8 +3,12 @@ package net.foreworld.gws.handler;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+
+import java.util.UUID;
+
 import net.foreworld.gws.protobuf.Method;
 import net.foreworld.gws.protobuf.method.user.Login;
+import net.foreworld.gws.protobuf.model.User;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -50,6 +54,12 @@ public class EchoHandler extends ChannelInboundHandlerAdapter {
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("InvalidProtocolBufferException", e);
 		}
+
+		User.UserProtobuf.Builder user = User.UserProtobuf.newBuilder();
+		user.setUserName("王莹");
+		user.setId(UUID.randomUUID().toString());
+
+		resp.setData(user.build().toByteString());
 
 		ctx.writeAndFlush(resp);
 	}
