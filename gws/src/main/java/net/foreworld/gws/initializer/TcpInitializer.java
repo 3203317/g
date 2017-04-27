@@ -11,7 +11,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import javax.annotation.Resource;
 
 import net.foreworld.gws.codec.MsgCodec;
-import net.foreworld.gws.handler.TimeHandler;
+import net.foreworld.gws.handler.EchoHandler;
 import net.foreworld.gws.protobuf.Method;
 
 import org.springframework.stereotype.Component;
@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class TcpInitializer extends ChannelInitializer<NioSocketChannel> {
 
-	@Resource(name = "timeHandler")
-	private TimeHandler timeHandler;
+	@Resource(name = "echoHandler")
+	private EchoHandler echoHandler;
 
 	@Resource(name = "msgCodec")
 	private MsgCodec msgCodec;
@@ -41,7 +41,7 @@ public class TcpInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(new ProtobufEncoder());
 
 		pipe.addLast(msgCodec);
-		pipe.addLast(timeHandler);
+		pipe.addLast(echoHandler);
 	}
 
 }

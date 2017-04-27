@@ -15,12 +15,14 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
-import net.foreworld.gws.handler.TimeClientHandler;
+
+import javax.annotation.Resource;
+
+import net.foreworld.gws.client.handler.LoginHandler;
 import net.foreworld.gws.protobuf.Method;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
@@ -49,8 +51,8 @@ public class TcpClient extends Client {
 	private ChannelFuture f;
 	private EventLoopGroup workerGroup;
 
-	@Autowired
-	private TimeClientHandler timeClientHandler;
+	@Resource(name = "loginHandler")
+	private LoginHandler loginHandler;
 
 	@Override
 	public void start() {
@@ -76,10 +78,10 @@ public class TcpClient extends Client {
 				pipe.addLast(new ProtobufVarint32FrameDecoder());
 				pipe.addLast(new ProtobufDecoder(Method.ResponseProtobuf
 						.getDefaultInstance()));
-
 				pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 				pipe.addLast(new ProtobufEncoder());
-				pipe.addLast(timeClientHandler);
+
+				pipe.addLast(loginHandler);
 			}
 		});
 

@@ -1,14 +1,15 @@
 package net.foreworld.gws;
 
+import javax.annotation.Resource;
+
+import net.foreworld.gws.server.TcpServer;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-
-import net.foreworld.gws.server.TcpServer;
 
 /**
  *
@@ -19,9 +20,10 @@ import net.foreworld.gws.server.TcpServer;
 @ComponentScan("net.foreworld.gws")
 public class RunTcpServer implements CommandLineRunner {
 
-	private static final Logger logger = LoggerFactory.getLogger(RunTcpServer.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(RunTcpServer.class);
 
-	@Autowired
+	@Resource(name = "tcpServer")
 	private TcpServer tcpServer;
 
 	public static void main(String[] args) {

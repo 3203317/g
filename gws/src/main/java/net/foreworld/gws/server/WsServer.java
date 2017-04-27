@@ -1,12 +1,5 @@
 package net.foreworld.gws.server;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
-
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelOption;
@@ -15,7 +8,16 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+
+import javax.annotation.Resource;
+
 import net.foreworld.gws.initializer.WsInitializer;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -26,7 +28,8 @@ import net.foreworld.gws.initializer.WsInitializer;
 @Component
 public class WsServer extends Server {
 
-	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(WsServer.class);
 
 	@Value("${server.port:1234}")
 	private int port;
@@ -37,7 +40,7 @@ public class WsServer extends Server {
 	@Value("${server.so.backlog:1024}")
 	private int so_backlog;
 
-	@Autowired
+	@Resource(name = "wsInitializer")
 	private WsInitializer wsInitializer;
 
 	public WsServer() {

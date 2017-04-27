@@ -1,9 +1,10 @@
-package net.foreworld.gws.handler;
+package net.foreworld.gws.client.handler;
 
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.method.user.Login;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,10 +17,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Sharable
-public class TimeClientHandler extends ChannelInboundHandlerAdapter {
+public class LoginHandler extends ChannelInboundHandlerAdapter {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(TimeClientHandler.class);
+			.getLogger(LoginHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -32,10 +33,16 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 		Method.RequestProtobuf.Builder req = Method.RequestProtobuf
 				.newBuilder();
 		req.setVersion(101);
-		req.setMethod(202);
-		req.setSeqId(10L);
-		req.setTimestamp(123);
-		req.setToken("" + System.currentTimeMillis());
+		req.setMethod(1);
+		req.setSeqId(56);
+		req.setTimestamp(System.currentTimeMillis());
+
+		Login.RequestProtobuf.Builder login = Login.RequestProtobuf
+				.newBuilder();
+		login.setUserName("黄鑫");
+		login.setUserPass("123456hx");
+
+		req.setData(login.build().toByteString());
 
 		ctx.writeAndFlush(req.build());
 	}
@@ -47,6 +54,6 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-		System.out.println(msg.toString());
+		logger.info(msg.toString());
 	}
 }

@@ -4,10 +4,13 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.method.user.Login;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -16,10 +19,10 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Sharable
-public class TimeHandler extends ChannelInboundHandlerAdapter {
+public class EchoHandler extends ChannelInboundHandlerAdapter {
 
 	private static final Logger logger = LoggerFactory
-			.getLogger(TimeHandler.class);
+			.getLogger(EchoHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -30,7 +33,7 @@ public class TimeHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		Method.RequestProtobuf req = (Method.RequestProtobuf) msg;
-		logger.info(req.getSeqId() + ":" + req.getToken());
+		logger.info(req.getSeqId() + ":" + req.getTimestamp());
 
 		Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf
 				.newBuilder();
@@ -39,6 +42,14 @@ public class TimeHandler extends ChannelInboundHandlerAdapter {
 		resp.setMethod(req.getMethod());
 		resp.setSeqId(req.getSeqId() + 1);
 		resp.setTimestamp(req.getTimestamp());
+
+		try {
+			Login.RequestProtobuf login = Login.RequestProtobuf.parseFrom(req
+					.getData());
+			logger.info(login.getUserName() + ":" + login.getUserPass());
+		} catch (InvalidProtocolBufferException e) {
+			logger.error("InvalidProtocolBufferException", e);
+		}
 
 		ctx.writeAndFlush(resp);
 	}
