@@ -33,7 +33,8 @@ public class TimeClientHandler extends ChannelInboundHandlerAdapter {
 				.newBuilder();
 		req.setVersion(101);
 		req.setMethod(202);
-		req.setSeqId("" + Math.random());
+		req.setSeqId(10L);
+		req.setTimestamp(123);
 		req.setToken("" + System.currentTimeMillis());
 
 		ctx.writeAndFlush(req.build());

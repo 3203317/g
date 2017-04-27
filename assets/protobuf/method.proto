@@ -8,7 +8,7 @@ option java_outer_classname = "Method";
 message RequestProtobuf {
   required uint32 version = 1 [default = 1];
   required uint32 method = 2;
-  required string seqId = 3;
+  required uint64 seqId = 3;
   required uint32 timestamp = 4;
   optional string token = 5;
   optional bytes data = 6;
@@ -16,8 +16,8 @@ message RequestProtobuf {
 
 message ResponseProtobuf {
   required uint32 version = 1 [default = 1];
-  required uint32 protobuf = 2;
-  required string seqId = 3;
+  required uint32 method = 2;
+  required uint64 seqId = 3;
   required uint32 timestamp = 4;
   optional bytes data = 5;
 }

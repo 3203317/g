@@ -3,7 +3,6 @@ package net.foreworld.gws.handler;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import net.foreworld.gws.protobuf.ErrorOuterClass;
 import net.foreworld.gws.protobuf.Method;
 
 import org.slf4j.Logger;
@@ -30,15 +29,16 @@ public class TimeHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-		Method.Request req = (Method.Request) msg;
+		Method.RequestProtobuf req = (Method.RequestProtobuf) msg;
 		logger.info(req.getSeqId() + ":" + req.getToken());
 
-		Method.Response.Builder resp = Method.Response.newBuilder();
+		Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf
+				.newBuilder();
 
-		ErrorOuterClass.Error.Builder err = ErrorOuterClass.Error.newBuilder();
-		err.setCode(req.getSeqId());
-
-		resp.setError(err);
+		resp.setVersion(req.getVersion());
+		resp.setMethod(req.getMethod());
+		resp.setSeqId(req.getSeqId() + 1);
+		resp.setTimestamp(req.getTimestamp());
 
 		ctx.writeAndFlush(resp);
 	}

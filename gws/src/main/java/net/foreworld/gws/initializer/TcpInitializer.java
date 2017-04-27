@@ -35,7 +35,8 @@ public class TcpInitializer extends ChannelInitializer<NioSocketChannel> {
 		ChannelPipeline pipe = ch.pipeline();
 
 		pipe.addLast(new ProtobufVarint32FrameDecoder());
-		pipe.addLast(new ProtobufDecoder(Method.Request.getDefaultInstance()));
+		pipe.addLast(new ProtobufDecoder(Method.RequestProtobuf
+				.getDefaultInstance()));
 		pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 		pipe.addLast(new ProtobufEncoder());
 

@@ -6,8 +6,8 @@ import io.netty.handler.codec.MessageToMessageCodec;
 
 import java.util.List;
 
-import net.foreworld.gws.protobuf.Method.Request;
-import net.foreworld.gws.protobuf.Method.Response;
+import net.foreworld.gws.protobuf.Method.RequestProtobuf;
+import net.foreworld.gws.protobuf.Method.ResponseProtobuf;
 
 import org.springframework.stereotype.Component;
 
@@ -18,18 +18,17 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Sharable
-public class MsgCodec extends MessageToMessageCodec<Request, Response> {
+public class MsgCodec extends
+		MessageToMessageCodec<RequestProtobuf, ResponseProtobuf> {
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, Response msg,
+	protected void encode(ChannelHandlerContext ctx, ResponseProtobuf msg,
 			List<Object> out) throws Exception {
-
 		out.add(msg);
-
 	}
 
 	@Override
-	protected void decode(ChannelHandlerContext ctx, Request msg,
+	protected void decode(ChannelHandlerContext ctx, RequestProtobuf msg,
 			List<Object> out) throws Exception {
 		out.add(msg);
 	}

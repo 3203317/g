@@ -74,7 +74,7 @@ public class TcpClient extends Client {
 				ChannelPipeline pipe = ch.pipeline();
 
 				pipe.addLast(new ProtobufVarint32FrameDecoder());
-				pipe.addLast(new ProtobufDecoder(Method.Response
+				pipe.addLast(new ProtobufDecoder(Method.ResponseProtobuf
 						.getDefaultInstance()));
 
 				pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
