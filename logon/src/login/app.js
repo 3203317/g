@@ -15,8 +15,6 @@ const express = require('express'),
 const macros = require('./lib/macro'),
       conf = require('./settings');
 
-const biz = require('emag.biz');
-
 const app = express();
 
 /* all environments */

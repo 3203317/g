@@ -1,5 +1,5 @@
 {
-  "name": "oauth2.authorize",
+  "name": "emag.login",
   "version": "0.0.1",
   "private": true,
   "scripts": {

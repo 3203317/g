@@ -5,10 +5,9 @@
  */
 'use strict';
 
-const authorize = require('../controllers/authorize');
 const login = require('../controllers/login');
 
 module.exports = function(app){
-  app.post('/', authorize.index_params, authorize.index);
-  app.get('/', login.indexUI_params, login.indexUI);
+  app.get('/user/login$', login.indexUI);
+  app.post('/user/login$', login.index);
 };
