@@ -18,7 +18,7 @@
 						<div class='panel-heading'><b>游客登陆</b></div>
 						<div class='panel-body'>
 							<div class='col-md-5 col-sm-6'>
-								<form class='form-horizontal' role='form' id='logFrm' method='post' onsubmit='return false;' data-url='login'>
+								<form class='form-horizontal' role='form' id='logFrm' onsubmit='return push();' data-url='login'>
 									<div class='form-group'>
 										<label for='logFrm_user_name' class='col-sm-3 control-label'>帐号</label>
 										<div class='col-sm-9'>
@@ -33,7 +33,7 @@
 									</div>
 									<div class='form-group'>
 										<div class='col-sm-offset-3 col-sm-4'>
-											<button id='btn_log' type='submit' class='btn btn-primary'>立即登陆</button>
+											<button type='submit' class='btn btn-primary'>立即登陆</button>
 										</div>
 										<label class='col-sm-5 control-label'><a style='text-decoration:underline' href='javascript:;'>忘记密码？</a></label>
 									</div>
@@ -71,13 +71,8 @@
     return __d;
   }
 
-  $(function(){
-    $('#btn_log').click(function(){
-      // $('input[name="api_choose"]:checked').each(function(){
-      //   console.log($(this).val())
-      // });
-
-      var data = ser($('#logFrm'));
+  function push(){
+    var data = ser($('#logFrm'));
       $.ajax({
         url: '/user/login',
         type: 'POST',
@@ -89,9 +84,9 @@
         error: function(){
           alert(arguments[2]);
         }
-      });
     });
-  });
+    return false;
+  }
 </script>
 
 	</body>

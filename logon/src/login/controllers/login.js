@@ -21,8 +21,15 @@ exports.indexUI = function(req, res, next){
   });  // render
 };
 
+/**
+ * 1、返回access_token（用于登陆tcp服务器），有效期1分钟
+ */
 exports.index = function(req, res, next){
-  var result = { success: false };
   var query = req.body;
-  res.send(result);
+
+  biz.user.login(query, (err, code, user) => {
+    if(err) return next(err);
+    if(code) return res.send({ error: { code: code } });
+    res.send({ data: user });
+  }); // login
 };
