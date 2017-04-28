@@ -18,43 +18,7 @@
 						<div class='panel-heading'><b>游客登陆</b></div>
 						<div class='panel-body'>
 							<div class='col-md-5 col-sm-6'>
-								<form class='form-horizontal' role='form' id='logFrm' method='post' action=''>
-									<div class='form-group' style='display:none'>
-										<label class='col-sm-3 control-label'>ticket</label>
-										<div class='col-sm-9'>
-											<input type='text' class='form-control' name='ticket' value='$!data.ticket'>
-										</div>
-									</div>
-									<div class='form-group' style='display:none'>
-										<label class='col-sm-3 control-label'>response_type</label>
-										<div class='col-sm-9'>
-											<input type='text' class='form-control' name='response_type' value='$!data.query.response_type'>
-										</div>
-									</div>
-									<div class='form-group' style='display:none'>
-										<label class='col-sm-3 control-label'>client_id</label>
-										<div class='col-sm-9'>
-											<input type='text' class='form-control' name='client_id' value='$!data.query.client_id'>
-										</div>
-									</div>
-									<div class='form-group' style='display:none'>
-										<label class='col-sm-3 control-label'>redirect_uri</label>
-										<div class='col-sm-9'>
-											<input type='text' class='form-control' name='redirect_uri' value='$!data.query.redirect_uri'>
-										</div>
-									</div>
-									<div class='form-group' style='display:none'>
-										<label class='col-sm-3 control-label'>scope</label>
-										<div class='col-sm-9'>
-											<input type='text' class='form-control' name='scope' value='$!data.query.scope'>
-										</div>
-									</div>
-									<div class='form-group' style='display:none'>
-										<label class='col-sm-3 control-label'>state</label>
-										<div class='col-sm-9'>
-											<input type='text' class='form-control' name='state' value='$!data.query.state'>
-										</div>
-									</div>
+								<form class='form-horizontal' role='form' id='logFrm' method='post' onsubmit='return false;' data-url='login'>
 									<div class='form-group'>
 										<label for='logFrm_user_name' class='col-sm-3 control-label'>帐号</label>
 										<div class='col-sm-9'>
@@ -69,14 +33,14 @@
 									</div>
 									<div class='form-group'>
 										<div class='col-sm-offset-3 col-sm-4'>
-											<button id='' type='submit' class='btn btn-primary'>授权并登陆</button>
+											<button id='btn_log' type='submit' class='btn btn-primary'>立即登陆</button>
 										</div>
 										<label class='col-sm-5 control-label'><a style='text-decoration:underline' href='javascript:;'>忘记密码？</a></label>
 									</div>
 								</form>
 							</div>
 							<div class='col-md-offset-1 col-sm-offset-1 col-md-6 col-sm-5'>
-								<div><a href='$!data.user_app.website' target='_blank'>$!data.user_app.app_name</a> 将获得以下权限：</div>
+								<div><a href='javascript:;' target='_blank'></a> 将获得以下权限：</div>
 								<div class='checkbox'>
 									<label>
 										<input disabled type='checkbox' checked id='select_all'> <span style='font-weight:bold'>全选</span>
@@ -115,7 +79,7 @@
 
       var data = ser($('#logFrm'));
       $.ajax({
-        url: '/oauth/2.0/authorize',
+        url: '/user/login',
         type: 'POST',
         dataType: 'JSON',
         data: data,

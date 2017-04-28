@@ -22,7 +22,7 @@ exports.indexUI = function(req, res, next){
 };
 
 exports.index = function(req, res, next){
-  var result = { success: false },
-      data = req._data;
+  var result = { success: false };
+  var query = req.body;
   res.send(result);
 };
