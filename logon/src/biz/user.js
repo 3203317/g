@@ -56,7 +56,7 @@ const server = require('./server');
 exports.login = function(logInfo, cb){
   var self = this;
 
-  this.getByName(logInfo.user_name, (err, doc) => {
+  self.getByName(logInfo.user_name, (err, doc) => {
     if(err) return cb(err);
     if(!doc) return cb(null, '10001');
     if(1 !== doc.status) return cb(null, '10002');
@@ -78,8 +78,8 @@ exports.login = function(logInfo, cb){
       });
     });
 
-    Promise.all([p1, p2]).then(result => {
-      cb(null, null, result);
+    Promise.all([p1, p2]).then(values => {
+      cb(null, null, values);
     }).catch(cb);
 
   });
