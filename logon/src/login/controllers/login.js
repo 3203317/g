@@ -27,9 +27,9 @@ exports.indexUI = function(req, res, next){
 exports.index = function(req, res, next){
   var query = req.body;
 
-  biz.user.login(query, (err, code, user) => {
+  biz.user.login(query, (err, code, token) => {
     if(err) return next(err);
     if(code) return res.send({ error: { code: code } });
-    res.send({ data: user });
+    res.send({ data: token });
   }); // login
 };

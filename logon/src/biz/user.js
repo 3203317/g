@@ -12,6 +12,9 @@ const md5 = require('speedt-utils').md5;
 const utils = require('speedt-utils').utils;
 
 const mysql = require('./emag/mysql');
+const redis = require('./emag/redis');
+
+const server = require('./server');
 
 (() => {
   var sql = 'SELECT a.* FROM s_user a WHERE a.user_name=?';
@@ -51,6 +54,8 @@ const mysql = require('./emag/mysql');
  * @code 10003 用户名或密码输入错误
  */
 exports.login = function(logInfo, cb){
+  var self = this;
+
   this.getByName(logInfo.user_name, (err, doc) => {
     if(err) return cb(err);
     if(!doc) return cb(null, '10001');
@@ -59,6 +64,42 @@ exports.login = function(logInfo, cb){
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
       return cb(null, '10003');
 
-    cb(null, null, doc);
+    self.authorize(doc.id, 'e0b13571d00d4606b9570415423cb5be', (err, code) => {
+      if(err) return cb(err);
+
+      server.available((err, info) => {
+
+        if(err) return cb(err);
+
+        cb(null, null, {
+          code: code,
+          server: info
+        });
+
+      });
+
+    });
   });
 };
+
+(() => {
+  const seconds = 60 * 1;
+  const numkeys = 4;
+  const sha1 = '29f0d221b983c453678fb56596b207feabf36fc6';
+
+  /**
+   *
+   *
+   * @param user_id
+   * @param client_id
+   * @return 登陆令牌
+   */
+  exports.authorize = function(user_id, client_id, cb){
+    var code = utils.replaceAll(uuid.v4(), '-', '');
+
+    redis.evalsha(sha1, numkeys, 'code', 'user_id', 'client_id', 'seconds', code, user_id, client_id, seconds, (err, code) => {
+      if(err) return cb(err);
+      cb(null, code);
+    });
+  };
+})();
