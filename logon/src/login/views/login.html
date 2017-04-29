@@ -1,3 +1,4 @@
+#parse('_pagelet/constant.html')
 <!DOCTYPE html>
 <html lang='zh-CN'>
 	<head>
@@ -74,7 +75,7 @@
   function push(){
     var data = ser($('#logFrm'));
       $.ajax({
-        url: '/user/login',
+        url: '$!{virtualPath}user/login',
         type: 'POST',
         dataType: 'JSON',
         data: data,
