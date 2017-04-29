@@ -64,28 +64,31 @@ exports.login = function(logInfo, cb){
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
       return cb(null, '10003');
 
-    self.authorize(doc.id, 'e0b13571d00d4606b9570415423cb5be', (err, code) => {
-      if(err) return cb(err);
-
-      server.available((err, info) => {
-
-        if(err) return cb(err);
-
-        cb(null, null, {
-          code: code,
-          server: info
-        });
-
+    var p1 = new Promise((resolve, reject) => {
+      self.authorize(doc.id, 'e0b13571d00d4606b9570415423cb5be', (err, code) => {
+        if(err) return reject(err);
+        resolve(code);
       });
-
     });
+
+    var p2 = new Promise((resolve, reject) => {
+      server.available((err, info) => {
+        if(err) return reject(err);
+        resolve(info);
+      });
+    });
+
+    Promise.all([p1, p2]).then(result => {
+      cb(null, null, result);
+    }).catch(cb);
+
   });
 };
 
 (() => {
   const seconds = 60 * 1;
   const numkeys = 4;
-  const sha1 = '29f0d221b983c453678fb56596b207feabf36fc6';
+  const sha1 = '3d678e5959bb30e7a1446031b8084bff384b8bd9';
 
   /**
    *
