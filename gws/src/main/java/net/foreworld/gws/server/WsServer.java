@@ -43,21 +43,6 @@ public class WsServer extends Server {
 	@Resource(name = "wsInitializer")
 	private WsInitializer wsInitializer;
 
-	public WsServer() {
-
-	}
-
-	public WsServer(int port) {
-		this();
-		this.port = port;
-	}
-
-	public WsServer(int port, int bossThread, int workerThread) {
-		this(port);
-		this.bossThread = bossThread;
-		this.workerThread = workerThread;
-	}
-
 	private ChannelFuture f;
 	private EventLoopGroup bossGroup, workerGroup;
 
@@ -75,7 +60,7 @@ public class WsServer extends Server {
 
 		b.option(ChannelOption.SO_BACKLOG, so_backlog);
 		b.option(ChannelOption.SO_KEEPALIVE, true);
-		b.option(ChannelOption.TCP_NODELAY, false);
+		b.option(ChannelOption.TCP_NODELAY, true);
 
 		b.handler(new LoggingHandler(LogLevel.INFO));
 
@@ -89,24 +74,25 @@ public class WsServer extends Server {
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage(), e);
 		} finally {
-			shutdown();
+			Runtime.getRuntime().addShutdownHook(new Thread() {
+				@Override
+				public void run() {
+					shutdown();
+				}
+			});
 		}
 	}
 
 	@Override
 	public void shutdown() {
-		try {
-			if (null != f)
-				f.channel().closeFuture().sync();
-		} catch (InterruptedException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (null != bossGroup) {
-				bossGroup.shutdownGracefully();
-			}
-			if (null != workerGroup) {
-				workerGroup.shutdownGracefully();
-			}
+		if (null != f) {
+			f.channel().close().syncUninterruptibly();
+		}
+		if (null != bossGroup) {
+			bossGroup.shutdownGracefully();
+		}
+		if (null != workerGroup) {
+			workerGroup.shutdownGracefully();
 		}
 	}
 
