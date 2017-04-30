@@ -18,8 +18,5 @@ const redis = require('./emag/redis');
  * @return 可用的服务器信息
  */
 exports.available = function(cb){
-  cb(null, {
-    host: '127.0.0.1',
-    port: 1618
-  });
+  cb(null, 'facai');
 };

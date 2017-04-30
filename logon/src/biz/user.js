@@ -86,7 +86,7 @@ exports.login = function(logInfo, cb){
 };
 
 (() => {
-  const seconds = 60 * 1;
+  const seconds = 5;
   const numkeys = 4;
   const sha1 = '3d678e5959bb30e7a1446031b8084bff384b8bd9';
 
