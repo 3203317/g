@@ -6,8 +6,11 @@
 'use strict';
 
 const login = require('../controllers/login');
+const lobby = require('../controllers/lobby');
 
 module.exports = function(app){
   app.get('/user/login$', login.indexUI);
   app.post('/user/login$', login.index);
+
+  app.get('/', lobby.indexUI);
 };
