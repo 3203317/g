@@ -18,5 +18,5 @@ const redis = require('./emag/redis');
  * @return 可用的服务器信息
  */
 exports.available = function(cb){
-  cb(null, 'facai');
+  cb(null, '68');
 };
