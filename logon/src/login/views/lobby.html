@@ -30,11 +30,15 @@ $(function(){
 
   var socket = new WebSocket('ws://localhost:9988');
 
+  var jo = {
+    version: 166
+  };
+
   // 打开Socket
   socket.onopen = function(event){
 
     // 发送一个初始化消息
-    socket.send('{}');
+    socket.send(JSON.stringify(jo));
 
     // 监听消息
     socket.onmessage = function(event){
