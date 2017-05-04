@@ -22,9 +22,33 @@
 		</div>
 		#parse('_pagelet/js.html')
 
-<script type='text/javascript' src='public/assets/js/websocket.js'></script>
-
 <script type='text/javascript'>
+
+
+$(function(){
+
+
+  var socket = new WebSocket('ws://localhost:9988');
+
+  // 打开Socket
+  socket.onopen = function(event){
+
+    // 发送一个初始化消息
+    socket.send('{}');
+
+    // 监听消息
+    socket.onmessage = function(event){
+      console.log('client received a message.', event);
+      socket.close();
+    };
+
+    // 监听Socket的关闭
+    socket.onclose = function(event){
+      console.log('client notified socket has closed.', event);
+    };
+  };
+})
+
 </script>
 
 	</body>
