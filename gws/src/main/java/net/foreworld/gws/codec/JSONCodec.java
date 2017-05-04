@@ -49,7 +49,7 @@ public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, Protoco
 		}
 
 		if (jo.has("timestamp")) {
-			model.setTimestamp(jo.get("timestamp").getAsInt());
+			model.setTimestamp(jo.get("timestamp").getAsLong());
 		}
 
 		if (jo.has("data")) {

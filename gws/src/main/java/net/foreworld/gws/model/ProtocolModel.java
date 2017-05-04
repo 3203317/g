@@ -14,8 +14,16 @@ public class ProtocolModel implements Serializable {
 	private int version;
 	private int method;
 	private int seqId;
-	private int timestamp;
+	private Long timestamp;
 	private String data;
+
+	public Long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(Long timestamp) {
+		this.timestamp = timestamp;
+	}
 
 	public int getVersion() {
 		return version;
@@ -39,14 +47,6 @@ public class ProtocolModel implements Serializable {
 
 	public void setSeqId(int seqId) {
 		this.seqId = seqId;
-	}
-
-	public int getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(int timestamp) {
-		this.timestamp = timestamp;
 	}
 
 	public String getData() {
