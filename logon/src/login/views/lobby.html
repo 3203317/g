@@ -23,7 +23,7 @@
 		#parse('_pagelet/js.html')
 
 
-<script type='text/javascript' src='http://www.foreworld.net/js/protobuf.js/6.8.0/protobuf.min.js'></script>
+<script type='text/javascript' src='$!{conf.html.cdn}js/protobuf.js/6.8.0/protobuf.min.js'></script>
 
 <script type='text/javascript'>
 
@@ -79,7 +79,6 @@ function exec(root, user){
           (function(){
             var buffer = ResponseProtobuf.decode(protobuf.util.newBuffer(data));
             console.log(buffer);
-
             console.log(UserProtobuf.decode(protobuf.util.newBuffer(buffer.data)));
           })();
         }
@@ -96,26 +95,12 @@ function exec(root, user){
 
 $(function(){
 
-  var p1 = new Promise((resolve, reject) => {
+  var arr = [
+    protobuf.load('/assets/protobuf/method.proto'),
+    protobuf.load('/assets/protobuf/model.user.proto')
+  ];
 
-    protobuf.load(['/assets/protobuf/method.proto']).then(function (root){
-      resolve(root);
-    }).catch(function (ex){
-      reject(ex);
-    });
-  });
-
-  var p2 = new Promise((resolve, reject) => {
-
-    protobuf.load(['/assets/protobuf/model.user.proto']).then(function (root){
-      resolve(root);
-    }).catch(function (ex){
-      reject(ex);
-    });
-  });
-
-  Promise.all([p1, p2]).then(values => {
-
+  Promise.all(arr).then(values => {
     exec(values[0], values[1]);
   }).catch(function(){
     console.error(arguments);
