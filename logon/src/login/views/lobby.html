@@ -56,40 +56,40 @@ function exec(root, user){
   socket.onopen = function(evt){
     console.log(evt);
     socket.send(buffer);
+  };
 
-    socket.onmessage = function(evt){
-      var data = evt.data;
-      var type = typeof data;
-      if(type === 'string'){
-        // todo
-      } else if(type === 'object'){
-        if(data instanceof Blob){
+  socket.onmessage = function(evt){
+    var data = evt.data;
+    var type = typeof data;
+    if(type === 'string'){
+      // todo
+    } else if(type === 'object'){
+      if(data instanceof Blob){
 
-          (function(){
-            var reader = new FileReader();
-            reader.addEventListener('loadend', function(){
-              var bytes = reader.result;
-              var message = proto.WSMessage.deserializeBinary(bytes);
-            });
-            reader.readAsArrayBuffer(data);
-          })();
+        (function(){
+          var reader = new FileReader();
+          reader.addEventListener('loadend', function(){
+            var bytes = reader.result;
+            var message = proto.WSMessage.deserializeBinary(bytes);
+          });
+          reader.readAsArrayBuffer(data);
+        })();
 
-        } else if(data instanceof ArrayBuffer){
+      } else if(data instanceof ArrayBuffer){
 
-          (function(){
-            var buffer = ResponseProtobuf.decode(protobuf.util.newBuffer(data));
-            console.log(buffer);
-            console.log(UserProtobuf.decode(protobuf.util.newBuffer(buffer.data)));
-          })();
-        }
+        (function(){
+          var buffer = ResponseProtobuf.decode(protobuf.util.newBuffer(data));
+          console.log(buffer);
+          console.log(UserProtobuf.decode(protobuf.util.newBuffer(buffer.data)));
+        })();
       }
+    }
 
-      socket.close();
-    };
+    socket.close();
+  };
 
-    socket.onclose = function(evt){
-      console.log('client notified socket has closed.', evt);
-    };
+  socket.onclose = function(evt){
+    console.log('client notified socket has closed.', evt);
   };
 }
 
