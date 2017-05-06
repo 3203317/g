@@ -38,6 +38,7 @@ public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProto
 		User.UserProtobuf.Builder user = User.UserProtobuf.newBuilder();
 		user.setUserName("王莹");
 		user.setId(UUID.randomUUID().toString());
+		user.setUserPass(UUID.randomUUID().toString());
 
 		resp.setData(user.build().toByteString());
 
