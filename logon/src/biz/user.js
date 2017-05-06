@@ -53,14 +53,17 @@ const server = require('./server');
  * @code 10002 禁止登陆
  * @code 10003 用户名或密码输入错误
  */
-exports.login = function(logInfo, cb){
+exports.login = function(logInfo /* 用户名及密码 */, cb){
   var self = this;
 
   self.getByName(logInfo.user_name, (err, doc) => {
     if(err) return cb(err);
     if(!doc) return cb(null, '10001');
+
+    // 用户的状态
     if(1 !== doc.status) return cb(null, '10002');
 
+    // 验证密码
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
       return cb(null, '10003');
 
@@ -72,6 +75,7 @@ exports.login = function(logInfo, cb){
     });
 
     var p2 = new Promise((resolve, reject) => {
+      // 服务器可用性
       server.available((err, info) => {
         if(err) return reject(err);
         resolve(info);
@@ -86,12 +90,12 @@ exports.login = function(logInfo, cb){
 };
 
 (() => {
-  const seconds = 5;
+  const seconds = 5;  //令牌有效期 5s
   const numkeys = 4;
   const sha1 = '3d678e5959bb30e7a1446031b8084bff384b8bd9';
 
   /**
-   *
+   * 令牌授权
    *
    * @param user_id
    * @param client_id
