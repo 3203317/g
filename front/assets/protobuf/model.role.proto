@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package gws.model;
 
@@ -6,6 +6,6 @@ option java_package = "net.foreworld.gws.protobuf.model";
 option java_outer_classname = "Role";
 
 message RoleProtobuf {
-  required string id = 1;
-  required string role_name = 2;
+  string id = 1;
+  string role_name = 2;
 }

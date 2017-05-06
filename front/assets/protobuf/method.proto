@@ -1,4 +1,4 @@
-syntax = "proto2";
+syntax = "proto3";
 
 package gws;
 
@@ -6,18 +6,18 @@ option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Method";
 
 message RequestProtobuf {
-  required uint32 version = 1 [default = 1];
-  required uint32 method = 2;
-  required uint64 seqId = 3;
-  required uint64 timestamp = 4;
-  optional string token = 5;
-  optional bytes data = 6;
+  uint32 version = 1;
+  uint32 method = 2;
+  uint64 seqId = 3;
+  uint64 timestamp = 4;
+  string token = 5;
+  bytes data = 6;
 }
 
 message ResponseProtobuf {
-  required uint32 version = 1 [default = 1];
-  required uint32 method = 2;
-  required uint64 seqId = 3;
-  required uint64 timestamp = 4;
-  optional bytes data = 5;
+  uint32 version = 1;
+  uint32 method = 2;
+  uint64 seqId = 3;
+  uint64 timestamp = 4;
+  bytes data = 5;
 }
