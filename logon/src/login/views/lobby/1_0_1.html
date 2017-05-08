@@ -100,7 +100,7 @@ $(function(){
     protobuf.load('/assets/protobuf/model.user.proto')
   ];
 
-  Promise.all(arr).then(values => {
+  Promise.all(arr).then(function (values){
     exec(values[0], values[1]);
   }).catch(function(){
     console.error(arguments);

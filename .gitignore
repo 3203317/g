@@ -54,3 +54,5 @@ node_modules
 
 
 **/net/foreworld/gws/protobuf/
+
+**/front/assets/protobuf/*.js
