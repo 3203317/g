@@ -51,7 +51,7 @@ public class TimeHandler extends
 		resp.setTimestamp(System.currentTimeMillis());
 
 		User.UserProtobuf.Builder user = User.UserProtobuf.newBuilder();
-		user.setUserName("王莹");
+		user.setUserName("黄鑫");
 		user.setId(UUID.randomUUID().toString());
 		user.setUserPass(UUID.randomUUID().toString());
 

@@ -22,91 +22,65 @@
 		</div>
 		#parse('_pagelet/js.html')
 
+<script type='text/javascript'>
+var exports = {};
+</script>
 
-<script type='text/javascript' src='$!{conf.html.cdn}js/protobuf.js/6.8.0/protobuf.min.js'></script>
+<script type='text/javascript' src='$!{conf.html.cdn}js/google-protobuf/3.3.0/google-protobuf.js'></script>
+<script type='text/javascript' src='/assets/protobuf/emag.js'></script>
 
 <script type='text/javascript'>
 
-// function exec(root, user){
+  var user = new proto.gws.model.UserProtobuf();
+  user.setUserName('猫一八')
+  user.setUserPass('123321');
 
-//   var RequestProtobuf = root.lookupType('gws.RequestProtobuf');
-//   var ResponseProtobuf = root.lookupType('gws.ResponseProtobuf');
-//   var UserProtobuf = user.lookupType('gws.model.UserProtobuf');
+  var req = new proto.gws.RequestProtobuf();
+  req.setVersion(101);
+  req.setMethod(1);
+  req.setSeqid(parseInt(Math.random() * 1000));
+  req.setTimestamp(new Date().getTime());
+  req.setData(user.serializeBinary());
 
-//   var _user = UserProtobuf.create({
-//     userPass: '123321',
-//     userName: '黄鑫'
-//   });
+  console.log(req.serializeBinary());
+  console.log('====')
 
-//   var message = RequestProtobuf.create({
-//     version: 101,
-//     method: 1,
-//     seqId: Math.random() * 1000,
-//     timestamp: new Date().getTime(),
-//     data: UserProtobuf.encode(_user).finish()
-//   });
+  var resp = proto.gws.ResponseProtobuf;
 
-//   var buffer = RequestProtobuf.encode(message).finish();
-//   console.log(buffer);
-//   console.log(RequestProtobuf.decode(buffer));
+  var socket = new WebSocket('ws://127.0.0.1/s/68/');
+  socket.binaryType = 'arraybuffer';
 
-//   var socket = new WebSocket('ws://127.0.0.1/s/68/');
-//   socket.binaryType = 'arraybuffer';
+  socket.onopen = function(evt){
+    socket.send(req.serializeBinary());
+  };
 
-//   socket.onopen = function(evt){
-//     console.log(evt);
-//     socket.send(buffer);
-//   };
+  socket.onmessage = function(evt){
+    var data = evt.data;
+    var type = typeof data;
 
-//   socket.onmessage = function(evt){
-//     var data = evt.data;
-//     var type = typeof data;
-//     if(type === 'string'){
-//       // todo
-//     } else if(type === 'object'){
-//       if(data instanceof Blob){
+    console.log(data)
+    console.log('++++')
 
-//         (function(){
-//           var reader = new FileReader();
-//           reader.addEventListener('loadend', function(){
-//             var bytes = reader.result;
-//             var message = proto.WSMessage.deserializeBinary(bytes);
-//           });
-//           reader.readAsArrayBuffer(data);
-//         })();
+    var result = resp.deserializeBinary(data);
 
-//       } else if(data instanceof ArrayBuffer){
+    console.log(result.getVersion())
+    console.log(result.getMethod())
+    console.log(result.getSeqid())
+    console.log(result.getTimestamp())
 
-//         (function(){
-//           var buffer = ResponseProtobuf.decode(protobuf.util.newBuffer(data));
-//           console.log(buffer);
-//           console.log(UserProtobuf.decode(protobuf.util.newBuffer(buffer.data)));
-//         })();
-//       }
-//     }
+    console.log('----')
+    var _user = proto.gws.model.UserProtobuf;
+    var _result = _user.deserializeBinary(result.getData());
+    console.log(_result.getId())
+    console.log(_result.getUserName())
+    console.log(_result.getUserPass())
 
-//     socket.close();
-//   };
+    socket.close();
+  };
 
-//   socket.onclose = function(evt){
-//     console.log('client notified socket has closed.', evt);
-//   };
-// }
-
-// $(function(){
-
-//   var arr = [
-//     protobuf.load('/assets/protobuf/method.proto'),
-//     protobuf.load('/assets/protobuf/model.user.proto')
-//   ];
-
-//   Promise.all(arr).then(function (values){
-//     exec(values[0], values[1]);
-//   }).catch(function(){
-//     console.error(arguments);
-//   });
-
-// });
+  socket.onclose = function(evt){
+    console.log('client notified socket has closed.', evt);
+  };
 
 </script>
 
