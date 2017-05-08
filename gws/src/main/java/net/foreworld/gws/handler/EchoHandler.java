@@ -32,6 +32,42 @@ public class EchoHandler extends SimpleChannelInboundHandler<ProtocolModel> {
 	}
 
 	@Override
+	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		logger.info("channelActive");
+		super.channelActive(ctx);
+	}
+
+	@Override
+	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		logger.info("channelInactive");
+		super.channelInactive(ctx);
+	}
+
+	@Override
+	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+		logger.info("channelReadComplete");
+		super.channelReadComplete(ctx);
+	}
+
+	@Override
+	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
+		logger.info("channelRegistered");
+		super.channelRegistered(ctx);
+	}
+
+	@Override
+	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+		logger.info("channelUnregistered");
+		super.channelUnregistered(ctx);
+	}
+
+	@Override
+	public void channelWritabilityChanged(ChannelHandlerContext ctx) throws Exception {
+		logger.info("channelWritabilityChanged");
+		super.channelWritabilityChanged(ctx);
+	}
+
+	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, ProtocolModel msg) throws Exception {
 		logger.info(msg.getSeqId() + ":" + msg.getTimestamp());
 

@@ -12,6 +12,8 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import net.foreworld.gws.codec.JSONCodec;
 import net.foreworld.gws.handler.EchoHandler;
@@ -33,6 +35,8 @@ public class WsNormalInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Override
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
+
+		pipe.addLast(new LoggingHandler(LogLevel.INFO));
 
 		pipe.addLast(new HttpServerCodec());
 		pipe.addLast(new HttpObjectAggregator(1024 * 64));

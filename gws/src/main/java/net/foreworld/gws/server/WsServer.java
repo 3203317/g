@@ -14,8 +14,6 @@ import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
 import net.foreworld.gws.initializer.WsInitializer;
 import net.foreworld.gws.initializer.WsNormalInitializer;
 
@@ -64,7 +62,7 @@ public class WsServer extends Server {
 		b.option(ChannelOption.SO_KEEPALIVE, true);
 		b.option(ChannelOption.TCP_NODELAY, true);
 
-		b.handler(new LoggingHandler(LogLevel.INFO));
+		// b.handler(new LoggingHandler(LogLevel.INFO));
 
 		b.childHandler(wsNormalInitializer);
 
