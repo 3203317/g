@@ -1,20 +1,18 @@
 package net.foreworld.gws.handler;
 
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-
-import java.util.UUID;
-
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.method.user.Login;
-import net.foreworld.gws.protobuf.model.User;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import net.foreworld.gws.model.LoginModel;
+import net.foreworld.gws.model.ProtocolModel;
 
 /**
  *
@@ -23,10 +21,9 @@ import com.google.protobuf.InvalidProtocolBufferException;
  */
 @Component
 @Sharable
-public class EchoHandler extends ChannelInboundHandlerAdapter {
+public class EchoHandler extends SimpleChannelInboundHandler<ProtocolModel> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(EchoHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(EchoHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -35,32 +32,25 @@ public class EchoHandler extends ChannelInboundHandlerAdapter {
 	}
 
 	@Override
-	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-		Method.RequestProtobuf req = (Method.RequestProtobuf) msg;
-		logger.info(req.getSeqId() + ":" + req.getTimestamp());
+	protected void channelRead0(ChannelHandlerContext ctx, ProtocolModel msg) throws Exception {
+		logger.info(msg.getSeqId() + ":" + msg.getTimestamp());
 
-		Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf
-				.newBuilder();
+		JsonObject jo = new JsonParser().parse(msg.getData()).getAsJsonObject();
+		logger.info(jo.get("user_name").getAsString() + ":" + jo.get("user_pass").getAsString());
 
-		resp.setVersion(req.getVersion());
-		resp.setMethod(req.getMethod());
-		resp.setSeqId(req.getSeqId() + 1);
-		resp.setTimestamp(req.getTimestamp());
+		ProtocolModel model = new ProtocolModel();
+		model.setVersion(msg.getVersion());
+		model.setMethod(msg.getMethod());
+		model.setSeqId(msg.getSeqId());
+		model.setTimestamp(System.currentTimeMillis());
 
-		try {
-			Login.RequestProtobuf login = Login.RequestProtobuf.parseFrom(req
-					.getData());
-			logger.info(login.getUserName() + ":" + login.getUserPass());
-		} catch (InvalidProtocolBufferException e) {
-			logger.error("InvalidProtocolBufferException", e);
-		}
+		LoginModel login = new LoginModel();
+		login.setUser_name("黄新");
+		login.setUser_pass("123456");
 
-		User.UserProtobuf.Builder user = User.UserProtobuf.newBuilder();
-		user.setUserName("王莹");
-		user.setId(UUID.randomUUID().toString());
-
-		resp.setData(user.build().toByteString());
-
-		ctx.writeAndFlush(resp);
+		Gson gson = new Gson();
+		model.setData(gson.toJson(login));
+		ctx.writeAndFlush(model);
 	}
+
 }

@@ -9,13 +9,37 @@ import java.io.Serializable;
  */
 public class ProtocolModel implements Serializable {
 
-	private static final long serialVersionUID = -249876415170022141L;
+	private static final long serialVersionUID = -7476803059012167127L;
 
-	private int version;
-	private int method;
-	private int seqId;
+	private Integer version;
+	private Integer method;
+	private Long seqId;
 	private Long timestamp;
 	private String data;
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
+	public Integer getMethod() {
+		return method;
+	}
+
+	public void setMethod(Integer method) {
+		this.method = method;
+	}
+
+	public Long getSeqId() {
+		return seqId;
+	}
+
+	public void setSeqId(Long seqId) {
+		this.seqId = seqId;
+	}
 
 	public Long getTimestamp() {
 		return timestamp;
@@ -23,30 +47,6 @@ public class ProtocolModel implements Serializable {
 
 	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
-	public int getMethod() {
-		return method;
-	}
-
-	public void setMethod(int method) {
-		this.method = method;
-	}
-
-	public int getSeqId() {
-		return seqId;
-	}
-
-	public void setSeqId(int seqId) {
-		this.seqId = seqId;
 	}
 
 	public String getData() {

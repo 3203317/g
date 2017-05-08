@@ -45,7 +45,7 @@ public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, Protoco
 		}
 
 		if (jo.has("seqId")) {
-			model.setSeqId(jo.get("seqId").getAsInt());
+			model.setSeqId(jo.get("seqId").getAsLong());
 		}
 
 		if (jo.has("timestamp")) {
