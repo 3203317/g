@@ -5,58 +5,75 @@
 		#parse('_pagelet/header.html')
 	</head>
 	<body>
-		<div class='container'>
-			<div class='row'>
-				<div class='col-md-12' style='height:23px'>
-				</div>
-			</div>
-		</div>
-		<header id='header'></header>
-		<div class='container'>
-			<div class='row'>
-				<div class='col-md-12'>
-					<div class='panel panel-default'>
-					</div>
-				</div>
-			</div>
-		</div>
+
+    <input type='button' id='login' value='login'><p></p>
+    <input type='button' id='shot' value='shot'><p></p>
+    <input type='button' id='logout' value='logout'><p></p>
+
 		#parse('_pagelet/js.html')
 
 <script type='text/javascript'>
 
 $(function(){
 
-  var socket = new WebSocket('ws://127.0.0.1/s/68/');
+  var socket;
 
-  socket.onopen = function(evt){
+  $('#logout').click(function(){
+    socket.close();
+  });
+
+  $('#shot').click(function(){
     var p = {
       version: 101,
       method: 1,
       seqId: Math.random() * 1000,
       timestamp: new Date().getTime(),
       data: JSON.stringify({
-        user_name: '猫一八',
-        user_pass: '654321'
+        user_name: '八一猫',
+        user_pass: '123456'
       })
     };
     socket.send(JSON.stringify(p));
-  };
+  });
 
-  socket.onmessage = function(evt){
-    var data = evt.data;
-    var type = typeof data;
+  $('#login').click(function(){
 
-    var protocal = JSON.parse(data);
-    console.log(protocal);
-    var login = JSON.parse(protocal.data);
-    console.log(login.user_name);
+    socket = new WebSocket('ws://127.0.0.1/s/68/');
 
-    socket.close();
-  };
+    socket.onerror = function(evt){
+      console.error(evt);
+    };
 
-  socket.onclose = function(evt){
-    console.log('client notified socket has closed.', evt);
-  };
+    socket.onopen = function(evt){
+
+      socket.onmessage = function(evt){
+        var data = evt.data;
+        var type = typeof data;
+
+        var protocal = JSON.parse(data);
+        console.log(protocal);
+        var login = JSON.parse(protocal.data);
+        console.log(login.user_name);
+
+      };
+
+      socket.onclose = function(evt){
+        console.log('client notified socket has closed.', evt);
+      };
+
+      var p = {
+        version: 101,
+        method: 1,
+        seqId: Math.random() * 1000,
+        timestamp: new Date().getTime(),
+        data: JSON.stringify({
+          user_name: '猫一八',
+          user_pass: '654321'
+        })
+      };
+      socket.send(JSON.stringify(p));
+    };
+  });
 
 })
 
