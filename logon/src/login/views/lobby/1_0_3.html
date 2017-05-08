@@ -1,0 +1,66 @@
+#parse('_pagelet/constant.html')
+<!DOCTYPE html>
+<html lang='zh-CN'>
+	<head>
+		#parse('_pagelet/header.html')
+	</head>
+	<body>
+		<div class='container'>
+			<div class='row'>
+				<div class='col-md-12' style='height:23px'>
+				</div>
+			</div>
+		</div>
+		<header id='header'></header>
+		<div class='container'>
+			<div class='row'>
+				<div class='col-md-12'>
+					<div class='panel panel-default'>
+					</div>
+				</div>
+			</div>
+		</div>
+		#parse('_pagelet/js.html')
+
+<script type='text/javascript'>
+
+$(function(){
+
+  var socket = new WebSocket('ws://127.0.0.1/s/68/');
+
+  socket.onopen = function(evt){
+    var p = {
+      version: 101,
+      method: 1,
+      seqId: Math.random() * 1000,
+      timestamp: new Date().getTime(),
+      data: JSON.stringify({
+        user_name: '猫一八',
+        user_pass: '654321'
+      })
+    };
+    socket.send(JSON.stringify(p));
+  };
+
+  socket.onmessage = function(evt){
+    var data = evt.data;
+    var type = typeof data;
+
+    var protocal = JSON.parse(data);
+    console.log(protocal);
+    var login = JSON.parse(protocal.data);
+    console.log(login.user_name);
+
+    socket.close();
+  };
+
+  socket.onclose = function(evt){
+    console.log('client notified socket has closed.', evt);
+  };
+
+})
+
+</script>
+
+	</body>
+</html>
