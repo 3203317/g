@@ -32,6 +32,7 @@ import net.foreworld.gws.codec.JSONCodec;
 import net.foreworld.gws.codec.MsgCodec;
 import net.foreworld.gws.handler.EchoHandler;
 import net.foreworld.gws.handler.FireNextHandler;
+import net.foreworld.gws.handler.LoginHandler;
 import net.foreworld.gws.handler.TimeHandler;
 import net.foreworld.gws.protobuf.Method;
 
@@ -42,6 +43,9 @@ import net.foreworld.gws.protobuf.Method;
  */
 @Component
 public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
+
+	@Resource(name = "loginHandler")
+	private LoginHandler loginHandler;
 
 	@Resource(name = "fireNextHandler")
 	private FireNextHandler fireNextHandler;
@@ -102,6 +106,7 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 
 		// pipe.addLast(msgCodec);
 		pipe.addLast(timeHandler);
+		// pipe.addLast("login", loginHandler);
 	}
 
 }
