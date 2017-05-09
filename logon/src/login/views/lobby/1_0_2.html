@@ -5,21 +5,11 @@
 		#parse('_pagelet/header.html')
 	</head>
 	<body>
-		<div class='container'>
-			<div class='row'>
-				<div class='col-md-12' style='height:23px'>
-				</div>
-			</div>
-		</div>
-		<header id='header'></header>
-		<div class='container'>
-			<div class='row'>
-				<div class='col-md-12'>
-					<div class='panel panel-default'>
-					</div>
-				</div>
-			</div>
-		</div>
+
+    <input type='button' id='login' value='login'><p></p>
+    <input type='button' id='shot' value='shot'><p></p>
+    <input type='button' id='logout' value='logout'><p></p>
+
 		#parse('_pagelet/js.html')
 
 <script type='text/javascript'>
@@ -30,6 +20,12 @@ var exports = {};
 <script type='text/javascript' src='/assets/protobuf/emag.js'></script>
 
 <script type='text/javascript'>
+
+</script>
+
+<script type='text/javascript'>
+
+$(function(){
 
   var user = new proto.gws.model.UserProtobuf();
   user.setUserName('猫一八')
@@ -75,12 +71,36 @@ var exports = {};
     console.log(_result.getUserName())
     console.log(_result.getUserPass())
 
-    socket.close();
+    // socket.close();
   };
 
   socket.onclose = function(evt){
     console.log('client notified socket has closed.', evt);
   };
+
+  $('#logout').click(function(){
+    socket.close();
+  });
+
+  $('#shot').click(function(){
+
+    var user = new proto.gws.model.UserProtobuf();
+    user.setUserName('八一猫')
+    user.setUserPass('123456');
+
+    var req = new proto.gws.RequestProtobuf();
+    req.setVersion(102);
+    req.setMethod(2);
+    req.setSeqid(parseInt(Math.random() * 1000));
+    req.setTimestamp(new Date().getTime());
+    req.setData(user.serializeBinary());
+
+    console.log(req.serializeBinary());
+    console.log('====')
+    socket.send(req.serializeBinary());
+  });
+
+});
 
 </script>
 
