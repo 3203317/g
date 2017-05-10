@@ -96,11 +96,12 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 
 		pipe.addLast(new WebSocketServerCompressionHandler());
 
-		pipe.addLast(new MessageToMessageDecoder<WebSocketFrame>() {
+		pipe.addLast(new MessageToMessageDecoder<BinaryWebSocketFrame>() {
 			@Override
-			protected void decode(ChannelHandlerContext ctx, WebSocketFrame msg, List<Object> out) throws Exception {
+			protected void decode(ChannelHandlerContext ctx, BinaryWebSocketFrame msg, List<Object> out)
+					throws Exception {
 
-				ByteBuf buf = ((BinaryWebSocketFrame) msg).content();
+				ByteBuf buf = msg.content();
 				out.add(buf);
 				buf.retain();
 			}
