@@ -1,7 +1,5 @@
 package net.foreworld.gws.handler;
 
-import java.net.InetSocketAddress;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -48,9 +46,7 @@ public class TimeoutHandler extends ChannelInboundHandlerAdapter {
 					ctx.close();
 				}
 
-				InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
-				String incoming = addr.getAddress().getHostAddress();
-				logger.info("ctx close: {}", incoming);
+				logger.info("ctx close: {}", ctx.channel().remoteAddress());
 			}
 		});
 	}

@@ -1,7 +1,5 @@
 package net.foreworld.gws.handler;
 
-import java.net.InetSocketAddress;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -48,18 +46,14 @@ public class ProtocolSafeHandler extends ChannelInboundHandlerAdapter {
 						if (!future.isSuccess()) {
 							ctx.close();
 						}
-						InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
-						String incoming = addr.getAddress().getHostAddress();
-						logger.info("ctx close: {}", incoming);
+						logger.info("ctx close: {}", ctx.channel().remoteAddress());
 					}
 				});
 
 				return;
 			}
 		} else if (msg instanceof FullHttpRequest) {
-			InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
-			String incoming = addr.getAddress().getHostAddress();
-			logger.info("ctx first request: {}", incoming);
+			logger.info("first request: {}", ctx.channel().remoteAddress());
 		}
 
 		ctx.fireChannelRead(msg);

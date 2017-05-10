@@ -32,7 +32,6 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
 		InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
-
 		String incoming = addr.getAddress().getHostAddress();
 
 		if (check(incoming))
@@ -47,7 +46,7 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 				if (!future.isSuccess()) {
 					ctx.close();
 				}
-				logger.info("ctx close: {}", incoming);
+				logger.info("ctx close: {}", addr);
 			}
 		});
 	}
