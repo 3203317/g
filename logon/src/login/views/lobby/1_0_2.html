@@ -75,7 +75,8 @@ $(function(){
   };
 
   socket.onclose = function(evt){
-    console.log('client notified socket has closed.', evt);
+    console.log('client notified socket has closed.');
+    console.log(evt);
   };
 
   $('#logout').click(function(){
