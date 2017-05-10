@@ -1,6 +1,19 @@
 package net.foreworld.gws.initializer;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.MessageLite;
+import com.google.protobuf.MessageLiteOrBuilder;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInitializer;
@@ -19,32 +32,35 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.List;
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-
 import net.foreworld.gws.codec.JSONCodec;
 import net.foreworld.gws.codec.MsgCodec;
 import net.foreworld.gws.handler.EchoHandler;
 import net.foreworld.gws.handler.FireNextHandler;
 import net.foreworld.gws.handler.LoginHandler;
 import net.foreworld.gws.handler.TimeHandler;
+import net.foreworld.gws.handler.TimeoutHandler;
 import net.foreworld.gws.protobuf.Method;
-
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.MessageLite;
-import com.google.protobuf.MessageLiteOrBuilder;
 
 /**
  *
  * @author huangxin
  *
  */
+@PropertySource("classpath:server.properties")
 @Component
 public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
+
+	@Value("${server.idle.readerIdleTime:3}")
+	private int readerIdleTime;
+
+	@Value("${server.idle.writerIdleTime:7}")
+	private int writerIdleTime;
+
+	@Value("${server.idle.allIdleTime:10}")
+	private int allIdleTime;
+
+	@Resource(name = "timeoutHandler")
+	private TimeoutHandler timeoutHandler;
 
 	@Resource(name = "loginHandler")
 	private LoginHandler loginHandler;
@@ -68,21 +84,21 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
 
-		pipe.addLast(new IdleStateHandler(5, 0, 0, TimeUnit.SECONDS));
+		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime, allIdleTime, TimeUnit.SECONDS));
+		pipe.addLast(timeoutHandler);
 
 		pipe.addLast(new HttpServerCodec());
 		pipe.addLast(new HttpObjectAggregator(1024 * 64));
 		pipe.addLast(new ChunkedWriteHandler());
 		pipe.addLast(new HttpContentCompressor());
+		pipe.addLast(fireNextHandler);
 		pipe.addLast(new WebSocketServerProtocolHandler("/", null, true));
 
 		pipe.addLast(new WebSocketServerCompressionHandler());
-		pipe.addLast(fireNextHandler);
 
 		pipe.addLast(new MessageToMessageDecoder<WebSocketFrame>() {
 			@Override
-			protected void decode(ChannelHandlerContext ctx,
-					WebSocketFrame msg, List<Object> out) throws Exception {
+			protected void decode(ChannelHandlerContext ctx, WebSocketFrame msg, List<Object> out) throws Exception {
 
 				ByteBuf buf = ((BinaryWebSocketFrame) msg).content();
 				out.add(buf);
@@ -91,22 +107,19 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		});
 
 		// pipe.addLast(new ProtobufVarint32FrameDecoder());
-		pipe.addLast(new ProtobufDecoder(Method.RequestProtobuf
-				.getDefaultInstance()));
+		pipe.addLast(new ProtobufDecoder(Method.RequestProtobuf.getDefaultInstance()));
 		pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 		// pipe.addLast(new ProtobufEncoder());
 
 		pipe.addLast(new MessageToMessageEncoder<MessageLiteOrBuilder>() {
 			@Override
-			protected void encode(ChannelHandlerContext ctx,
-					MessageLiteOrBuilder msg, List<Object> out)
+			protected void encode(ChannelHandlerContext ctx, MessageLiteOrBuilder msg, List<Object> out)
 					throws Exception {
 				ByteBuf result = null;
 				if (msg instanceof MessageLite) {
 					result = wrappedBuffer(((MessageLite) msg).toByteArray());
 				} else if (msg instanceof MessageLite.Builder) {
-					result = wrappedBuffer(((MessageLite.Builder) msg).build()
-							.toByteArray());
+					result = wrappedBuffer(((MessageLite.Builder) msg).build().toByteArray());
 				}
 				WebSocketFrame frame = new BinaryWebSocketFrame(result);
 				out.add(frame);
