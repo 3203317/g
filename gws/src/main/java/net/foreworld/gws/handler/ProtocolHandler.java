@@ -20,9 +20,9 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
  */
 @Component
 @Sharable
-public class FireNextHandler extends ChannelInboundHandlerAdapter {
+public class ProtocolHandler extends ChannelInboundHandlerAdapter {
 
-	private static final Logger logger = LoggerFactory.getLogger(FireNextHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProtocolHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {

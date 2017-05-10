@@ -45,7 +45,7 @@ public class TimeoutHandler extends ChannelInboundHandlerAdapter {
 				if (!future.isSuccess()) {
 					ctx.close();
 				}
-				logger.info("ctx close");
+				logger.info("ctx timeout close");
 			}
 		});
 	}
