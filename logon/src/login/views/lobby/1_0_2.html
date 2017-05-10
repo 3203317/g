@@ -43,7 +43,7 @@ $(function(){
 
   var resp = proto.gws.ResponseProtobuf;
 
-  var socket = new WebSocket('ws://127.0.0.1/s/68/');
+  var socket = new WebSocket('ws://'+ window.location.hostname +'/s/68/');
   socket.binaryType = 'arraybuffer';
 
   socket.onopen = function(evt){
