@@ -53,7 +53,7 @@ public class ProtocolSafeHandler extends ChannelInboundHandlerAdapter {
 				return;
 			}
 		} else if (msg instanceof FullHttpRequest) {
-			logger.info("first channel");
+			logger.info("first request");
 		}
 
 		ctx.fireChannelRead(msg);
