@@ -36,7 +36,7 @@ import net.foreworld.gws.codec.JSONCodec;
 import net.foreworld.gws.codec.MsgCodec;
 import net.foreworld.gws.handler.EchoHandler;
 import net.foreworld.gws.handler.LoginHandler;
-import net.foreworld.gws.handler.ProtocolHandler;
+import net.foreworld.gws.handler.ProtocolSafeHandler;
 import net.foreworld.gws.handler.TimeHandler;
 import net.foreworld.gws.handler.TimeoutHandler;
 import net.foreworld.gws.protobuf.Method;
@@ -65,8 +65,8 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Resource(name = "loginHandler")
 	private LoginHandler loginHandler;
 
-	@Resource(name = "protocolHandler")
-	private ProtocolHandler protocolHandler;
+	@Resource(name = "protocolSafeHandler")
+	private ProtocolSafeHandler protocolSafeHandler;
 
 	@Resource(name = "timeHandler")
 	private TimeHandler timeHandler;
@@ -91,7 +91,7 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(new HttpObjectAggregator(1024 * 64));
 		pipe.addLast(new ChunkedWriteHandler());
 		pipe.addLast(new HttpContentCompressor());
-		pipe.addLast(protocolHandler);
+		pipe.addLast(protocolSafeHandler);
 		pipe.addLast(new WebSocketServerProtocolHandler("/", null, true));
 
 		pipe.addLast(new WebSocketServerCompressionHandler());

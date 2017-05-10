@@ -20,9 +20,9 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
  */
 @Component
 @Sharable
-public class ProtocolHandler extends ChannelInboundHandlerAdapter {
+public class ProtocolSafeHandler extends ChannelInboundHandlerAdapter {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProtocolHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProtocolSafeHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -49,6 +49,8 @@ public class ProtocolHandler extends ChannelInboundHandlerAdapter {
 						logger.info("ctx close");
 					}
 				});
+
+				return;
 			}
 		} else if (msg instanceof FullHttpRequest) {
 			logger.info("first channel");
