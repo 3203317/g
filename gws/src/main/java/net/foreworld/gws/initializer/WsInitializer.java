@@ -22,6 +22,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import net.foreworld.gws.codec.BinaryBuildEncode;
 import net.foreworld.gws.codec.BinaryDecode;
+import net.foreworld.gws.handler.BlacklistHandler;
 import net.foreworld.gws.handler.LoginHandler;
 import net.foreworld.gws.handler.ProtocolSafeHandler;
 import net.foreworld.gws.handler.TimeHandler;
@@ -46,6 +47,9 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Value("${server.idle.allIdleTime:10}")
 	private int allIdleTime;
 
+	@Resource(name = "blacklistHandler")
+	private BlacklistHandler blacklistHandler;
+
 	@Resource(name = "binaryBuildEncode")
 	private BinaryBuildEncode binaryBuildEncode;
 
@@ -67,6 +71,8 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Override
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
+
+		pipe.addLast(blacklistHandler);
 
 		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime, allIdleTime, TimeUnit.SECONDS));
 		pipe.addLast(timeoutHandler);
