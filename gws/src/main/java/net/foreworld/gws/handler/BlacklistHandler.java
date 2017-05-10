@@ -47,7 +47,7 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 				if (!future.isSuccess()) {
 					ctx.close();
 				}
-				logger.info("ctx close blacklist: {}", incoming);
+				logger.info("ctx close: {}", incoming);
 			}
 		});
 	}
