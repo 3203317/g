@@ -1,7 +1,5 @@
 package net.foreworld.gws.handler;
 
-import java.util.UUID;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -17,7 +15,8 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.foreworld.gws.protobuf.Method;
 import net.foreworld.gws.protobuf.Method.RequestProtobuf;
-import net.foreworld.gws.protobuf.model.User;
+import net.foreworld.gws.protobuf.method.user.Login;
+import net.foreworld.util.StringUtil;
 
 /**
  *
@@ -35,7 +34,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
-		logger.info(msg.getSeqId() + ":" + msg.getTimestamp());
+		logger.info(msg.getVersion() + ":" + msg.getMethod() + ":" + msg.getSeqId() + ":" + msg.getTimestamp());
 
 		if (95 != msg.getMethod()) {
 
@@ -56,35 +55,74 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 		}
 
 		try {
-			User.UserProtobuf _user = User.UserProtobuf.parseFrom(msg.getData());
-			logger.info(_user.getUserName() + ":" + _user.getUserPass());
+
+			Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg.getData());
+			String code = req.getCode();
+
+			String token = verify(code);
+
+			logger.info(code + ":" + token);
+
+			if (null != token) {
+
+				Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+
+				resp.setVersion(msg.getVersion());
+				resp.setMethod(msg.getMethod());
+				resp.setSeqId(msg.getSeqId());
+				resp.setTimestamp(System.currentTimeMillis());
+
+				Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf.newBuilder();
+				data.setToken(token);
+
+				resp.setData(data.build().toByteString());
+
+				ctx.writeAndFlush(resp);
+
+				ctx.pipeline().replace(this, "time", timeHandler);
+
+				return;
+			}
+
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("InvalidProtocolBufferException", e);
 		}
 
-		Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+		ChannelFuture future = ctx.close();
 
-		resp.setVersion(msg.getVersion());
-		resp.setMethod(msg.getMethod());
-		resp.setSeqId(msg.getSeqId());
-		resp.setTimestamp(System.currentTimeMillis());
+		future.addListener(new ChannelFutureListener() {
 
-		User.UserProtobuf.Builder user = User.UserProtobuf.newBuilder();
-		user.setUserName("吴鹏");
-		user.setId(UUID.randomUUID().toString());
-		user.setUserPass(UUID.randomUUID().toString());
+			@Override
+			public void operationComplete(ChannelFuture future) throws Exception {
+				if (!future.isSuccess())
+					ctx.close();
 
-		resp.setData(user.build().toByteString());
-
-		ctx.writeAndFlush(resp);
-
-		ctx.pipeline().replace(this, "time", timeHandler);
+				logger.info("ctx close: {}", ctx.channel().remoteAddress());
+			}
+		});
 	}
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		logger.error("TimeHandler", cause);
 		ctx.close();
+	}
+
+	/**
+	 * 授权码验证
+	 * 
+	 * @param code
+	 * @return
+	 */
+	private String verify(String code) {
+
+		code = StringUtil.isEmpty(code);
+
+		if (null == code) {
+			return null;
+		}
+
+		return "token";
 	}
 
 }
