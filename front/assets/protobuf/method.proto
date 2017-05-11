@@ -10,8 +10,7 @@ message RequestProtobuf {
   uint32 method = 2;
   uint64 seqId = 3;
   uint64 timestamp = 4;
-  string token = 5;
-  bytes data = 6;
+  bytes data = 5;
 }
 
 message ResponseProtobuf {

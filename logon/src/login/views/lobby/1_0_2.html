@@ -33,7 +33,7 @@ $(function(){
 
   var req = new proto.gws.RequestProtobuf();
   req.setVersion(101);
-  req.setMethod(1);
+  req.setMethod(95);
   req.setSeqid(parseInt(Math.random() * 1000));
   req.setTimestamp(new Date().getTime());
   req.setData(user.serializeBinary());

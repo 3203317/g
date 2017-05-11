@@ -8,10 +8,9 @@ option java_package = "net.foreworld.gws.protobuf.method.user";
 option java_outer_classname = "Login";
 
 message RequestProtobuf {
-  string user_name = 1;
-  string user_pass = 2;
+  string code = 1;
 }
 
 message ResponseProtobuf {
-  model.UserProtobuf user = 1;
+  string token = 1;
 }
