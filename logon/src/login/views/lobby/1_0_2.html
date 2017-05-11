@@ -27,57 +27,78 @@ var exports = {};
 
 $(function(){
 
-  var user = new proto.gws.model.UserProtobuf();
-  user.setUserName('猫一八')
-  user.setUserPass('123321');
+  var gws = proto.gws;
+  var model = gws.model;
+  var method = gws.method;
 
-  var req = new proto.gws.RequestProtobuf();
-  req.setVersion(101);
-  req.setMethod(95);
-  req.setSeqid(parseInt(Math.random() * 1000));
-  req.setTimestamp(new Date().getTime());
-  req.setData(user.serializeBinary());
+  var socket = null;
 
-  console.log(req.serializeBinary());
-  console.log('====')
+  $('#login').click(function(){
 
-  var resp = proto.gws.ResponseProtobuf;
+    socket = new WebSocket('ws://'+ window.location.hostname +'/s/68/');
+    socket.binaryType = 'arraybuffer';
 
-  var socket = new WebSocket('ws://'+ window.location.hostname +'/s/68/');
-  socket.binaryType = 'arraybuffer';
+    socket.onopen = function(evt){
 
-  socket.onopen = function(evt){
-    socket.send(req.serializeBinary());
-  };
+      socket.onmessage = function(evt){
+        var data = evt.data;
+        var type = typeof data;
 
-  socket.onmessage = function(evt){
-    var data = evt.data;
-    var type = typeof data;
+        console.log(data)
+        console.log('++++')
 
-    console.log(data)
-    console.log('++++')
+        var result = gws.ResponseProtobuf.deserializeBinary(data);
 
-    var result = resp.deserializeBinary(data);
+        console.log(result.getVersion());
+        console.log(result.getMethod());
+        console.log(result.getSeqid());
+        console.log(result.getTimestamp());
+        console.log('----');
 
-    console.log(result.getVersion())
-    console.log(result.getMethod())
-    console.log(result.getSeqid())
-    console.log(result.getTimestamp())
+        if(95 === result.getMethod()){
+          (function(){
+            var data = method.user.login.ResponseProtobuf.deserializeBinary(result.getData());
+            console.log(data.getToken());
+          })();
 
-    console.log('----')
-    var _user = proto.gws.model.UserProtobuf;
-    var _result = _user.deserializeBinary(result.getData());
-    console.log(_result.getId())
-    console.log(_result.getUserName())
-    console.log(_result.getUserPass())
+          return;
+        }
 
-    // socket.close();
-  };
+        (function(){
+          var data = model.UserProtobuf.deserializeBinary(result.getData());
+          console.log(data.getId());
+          console.log(data.getUserName());
+          console.log(data.getUserPass());
+        })();
+      };
 
-  socket.onclose = function(evt){
-    console.log('client notified socket has closed.');
-    console.log(evt);
-  };
+
+      var req = new gws.RequestProtobuf();
+      req.setVersion(101);
+      req.setMethod(95);
+      req.setSeqid(parseInt(Math.random() * 1000));
+      req.setTimestamp(new Date().getTime());
+
+      var login = new method.user.login.RequestProtobuf();
+      login.setCode(''+ parseInt(Math.random() * 1000 * 1000));
+      req.setData(login.serializeBinary());
+
+      var binary = req.serializeBinary();
+      console.log(binary);
+      socket.send(binary);
+    };
+
+
+    socket.onclose = function(evt){
+      console.log('client notified socket has closed.');
+      console.log(evt);
+    };
+
+    socket.onerror = function(evt){
+      console.error(evt);
+    };
+
+  });
 
   $('#logout').click(function(){
     socket.close();
@@ -85,20 +106,20 @@ $(function(){
 
   $('#shot').click(function(){
 
-    var user = new proto.gws.model.UserProtobuf();
-    user.setUserName('八一猫')
-    user.setUserPass('123456');
-
-    var req = new proto.gws.RequestProtobuf();
+    var req = new gws.RequestProtobuf();
     req.setVersion(102);
     req.setMethod(2);
     req.setSeqid(parseInt(Math.random() * 1000));
     req.setTimestamp(new Date().getTime());
+
+    var user = new model.UserProtobuf();
+    user.setUserName('八一猫')
+    user.setUserPass('123456');
     req.setData(user.serializeBinary());
 
-    console.log(req.serializeBinary());
-    console.log('====')
-    socket.send(req.serializeBinary());
+    var binary = req.serializeBinary();
+    console.log(binary);
+    socket.send(binary);
   });
 
 });
