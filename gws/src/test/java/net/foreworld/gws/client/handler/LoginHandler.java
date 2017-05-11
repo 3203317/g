@@ -1,17 +1,17 @@
 package net.foreworld.gws.client.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.foreworld.gws.protobuf.Method;
 import net.foreworld.gws.protobuf.method.user.Login;
 import net.foreworld.gws.protobuf.model.User;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -22,8 +22,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 @Sharable
 public class LoginHandler extends ChannelInboundHandlerAdapter {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -33,17 +32,14 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-		Method.RequestProtobuf.Builder req = Method.RequestProtobuf
-				.newBuilder();
+		Method.RequestProtobuf.Builder req = Method.RequestProtobuf.newBuilder();
 		req.setVersion(101);
 		req.setMethod(1);
 		req.setSeqId(56);
 		req.setTimestamp(System.currentTimeMillis());
 
-		Login.RequestProtobuf.Builder login = Login.RequestProtobuf
-				.newBuilder();
-		login.setUserName("黄鑫");
-		login.setUserPass("123456hx");
+		Login.RequestProtobuf.Builder login = Login.RequestProtobuf.newBuilder();
+		login.setCode("123456");
 
 		req.setData(login.build().toByteString());
 

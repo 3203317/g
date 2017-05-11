@@ -39,17 +39,7 @@ public final class Method {
     long getTimestamp();
 
     /**
-     * <code>optional string token = 5;</code>
-     */
-    java.lang.String getToken();
-    /**
-     * <code>optional string token = 5;</code>
-     */
-    com.google.protobuf.ByteString
-        getTokenBytes();
-
-    /**
-     * <code>optional bytes data = 6;</code>
+     * <code>optional bytes data = 5;</code>
      */
     com.google.protobuf.ByteString getData();
   }
@@ -69,7 +59,6 @@ public final class Method {
       method_ = 0;
       seqId_ = 0L;
       timestamp_ = 0L;
-      token_ = "";
       data_ = com.google.protobuf.ByteString.EMPTY;
     }
 
@@ -119,12 +108,6 @@ public final class Method {
               break;
             }
             case 42: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              token_ = s;
-              break;
-            }
-            case 50: {
 
               data_ = input.readBytes();
               break;
@@ -188,44 +171,10 @@ public final class Method {
       return timestamp_;
     }
 
-    public static final int TOKEN_FIELD_NUMBER = 5;
-    private volatile java.lang.Object token_;
-    /**
-     * <code>optional string token = 5;</code>
-     */
-    public java.lang.String getToken() {
-      java.lang.Object ref = token_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        token_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string token = 5;</code>
-     */
-    public com.google.protobuf.ByteString
-        getTokenBytes() {
-      java.lang.Object ref = token_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        token_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int DATA_FIELD_NUMBER = 6;
+    public static final int DATA_FIELD_NUMBER = 5;
     private com.google.protobuf.ByteString data_;
     /**
-     * <code>optional bytes data = 6;</code>
+     * <code>optional bytes data = 5;</code>
      */
     public com.google.protobuf.ByteString getData() {
       return data_;
@@ -255,11 +204,8 @@ public final class Method {
       if (timestamp_ != 0L) {
         output.writeUInt64(4, timestamp_);
       }
-      if (!getTokenBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, token_);
-      }
       if (!data_.isEmpty()) {
-        output.writeBytes(6, data_);
+        output.writeBytes(5, data_);
       }
     }
 
@@ -284,12 +230,9 @@ public final class Method {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt64Size(4, timestamp_);
       }
-      if (!getTokenBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, token_);
-      }
       if (!data_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(6, data_);
+          .computeBytesSize(5, data_);
       }
       memoizedSize = size;
       return size;
@@ -315,8 +258,6 @@ public final class Method {
           == other.getSeqId());
       result = result && (getTimestamp()
           == other.getTimestamp());
-      result = result && getToken()
-          .equals(other.getToken());
       result = result && getData()
           .equals(other.getData());
       return result;
@@ -339,8 +280,6 @@ public final class Method {
       hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTimestamp());
-      hash = (37 * hash) + TOKEN_FIELD_NUMBER;
-      hash = (53 * hash) + getToken().hashCode();
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -469,8 +408,6 @@ public final class Method {
 
         timestamp_ = 0L;
 
-        token_ = "";
-
         data_ = com.google.protobuf.ByteString.EMPTY;
 
         return this;
@@ -499,7 +436,6 @@ public final class Method {
         result.method_ = method_;
         result.seqId_ = seqId_;
         result.timestamp_ = timestamp_;
-        result.token_ = token_;
         result.data_ = data_;
         onBuilt();
         return result;
@@ -553,10 +489,6 @@ public final class Method {
         }
         if (other.getTimestamp() != 0L) {
           setTimestamp(other.getTimestamp());
-        }
-        if (!other.getToken().isEmpty()) {
-          token_ = other.token_;
-          onChanged();
         }
         if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
           setData(other.getData());
@@ -691,84 +623,15 @@ public final class Method {
         return this;
       }
 
-      private java.lang.Object token_ = "";
-      /**
-       * <code>optional string token = 5;</code>
-       */
-      public java.lang.String getToken() {
-        java.lang.Object ref = token_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          token_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string token = 5;</code>
-       */
-      public com.google.protobuf.ByteString
-          getTokenBytes() {
-        java.lang.Object ref = token_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          token_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string token = 5;</code>
-       */
-      public Builder setToken(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        token_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string token = 5;</code>
-       */
-      public Builder clearToken() {
-        
-        token_ = getDefaultInstance().getToken();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string token = 5;</code>
-       */
-      public Builder setTokenBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        token_ = value;
-        onChanged();
-        return this;
-      }
-
       private com.google.protobuf.ByteString data_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>optional bytes data = 6;</code>
+       * <code>optional bytes data = 5;</code>
        */
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
       /**
-       * <code>optional bytes data = 6;</code>
+       * <code>optional bytes data = 5;</code>
        */
       public Builder setData(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -780,7 +643,7 @@ public final class Method {
         return this;
       }
       /**
-       * <code>optional bytes data = 6;</code>
+       * <code>optional bytes data = 5;</code>
        */
       public Builder clearData() {
         
@@ -1542,14 +1405,13 @@ public final class Method {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025protobuf/method.proto\022\003gws\"q\n\017RequestP" +
+      "\n\025protobuf/method.proto\022\003gws\"b\n\017RequestP" +
       "rotobuf\022\017\n\007version\030\001 \001(\r\022\016\n\006method\030\002 \001(\r" +
-      "\022\r\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(\004\022\r\n\005to" +
-      "ken\030\005 \001(\t\022\014\n\004data\030\006 \001(\014\"c\n\020ResponseProto" +
-      "buf\022\017\n\007version\030\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r\n\005" +
-      "seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004data\030\005" +
-      " \001(\014B$\n\032net.foreworld.gws.protobufB\006Meth" +
-      "odb\006proto3"
+      "\022\r\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004da" +
+      "ta\030\005 \001(\014\"c\n\020ResponseProtobuf\022\017\n\007version\030" +
+      "\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004\022\021\n\t" +
+      "timestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014B$\n\032net.for" +
+      "eworld.gws.protobufB\006Methodb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1568,7 +1430,7 @@ public final class Method {
     internal_static_gws_RequestProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_RequestProtobuf_descriptor,
-        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Token", "Data", });
+        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", });
     internal_static_gws_ResponseProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gws_ResponseProtobuf_fieldAccessorTable = new

@@ -56,6 +56,51 @@ public final class User {
      * <code>optional .gws.model.UserProtobuf.Sex sex = 4;</code>
      */
     net.foreworld.gws.protobuf.model.User.UserProtobuf.Sex getSex();
+
+    /**
+     * <code>optional string mobile = 5;</code>
+     */
+    java.lang.String getMobile();
+    /**
+     * <code>optional string mobile = 5;</code>
+     */
+    com.google.protobuf.ByteString
+        getMobileBytes();
+
+    /**
+     * <code>optional string qq = 6;</code>
+     */
+    java.lang.String getQq();
+    /**
+     * <code>optional string qq = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getQqBytes();
+
+    /**
+     * <code>optional string weixin = 7;</code>
+     */
+    java.lang.String getWeixin();
+    /**
+     * <code>optional string weixin = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getWeixinBytes();
+
+    /**
+     * <code>optional string email = 8;</code>
+     */
+    java.lang.String getEmail();
+    /**
+     * <code>optional string email = 8;</code>
+     */
+    com.google.protobuf.ByteString
+        getEmailBytes();
+
+    /**
+     * <code>optional uint32 status = 9;</code>
+     */
+    int getStatus();
   }
   /**
    * Protobuf type {@code gws.model.UserProtobuf}
@@ -73,6 +118,11 @@ public final class User {
       userName_ = "";
       userPass_ = "";
       sex_ = 0;
+      mobile_ = "";
+      qq_ = "";
+      weixin_ = "";
+      email_ = "";
+      status_ = 0;
     }
 
     @java.lang.Override
@@ -122,6 +172,35 @@ public final class User {
               int rawValue = input.readEnum();
 
               sex_ = rawValue;
+              break;
+            }
+            case 42: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              mobile_ = s;
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              qq_ = s;
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              weixin_ = s;
+              break;
+            }
+            case 66: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              email_ = s;
+              break;
+            }
+            case 72: {
+
+              status_ = input.readUInt32();
               break;
             }
           }
@@ -363,6 +442,151 @@ public final class User {
       return result == null ? net.foreworld.gws.protobuf.model.User.UserProtobuf.Sex.UNRECOGNIZED : result;
     }
 
+    public static final int MOBILE_FIELD_NUMBER = 5;
+    private volatile java.lang.Object mobile_;
+    /**
+     * <code>optional string mobile = 5;</code>
+     */
+    public java.lang.String getMobile() {
+      java.lang.Object ref = mobile_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        mobile_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string mobile = 5;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMobileBytes() {
+      java.lang.Object ref = mobile_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        mobile_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int QQ_FIELD_NUMBER = 6;
+    private volatile java.lang.Object qq_;
+    /**
+     * <code>optional string qq = 6;</code>
+     */
+    public java.lang.String getQq() {
+      java.lang.Object ref = qq_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        qq_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string qq = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getQqBytes() {
+      java.lang.Object ref = qq_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        qq_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int WEIXIN_FIELD_NUMBER = 7;
+    private volatile java.lang.Object weixin_;
+    /**
+     * <code>optional string weixin = 7;</code>
+     */
+    public java.lang.String getWeixin() {
+      java.lang.Object ref = weixin_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        weixin_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string weixin = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getWeixinBytes() {
+      java.lang.Object ref = weixin_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        weixin_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EMAIL_FIELD_NUMBER = 8;
+    private volatile java.lang.Object email_;
+    /**
+     * <code>optional string email = 8;</code>
+     */
+    public java.lang.String getEmail() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        email_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string email = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getEmailBytes() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        email_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int STATUS_FIELD_NUMBER = 9;
+    private int status_;
+    /**
+     * <code>optional uint32 status = 9;</code>
+     */
+    public int getStatus() {
+      return status_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -387,6 +611,21 @@ public final class User {
       if (sex_ != net.foreworld.gws.protobuf.model.User.UserProtobuf.Sex.FEMALE.getNumber()) {
         output.writeEnum(4, sex_);
       }
+      if (!getMobileBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, mobile_);
+      }
+      if (!getQqBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, qq_);
+      }
+      if (!getWeixinBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, weixin_);
+      }
+      if (!getEmailBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 8, email_);
+      }
+      if (status_ != 0) {
+        output.writeUInt32(9, status_);
+      }
     }
 
     public int getSerializedSize() {
@@ -406,6 +645,22 @@ public final class User {
       if (sex_ != net.foreworld.gws.protobuf.model.User.UserProtobuf.Sex.FEMALE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(4, sex_);
+      }
+      if (!getMobileBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, mobile_);
+      }
+      if (!getQqBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, qq_);
+      }
+      if (!getWeixinBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, weixin_);
+      }
+      if (!getEmailBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, email_);
+      }
+      if (status_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(9, status_);
       }
       memoizedSize = size;
       return size;
@@ -430,6 +685,16 @@ public final class User {
       result = result && getUserPass()
           .equals(other.getUserPass());
       result = result && sex_ == other.sex_;
+      result = result && getMobile()
+          .equals(other.getMobile());
+      result = result && getQq()
+          .equals(other.getQq());
+      result = result && getWeixin()
+          .equals(other.getWeixin());
+      result = result && getEmail()
+          .equals(other.getEmail());
+      result = result && (getStatus()
+          == other.getStatus());
       return result;
     }
 
@@ -448,6 +713,16 @@ public final class User {
       hash = (53 * hash) + getUserPass().hashCode();
       hash = (37 * hash) + SEX_FIELD_NUMBER;
       hash = (53 * hash) + sex_;
+      hash = (37 * hash) + MOBILE_FIELD_NUMBER;
+      hash = (53 * hash) + getMobile().hashCode();
+      hash = (37 * hash) + QQ_FIELD_NUMBER;
+      hash = (53 * hash) + getQq().hashCode();
+      hash = (37 * hash) + WEIXIN_FIELD_NUMBER;
+      hash = (53 * hash) + getWeixin().hashCode();
+      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
+      hash = (53 * hash) + getEmail().hashCode();
+      hash = (37 * hash) + STATUS_FIELD_NUMBER;
+      hash = (53 * hash) + getStatus();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -574,6 +849,16 @@ public final class User {
 
         sex_ = 0;
 
+        mobile_ = "";
+
+        qq_ = "";
+
+        weixin_ = "";
+
+        email_ = "";
+
+        status_ = 0;
+
         return this;
       }
 
@@ -600,6 +885,11 @@ public final class User {
         result.userName_ = userName_;
         result.userPass_ = userPass_;
         result.sex_ = sex_;
+        result.mobile_ = mobile_;
+        result.qq_ = qq_;
+        result.weixin_ = weixin_;
+        result.email_ = email_;
+        result.status_ = status_;
         onBuilt();
         return result;
       }
@@ -655,6 +945,25 @@ public final class User {
         }
         if (other.sex_ != 0) {
           setSexValue(other.getSexValue());
+        }
+        if (!other.getMobile().isEmpty()) {
+          mobile_ = other.mobile_;
+          onChanged();
+        }
+        if (!other.getQq().isEmpty()) {
+          qq_ = other.qq_;
+          onChanged();
+        }
+        if (!other.getWeixin().isEmpty()) {
+          weixin_ = other.weixin_;
+          onChanged();
+        }
+        if (!other.getEmail().isEmpty()) {
+          email_ = other.email_;
+          onChanged();
+        }
+        if (other.getStatus() != 0) {
+          setStatus(other.getStatus());
         }
         onChanged();
         return this;
@@ -932,6 +1241,308 @@ public final class User {
         onChanged();
         return this;
       }
+
+      private java.lang.Object mobile_ = "";
+      /**
+       * <code>optional string mobile = 5;</code>
+       */
+      public java.lang.String getMobile() {
+        java.lang.Object ref = mobile_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          mobile_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string mobile = 5;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMobileBytes() {
+        java.lang.Object ref = mobile_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          mobile_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string mobile = 5;</code>
+       */
+      public Builder setMobile(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        mobile_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string mobile = 5;</code>
+       */
+      public Builder clearMobile() {
+        
+        mobile_ = getDefaultInstance().getMobile();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string mobile = 5;</code>
+       */
+      public Builder setMobileBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        mobile_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object qq_ = "";
+      /**
+       * <code>optional string qq = 6;</code>
+       */
+      public java.lang.String getQq() {
+        java.lang.Object ref = qq_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          qq_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string qq = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getQqBytes() {
+        java.lang.Object ref = qq_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          qq_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string qq = 6;</code>
+       */
+      public Builder setQq(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        qq_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string qq = 6;</code>
+       */
+      public Builder clearQq() {
+        
+        qq_ = getDefaultInstance().getQq();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string qq = 6;</code>
+       */
+      public Builder setQqBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        qq_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object weixin_ = "";
+      /**
+       * <code>optional string weixin = 7;</code>
+       */
+      public java.lang.String getWeixin() {
+        java.lang.Object ref = weixin_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          weixin_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string weixin = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getWeixinBytes() {
+        java.lang.Object ref = weixin_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          weixin_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string weixin = 7;</code>
+       */
+      public Builder setWeixin(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        weixin_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string weixin = 7;</code>
+       */
+      public Builder clearWeixin() {
+        
+        weixin_ = getDefaultInstance().getWeixin();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string weixin = 7;</code>
+       */
+      public Builder setWeixinBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        weixin_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object email_ = "";
+      /**
+       * <code>optional string email = 8;</code>
+       */
+      public java.lang.String getEmail() {
+        java.lang.Object ref = email_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          email_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string email = 8;</code>
+       */
+      public com.google.protobuf.ByteString
+          getEmailBytes() {
+        java.lang.Object ref = email_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          email_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string email = 8;</code>
+       */
+      public Builder setEmail(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        email_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string email = 8;</code>
+       */
+      public Builder clearEmail() {
+        
+        email_ = getDefaultInstance().getEmail();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string email = 8;</code>
+       */
+      public Builder setEmailBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        email_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int status_ ;
+      /**
+       * <code>optional uint32 status = 9;</code>
+       */
+      public int getStatus() {
+        return status_;
+      }
+      /**
+       * <code>optional uint32 status = 9;</code>
+       */
+      public Builder setStatus(int value) {
+        
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 status = 9;</code>
+       */
+      public Builder clearStatus() {
+        
+        status_ = 0;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -995,12 +1606,14 @@ public final class User {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\031protobuf/model.user.proto\022\tgws.model\"\207" +
+      "\n\031protobuf/model.user.proto\022\tgws.model\"\322" +
       "\001\n\014UserProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\tuser_name" +
       "\030\002 \001(\t\022\021\n\tuser_pass\030\003 \001(\t\022(\n\003sex\030\004 \001(\0162\033" +
-      ".gws.model.UserProtobuf.Sex\"\033\n\003Sex\022\n\n\006FE" +
-      "MALE\020\000\022\010\n\004MALE\020\001B(\n net.foreworld.gws.pr" +
-      "otobuf.modelB\004Userb\006proto3"
+      ".gws.model.UserProtobuf.Sex\022\016\n\006mobile\030\005 " +
+      "\001(\t\022\n\n\002qq\030\006 \001(\t\022\016\n\006weixin\030\007 \001(\t\022\r\n\005email" +
+      "\030\010 \001(\t\022\016\n\006status\030\t \001(\r\"\033\n\003Sex\022\n\n\006FEMALE\020" +
+      "\000\022\010\n\004MALE\020\001B(\n net.foreworld.gws.protobu" +
+      "f.modelB\004Userb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1019,7 +1632,7 @@ public final class User {
     internal_static_gws_model_UserProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_model_UserProtobuf_descriptor,
-        new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", });
+        new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", "Mobile", "Qq", "Weixin", "Email", "Status", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

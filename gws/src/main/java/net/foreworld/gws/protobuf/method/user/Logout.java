@@ -19,14 +19,14 @@ public final class Logout {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string id = 1;</code>
+     * <code>optional string token = 1;</code>
      */
-    java.lang.String getId();
+    java.lang.String getToken();
     /**
-     * <code>optional string id = 1;</code>
+     * <code>optional string token = 1;</code>
      */
     com.google.protobuf.ByteString
-        getIdBytes();
+        getTokenBytes();
   }
   /**
    * Protobuf type {@code gws.method.user.logout.RequestProtobuf}
@@ -40,7 +40,7 @@ public final class Logout {
       super(builder);
     }
     private RequestProtobuf() {
-      id_ = "";
+      token_ = "";
     }
 
     @java.lang.Override
@@ -71,7 +71,7 @@ public final class Logout {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              id_ = s;
+              token_ = s;
               break;
             }
           }
@@ -97,34 +97,34 @@ public final class Logout {
               net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf.class, net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf.Builder.class);
     }
 
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
+    public static final int TOKEN_FIELD_NUMBER = 1;
+    private volatile java.lang.Object token_;
     /**
-     * <code>optional string id = 1;</code>
+     * <code>optional string token = 1;</code>
      */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
+    public java.lang.String getToken() {
+      java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        id_ = s;
+        token_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string id = 1;</code>
+     * <code>optional string token = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
+        getTokenBytes() {
+      java.lang.Object ref = token_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        id_ = b;
+        token_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -143,8 +143,8 @@ public final class Logout {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
+      if (!getTokenBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, token_);
       }
     }
 
@@ -153,8 +153,8 @@ public final class Logout {
       if (size != -1) return size;
 
       size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
+      if (!getTokenBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, token_);
       }
       memoizedSize = size;
       return size;
@@ -172,8 +172,8 @@ public final class Logout {
       net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf other = (net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf) obj;
 
       boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
+      result = result && getToken()
+          .equals(other.getToken());
       return result;
     }
 
@@ -184,8 +184,8 @@ public final class Logout {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
+      hash = (37 * hash) + TOKEN_FIELD_NUMBER;
+      hash = (53 * hash) + getToken().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -304,7 +304,7 @@ public final class Logout {
       }
       public Builder clear() {
         super.clear();
-        id_ = "";
+        token_ = "";
 
         return this;
       }
@@ -328,7 +328,7 @@ public final class Logout {
 
       public net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf buildPartial() {
         net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf result = new net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf(this);
-        result.id_ = id_;
+        result.token_ = token_;
         onBuilt();
         return result;
       }
@@ -370,8 +370,8 @@ public final class Logout {
 
       public Builder mergeFrom(net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf other) {
         if (other == net.foreworld.gws.protobuf.method.user.Logout.RequestProtobuf.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
+        if (!other.getToken().isEmpty()) {
+          token_ = other.token_;
           onChanged();
         }
         onChanged();
@@ -400,71 +400,71 @@ public final class Logout {
         return this;
       }
 
-      private java.lang.Object id_ = "";
+      private java.lang.Object token_ = "";
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
+      public java.lang.String getToken() {
+        java.lang.Object ref = token_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          id_ = s;
+          token_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string token = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
+          getTokenBytes() {
+        java.lang.Object ref = token_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          id_ = b;
+          token_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public Builder setId(
+      public Builder setToken(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        id_ = value;
+        token_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public Builder clearId() {
+      public Builder clearToken() {
         
-        id_ = getDefaultInstance().getId();
+        token_ = getDefaultInstance().getToken();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string id = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public Builder setIdBytes(
+      public Builder setTokenBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        id_ = value;
+        token_ = value;
         onChanged();
         return this;
       }
@@ -522,17 +522,9 @@ public final class Logout {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
+     * <code>optional uint32 reason = 1;</code>
      */
-    boolean hasUser();
-    /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
-     */
-    net.foreworld.gws.protobuf.model.User.UserProtobuf getUser();
-    /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
-     */
-    net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder getUserOrBuilder();
+    int getReason();
   }
   /**
    * Protobuf type {@code gws.method.user.logout.ResponseProtobuf}
@@ -546,6 +538,7 @@ public final class Logout {
       super(builder);
     }
     private ResponseProtobuf() {
+      reason_ = 0;
     }
 
     @java.lang.Override
@@ -573,17 +566,9 @@ public final class Logout {
               }
               break;
             }
-            case 10: {
-              net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder subBuilder = null;
-              if (user_ != null) {
-                subBuilder = user_.toBuilder();
-              }
-              user_ = input.readMessage(net.foreworld.gws.protobuf.model.User.UserProtobuf.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(user_);
-                user_ = subBuilder.buildPartial();
-              }
+            case 8: {
 
+              reason_ = input.readUInt32();
               break;
             }
           }
@@ -609,25 +594,13 @@ public final class Logout {
               net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf.class, net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf.Builder.class);
     }
 
-    public static final int USER_FIELD_NUMBER = 1;
-    private net.foreworld.gws.protobuf.model.User.UserProtobuf user_;
+    public static final int REASON_FIELD_NUMBER = 1;
+    private int reason_;
     /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
+     * <code>optional uint32 reason = 1;</code>
      */
-    public boolean hasUser() {
-      return user_ != null;
-    }
-    /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
-     */
-    public net.foreworld.gws.protobuf.model.User.UserProtobuf getUser() {
-      return user_ == null ? net.foreworld.gws.protobuf.model.User.UserProtobuf.getDefaultInstance() : user_;
-    }
-    /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
-     */
-    public net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder getUserOrBuilder() {
-      return getUser();
+    public int getReason() {
+      return reason_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -642,8 +615,8 @@ public final class Logout {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (user_ != null) {
-        output.writeMessage(1, getUser());
+      if (reason_ != 0) {
+        output.writeUInt32(1, reason_);
       }
     }
 
@@ -652,9 +625,9 @@ public final class Logout {
       if (size != -1) return size;
 
       size = 0;
-      if (user_ != null) {
+      if (reason_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getUser());
+          .computeUInt32Size(1, reason_);
       }
       memoizedSize = size;
       return size;
@@ -672,11 +645,8 @@ public final class Logout {
       net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf other = (net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf) obj;
 
       boolean result = true;
-      result = result && (hasUser() == other.hasUser());
-      if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
-      }
+      result = result && (getReason()
+          == other.getReason());
       return result;
     }
 
@@ -687,10 +657,8 @@ public final class Logout {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasUser()) {
-        hash = (37 * hash) + USER_FIELD_NUMBER;
-        hash = (53 * hash) + getUser().hashCode();
-      }
+      hash = (37 * hash) + REASON_FIELD_NUMBER;
+      hash = (53 * hash) + getReason();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -809,12 +777,8 @@ public final class Logout {
       }
       public Builder clear() {
         super.clear();
-        if (userBuilder_ == null) {
-          user_ = null;
-        } else {
-          user_ = null;
-          userBuilder_ = null;
-        }
+        reason_ = 0;
+
         return this;
       }
 
@@ -837,11 +801,7 @@ public final class Logout {
 
       public net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf buildPartial() {
         net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf result = new net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf(this);
-        if (userBuilder_ == null) {
-          result.user_ = user_;
-        } else {
-          result.user_ = userBuilder_.build();
-        }
+        result.reason_ = reason_;
         onBuilt();
         return result;
       }
@@ -883,8 +843,8 @@ public final class Logout {
 
       public Builder mergeFrom(net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf other) {
         if (other == net.foreworld.gws.protobuf.method.user.Logout.ResponseProtobuf.getDefaultInstance()) return this;
-        if (other.hasUser()) {
-          mergeUser(other.getUser());
+        if (other.getReason() != 0) {
+          setReason(other.getReason());
         }
         onChanged();
         return this;
@@ -912,121 +872,30 @@ public final class Logout {
         return this;
       }
 
-      private net.foreworld.gws.protobuf.model.User.UserProtobuf user_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.model.User.UserProtobuf, net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder, net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder> userBuilder_;
+      private int reason_ ;
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional uint32 reason = 1;</code>
        */
-      public boolean hasUser() {
-        return userBuilder_ != null || user_ != null;
+      public int getReason() {
+        return reason_;
       }
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional uint32 reason = 1;</code>
        */
-      public net.foreworld.gws.protobuf.model.User.UserProtobuf getUser() {
-        if (userBuilder_ == null) {
-          return user_ == null ? net.foreworld.gws.protobuf.model.User.UserProtobuf.getDefaultInstance() : user_;
-        } else {
-          return userBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public Builder setUser(net.foreworld.gws.protobuf.model.User.UserProtobuf value) {
-        if (userBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          user_ = value;
-          onChanged();
-        } else {
-          userBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public Builder setUser(
-          net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder builderForValue) {
-        if (userBuilder_ == null) {
-          user_ = builderForValue.build();
-          onChanged();
-        } else {
-          userBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public Builder mergeUser(net.foreworld.gws.protobuf.model.User.UserProtobuf value) {
-        if (userBuilder_ == null) {
-          if (user_ != null) {
-            user_ =
-              net.foreworld.gws.protobuf.model.User.UserProtobuf.newBuilder(user_).mergeFrom(value).buildPartial();
-          } else {
-            user_ = value;
-          }
-          onChanged();
-        } else {
-          userBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public Builder clearUser() {
-        if (userBuilder_ == null) {
-          user_ = null;
-          onChanged();
-        } else {
-          user_ = null;
-          userBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder getUserBuilder() {
+      public Builder setReason(int value) {
         
+        reason_ = value;
         onChanged();
-        return getUserFieldBuilder().getBuilder();
+        return this;
       }
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional uint32 reason = 1;</code>
        */
-      public net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder getUserOrBuilder() {
-        if (userBuilder_ != null) {
-          return userBuilder_.getMessageOrBuilder();
-        } else {
-          return user_ == null ?
-              net.foreworld.gws.protobuf.model.User.UserProtobuf.getDefaultInstance() : user_;
-        }
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.model.User.UserProtobuf, net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder, net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder> 
-          getUserFieldBuilder() {
-        if (userBuilder_ == null) {
-          userBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              net.foreworld.gws.protobuf.model.User.UserProtobuf, net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder, net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder>(
-                  getUser(),
-                  getParentForChildren(),
-                  isClean());
-          user_ = null;
-        }
-        return userBuilder_;
+      public Builder clearReason() {
+        
+        reason_ = 0;
+        onChanged();
+        return this;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1097,11 +966,10 @@ public final class Logout {
   static {
     java.lang.String[] descriptorData = {
       "\n!protobuf/method.user.logout.proto\022\026gws" +
-      ".method.user.logout\032\031protobuf/model.user" +
-      ".proto\"\035\n\017RequestProtobuf\022\n\n\002id\030\001 \001(\t\"9\n" +
-      "\020ResponseProtobuf\022%\n\004user\030\001 \001(\0132\027.gws.mo" +
-      "del.UserProtobufB0\n&net.foreworld.gws.pr" +
-      "otobuf.method.userB\006Logoutb\006proto3"
+      ".method.user.logout\" \n\017RequestProtobuf\022\r" +
+      "\n\005token\030\001 \001(\t\"\"\n\020ResponseProtobuf\022\016\n\006rea" +
+      "son\030\001 \001(\rB0\n&net.foreworld.gws.protobuf." +
+      "method.userB\006Logoutb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1114,21 +982,19 @@ public final class Logout {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          net.foreworld.gws.protobuf.model.User.getDescriptor(),
         }, assigner);
     internal_static_gws_method_user_logout_RequestProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_gws_method_user_logout_RequestProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_method_user_logout_RequestProtobuf_descriptor,
-        new java.lang.String[] { "Id", });
+        new java.lang.String[] { "Token", });
     internal_static_gws_method_user_logout_ResponseProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gws_method_user_logout_ResponseProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_method_user_logout_ResponseProtobuf_descriptor,
-        new java.lang.String[] { "User", });
-    net.foreworld.gws.protobuf.model.User.getDescriptor();
+        new java.lang.String[] { "Reason", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

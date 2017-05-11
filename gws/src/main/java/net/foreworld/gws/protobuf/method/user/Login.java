@@ -19,24 +19,14 @@ public final class Login {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string user_name = 1;</code>
+     * <code>optional string code = 1;</code>
      */
-    java.lang.String getUserName();
+    java.lang.String getCode();
     /**
-     * <code>optional string user_name = 1;</code>
+     * <code>optional string code = 1;</code>
      */
     com.google.protobuf.ByteString
-        getUserNameBytes();
-
-    /**
-     * <code>optional string user_pass = 2;</code>
-     */
-    java.lang.String getUserPass();
-    /**
-     * <code>optional string user_pass = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getUserPassBytes();
+        getCodeBytes();
   }
   /**
    * Protobuf type {@code gws.method.user.login.RequestProtobuf}
@@ -50,8 +40,7 @@ public final class Login {
       super(builder);
     }
     private RequestProtobuf() {
-      userName_ = "";
-      userPass_ = "";
+      code_ = "";
     }
 
     @java.lang.Override
@@ -82,13 +71,7 @@ public final class Login {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              userName_ = s;
-              break;
-            }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              userPass_ = s;
+              code_ = s;
               break;
             }
           }
@@ -114,68 +97,34 @@ public final class Login {
               net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf.class, net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf.Builder.class);
     }
 
-    public static final int USER_NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object userName_;
+    public static final int CODE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object code_;
     /**
-     * <code>optional string user_name = 1;</code>
+     * <code>optional string code = 1;</code>
      */
-    public java.lang.String getUserName() {
-      java.lang.Object ref = userName_;
+    public java.lang.String getCode() {
+      java.lang.Object ref = code_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        userName_ = s;
+        code_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string user_name = 1;</code>
+     * <code>optional string code = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getUserNameBytes() {
-      java.lang.Object ref = userName_;
+        getCodeBytes() {
+      java.lang.Object ref = code_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        userName_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int USER_PASS_FIELD_NUMBER = 2;
-    private volatile java.lang.Object userPass_;
-    /**
-     * <code>optional string user_pass = 2;</code>
-     */
-    public java.lang.String getUserPass() {
-      java.lang.Object ref = userPass_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        userPass_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string user_pass = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getUserPassBytes() {
-      java.lang.Object ref = userPass_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        userPass_ = b;
+        code_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -194,11 +143,8 @@ public final class Login {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getUserNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, userName_);
-      }
-      if (!getUserPassBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, userPass_);
+      if (!getCodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, code_);
       }
     }
 
@@ -207,11 +153,8 @@ public final class Login {
       if (size != -1) return size;
 
       size = 0;
-      if (!getUserNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, userName_);
-      }
-      if (!getUserPassBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, userPass_);
+      if (!getCodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, code_);
       }
       memoizedSize = size;
       return size;
@@ -229,10 +172,8 @@ public final class Login {
       net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf other = (net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf) obj;
 
       boolean result = true;
-      result = result && getUserName()
-          .equals(other.getUserName());
-      result = result && getUserPass()
-          .equals(other.getUserPass());
+      result = result && getCode()
+          .equals(other.getCode());
       return result;
     }
 
@@ -243,10 +184,8 @@ public final class Login {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + USER_NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getUserName().hashCode();
-      hash = (37 * hash) + USER_PASS_FIELD_NUMBER;
-      hash = (53 * hash) + getUserPass().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -365,9 +304,7 @@ public final class Login {
       }
       public Builder clear() {
         super.clear();
-        userName_ = "";
-
-        userPass_ = "";
+        code_ = "";
 
         return this;
       }
@@ -391,8 +328,7 @@ public final class Login {
 
       public net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf buildPartial() {
         net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf result = new net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf(this);
-        result.userName_ = userName_;
-        result.userPass_ = userPass_;
+        result.code_ = code_;
         onBuilt();
         return result;
       }
@@ -434,12 +370,8 @@ public final class Login {
 
       public Builder mergeFrom(net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf other) {
         if (other == net.foreworld.gws.protobuf.method.user.Login.RequestProtobuf.getDefaultInstance()) return this;
-        if (!other.getUserName().isEmpty()) {
-          userName_ = other.userName_;
-          onChanged();
-        }
-        if (!other.getUserPass().isEmpty()) {
-          userPass_ = other.userPass_;
+        if (!other.getCode().isEmpty()) {
+          code_ = other.code_;
           onChanged();
         }
         onChanged();
@@ -468,140 +400,71 @@ public final class Login {
         return this;
       }
 
-      private java.lang.Object userName_ = "";
+      private java.lang.Object code_ = "";
       /**
-       * <code>optional string user_name = 1;</code>
+       * <code>optional string code = 1;</code>
        */
-      public java.lang.String getUserName() {
-        java.lang.Object ref = userName_;
+      public java.lang.String getCode() {
+        java.lang.Object ref = code_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          userName_ = s;
+          code_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string user_name = 1;</code>
+       * <code>optional string code = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getUserNameBytes() {
-        java.lang.Object ref = userName_;
+          getCodeBytes() {
+        java.lang.Object ref = code_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          userName_ = b;
+          code_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string user_name = 1;</code>
+       * <code>optional string code = 1;</code>
        */
-      public Builder setUserName(
+      public Builder setCode(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        userName_ = value;
+        code_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string user_name = 1;</code>
+       * <code>optional string code = 1;</code>
        */
-      public Builder clearUserName() {
+      public Builder clearCode() {
         
-        userName_ = getDefaultInstance().getUserName();
+        code_ = getDefaultInstance().getCode();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string user_name = 1;</code>
+       * <code>optional string code = 1;</code>
        */
-      public Builder setUserNameBytes(
+      public Builder setCodeBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        userName_ = value;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object userPass_ = "";
-      /**
-       * <code>optional string user_pass = 2;</code>
-       */
-      public java.lang.String getUserPass() {
-        java.lang.Object ref = userPass_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          userPass_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string user_pass = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getUserPassBytes() {
-        java.lang.Object ref = userPass_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          userPass_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string user_pass = 2;</code>
-       */
-      public Builder setUserPass(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        userPass_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string user_pass = 2;</code>
-       */
-      public Builder clearUserPass() {
-        
-        userPass_ = getDefaultInstance().getUserPass();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string user_pass = 2;</code>
-       */
-      public Builder setUserPassBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        userPass_ = value;
+        code_ = value;
         onChanged();
         return this;
       }
@@ -659,17 +522,14 @@ public final class Login {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
+     * <code>optional string token = 1;</code>
      */
-    boolean hasUser();
+    java.lang.String getToken();
     /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
+     * <code>optional string token = 1;</code>
      */
-    net.foreworld.gws.protobuf.model.User.UserProtobuf getUser();
-    /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
-     */
-    net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder getUserOrBuilder();
+    com.google.protobuf.ByteString
+        getTokenBytes();
   }
   /**
    * Protobuf type {@code gws.method.user.login.ResponseProtobuf}
@@ -683,6 +543,7 @@ public final class Login {
       super(builder);
     }
     private ResponseProtobuf() {
+      token_ = "";
     }
 
     @java.lang.Override
@@ -711,16 +572,9 @@ public final class Login {
               break;
             }
             case 10: {
-              net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder subBuilder = null;
-              if (user_ != null) {
-                subBuilder = user_.toBuilder();
-              }
-              user_ = input.readMessage(net.foreworld.gws.protobuf.model.User.UserProtobuf.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(user_);
-                user_ = subBuilder.buildPartial();
-              }
+              java.lang.String s = input.readStringRequireUtf8();
 
+              token_ = s;
               break;
             }
           }
@@ -746,25 +600,38 @@ public final class Login {
               net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf.class, net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf.Builder.class);
     }
 
-    public static final int USER_FIELD_NUMBER = 1;
-    private net.foreworld.gws.protobuf.model.User.UserProtobuf user_;
+    public static final int TOKEN_FIELD_NUMBER = 1;
+    private volatile java.lang.Object token_;
     /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
+     * <code>optional string token = 1;</code>
      */
-    public boolean hasUser() {
-      return user_ != null;
+    public java.lang.String getToken() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        token_ = s;
+        return s;
+      }
     }
     /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
+     * <code>optional string token = 1;</code>
      */
-    public net.foreworld.gws.protobuf.model.User.UserProtobuf getUser() {
-      return user_ == null ? net.foreworld.gws.protobuf.model.User.UserProtobuf.getDefaultInstance() : user_;
-    }
-    /**
-     * <code>optional .gws.model.UserProtobuf user = 1;</code>
-     */
-    public net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder getUserOrBuilder() {
-      return getUser();
+    public com.google.protobuf.ByteString
+        getTokenBytes() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        token_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -779,8 +646,8 @@ public final class Login {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (user_ != null) {
-        output.writeMessage(1, getUser());
+      if (!getTokenBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, token_);
       }
     }
 
@@ -789,9 +656,8 @@ public final class Login {
       if (size != -1) return size;
 
       size = 0;
-      if (user_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getUser());
+      if (!getTokenBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, token_);
       }
       memoizedSize = size;
       return size;
@@ -809,11 +675,8 @@ public final class Login {
       net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf other = (net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf) obj;
 
       boolean result = true;
-      result = result && (hasUser() == other.hasUser());
-      if (hasUser()) {
-        result = result && getUser()
-            .equals(other.getUser());
-      }
+      result = result && getToken()
+          .equals(other.getToken());
       return result;
     }
 
@@ -824,10 +687,8 @@ public final class Login {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      if (hasUser()) {
-        hash = (37 * hash) + USER_FIELD_NUMBER;
-        hash = (53 * hash) + getUser().hashCode();
-      }
+      hash = (37 * hash) + TOKEN_FIELD_NUMBER;
+      hash = (53 * hash) + getToken().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -946,12 +807,8 @@ public final class Login {
       }
       public Builder clear() {
         super.clear();
-        if (userBuilder_ == null) {
-          user_ = null;
-        } else {
-          user_ = null;
-          userBuilder_ = null;
-        }
+        token_ = "";
+
         return this;
       }
 
@@ -974,11 +831,7 @@ public final class Login {
 
       public net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf buildPartial() {
         net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf result = new net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf(this);
-        if (userBuilder_ == null) {
-          result.user_ = user_;
-        } else {
-          result.user_ = userBuilder_.build();
-        }
+        result.token_ = token_;
         onBuilt();
         return result;
       }
@@ -1020,8 +873,9 @@ public final class Login {
 
       public Builder mergeFrom(net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf other) {
         if (other == net.foreworld.gws.protobuf.method.user.Login.ResponseProtobuf.getDefaultInstance()) return this;
-        if (other.hasUser()) {
-          mergeUser(other.getUser());
+        if (!other.getToken().isEmpty()) {
+          token_ = other.token_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -1049,121 +903,73 @@ public final class Login {
         return this;
       }
 
-      private net.foreworld.gws.protobuf.model.User.UserProtobuf user_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.model.User.UserProtobuf, net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder, net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder> userBuilder_;
+      private java.lang.Object token_ = "";
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public boolean hasUser() {
-        return userBuilder_ != null || user_ != null;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public net.foreworld.gws.protobuf.model.User.UserProtobuf getUser() {
-        if (userBuilder_ == null) {
-          return user_ == null ? net.foreworld.gws.protobuf.model.User.UserProtobuf.getDefaultInstance() : user_;
+      public java.lang.String getToken() {
+        java.lang.Object ref = token_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          token_ = s;
+          return s;
         } else {
-          return userBuilder_.getMessage();
+          return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public Builder setUser(net.foreworld.gws.protobuf.model.User.UserProtobuf value) {
-        if (userBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          user_ = value;
-          onChanged();
+      public com.google.protobuf.ByteString
+          getTokenBytes() {
+        java.lang.Object ref = token_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          token_ = b;
+          return b;
         } else {
-          userBuilder_.setMessage(value);
+          return (com.google.protobuf.ByteString) ref;
         }
-
-        return this;
       }
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public Builder setUser(
-          net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder builderForValue) {
-        if (userBuilder_ == null) {
-          user_ = builderForValue.build();
-          onChanged();
-        } else {
-          userBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public Builder mergeUser(net.foreworld.gws.protobuf.model.User.UserProtobuf value) {
-        if (userBuilder_ == null) {
-          if (user_ != null) {
-            user_ =
-              net.foreworld.gws.protobuf.model.User.UserProtobuf.newBuilder(user_).mergeFrom(value).buildPartial();
-          } else {
-            user_ = value;
-          }
-          onChanged();
-        } else {
-          userBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public Builder clearUser() {
-        if (userBuilder_ == null) {
-          user_ = null;
-          onChanged();
-        } else {
-          user_ = null;
-          userBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
-       */
-      public net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder getUserBuilder() {
-        
+      public Builder setToken(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        token_ = value;
         onChanged();
-        return getUserFieldBuilder().getBuilder();
+        return this;
       }
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      public net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder getUserOrBuilder() {
-        if (userBuilder_ != null) {
-          return userBuilder_.getMessageOrBuilder();
-        } else {
-          return user_ == null ?
-              net.foreworld.gws.protobuf.model.User.UserProtobuf.getDefaultInstance() : user_;
-        }
+      public Builder clearToken() {
+        
+        token_ = getDefaultInstance().getToken();
+        onChanged();
+        return this;
       }
       /**
-       * <code>optional .gws.model.UserProtobuf user = 1;</code>
+       * <code>optional string token = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.model.User.UserProtobuf, net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder, net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder> 
-          getUserFieldBuilder() {
-        if (userBuilder_ == null) {
-          userBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              net.foreworld.gws.protobuf.model.User.UserProtobuf, net.foreworld.gws.protobuf.model.User.UserProtobuf.Builder, net.foreworld.gws.protobuf.model.User.UserProtobufOrBuilder>(
-                  getUser(),
-                  getParentForChildren(),
-                  isClean());
-          user_ = null;
-        }
-        return userBuilder_;
+      public Builder setTokenBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        token_ = value;
+        onChanged();
+        return this;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -1234,12 +1040,10 @@ public final class Login {
   static {
     java.lang.String[] descriptorData = {
       "\n protobuf/method.user.login.proto\022\025gws." +
-      "method.user.login\032\031protobuf/model.user.p" +
-      "roto\"7\n\017RequestProtobuf\022\021\n\tuser_name\030\001 \001" +
-      "(\t\022\021\n\tuser_pass\030\002 \001(\t\"9\n\020ResponseProtobu" +
-      "f\022%\n\004user\030\001 \001(\0132\027.gws.model.UserProtobuf" +
-      "B/\n&net.foreworld.gws.protobuf.method.us" +
-      "erB\005Loginb\006proto3"
+      "method.user.login\"\037\n\017RequestProtobuf\022\014\n\004" +
+      "code\030\001 \001(\t\"!\n\020ResponseProtobuf\022\r\n\005token\030" +
+      "\001 \001(\tB/\n&net.foreworld.gws.protobuf.meth" +
+      "od.userB\005Loginb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1252,21 +1056,19 @@ public final class Login {
     com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          net.foreworld.gws.protobuf.model.User.getDescriptor(),
         }, assigner);
     internal_static_gws_method_user_login_RequestProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_gws_method_user_login_RequestProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_method_user_login_RequestProtobuf_descriptor,
-        new java.lang.String[] { "UserName", "UserPass", });
+        new java.lang.String[] { "Code", });
     internal_static_gws_method_user_login_ResponseProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gws_method_user_login_ResponseProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_method_user_login_ResponseProtobuf_descriptor,
-        new java.lang.String[] { "User", });
-    net.foreworld.gws.protobuf.model.User.getDescriptor();
+        new java.lang.String[] { "Token", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
