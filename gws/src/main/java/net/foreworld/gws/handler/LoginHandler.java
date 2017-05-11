@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -34,6 +36,24 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
 		logger.info(msg.getSeqId() + ":" + msg.getTimestamp());
+
+		if (95 != msg.getMethod()) {
+
+			ChannelFuture future = ctx.close();
+
+			future.addListener(new ChannelFutureListener() {
+
+				@Override
+				public void operationComplete(ChannelFuture future) throws Exception {
+					if (!future.isSuccess())
+						ctx.close();
+
+					logger.info("ctx close: {}", ctx.channel().remoteAddress());
+				}
+			});
+
+			return;
+		}
 
 		try {
 			User.UserProtobuf _user = User.UserProtobuf.parseFrom(msg.getData());
