@@ -17,7 +17,7 @@ import org.springframework.context.annotation.ComponentScan;
  *
  */
 @SpringBootApplication
-@ComponentScan("net.foreworld.gws")
+@ComponentScan("net.foreworld")
 public class RunWsServer implements CommandLineRunner {
 
 	private static final Logger logger = LoggerFactory
