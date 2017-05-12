@@ -5,7 +5,7 @@ package net.foreworld.util;
  * @author huangxin
  *
  */
-public class StringUtil {
+public final class StringUtil {
 
 	/**
 	 * 判断字符串是否为空
