@@ -46,26 +46,93 @@ const server = require('./server');
   };
 })();
 
+(() => {
+  var sql = 'SELECT a.* FROM s_user a WHERE a.device_code=?';
+
+  /**
+   * 没有则创建
+   *
+   * @return
+   */
+  exports.getByDeviceCode = function(device_code /* 设备号 */, cb){
+    var self = this;
+
+    mysql.query(sql, [device_code], (err, docs) => {
+      if(err) return cb(err);
+      if(mysql.checkOnly(docs)) return cb(null, docs[0]);
+
+      var postData = {
+        status: 1,
+        device_code: device_code
+      };
+
+      self.saveDeviceCode(postData, (err, doc) => {
+        if(err) return cb(err);
+        cb(null, doc);
+      });
+    });
+  };
+})();
+
+/**
+ *
+ * @params
+ * @return
+ */
+(() => {
+  var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, weixin, mobile, create_time, device_code) values (?, ?, ?, ?, ?, ?, ?, ?)';
+
+  exports.saveDeviceCode = function(newInfo, cb){
+    if(err) return cb(err);
+
+    // params
+    var postData = [
+      utils.replaceAll(uuid.v1(), '-', ''),
+      newInfo.user_name || '',
+      newInfo.user_pass || '',
+      newInfo.status || 0,
+      newInfo.weixin || '',
+      newInfo.mobile || '',
+      new Date(),
+      newInfo.device_code
+    ];
+
+    mysql.query(sql, postData, function (err, status){
+      if(err) return cb(err);
+      cb(null, postData);
+    });
+  };
+})();
+
+/**
+ * 游客登陆
+ *
+ * @return
+ */
+exports.login = function(device_code /* 设备号 */, cb){
+  var self = this;
+};
+
 /**
  *
  * @return
- * @code 10001 用户名或密码输入错误
- * @code 10002 禁止登陆
- * @code 10003 用户名或密码输入错误
+ * @code 101 用户名或密码输入错误
+ * @code 102 禁止登陆
+ * @code 103 用户名或密码输入错误
  */
 exports.login = function(logInfo /* 用户名及密码 */, cb){
   var self = this;
 
   self.getByName(logInfo.user_name, (err, doc) => {
     if(err) return cb(err);
-    if(!doc) return cb(null, '10001');
+    if(!doc) return cb(null, '101');
 
     // 用户的状态
-    if(1 !== doc.status) return cb(null, '10002');
+    if(1 !== doc.status) return cb(null, '102');
 
     // 验证密码
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
-      return cb(null, '10003');
+      return cb(null, '103');
 
     var p1 = new Promise((resolve, reject) => {
       self.authorize(doc.id, 'e0b13571d00d4606b9570415423cb5be', (err, code) => {
