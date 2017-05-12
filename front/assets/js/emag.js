@@ -1415,7 +1415,8 @@ proto.gws.model.UserProtobuf.toObject = function(includeInstance, msg) {
     qq: jspb.Message.getFieldWithDefault(msg, 6, ""),
     weixin: jspb.Message.getFieldWithDefault(msg, 7, ""),
     email: jspb.Message.getFieldWithDefault(msg, 8, ""),
-    status: jspb.Message.getFieldWithDefault(msg, 9, 0)
+    status: jspb.Message.getFieldWithDefault(msg, 9, 0),
+    deviceCode: jspb.Message.getFieldWithDefault(msg, 10, "")
   };
 
   if (includeInstance) {
@@ -1487,6 +1488,10 @@ proto.gws.model.UserProtobuf.deserializeBinaryFromReader = function(msg, reader)
     case 9:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setStatus(value);
+      break;
+    case 10:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setDeviceCode(value);
       break;
     default:
       reader.skipField();
@@ -1586,6 +1591,13 @@ proto.gws.model.UserProtobuf.prototype.serializeBinaryToWriter = function (write
   if (f !== 0) {
     writer.writeUint32(
       9,
+      f
+    );
+  }
+  f = this.getDeviceCode();
+  if (f.length > 0) {
+    writer.writeString(
+      10,
       f
     );
   }
@@ -1724,6 +1736,21 @@ proto.gws.model.UserProtobuf.prototype.getStatus = function() {
 /** @param {number} value */
 proto.gws.model.UserProtobuf.prototype.setStatus = function(value) {
   jspb.Message.setField(this, 9, value);
+};
+
+
+/**
+ * optional string device_code = 10;
+ * @return {string}
+ */
+proto.gws.model.UserProtobuf.prototype.getDeviceCode = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
+};
+
+
+/** @param {string} value */
+proto.gws.model.UserProtobuf.prototype.setDeviceCode = function(value) {
+  jspb.Message.setField(this, 10, value);
 };
 
 

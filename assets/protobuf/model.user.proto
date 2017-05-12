@@ -23,4 +23,6 @@ message UserProtobuf {
   string email = 8;
 
   uint32 status = 9;
+
+  string device_code = 10;
 }
