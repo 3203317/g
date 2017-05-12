@@ -101,6 +101,16 @@ public final class User {
      * <code>optional uint32 status = 9;</code>
      */
     int getStatus();
+
+    /**
+     * <code>optional string device_code = 10;</code>
+     */
+    java.lang.String getDeviceCode();
+    /**
+     * <code>optional string device_code = 10;</code>
+     */
+    com.google.protobuf.ByteString
+        getDeviceCodeBytes();
   }
   /**
    * Protobuf type {@code gws.model.UserProtobuf}
@@ -123,6 +133,7 @@ public final class User {
       weixin_ = "";
       email_ = "";
       status_ = 0;
+      deviceCode_ = "";
     }
 
     @java.lang.Override
@@ -201,6 +212,12 @@ public final class User {
             case 72: {
 
               status_ = input.readUInt32();
+              break;
+            }
+            case 82: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              deviceCode_ = s;
               break;
             }
           }
@@ -587,6 +604,40 @@ public final class User {
       return status_;
     }
 
+    public static final int DEVICE_CODE_FIELD_NUMBER = 10;
+    private volatile java.lang.Object deviceCode_;
+    /**
+     * <code>optional string device_code = 10;</code>
+     */
+    public java.lang.String getDeviceCode() {
+      java.lang.Object ref = deviceCode_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        deviceCode_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string device_code = 10;</code>
+     */
+    public com.google.protobuf.ByteString
+        getDeviceCodeBytes() {
+      java.lang.Object ref = deviceCode_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        deviceCode_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -626,6 +677,9 @@ public final class User {
       if (status_ != 0) {
         output.writeUInt32(9, status_);
       }
+      if (!getDeviceCodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 10, deviceCode_);
+      }
     }
 
     public int getSerializedSize() {
@@ -662,6 +716,9 @@ public final class User {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(9, status_);
       }
+      if (!getDeviceCodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, deviceCode_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -695,6 +752,8 @@ public final class User {
           .equals(other.getEmail());
       result = result && (getStatus()
           == other.getStatus());
+      result = result && getDeviceCode()
+          .equals(other.getDeviceCode());
       return result;
     }
 
@@ -723,6 +782,8 @@ public final class User {
       hash = (53 * hash) + getEmail().hashCode();
       hash = (37 * hash) + STATUS_FIELD_NUMBER;
       hash = (53 * hash) + getStatus();
+      hash = (37 * hash) + DEVICE_CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getDeviceCode().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -859,6 +920,8 @@ public final class User {
 
         status_ = 0;
 
+        deviceCode_ = "";
+
         return this;
       }
 
@@ -890,6 +953,7 @@ public final class User {
         result.weixin_ = weixin_;
         result.email_ = email_;
         result.status_ = status_;
+        result.deviceCode_ = deviceCode_;
         onBuilt();
         return result;
       }
@@ -964,6 +1028,10 @@ public final class User {
         }
         if (other.getStatus() != 0) {
           setStatus(other.getStatus());
+        }
+        if (!other.getDeviceCode().isEmpty()) {
+          deviceCode_ = other.deviceCode_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -1543,6 +1611,75 @@ public final class User {
         onChanged();
         return this;
       }
+
+      private java.lang.Object deviceCode_ = "";
+      /**
+       * <code>optional string device_code = 10;</code>
+       */
+      public java.lang.String getDeviceCode() {
+        java.lang.Object ref = deviceCode_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          deviceCode_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string device_code = 10;</code>
+       */
+      public com.google.protobuf.ByteString
+          getDeviceCodeBytes() {
+        java.lang.Object ref = deviceCode_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          deviceCode_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string device_code = 10;</code>
+       */
+      public Builder setDeviceCode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        deviceCode_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string device_code = 10;</code>
+       */
+      public Builder clearDeviceCode() {
+        
+        deviceCode_ = getDefaultInstance().getDeviceCode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string device_code = 10;</code>
+       */
+      public Builder setDeviceCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        deviceCode_ = value;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1606,14 +1743,15 @@ public final class User {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\031protobuf/model.user.proto\022\tgws.model\"\322" +
+      "\n\031protobuf/model.user.proto\022\tgws.model\"\347" +
       "\001\n\014UserProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\tuser_name" +
       "\030\002 \001(\t\022\021\n\tuser_pass\030\003 \001(\t\022(\n\003sex\030\004 \001(\0162\033" +
       ".gws.model.UserProtobuf.Sex\022\016\n\006mobile\030\005 " +
       "\001(\t\022\n\n\002qq\030\006 \001(\t\022\016\n\006weixin\030\007 \001(\t\022\r\n\005email" +
-      "\030\010 \001(\t\022\016\n\006status\030\t \001(\r\"\033\n\003Sex\022\n\n\006FEMALE\020" +
-      "\000\022\010\n\004MALE\020\001B(\n net.foreworld.gws.protobu" +
-      "f.modelB\004Userb\006proto3"
+      "\030\010 \001(\t\022\016\n\006status\030\t \001(\r\022\023\n\013device_code\030\n " +
+      "\001(\t\"\033\n\003Sex\022\n\n\006FEMALE\020\000\022\010\n\004MALE\020\001B(\n net." +
+      "foreworld.gws.protobuf.modelB\004Userb\006prot" +
+      "o3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1632,7 +1770,7 @@ public final class User {
     internal_static_gws_model_UserProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_model_UserProtobuf_descriptor,
-        new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", "Mobile", "Qq", "Weixin", "Email", "Status", });
+        new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", "Mobile", "Qq", "Weixin", "Email", "Status", "DeviceCode", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
