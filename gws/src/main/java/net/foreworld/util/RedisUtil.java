@@ -19,7 +19,8 @@ import redis.clients.jedis.JedisPoolConfig;
 @Component
 public final class RedisUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(RedisUtil.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(RedisUtil.class);
 
 	private static int MAXIDLE;
 
@@ -50,12 +51,12 @@ public final class RedisUtil {
 		TESTONBORROW = testOnBorrow;
 	}
 
-	@Value("${db.host}")
+	@Value("${db.host:127.0.0.1}")
 	public void setHost(String host) {
 		HOST = host;
 	}
 
-	@Value("${db.port}")
+	@Value("${db.port:6379}")
 	public void setPort(int port) {
 		PORT = port;
 	}
@@ -80,7 +81,7 @@ public final class RedisUtil {
 
 	/**
 	 * 定义一个共有的静态方法，返回该类型实例
-	 * 
+	 *
 	 * @return
 	 */
 	public static RedisUtil getDefault() {
@@ -111,7 +112,7 @@ public final class RedisUtil {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public Jedis getJedis() {
