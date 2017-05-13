@@ -1,21 +1,17 @@
 package net.foreworld.gws.handler;
 
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-
 import java.net.InetSocketAddress;
-
-import javax.annotation.Resource;
-
-import net.foreworld.util.RedisUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import net.foreworld.util.RedisUtil;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -27,11 +23,7 @@ import redis.clients.jedis.Jedis;
 @Sharable
 public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(BlacklistHandler.class);
-
-	@Resource(name = "redisUtil")
-	private RedisUtil redisUtil;
+	private static final Logger logger = LoggerFactory.getLogger(BlacklistHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -41,8 +33,7 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-		InetSocketAddress addr = (InetSocketAddress) ctx.channel()
-				.remoteAddress();
+		InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
 		String incoming = addr.getAddress().getHostAddress();
 
 		if (check(incoming))
@@ -53,8 +44,7 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 		future.addListener(new ChannelFutureListener() {
 
 			@Override
-			public void operationComplete(ChannelFuture future)
-					throws Exception {
+			public void operationComplete(ChannelFuture future) throws Exception {
 				if (!future.isSuccess()) {
 					ctx.close();
 				}
@@ -70,7 +60,7 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 	 * @return 不存在则返回true
 	 */
 	private boolean check(String ip) {
-		Jedis j = redisUtil.getJedis();
+		Jedis j = RedisUtil.getDefault().getJedis();
 
 		if (null == j)
 			return false;
