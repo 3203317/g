@@ -43,65 +43,44 @@ public class LoginHandler extends
 		logger.info(msg.getVersion() + ":" + msg.getMethod() + ":"
 				+ msg.getSeqId() + ":" + msg.getTimestamp());
 
-		if (95 != msg.getMethod()) {
+		if (95 == msg.getMethod()) {
 
-			ChannelFuture future = ctx.close();
+			try {
 
-			future.addListener(new ChannelFutureListener() {
+				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg
+						.getData());
+				String code = req.getCode();
 
-				@Override
-				public void operationComplete(ChannelFuture future)
-						throws Exception {
-					SocketAddress addr = ctx.channel().remoteAddress();
+				String token = verify(code);
 
-					if (future.isSuccess()) {
-						logger.info("ctx close: {}", addr);
-						return;
-					}
+				logger.info(code + ":" + token);
 
-					logger.info("ctx close failure: {}", addr);
-					ctx.close();
+				if (null != token) {
+
+					Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf
+							.newBuilder();
+
+					resp.setVersion(msg.getVersion());
+					resp.setMethod(msg.getMethod());
+					resp.setSeqId(msg.getSeqId());
+					resp.setTimestamp(System.currentTimeMillis());
+
+					Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf
+							.newBuilder();
+					data.setToken(token);
+
+					resp.setData(data.build().toByteString());
+
+					ctx.writeAndFlush(resp);
+
+					ctx.pipeline().replace(this, "time", timeHandler);
+
+					return;
 				}
-			});
 
-			return;
-		}
-
-		try {
-
-			Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg
-					.getData());
-			String code = req.getCode();
-
-			String token = verify(code);
-
-			logger.info(code + ":" + token);
-
-			if (null != token) {
-
-				Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf
-						.newBuilder();
-
-				resp.setVersion(msg.getVersion());
-				resp.setMethod(msg.getMethod());
-				resp.setSeqId(msg.getSeqId());
-				resp.setTimestamp(System.currentTimeMillis());
-
-				Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf
-						.newBuilder();
-				data.setToken(token);
-
-				resp.setData(data.build().toByteString());
-
-				ctx.writeAndFlush(resp);
-
-				ctx.pipeline().replace(this, "time", timeHandler);
-
-				return;
+			} catch (InvalidProtocolBufferException e) {
+				logger.error("InvalidProtocolBufferException", e);
 			}
-
-		} catch (InvalidProtocolBufferException e) {
-			logger.error("InvalidProtocolBufferException", e);
 		}
 
 		ChannelFuture future = ctx.close();
