@@ -45,10 +45,12 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 
 			@Override
 			public void operationComplete(ChannelFuture future) throws Exception {
-				if (!future.isSuccess()) {
-					ctx.close();
+				if (future.isSuccess()) {
+					logger.info("ctx close: {}", addr);
+					return;
 				}
-				logger.info("ctx close: {}", addr);
+				logger.info("ctx close failure: {}", addr);
+				ctx.close();
 			}
 		});
 	}

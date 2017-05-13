@@ -47,10 +47,13 @@ public class BinaryBuildEncode extends MessageToMessageEncoder<MessageLiteOrBuil
 
 				@Override
 				public void operationComplete(ChannelFuture future) throws Exception {
-					if (!future.isSuccess()) {
-						ctx.close();
+					if (future.isSuccess()) {
+						logger.info("ctx close: {}", ctx.channel().remoteAddress());
+						return;
 					}
-					logger.info("ctx close: {}", ctx.channel().remoteAddress());
+
+					logger.info("ctx close failure: {}", ctx.channel().remoteAddress());
+					ctx.close();
 				}
 			});
 
