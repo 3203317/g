@@ -34,6 +34,9 @@ public class LoginHandler extends
 	private static final Logger logger = LoggerFactory
 			.getLogger(LoginHandler.class);
 
+	@Resource(name = "timeVersionHandler")
+	private TimeVersionHandler timeVersionHandler;
+
 	@Resource(name = "timeHandler")
 	private TimeHandler timeHandler;
 
@@ -74,6 +77,7 @@ public class LoginHandler extends
 					ctx.writeAndFlush(resp);
 
 					ctx.pipeline().replace(this, "time", timeHandler);
+					ctx.pipeline().addLast(timeVersionHandler);
 
 					return;
 				}
