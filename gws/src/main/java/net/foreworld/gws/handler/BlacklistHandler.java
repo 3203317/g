@@ -30,8 +30,9 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 			.getLogger(BlacklistHandler.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+			throws Exception {
+		logger.error("", cause);
 		ctx.close();
 	}
 

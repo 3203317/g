@@ -27,6 +27,13 @@ public class TimeoutHandler extends ChannelInboundHandlerAdapter {
 			.getLogger(TimeoutHandler.class);
 
 	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+			throws Exception {
+		logger.error("", cause);
+		ctx.close();
+	}
+
+	@Override
 	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {
 
 		if (!(evt instanceof IdleStateEvent)) {

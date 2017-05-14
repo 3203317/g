@@ -28,8 +28,9 @@ public class ProtocolSafeHandler extends ChannelInboundHandlerAdapter {
 			.getLogger(ProtocolSafeHandler.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
-		cause.printStackTrace();
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+			throws Exception {
+		logger.error("", cause);
 		ctx.close();
 	}
 

@@ -34,8 +34,16 @@ public class BinaryBuildEncode extends
 			.getLogger(BinaryBuildEncode.class);
 
 	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+			throws Exception {
+		logger.error("", cause);
+		ctx.close();
+	}
+
+	@Override
 	protected void encode(ChannelHandlerContext ctx, MessageLiteOrBuilder msg,
 			List<Object> out) throws Exception {
+
 		ByteBuf result = null;
 		if (msg instanceof MessageLite) {
 			result = wrappedBuffer(((MessageLite) msg).toByteArray());

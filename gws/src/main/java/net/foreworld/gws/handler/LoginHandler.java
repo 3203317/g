@@ -106,7 +106,7 @@ public class LoginHandler extends
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		logger.error("TimeHandler", cause);
+		logger.error("", cause);
 		ctx.close();
 	}
 
