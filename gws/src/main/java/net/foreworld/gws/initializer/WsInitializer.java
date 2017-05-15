@@ -25,6 +25,9 @@ import net.foreworld.gws.codec.BinaryDecode;
 import net.foreworld.gws.handler.BlacklistHandler;
 import net.foreworld.gws.handler.LoginHandler;
 import net.foreworld.gws.handler.ProtocolSafeHandler;
+import net.foreworld.gws.handler.TimeHandler;
+import net.foreworld.gws.handler.TimeMethodHandler;
+import net.foreworld.gws.handler.TimeVersionHandler;
 import net.foreworld.gws.handler.TimeoutHandler;
 import net.foreworld.gws.protobuf.Method;
 
@@ -64,6 +67,15 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Resource(name = "protocolSafeHandler")
 	private ProtocolSafeHandler protocolSafeHandler;
 
+	@Resource(name = "timeVersionHandler")
+	private TimeVersionHandler timeVersionHandler;
+
+	@Resource(name = "timeHandler")
+	private TimeHandler timeHandler;
+
+	@Resource(name = "timeMethodHandler")
+	private TimeMethodHandler timeMethodHandler;
+
 	@Override
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
@@ -92,6 +104,9 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(binaryBuildEncode);
 
 		pipe.addLast(loginHandler);
+		pipe.addLast(timeVersionHandler);
+		pipe.addLast(timeMethodHandler);
+		pipe.addLast(timeHandler);
 	}
 
 }

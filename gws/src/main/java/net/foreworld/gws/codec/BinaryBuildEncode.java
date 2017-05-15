@@ -1,14 +1,6 @@
 package net.foreworld.gws.codec;
 
 import static io.netty.buffer.Unpooled.wrappedBuffer;
-import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageEncoder;
-import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 
 import java.net.SocketAddress;
 import java.util.List;
@@ -20,6 +12,15 @@ import org.springframework.stereotype.Component;
 import com.google.protobuf.MessageLite;
 import com.google.protobuf.MessageLiteOrBuilder;
 
+import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToMessageEncoder;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+
 /**
  *
  * @author huangxin
@@ -27,29 +28,24 @@ import com.google.protobuf.MessageLiteOrBuilder;
  */
 @Component
 @Sharable
-public class BinaryBuildEncode extends
-		MessageToMessageEncoder<MessageLiteOrBuilder> {
+public class BinaryBuildEncode extends MessageToMessageEncoder<MessageLiteOrBuilder> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(BinaryBuildEncode.class);
+	private static final Logger logger = LoggerFactory.getLogger(BinaryBuildEncode.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-			throws Exception {
-		logger.error("", cause);
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		logger.error("{}", cause);
 		ctx.close();
 	}
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, MessageLiteOrBuilder msg,
-			List<Object> out) throws Exception {
+	protected void encode(ChannelHandlerContext ctx, MessageLiteOrBuilder msg, List<Object> out) throws Exception {
 
 		ByteBuf result = null;
 		if (msg instanceof MessageLite) {
 			result = wrappedBuffer(((MessageLite) msg).toByteArray());
 		} else if (msg instanceof MessageLite.Builder) {
-			result = wrappedBuffer(((MessageLite.Builder) msg).build()
-					.toByteArray());
+			result = wrappedBuffer(((MessageLite.Builder) msg).build().toByteArray());
 		}
 
 		if (null == result) {
@@ -58,8 +54,7 @@ public class BinaryBuildEncode extends
 			future.addListener(new ChannelFutureListener() {
 
 				@Override
-				public void operationComplete(ChannelFuture future)
-						throws Exception {
+				public void operationComplete(ChannelFuture future) throws Exception {
 					SocketAddress addr = ctx.channel().remoteAddress();
 
 					if (future.isSuccess()) {

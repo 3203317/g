@@ -17,9 +17,9 @@ import net.foreworld.gws.protobuf.Method.RequestProtobuf;
  */
 @Component
 @Sharable
-public class TimeVersionHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
+public class TimeMethodHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
 
-	private static final Logger logger = LoggerFactory.getLogger(TimeVersionHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(TimeMethodHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -29,7 +29,7 @@ public class TimeVersionHandler extends SimpleChannelInboundHandler<Method.Reque
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
-		logger.info("version: {}", msg.getVersion());
+		logger.info("method: {}", msg.getMethod());
 		ctx.fireChannelRead(msg);
 	}
 
