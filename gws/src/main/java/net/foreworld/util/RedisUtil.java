@@ -19,8 +19,7 @@ import redis.clients.jedis.JedisPoolConfig;
 @Component
 public final class RedisUtil {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(RedisUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(RedisUtil.class);
 
 	private static int MAXIDLE;
 
@@ -107,7 +106,7 @@ public final class RedisUtil {
 			// timeout 最大延迟时间
 			jedisPool = new JedisPool(config, HOST, PORT, TIMEOUT, PASS);
 		} catch (Exception e) {
-			logger.error("initPool", e);
+			logger.error("{}", e);
 		}
 	}
 
@@ -122,7 +121,7 @@ public final class RedisUtil {
 		try {
 			return null == jedisPool ? null : jedisPool.getResource();
 		} catch (Exception e) {
-			logger.error("getJedis", e);
+			logger.error("{}", e);
 			return null;
 		}
 	}

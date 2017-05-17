@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.foreworld.gws.protobuf.Method.ResponseProtobuf.Builder;
+import net.foreworld.gws.protobuf.method.user.Login;
 
 /**
  *
@@ -31,6 +32,9 @@ public class RegChannelHandler extends SimpleChannelInboundHandler<Builder> {
 		logger.info("channelRead0");
 		ctx.pipeline().remove(this);
 		ctx.writeAndFlush(msg);
+
+		Login.ResponseProtobuf _login = Login.ResponseProtobuf.parseFrom(msg.getData());
+		logger.info("{}", _login.getToken());
 	}
 
 }
