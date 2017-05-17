@@ -1,23 +1,22 @@
 package net.foreworld.gws.handler;
 
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-
 import java.net.SocketAddress;
-
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.Method.RequestProtobuf;
-import net.foreworld.gws.protobuf.method.user.Login;
-import net.foreworld.util.StringUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.Method.RequestProtobuf;
+import net.foreworld.gws.protobuf.method.user.Login;
+import net.foreworld.util.StringUtil;
 
 /**
  *
@@ -26,31 +25,25 @@ import com.google.protobuf.InvalidProtocolBufferException;
  */
 @Component
 @Sharable
-public class LoginHandler extends
-		SimpleChannelInboundHandler<Method.RequestProtobuf> {
+public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
-			throws Exception {
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 		logger.error("{}", cause);
 		ctx.close();
 	}
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg)
-			throws Exception {
-		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(),
-				msg.getSeqId(), msg.getTimestamp());
+	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
+		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(), msg.getSeqId(), msg.getTimestamp());
 
 		if (95 == msg.getMethod()) {
 
 			try {
 
-				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg
-						.getData());
+				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg.getData());
 				String code = req.getCode();
 
 				String token = verify(code);
@@ -61,21 +54,19 @@ public class LoginHandler extends
 
 					ctx.pipeline().remove(this);
 
-					Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf
-							.newBuilder();
+					Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
 
 					resp.setVersion(msg.getVersion());
 					resp.setMethod(msg.getMethod());
 					resp.setSeqId(msg.getSeqId());
 					resp.setTimestamp(System.currentTimeMillis());
 
-					Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf
-							.newBuilder();
+					Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf.newBuilder();
 					data.setToken(token);
 
 					resp.setData(data.build().toByteString());
 
-					ctx.writeAndFlush(resp);
+					ctx.fireChannelRead(resp);
 					return;
 				}
 
@@ -89,8 +80,7 @@ public class LoginHandler extends
 		future.addListener(new ChannelFutureListener() {
 
 			@Override
-			public void operationComplete(ChannelFuture future)
-					throws Exception {
+			public void operationComplete(ChannelFuture future) throws Exception {
 				SocketAddress addr = ctx.channel().remoteAddress();
 
 				if (future.isSuccess()) {
