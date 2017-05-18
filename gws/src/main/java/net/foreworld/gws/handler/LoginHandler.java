@@ -30,15 +30,15 @@ import redis.clients.jedis.Jedis;
  * @author huangxin
  *
  */
-@PropertySource("classpath:server.properties")
+@PropertySource("classpath:redis.properties")
 @Component
 @Sharable
 public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 
-	@Value("${server.id}")
-	private String server_id;
+	@Value("${sha.token}")
+	private String sha_token;
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -136,7 +136,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 		b.add(uuid);
 		b.add("3600");
 
-		Object o = j.evalsha(server_id, s, b);
+		Object o = j.evalsha(sha_token, s, b);
 		j.close();
 
 		if (null == o || !"OK".equals(o)) {
