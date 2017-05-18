@@ -19,4 +19,5 @@ message ResponseProtobuf {
   uint64 seqId = 3;
   uint64 timestamp = 4;
   bytes data = 5;
+  bytes error = 6;
 }
