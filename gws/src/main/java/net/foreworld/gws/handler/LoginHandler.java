@@ -29,6 +29,7 @@ import redis.clients.jedis.Jedis;
  * @author huangxin
  *
  */
+@PropertySource("classpath:server.properties")
 @PropertySource("classpath:redis.properties")
 @Component
 @Sharable
@@ -38,6 +39,9 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 	@Value("${sha.token}")
 	private String sha_token;
+
+	@Value("${server.id}")
+	private String server_id;
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -128,11 +132,13 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 		s.add("code");
 		s.add("access_token");
 		s.add("seconds");
+		s.add("server_id");
 
 		List<String> b = new ArrayList<String>();
 		b.add(code);
 		b.add(uuid);
 		b.add("3600");
+		b.add(server_id);
 
 		Object o = j.evalsha(sha_token, s, b);
 		j.close();
