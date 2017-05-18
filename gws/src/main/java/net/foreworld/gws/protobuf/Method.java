@@ -728,6 +728,11 @@ public final class Method {
      * <code>optional bytes data = 5;</code>
      */
     com.google.protobuf.ByteString getData();
+
+    /**
+     * <code>optional bytes error = 6;</code>
+     */
+    com.google.protobuf.ByteString getError();
   }
   /**
    * Protobuf type {@code gws.ResponseProtobuf}
@@ -746,6 +751,7 @@ public final class Method {
       seqId_ = 0L;
       timestamp_ = 0L;
       data_ = com.google.protobuf.ByteString.EMPTY;
+      error_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -796,6 +802,11 @@ public final class Method {
             case 42: {
 
               data_ = input.readBytes();
+              break;
+            }
+            case 50: {
+
+              error_ = input.readBytes();
               break;
             }
           }
@@ -866,6 +877,15 @@ public final class Method {
       return data_;
     }
 
+    public static final int ERROR_FIELD_NUMBER = 6;
+    private com.google.protobuf.ByteString error_;
+    /**
+     * <code>optional bytes error = 6;</code>
+     */
+    public com.google.protobuf.ByteString getError() {
+      return error_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -892,6 +912,9 @@ public final class Method {
       }
       if (!data_.isEmpty()) {
         output.writeBytes(5, data_);
+      }
+      if (!error_.isEmpty()) {
+        output.writeBytes(6, error_);
       }
     }
 
@@ -920,6 +943,10 @@ public final class Method {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(5, data_);
       }
+      if (!error_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, error_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -946,6 +973,8 @@ public final class Method {
           == other.getTimestamp());
       result = result && getData()
           .equals(other.getData());
+      result = result && getError()
+          .equals(other.getError());
       return result;
     }
 
@@ -968,6 +997,8 @@ public final class Method {
           getTimestamp());
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + ERROR_FIELD_NUMBER;
+      hash = (53 * hash) + getError().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1096,6 +1127,8 @@ public final class Method {
 
         data_ = com.google.protobuf.ByteString.EMPTY;
 
+        error_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -1123,6 +1156,7 @@ public final class Method {
         result.seqId_ = seqId_;
         result.timestamp_ = timestamp_;
         result.data_ = data_;
+        result.error_ = error_;
         onBuilt();
         return result;
       }
@@ -1178,6 +1212,9 @@ public final class Method {
         }
         if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
           setData(other.getData());
+        }
+        if (other.getError() != com.google.protobuf.ByteString.EMPTY) {
+          setError(other.getError());
         }
         onChanged();
         return this;
@@ -1337,6 +1374,35 @@ public final class Method {
         onChanged();
         return this;
       }
+
+      private com.google.protobuf.ByteString error_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes error = 6;</code>
+       */
+      public com.google.protobuf.ByteString getError() {
+        return error_;
+      }
+      /**
+       * <code>optional bytes error = 6;</code>
+       */
+      public Builder setError(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        error_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes error = 6;</code>
+       */
+      public Builder clearError() {
+        
+        error_ = getDefaultInstance().getError();
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1408,10 +1474,11 @@ public final class Method {
       "\n\025protobuf/method.proto\022\003gws\"b\n\017RequestP" +
       "rotobuf\022\017\n\007version\030\001 \001(\r\022\016\n\006method\030\002 \001(\r" +
       "\022\r\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004da" +
-      "ta\030\005 \001(\014\"c\n\020ResponseProtobuf\022\017\n\007version\030" +
+      "ta\030\005 \001(\014\"r\n\020ResponseProtobuf\022\017\n\007version\030" +
       "\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004\022\021\n\t" +
-      "timestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014B$\n\032net.for" +
-      "eworld.gws.protobufB\006Methodb\006proto3"
+      "timestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014\022\r\n\005error\030\006" +
+      " \001(\014B$\n\032net.foreworld.gws.protobufB\006Meth" +
+      "odb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1436,7 +1503,7 @@ public final class Method {
     internal_static_gws_ResponseProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_ResponseProtobuf_descriptor,
-        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", });
+        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", "Error", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
