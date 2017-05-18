@@ -3,7 +3,6 @@ package net.foreworld.gws.handler;
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +56,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg.getData());
 				String code = req.getCode();
 
-				String token = verify(code);
+				String token = verify(code, ctx.channel().id().asLongText());
 
 				logger.info("{} : {}", code, token);
 
@@ -77,7 +76,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 					resp.setData(data.build().toByteString());
 
-					ctx.fireChannelRead(resp);
+					ctx.writeAndFlush(resp);
 					return;
 				}
 
@@ -109,9 +108,10 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	 * 授权码验证
 	 * 
 	 * @param code
+	 * @param uuid
 	 * @return
 	 */
-	private String verify(String code) {
+	private String verify(String code, String uuid) {
 
 		code = StringUtil.isEmpty(code);
 
@@ -128,8 +128,6 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 		s.add("code");
 		s.add("access_token");
 		s.add("seconds");
-
-		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 
 		List<String> b = new ArrayList<String>();
 		b.add(code);
