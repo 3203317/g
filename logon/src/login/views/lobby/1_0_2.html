@@ -6,7 +6,6 @@
 	</head>
 	<body>
 
-    <input type='button' id='login' value='login'><p></p>
     <input type='button' id='shot' value='shot'><p></p>
     <input type='button' id='logout' value='logout'><p></p>
 
@@ -33,9 +32,9 @@ $(function(){
 
   var socket = null;
 
-  $('#login').click(function(){
+  (function(){
 
-    socket = new WebSocket('ws://'+ window.location.hostname +'/s/68/');
+    socket = new WebSocket('ws://'+ window.location.hostname +'/s/'+ (location.search.match(/s=([\w\-]+)/) ? RegExp.$1 : '') +'/');
     socket.binaryType = 'arraybuffer';
 
     socket.onopen = function(evt){
@@ -80,7 +79,7 @@ $(function(){
       req.setTimestamp(new Date().getTime());
 
       var login = new method.user.login.RequestProtobuf();
-      login.setCode(''+ parseInt(Math.random() * 1000 * 1000));
+      login.setCode(location.search.match(/code=([\w\-]+)/) ? RegExp.$1 : '');
       req.setData(login.serializeBinary());
 
       var binary = req.serializeBinary();
@@ -90,15 +89,22 @@ $(function(){
 
 
     socket.onclose = function(evt){
-      console.log('client notified socket has closed.');
       console.log(evt);
+
+      setTimeout(function(){
+        location.href = '/client/user/login?t='+ new Date().getTime();
+      }, 1000);
     };
 
     socket.onerror = function(evt){
       console.error(evt);
+
+      setTimeout(function(){
+        location.href = '/client/user/login?t='+ new Date().getTime();
+      }, 1000);
     };
 
-  });
+  })();
 
   $('#logout').click(function(){
     socket.close();
