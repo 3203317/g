@@ -1,9 +1,14 @@
 package net.foreworld.gws.handler;
 
 import java.net.SocketAddress;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -16,18 +21,24 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import net.foreworld.gws.protobuf.Method;
 import net.foreworld.gws.protobuf.Method.RequestProtobuf;
 import net.foreworld.gws.protobuf.method.user.Login;
+import net.foreworld.util.RedisUtil;
 import net.foreworld.util.StringUtil;
+import redis.clients.jedis.Jedis;
 
 /**
  *
  * @author huangxin
  *
  */
+@PropertySource("classpath:server.properties")
 @Component
 @Sharable
 public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
+
+	@Value("${server.id}")
+	private String server_id;
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -96,7 +107,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 	/**
 	 * 授权码验证
-	 *
+	 * 
 	 * @param code
 	 * @return
 	 */
@@ -108,7 +119,31 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 			return null;
 		}
 
-		return "token";
+		Jedis j = RedisUtil.getDefault().getJedis();
+
+		if (null == j)
+			return null;
+
+		List<String> s = new ArrayList<String>();
+		s.add("code");
+		s.add("access_token");
+		s.add("seconds");
+
+		String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+
+		List<String> b = new ArrayList<String>();
+		b.add(code);
+		b.add(uuid);
+		b.add("3600");
+
+		Object o = j.evalsha(server_id, s, b);
+		j.close();
+
+		if (null == o || !"OK".equals(o)) {
+			return null;
+		}
+
+		return uuid;
 	}
 
 }
