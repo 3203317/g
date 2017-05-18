@@ -13,6 +13,10 @@ code = ARGV[1];
 
 local seconds = ARGV[4];
 
+-- code = client_id:user_id
+redis.call('SET', client_id .. user_id, code);
+redis.call('EXPIRE', client_id .. user_id, seconds);
+
 --[[
 {
   code: {
@@ -23,10 +27,6 @@ local seconds = ARGV[4];
 --]]
 redis.call('HMSET', code, KEYS[3], client_id, KEYS[2], user_id);
 redis.call('EXPIRE', code, seconds);
-
--- code = client_id:user_id
-redis.call('SET', client_id .. user_id, code);
-redis.call('EXPIRE', client_id .. user_id, seconds);
 
 return code;
 
