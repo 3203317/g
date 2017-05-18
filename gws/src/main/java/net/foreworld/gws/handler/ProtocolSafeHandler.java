@@ -13,7 +13,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.codec.http.FullHttpRequest;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
-import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import io.netty.handler.codec.http.websocketx.CloseWebSocketFrame;
 
 /**
  *
@@ -35,34 +35,30 @@ public class ProtocolSafeHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 
-		if (msg instanceof WebSocketFrame) {
-
-			if (!(msg instanceof BinaryWebSocketFrame)) {
-
-				ChannelFuture future = ctx.close();
-
-				future.addListener(new ChannelFutureListener() {
-
-					@Override
-					public void operationComplete(ChannelFuture future) throws Exception {
-						SocketAddress addr = ctx.channel().remoteAddress();
-
-						if (future.isSuccess()) {
-							logger.info("ctx close: {}", addr);
-							return;
-						}
-
-						logger.info("ctx close failure: {}", addr);
-						ctx.close();
-					}
-				});
-
-				return;
-			}
-		} else if (msg instanceof FullHttpRequest) {
-			logger.info("first request: {}", ctx.channel().remoteAddress());
+		if (msg instanceof BinaryWebSocketFrame || msg instanceof FullHttpRequest
+				|| msg instanceof CloseWebSocketFrame) {
+			ctx.fireChannelRead(msg);
+			return;
 		}
 
-		ctx.fireChannelRead(msg);
+		logger.error("protocol error: {}", msg);
+
+		ChannelFuture future = ctx.close();
+
+		future.addListener(new ChannelFutureListener() {
+
+			@Override
+			public void operationComplete(ChannelFuture future) throws Exception {
+				SocketAddress addr = ctx.channel().remoteAddress();
+
+				if (future.isSuccess()) {
+					logger.info("ctx close: {}", addr);
+					return;
+				}
+
+				logger.info("ctx close failure: {}", addr);
+				ctx.close();
+			}
+		});
 	}
 }

@@ -48,30 +48,29 @@ public class BinaryBuildEncode extends MessageToMessageEncoder<MessageLiteOrBuil
 			result = wrappedBuffer(((MessageLite.Builder) msg).build().toByteArray());
 		}
 
-		if (null == result) {
-			ChannelFuture future = ctx.close();
-
-			future.addListener(new ChannelFutureListener() {
-
-				@Override
-				public void operationComplete(ChannelFuture future) throws Exception {
-					SocketAddress addr = ctx.channel().remoteAddress();
-
-					if (future.isSuccess()) {
-						logger.info("ctx close: {}", addr);
-						return;
-					}
-
-					logger.info("ctx close failure: {}", addr);
-					ctx.close();
-				}
-			});
-
+		if (null != result) {
+			WebSocketFrame frame = new BinaryWebSocketFrame(result);
+			out.add(frame);
 			return;
 		}
 
-		WebSocketFrame frame = new BinaryWebSocketFrame(result);
-		out.add(frame);
+		ChannelFuture future = ctx.close();
+
+		future.addListener(new ChannelFutureListener() {
+
+			@Override
+			public void operationComplete(ChannelFuture future) throws Exception {
+				SocketAddress addr = ctx.channel().remoteAddress();
+
+				if (future.isSuccess()) {
+					logger.info("ctx close: {}", addr);
+					return;
+				}
+
+				logger.info("ctx close failure: {}", addr);
+				ctx.close();
+			}
+		});
 	}
 
 }

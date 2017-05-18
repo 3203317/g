@@ -48,7 +48,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 				String token = verify(code);
 
-				logger.info("{}:{}", code, token);
+				logger.info("{} : {}", code, token);
 
 				if (null != token) {
 

@@ -88,7 +88,6 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
 
-		pipe.addLast(unRegChannelHandler);
 		pipe.addLast(blacklistHandler);
 
 		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime, allIdleTime, TimeUnit.SECONDS));
@@ -113,6 +112,7 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(binaryBuildEncode);
 
 		pipe.addLast(loginHandler);
+		pipe.addLast(unRegChannelHandler);
 		pipe.addLast(regChannelHandler);
 
 		pipe.addLast(timeVersionHandler);
