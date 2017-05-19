@@ -39,7 +39,7 @@ public class RunWsServer implements CommandLineRunner {
 
 	public void run(String... strings) throws Exception {
 
-		if (!beforeStart()) {
+		if (!testRedis()) {
 			return;
 		}
 
@@ -57,7 +57,7 @@ public class RunWsServer implements CommandLineRunner {
 	 * 
 	 * @return
 	 */
-	private boolean beforeStart() {
+	private boolean testRedis() {
 
 		Jedis j = RedisUtil.getDefault().getJedis();
 
