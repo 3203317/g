@@ -1,5 +1,8 @@
 package net.foreworld.gws;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -20,6 +23,7 @@ import redis.clients.jedis.Jedis;
  * @author huangxin <3203317@qq.com>
  *
  */
+@PropertySource("classpath:redis.properties")
 @PropertySource("classpath:server.properties")
 @SpringBootApplication
 @ComponentScan("net.foreworld")
@@ -33,13 +37,16 @@ public class RunWsServer implements CommandLineRunner {
 	@Value("${server.id}")
 	private String server_id;
 
+	@Value("${sha.server.reset}")
+	private String sha_server_reset;
+
 	public static void main(String[] args) {
 		SpringApplication.run(RunWsServer.class, args);
 	}
 
 	public void run(String... strings) throws Exception {
 
-		if (!testRedis()) {
+		if (!resetRedis()) {
 			return;
 		}
 
@@ -52,19 +59,33 @@ public class RunWsServer implements CommandLineRunner {
 	}
 
 	/**
+	 * 
 	 * 1. 重置服务器的连接数为 0 <br/>
 	 * 2. 设置服务器的状态为 start
 	 * 
 	 * @return
 	 */
-	private boolean testRedis() {
+	private boolean resetRedis() {
+
+		List<String> s = new ArrayList<String>();
+		s.add("server_id");
+		s.add("status");
+
+		List<String> b = new ArrayList<String>();
+		b.add(server_id);
+		b.add("START");
 
 		Jedis j = RedisUtil.getDefault().getJedis();
 
 		if (null == j)
 			return false;
 
+		Object o = j.evalsha(sha_server_reset, s, b);
 		j.close();
+
+		if (null == o || !"OK".equals(o)) {
+			return false;
+		}
 
 		return true;
 	}
