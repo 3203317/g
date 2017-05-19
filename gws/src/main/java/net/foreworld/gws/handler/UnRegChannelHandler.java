@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import net.foreworld.util.ChannelUtil;
+import net.foreworld.gws.util.ChannelUtil;
 import net.foreworld.util.RedisUtil;
 import redis.clients.jedis.Jedis;
 

@@ -1,4 +1,4 @@
-package net.foreworld.util;
+package net.foreworld.gws.util;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

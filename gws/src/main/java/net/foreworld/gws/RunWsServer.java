@@ -14,7 +14,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.PropertySource;
 
+import net.foreworld.gws.server.Server.Status;
 import net.foreworld.gws.server.WsServer;
+import net.foreworld.gws.util.Constants;
 import net.foreworld.util.RedisUtil;
 import redis.clients.jedis.Jedis;
 
@@ -68,12 +70,12 @@ public class RunWsServer implements CommandLineRunner {
 	private boolean resetRedis() {
 
 		List<String> s = new ArrayList<String>();
-		s.add("server_id");
-		s.add("status");
+		s.add(Constants.SERVER_ID);
+		s.add(Constants.SERVER_STATUS);
 
 		List<String> b = new ArrayList<String>();
 		b.add(server_id);
-		b.add("START");
+		b.add(String.valueOf(Status.START.value()));
 
 		Jedis j = RedisUtil.getDefault().getJedis();
 
@@ -83,7 +85,7 @@ public class RunWsServer implements CommandLineRunner {
 		Object o = j.evalsha(sha_server_reset, s, b);
 		j.close();
 
-		if (null == o || !"OK".equals(o)) {
+		if (null == o || !Constants.OK.equals(o)) {
 			return false;
 		}
 
