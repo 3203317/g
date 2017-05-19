@@ -17,6 +17,7 @@ import org.springframework.context.annotation.PropertySource;
 import net.foreworld.gws.server.Server.Status;
 import net.foreworld.gws.server.WsServer;
 import net.foreworld.gws.util.Constants;
+import net.foreworld.util.ActiveMQUtil;
 import net.foreworld.util.RedisUtil;
 import redis.clients.jedis.Jedis;
 
@@ -49,6 +50,10 @@ public class RunWsServer implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 
 		if (!resetRedis()) {
+			return;
+		}
+
+		if (!testActiveMQ()) {
 			return;
 		}
 
@@ -90,6 +95,15 @@ public class RunWsServer implements CommandLineRunner {
 		}
 
 		return true;
+	}
+
+	/**
+	 * 是否能夠建立連接
+	 * 
+	 * @return
+	 */
+	private boolean testActiveMQ() {
+		return null != ActiveMQUtil.getDefault().getConn();
 	}
 
 }
