@@ -15,7 +15,6 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import net.foreworld.gws.initializer.WsInitializer;
-import net.foreworld.gws.initializer.WsNormalInitializer;
 import net.foreworld.util.RedisUtil;
 import redis.clients.jedis.Jedis;
 
@@ -39,11 +38,11 @@ public class WsServer extends Server {
 	@Value("${server.so.backlog:1024}")
 	private int so_backlog;
 
+	@Value("${server.id}")
+	private String server_id;
+
 	@Resource(name = "wsInitializer")
 	private WsInitializer wsInitializer;
-
-	@Resource(name = "wsNormalInitializer")
-	private WsNormalInitializer wsNormalInitializer;
 
 	private ChannelFuture f;
 	private EventLoopGroup bossGroup, workerGroup;

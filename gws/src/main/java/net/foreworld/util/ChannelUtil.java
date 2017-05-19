@@ -5,7 +5,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import io.netty.channel.ChannelHandlerContext;
 
@@ -14,7 +13,6 @@ import io.netty.channel.ChannelHandlerContext;
  * @author huangxin
  *
  */
-@Component
 public final class ChannelUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(ChannelUtil.class);
@@ -51,7 +49,7 @@ public final class ChannelUtil {
 	 * @param id
 	 * @param ctx
 	 */
-	public void setChannel(String id, ChannelHandlerContext ctx) {
+	public void putChannel(String id, ChannelHandlerContext ctx) {
 		map.put(id, ctx);
 	}
 
@@ -61,6 +59,10 @@ public final class ChannelUtil {
 
 	public ChannelHandlerContext getChannel(String id) {
 		return map.get(id);
+	}
+
+	public Map<String, ChannelHandlerContext> getChannels() {
+		return map;
 	}
 
 }

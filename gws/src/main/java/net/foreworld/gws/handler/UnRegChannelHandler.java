@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import net.foreworld.util.ChannelUtil;
 import net.foreworld.util.RedisUtil;
 import redis.clients.jedis.Jedis;
 
@@ -30,6 +31,10 @@ public class UnRegChannelHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
 		logger.info("channelUnregistered");
+		// 删除通道
+		ChannelUtil.getDefault().removeChannel(ctx.channel().id().asLongText());
+		// 清理 redis
+		// 清理 mq
 		remove(ctx.channel().id().asLongText());
 		super.channelUnregistered(ctx);
 	}
