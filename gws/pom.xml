@@ -19,27 +19,15 @@
 		<!-- 编译jdk版本 -->
 		<java.version>1.8</java.version>
 		<!-- 依赖版本 -->
-		<spring.version>1.5.2.RELEASE</spring.version>
+		<spring.version>1.5.3.RELEASE</spring.version>
 	</properties>
 
 	<dependencies>
 
 		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-broker</artifactId>
-			<version>5.14.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-client</artifactId>
-			<version>5.14.4</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-broker</artifactId>
-			<version>5.14.4</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 
 		<dependency>
@@ -172,8 +160,6 @@
 
 		<plugins>
 
-
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
@@ -203,7 +189,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
