@@ -98,11 +98,15 @@ public class WsServer extends Server {
 		}
 	}
 
+	private void afterStop() {
+		clearRedis();
+	}
+
 	/**
 	 * 1. 重置服务器的连接数为 0 <br/>
 	 * 2. 设置服务器的状态为 stop
 	 */
-	private void afterStop() {
+	private void clearRedis() {
 
 		Jedis j = RedisUtil.getDefault().getJedis();
 
