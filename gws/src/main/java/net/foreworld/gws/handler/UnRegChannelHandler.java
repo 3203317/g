@@ -55,7 +55,6 @@ public class UnRegChannelHandler extends ChannelInboundHandlerAdapter {
 	 */
 	private void closeChannel(String channel_id) {
 		ChannelUtil.getDefault().removeChannel(channel_id);
-
 		jmsMessagingTemplate.convertAndSend(dest_channel_close, server_id + ":" + channel_id);
 		logger.info("channel close {}:{}", server_id, channel_id);
 	}

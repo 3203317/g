@@ -23,7 +23,7 @@ public class TimeVersionHandler extends SimpleChannelInboundHandler<Method.Reque
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("{}", cause);
+		logger.error("", cause);
 		ctx.close();
 	}
 

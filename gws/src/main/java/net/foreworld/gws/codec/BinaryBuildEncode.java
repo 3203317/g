@@ -34,7 +34,7 @@ public class BinaryBuildEncode extends MessageToMessageEncoder<MessageLiteOrBuil
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("{}", cause);
+		logger.error("", cause);
 		ctx.close();
 	}
 

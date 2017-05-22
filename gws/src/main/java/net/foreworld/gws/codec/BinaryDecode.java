@@ -25,7 +25,7 @@ public class BinaryDecode extends MessageToMessageDecoder<BinaryWebSocketFrame> 
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("{}", cause);
+		logger.error("", cause);
 		ctx.close();
 	}
 
