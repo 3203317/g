@@ -110,12 +110,12 @@ public class WsServer extends Server {
 
 	private void beforeShut() {
 		jmsMessagingTemplate.convertAndSend(dest_front_stop, server_id);
-		logger.info("start mq {}", server_id);
+		logger.info("mq stop {}", server_id);
 	}
 
 	private void afterStart() {
 		jmsMessagingTemplate.convertAndSend(dest_front_start, server_id);
-		logger.info("start mq {}", server_id);
+		logger.info("mq start {}", server_id);
 	}
 
 }

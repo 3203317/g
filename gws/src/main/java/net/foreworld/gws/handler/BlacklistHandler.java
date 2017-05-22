@@ -37,8 +37,10 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 		InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
 		String incoming = addr.getAddress().getHostAddress();
 
-		if (check(incoming))
+		if (check(incoming)) {
+			ctx.pipeline().remove(this);
 			return;
+		}
 
 		ChannelFuture future = ctx.close();
 
