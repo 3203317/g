@@ -46,7 +46,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("{}", cause);
+		logger.error("", cause);
 		ctx.close();
 	}
 
@@ -87,7 +87,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 				}
 
 			} catch (InvalidProtocolBufferException e) {
-				logger.error("{}", e);
+				logger.error("", e);
 			}
 		}
 
