@@ -41,11 +41,11 @@ public class WsServer extends Server {
 	@Value("${server.id}")
 	private String server_id;
 
-	@Value("${dest.front.start}")
-	private String dest_front_start;
+	@Value("${queue.front.start}")
+	private String queue_front_start;
 
-	@Value("${dest.front.stop}")
-	private String dest_front_stop;
+	@Value("${queue.front.stop}")
+	private String queue_front_stop;
 
 	@Resource(name = "wsInitializer")
 	private WsInitializer wsInitializer;
@@ -79,7 +79,7 @@ public class WsServer extends Server {
 		try {
 			f = b.bind().sync();
 			if (f.isSuccess()) {
-				logger.info("start ws {}", port);
+				logger.info("ws start {}", port);
 				afterStart();
 			}
 		} catch (InterruptedException e) {
@@ -109,13 +109,13 @@ public class WsServer extends Server {
 	}
 
 	private void beforeShut() {
-		jmsMessagingTemplate.convertAndSend(dest_front_stop, server_id);
-		logger.info("mq stop {}", server_id);
+		jmsMessagingTemplate.convertAndSend(queue_front_stop, server_id);
+		logger.info("amq stop {}", server_id);
 	}
 
 	private void afterStart() {
-		jmsMessagingTemplate.convertAndSend(dest_front_start, server_id);
-		logger.info("mq start {}", server_id);
+		jmsMessagingTemplate.convertAndSend(queue_front_start, server_id);
+		logger.info("amq start {}", server_id);
 	}
 
 }

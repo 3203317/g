@@ -30,8 +30,8 @@ public class UnRegChannelHandler extends ChannelInboundHandlerAdapter {
 	@Value("${server.id}")
 	private String server_id;
 
-	@Value("${dest.channel.close}")
-	private String dest_channel_close;
+	@Value("${queue.channel.close}")
+	private String queue_channel_close;
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
@@ -44,18 +44,17 @@ public class UnRegChannelHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
-		closeChannel(ctx.channel().id().asLongText());
+		removeChannel(ctx.channel().id().asLongText());
 		super.channelUnregistered(ctx);
 	}
 
 	/**
-	 * 删除通道
 	 * 
 	 * @param channel_id
 	 */
-	private void closeChannel(String channel_id) {
+	private void removeChannel(String channel_id) {
 		ChannelUtil.getDefault().removeChannel(channel_id);
-		jmsMessagingTemplate.convertAndSend(dest_channel_close, server_id + ":" + channel_id);
-		logger.info("channel close {}:{}", server_id, channel_id);
+		jmsMessagingTemplate.convertAndSend(queue_channel_close, server_id + ":" + channel_id);
+		logger.info("channel remove {}:{}", server_id, channel_id);
 	}
 }
