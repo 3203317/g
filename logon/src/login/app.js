@@ -83,9 +83,14 @@ server.listen(app.get('port'), () => {
   });
 
   client.connect(sessionId => {
-    console.info('[INFO ] activemq client listening on %s.', sessionId);
+    console.info('[INFO ] amq client on %s.', sessionId);
 
-    client.subscribe('/queue/server.start', (body, headers) => {
+    client.subscribe('/queue/front.start', (body, headers) => {
+      console.log(body);
+      console.log(headers)
+    });
+
+    client.subscribe('/queue/front.stop', (body, headers) => {
       console.log(body);
       console.log(headers)
     });
