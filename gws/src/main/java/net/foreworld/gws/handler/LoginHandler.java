@@ -4,10 +4,13 @@ import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -21,6 +24,7 @@ import net.foreworld.gws.protobuf.Method;
 import net.foreworld.gws.protobuf.Method.RequestProtobuf;
 import net.foreworld.gws.protobuf.method.user.Login;
 import net.foreworld.gws.util.ChannelUtil;
+import net.foreworld.gws.util.Constants;
 import net.foreworld.util.RedisUtil;
 import net.foreworld.util.StringUtil;
 import redis.clients.jedis.Jedis;
@@ -41,8 +45,17 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	@Value("${sha.token}")
 	private String sha_token;
 
+	@Value("${sha.token.expire}")
+	private int sha_token_expire;
+
 	@Value("${server.id}")
 	private String server_id;
+
+	@Value("${queue.channel.open}")
+	private String queue_channel_open;
+
+	@Resource(name = "jmsMessagingTemplate")
+	private JmsMessagingTemplate jmsMessagingTemplate;
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
@@ -68,7 +81,12 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 				if (null != token) {
 
 					ctx.pipeline().remove(this);
-					ChannelUtil.getDefault().putChannel(ctx.channel().id().asLongText(), ctx);
+
+					String channel_id = ctx.channel().id().asLongText();
+
+					ChannelUtil.getDefault().putChannel(channel_id, ctx);
+					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + ":" + channel_id);
+					logger.info("channel open {}:{}", server_id, channel_id);
 
 					Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
 
@@ -125,11 +143,6 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 			return null;
 		}
 
-		Jedis j = RedisUtil.getDefault().getJedis();
-
-		if (null == j)
-			return null;
-
 		List<String> s = new ArrayList<String>();
 		s.add("code");
 		s.add("access_token");
@@ -139,13 +152,18 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 		List<String> b = new ArrayList<String>();
 		b.add(code);
 		b.add(uuid);
-		b.add("3600");
+		b.add(String.valueOf(sha_token_expire));
 		b.add(server_id);
+
+		Jedis j = RedisUtil.getDefault().getJedis();
+
+		if (null == j)
+			return null;
 
 		Object o = j.evalsha(sha_token, s, b);
 		j.close();
 
-		if (null == o || !"OK".equals(o)) {
+		if (null == o || !Constants.OK.equals(o)) {
 			return null;
 		}
 
