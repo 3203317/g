@@ -28,7 +28,7 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("{}", cause);
+		logger.error("", cause);
 		ctx.close();
 	}
 
@@ -70,8 +70,6 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 
 		if (null == j)
 			return false;
-
-		logger.info("{}", j);
 
 		j.close();
 		return true;

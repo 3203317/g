@@ -85,8 +85,8 @@ public class WsServer extends Server {
 			Runtime.getRuntime().addShutdownHook(new Thread() {
 				@Override
 				public void run() {
+					beforeShut();
 					shutdown();
-					afterStop();
 				}
 			});
 		}
@@ -105,7 +105,7 @@ public class WsServer extends Server {
 		}
 	}
 
-	private void afterStop() {
+	private void beforeShut() {
 		clearRedis();
 	}
 
