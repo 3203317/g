@@ -1,5 +1,8 @@
 package net.foreworld.gws.server;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -23,6 +26,7 @@ import redis.clients.jedis.Jedis;
  * @author huangxin <3203317@qq.com>
  *
  */
+@PropertySource("classpath:redis.properties")
 @PropertySource("classpath:server.properties")
 @Component
 public class WsServer extends Server {
@@ -40,6 +44,9 @@ public class WsServer extends Server {
 
 	@Value("${server.id}")
 	private String server_id;
+
+	@Value("${sha.server.close}")
+	private String sha_server_close;
 
 	@Resource(name = "wsInitializer")
 	private WsInitializer wsInitializer;
@@ -113,7 +120,16 @@ public class WsServer extends Server {
 		if (null == j)
 			return;
 
-		j.close();
-	}
+		List<String> s = new ArrayList<String>();
+		s.add("server_id");
+		s.add("connCount");
 
+		List<String> b = new ArrayList<String>();
+		b.add(server_id);
+		b.add("0");
+
+		j.evalsha(sha_server_close, s, b);
+		j.close();
+
+	}
 }

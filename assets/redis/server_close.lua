@@ -4,6 +4,6 @@ redis.call('SELECT', 1);
 
 local server_id = ARGV[1];
 
-redis.call('DEL', server_id);
+redis.call('HMSET', server_id, KEYS[2], ARGV[2]);
 
 return 'OK';
