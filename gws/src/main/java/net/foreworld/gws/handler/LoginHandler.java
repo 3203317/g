@@ -1,10 +1,24 @@
 package net.foreworld.gws.handler;
 
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+
+import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.Method.RequestProtobuf;
+import net.foreworld.gws.protobuf.method.user.Login;
+import net.foreworld.gws.util.ChannelUtil;
+import net.foreworld.gws.util.Constants;
+import net.foreworld.util.RedisUtil;
+import net.foreworld.util.StringUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,21 +27,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.Method.RequestProtobuf;
-import net.foreworld.gws.protobuf.method.user.Login;
-import net.foreworld.gws.util.ChannelUtil;
-import net.foreworld.gws.util.Constants;
-import net.foreworld.util.RedisUtil;
-import net.foreworld.util.StringUtil;
 import redis.clients.jedis.Jedis;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -38,9 +40,11 @@ import redis.clients.jedis.Jedis;
 @PropertySource("classpath:redis.properties")
 @Component
 @Sharable
-public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
+public class LoginHandler extends
+		SimpleChannelInboundHandler<Method.RequestProtobuf> {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(LoginHandler.class);
 
 	@Value("${sha.token}")
 	private String sha_token;
@@ -58,23 +62,29 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+			throws Exception {
 		logger.error("", cause);
 		ctx.close();
 	}
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
-		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(), msg.getSeqId(), msg.getTimestamp());
+	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg)
+			throws Exception {
+		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(),
+				msg.getSeqId(), msg.getTimestamp());
 
 		if (95 == msg.getMethod()) {
 
 			try {
 
-				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg.getData());
+				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg
+						.getData());
 				String code = req.getCode();
 
-				String token = verify(code, ctx.channel().id().asLongText());
+				String channel_id = ctx.channel().id().asLongText();
+
+				String token = verify(code, channel_id);
 
 				logger.info("{} : {}", code, token);
 
@@ -82,20 +92,21 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 					ctx.pipeline().remove(this);
 
-					String channel_id = ctx.channel().id().asLongText();
-
 					ChannelUtil.getDefault().putChannel(channel_id, ctx);
-					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + ":" + channel_id);
+					jmsMessagingTemplate.convertAndSend(queue_channel_open,
+							server_id + ":" + channel_id);
 					logger.info("channel open {}:{}", server_id, channel_id);
 
-					Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+					Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf
+							.newBuilder();
 
 					resp.setVersion(msg.getVersion());
 					resp.setMethod(msg.getMethod());
 					resp.setSeqId(msg.getSeqId());
 					resp.setTimestamp(System.currentTimeMillis());
 
-					Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf.newBuilder();
+					Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf
+							.newBuilder();
 					data.setToken(token);
 
 					resp.setData(data.build().toByteString());
@@ -114,7 +125,8 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 		future.addListener(new ChannelFutureListener() {
 
 			@Override
-			public void operationComplete(ChannelFuture future) throws Exception {
+			public void operationComplete(ChannelFuture future)
+					throws Exception {
 				SocketAddress addr = ctx.channel().remoteAddress();
 
 				if (future.isSuccess()) {
@@ -129,8 +141,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	}
 
 	/**
-	 * 授权码验证
-	 * 
+	 *
 	 * @param code
 	 * @param uuid
 	 * @return
