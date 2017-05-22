@@ -106,7 +106,7 @@ public final class RedisUtil {
 			// timeout 最大延迟时间
 			jedisPool = new JedisPool(config, HOST, PORT, TIMEOUT, PASS);
 		} catch (Exception e) {
-			logger.error("{}", e);
+			logger.error("", e);
 		}
 	}
 
@@ -121,7 +121,7 @@ public final class RedisUtil {
 		try {
 			return null == jedisPool ? null : jedisPool.getResource();
 		} catch (Exception e) {
-			logger.error("{}", e);
+			logger.error("", e);
 			return null;
 		}
 	}
