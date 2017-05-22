@@ -60,3 +60,36 @@ server.listen(app.get('port'), () => {
   console.info('[INFO ] login server listening on port %s.', app.get('port'));
   require('./routes')(app);
 });
+
+(function(){
+  var activemq = conf.emag.activemq;
+  var Stomp = require('stomp-client');
+  var client = new Stomp(activemq.host, activemq.port, activemq.user, activemq.password);
+
+  function close(){
+    if(!client) return;
+
+    client.disconnect(() => {
+      console.log('disconnect');
+    });
+  }
+
+  process.on('uncaughtException', e => {
+    close();
+  });
+
+  process.on('exit', () => {
+    close();
+  });
+
+  client.connect(sessionId => {
+    console.info('[INFO ] activemq client listening on %s.', sessionId);
+
+    client.subscribe('/queue/server.start', (body, headers) => {
+      console.log(body);
+      console.log(headers)
+    });
+
+  });
+
+})();

@@ -16,6 +16,12 @@ module.exports = {
     cdn: 'http://www.foreworld.net/'
   },
   emag: {
+    activemq: {
+      host: '127.0.0.1',
+      port: 22613,
+      user: 'admin',
+      password: 'admin',
+    },
     mysql: {
       database: 'emag',
       host: '127.0.0.1',
