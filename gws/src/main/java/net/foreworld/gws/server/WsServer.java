@@ -1,14 +1,12 @@
 package net.foreworld.gws.server;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -18,15 +16,13 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import net.foreworld.gws.initializer.WsInitializer;
-import net.foreworld.util.RedisUtil;
-import redis.clients.jedis.Jedis;
 
 /**
  *
  * @author huangxin <3203317@qq.com>
  *
  */
-@PropertySource("classpath:redis.properties")
+@PropertySource("classpath:activemq.properties")
 @PropertySource("classpath:server.properties")
 @Component
 public class WsServer extends Server {
@@ -45,14 +41,20 @@ public class WsServer extends Server {
 	@Value("${server.id}")
 	private String server_id;
 
-	@Value("${sha.server.close}")
-	private String sha_server_close;
+	@Value("${dest.front.start}")
+	private String dest_front_start;
+
+	@Value("${dest.front.stop}")
+	private String dest_front_stop;
 
 	@Resource(name = "wsInitializer")
 	private WsInitializer wsInitializer;
 
 	private ChannelFuture f;
 	private EventLoopGroup bossGroup, workerGroup;
+
+	@Resource(name = "jmsMessagingTemplate")
+	private JmsMessagingTemplate jmsMessagingTemplate;
 
 	@Override
 	public void start() {
@@ -78,6 +80,7 @@ public class WsServer extends Server {
 			f = b.bind().sync();
 			if (f.isSuccess()) {
 				logger.info("start ws {}", port);
+				afterStart();
 			}
 		} catch (InterruptedException e) {
 			logger.error(e.getMessage(), e);
@@ -106,30 +109,13 @@ public class WsServer extends Server {
 	}
 
 	private void beforeShut() {
-		clearRedis();
+		jmsMessagingTemplate.convertAndSend(dest_front_stop, server_id);
+		logger.info("start mq {}", server_id);
 	}
 
-	/**
-	 * 1. 重置服务器的连接数为 0 <br/>
-	 * 2. 设置服务器的状态为 stop
-	 */
-	private void clearRedis() {
-
-		Jedis j = RedisUtil.getDefault().getJedis();
-
-		if (null == j)
-			return;
-
-		List<String> s = new ArrayList<String>();
-		s.add("server_id");
-		s.add("connCount");
-
-		List<String> b = new ArrayList<String>();
-		b.add(server_id);
-		b.add("0");
-
-		j.evalsha(sha_server_close, s, b);
-		j.close();
-
+	private void afterStart() {
+		jmsMessagingTemplate.convertAndSend(dest_front_start, server_id);
+		logger.info("start mq {}", server_id);
 	}
+
 }
