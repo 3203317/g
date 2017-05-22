@@ -29,7 +29,7 @@ app.set('port', process.env.PORT || 8888)
 
 /* production */
 if('production' === app.get('env')){
-  app.use('/public', express.static(path.join(__dirname, 'public'), { maxAge: 101000 }))
+  app.use('/public', express.static(path.join(__dirname, 'public'), { maxAge: 10 * 1000 }))
      .use(express.errorHandler())
      .use(express.logger('dev'));
 }
@@ -91,6 +91,16 @@ server.listen(app.get('port'), () => {
     });
 
     client.subscribe('/queue/front.stop', (body, headers) => {
+      console.log(body);
+      console.log(headers)
+    });
+
+    client.subscribe('/queue/channel.open', (body, headers) => {
+      console.log(body);
+      console.log(headers)
+    });
+
+    client.subscribe('/queue/channel.close', (body, headers) => {
       console.log(body);
       console.log(headers)
     });
