@@ -105,6 +105,11 @@ server.listen(app.get('port'), () => {
       console.log(headers)
     });
 
+    client.subscribe('/queue/channel.send', (body, headers) => {
+      console.log(body);
+      console.log(headers)
+    });
+
   });
 
 })();
