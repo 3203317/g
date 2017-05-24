@@ -108,6 +108,12 @@ server.listen(app.get('port'), () => {
     client.subscribe('/queue/channel.send', (body, headers) => {
       console.log(body);
       console.log(headers)
+
+      client.publish('abc', 'Oh herrow 123 斯蒂芬 ' + new Date().getTime());
+      client.publish('sample.topicl', '12345 ' + new Date().getTime());
+
+
+
     });
 
   });
