@@ -1,12 +1,15 @@
 package net.foreworld.gws;
 
 import javax.annotation.Resource;
+import javax.jms.Topic;
 
+import org.apache.activemq.command.ActiveMQTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 
 import net.foreworld.gws.server.WsServer;
@@ -21,6 +24,12 @@ import net.foreworld.gws.server.WsServer;
 public class RunWsServer implements CommandLineRunner {
 
 	private static final Logger logger = LoggerFactory.getLogger(RunWsServer.class);
+	
+
+    @Bean
+    public Topic topic() {
+       return new ActiveMQTopic("sample.topicl");
+    }
 
 	@Resource(name = "wsServer")
 	private WsServer wsServer;
