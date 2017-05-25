@@ -4,7 +4,6 @@ import java.net.SocketAddress;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import io.netty.channel.ChannelFuture;
@@ -20,19 +19,11 @@ import io.netty.handler.timeout.IdleStateEvent;
  * @author huangxin
  *
  */
-@PropertySource("classpath:activemq.properties")
-@PropertySource("classpath:server.properties")
 @Component
 @Sharable
 public class TimeoutHandler extends ChannelInboundHandlerAdapter {
 
 	private static final Logger logger = LoggerFactory.getLogger(TimeoutHandler.class);
-
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
 
 	@Override
 	public void userEventTriggered(ChannelHandlerContext ctx, Object evt) {

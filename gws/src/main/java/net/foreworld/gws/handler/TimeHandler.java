@@ -4,15 +4,12 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.annotation.Resource;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -29,6 +26,7 @@ import net.foreworld.gws.protobuf.model.User;
  * @author huangxin
  *
  */
+@PropertySource("classpath:activemq.properties")
 @Component
 @Sharable
 public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
@@ -40,12 +38,6 @@ public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProto
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
-
-	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
@@ -75,29 +67,7 @@ public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProto
 		ctx.writeAndFlush(resp);
 
 		jmsMessagingTemplate.convertAndSend(queue_channel_send, ctx.channel().id().asLongText() + ":" + new Date());
-		
-		
-		
-		
 
-
-//		jmsMessagingTemplate.convertAndSend(queue_channel_send , new MessageCreator() {
-//
-//			@Override
-//			public Message createMessage(Session session) throws JMSException {
-////				BytesMessage  msgs = session.createBytesMessage();
-////
-////				ByteBuf result = null;
-////				if (msg instanceof MessageLite) {
-////					result = wrappedBuffer(((MessageLite) msg).toByteArray());
-////				}
-////				msgs.writeBytes(result.array());
-////				return msgs;
-//				
-//				return session.createTextMessage("haha"+ new Date());
-//			}
-//
-//		});
 	}
 
 }

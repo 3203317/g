@@ -27,12 +27,6 @@ public class BlacklistHandler extends ChannelInboundHandlerAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(BlacklistHandler.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
-
-	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
 		InetSocketAddress addr = (InetSocketAddress) ctx.channel().remoteAddress();
 		String incoming = addr.getAddress().getHostAddress();

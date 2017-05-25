@@ -27,12 +27,6 @@ public class ProtocolSafeHandler extends ChannelInboundHandlerAdapter {
 	private static final Logger logger = LoggerFactory.getLogger(ProtocolSafeHandler.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
-
-	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 
 		if (msg instanceof BinaryWebSocketFrame || msg instanceof FullHttpRequest

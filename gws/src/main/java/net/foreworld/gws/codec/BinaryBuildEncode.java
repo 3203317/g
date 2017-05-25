@@ -33,12 +33,6 @@ public class BinaryBuildEncode extends MessageToMessageEncoder<MessageLiteOrBuil
 	private static final Logger logger = LoggerFactory.getLogger(BinaryBuildEncode.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
-
-	@Override
 	protected void encode(ChannelHandlerContext ctx, MessageLiteOrBuilder msg, List<Object> out) throws Exception {
 
 		ByteBuf result = null;

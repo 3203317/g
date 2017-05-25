@@ -26,12 +26,6 @@ public class TimeMethodHandler extends SimpleChannelInboundHandler<Method.Reques
 	private static final Logger logger = LoggerFactory.getLogger(TimeMethodHandler.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
-
-	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
 		logger.info("method: {}", msg.getMethod());
 

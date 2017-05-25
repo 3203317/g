@@ -24,12 +24,6 @@ public class BinaryDecode extends MessageToMessageDecoder<BinaryWebSocketFrame> 
 	private static final Logger logger = LoggerFactory.getLogger(BinaryDecode.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
-
-	@Override
 	protected void decode(ChannelHandlerContext ctx, BinaryWebSocketFrame msg, List<Object> out) throws Exception {
 		ByteBuf buf = msg.content();
 		out.add(buf);

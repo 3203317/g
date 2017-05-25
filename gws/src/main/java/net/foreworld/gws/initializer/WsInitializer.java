@@ -1,5 +1,13 @@
 package net.foreworld.gws.initializer;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -12,26 +20,17 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-
 import net.foreworld.gws.codec.BinaryBuildEncode;
 import net.foreworld.gws.codec.BinaryDecode;
 import net.foreworld.gws.handler.BlacklistHandler;
+import net.foreworld.gws.handler.ExceptionHandler;
 import net.foreworld.gws.handler.LoginHandler;
 import net.foreworld.gws.handler.ProtocolSafeHandler;
 import net.foreworld.gws.handler.TimeHandler;
 import net.foreworld.gws.handler.TimeMethodHandler;
 import net.foreworld.gws.handler.TimeVersionHandler;
 import net.foreworld.gws.handler.TimeoutHandler;
-import net.foreworld.gws.handler.UnRegChannelHandler;
 import net.foreworld.gws.protobuf.Method;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -78,18 +77,17 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Resource(name = "timeMethodHandler")
 	private TimeMethodHandler timeMethodHandler;
 
-	@Resource(name = "unRegChannelHandler")
-	private UnRegChannelHandler unRegChannelHandler;
+	@Resource(name = "exceptionHandler")
+	private ExceptionHandler exceptionHandler;
 
 	@Override
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
 
-		pipe.addLast(unRegChannelHandler);
+		pipe.addLast(exceptionHandler);
 		pipe.addLast(blacklistHandler);
 
-		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime,
-				allIdleTime, TimeUnit.SECONDS));
+		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime, allIdleTime, TimeUnit.SECONDS));
 		pipe.addLast(timeoutHandler);
 
 		pipe.addLast(new HttpServerCodec());
@@ -104,8 +102,7 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(binaryDecode);
 
 		// pipe.addLast(new ProtobufVarint32FrameDecoder());
-		pipe.addLast(new ProtobufDecoder(Method.RequestProtobuf
-				.getDefaultInstance()));
+		pipe.addLast(new ProtobufDecoder(Method.RequestProtobuf.getDefaultInstance()));
 		pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 		// pipe.addLast(new ProtobufEncoder());
 

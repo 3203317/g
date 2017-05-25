@@ -22,12 +22,6 @@ public class TimeVersionHandler extends SimpleChannelInboundHandler<Method.Reque
 	private static final Logger logger = LoggerFactory.getLogger(TimeVersionHandler.class);
 
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("", cause);
-		ctx.close();
-	}
-
-	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
 		logger.info("version: {}", msg.getVersion());
 		ctx.fireChannelRead(msg);
