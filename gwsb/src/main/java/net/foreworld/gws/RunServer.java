@@ -18,15 +18,15 @@ import net.foreworld.gws.server.WsServer;
  */
 @SpringBootApplication
 @ComponentScan("net.foreworld")
-public class RunWsServer implements CommandLineRunner {
+public class RunServer implements CommandLineRunner {
 
-	private static final Logger logger = LoggerFactory.getLogger(RunWsServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(RunServer.class);
 
 	@Resource(name = "wsServer")
 	private WsServer wsServer;
 
 	public static void main(String[] args) {
-		SpringApplication.run(RunWsServer.class, args);
+		SpringApplication.run(RunServer.class, args);
 	}
 
 	public void run(String... strings) throws Exception {
