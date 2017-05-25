@@ -79,9 +79,9 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 				if (null != token) {
 
-					ctx.pipeline().replace(this, "", unRegChannelHandler);
+					ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
 
-					ChannelUtil.getDefault().putChannel(channel_id, ctx);
+					ChannelUtil.getDefault().putChannel(channel_id, ctx.channel());
 					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + ":" + channel_id);
 					logger.info("channel open {}:{}", server_id, channel_id);
 

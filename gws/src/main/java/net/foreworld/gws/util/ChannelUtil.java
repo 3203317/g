@@ -6,7 +6,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.Channel;
+import io.netty.channel.group.ChannelGroup;
+import io.netty.channel.group.ChannelGroupFuture;
+import io.netty.channel.group.ChannelMatcher;
+import io.netty.channel.group.DefaultChannelGroup;
+import io.netty.util.concurrent.GlobalEventExecutor;
 
 /**
  *
@@ -23,7 +28,9 @@ public final class ChannelUtil {
 	private ChannelUtil() {
 	}
 
-	private Map<String, ChannelHandlerContext> map = new ConcurrentHashMap<String, ChannelHandlerContext>();
+	private Map<String, Channel> map = new ConcurrentHashMap<String, Channel>();
+
+	private ChannelGroup all = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 
 	/**
 	 * 定义一个共有的静态方法，返回该类型实例
@@ -47,22 +54,44 @@ public final class ChannelUtil {
 	/**
 	 * 
 	 * @param id
-	 * @param ctx
+	 * @param channel
 	 */
-	public void putChannel(String id, ChannelHandlerContext ctx) {
-		map.put(id, ctx);
+	public void putChannel(String id, Channel channel) {
+		all.add(channel);
+		map.put(id, channel);
 	}
 
 	public void removeChannel(String id) {
+		all.remove(this.getChannel(id));
 		map.remove(id);
 	}
 
-	public ChannelHandlerContext getChannel(String id) {
+	public Channel getChannel(String id) {
 		return map.get(id);
 	}
 
-	public Map<String, ChannelHandlerContext> getChannels() {
+	public Map<String, Channel> getChannels() {
 		return map;
+	}
+
+	public ChannelGroupFuture broadcast(Object message) {
+		return all.writeAndFlush(message);
+	}
+
+	public ChannelGroupFuture broadcast(Object message, ChannelMatcher matcher) {
+		return all.writeAndFlush(message, matcher);
+	}
+
+	public ChannelGroup flush() {
+		return all.flush();
+	}
+
+	public ChannelGroupFuture disconnect() {
+		return all.disconnect();
+	}
+
+	public int size() {
+		return all.size();
 	}
 
 }
