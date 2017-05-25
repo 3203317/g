@@ -86,8 +86,8 @@ public final class ChannelUtil {
 		return all.flush();
 	}
 
-	public ChannelGroupFuture disconnect() {
-		return all.disconnect();
+	public ChannelGroupFuture close() {
+		return all.close();
 	}
 
 	public int size() {

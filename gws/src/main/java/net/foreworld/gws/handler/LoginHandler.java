@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
@@ -61,7 +62,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	private UnRegChannelHandler unRegChannelHandler;
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, final RequestProtobuf msg) throws Exception {
 		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(), msg.getSeqId(), msg.getTimestamp());
 
 		if (95 == msg.getMethod()) {
@@ -71,9 +72,11 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg.getData());
 				String code = req.getCode();
 
-				String channel_id = ctx.channel().id().asLongText();
+				final Channel channel = ctx.channel();
 
-				String token = verify(code, channel_id);
+				final String channel_id = channel.id().asLongText();
+
+				final String token = verify(code, channel_id);
 
 				logger.info("{} : {}", code, token);
 
@@ -81,7 +84,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 					ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
 
-					ChannelUtil.getDefault().putChannel(channel_id, ctx.channel());
+					ChannelUtil.getDefault().putChannel(channel_id, channel);
 					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + ":" + channel_id);
 					logger.info("channel open {}:{}", server_id, channel_id);
 
