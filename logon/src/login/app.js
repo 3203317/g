@@ -61,55 +61,55 @@ server.listen(app.get('port'), () => {
   require('./routes')(app);
 });
 
-(function(){
-  var activemq = conf.emag.activemq;
-  var Stomp = require('stomp-client');
-  var client = new Stomp(activemq.host, activemq.port, activemq.user, activemq.password);
+// (function(){
+//   var activemq = conf.emag.activemq;
+//   var Stomp = require('stomp-client');
+//   var client = new Stomp(activemq.host, activemq.port, activemq.user, activemq.password);
 
-  function close(){
-    if(!client) return;
+//   function close(){
+//     if(!client) return;
 
-    client.disconnect(() => {
-      console.log('disconnect');
-    });
-  }
+//     client.disconnect(() => {
+//       console.log('disconnect');
+//     });
+//   }
 
-  process.on('uncaughtException', e => {
-    close();
-  });
+//   process.on('uncaughtException', e => {
+//     close();
+//   });
 
-  process.on('exit', () => {
-    close();
-  });
+//   process.on('exit', () => {
+//     close();
+//   });
 
-  client.connect(sessionId => {
-    console.info('[INFO ] amq client on %s.', sessionId);
+//   client.connect(sessionId => {
+//     console.info('[INFO ] amq client on %s.', sessionId);
 
-    client.subscribe('/queue/front.start', (body, headers) => {
-      console.log(body);
-      console.log(headers)
-    });
+//     client.subscribe('/queue/front.start', (body, headers) => {
+//       console.log(body);
+//       console.log(headers)
+//     });
 
-    client.subscribe('/queue/front.stop', (body, headers) => {
-      console.log(body);
-      console.log(headers)
-    });
+//     client.subscribe('/queue/front.stop', (body, headers) => {
+//       console.log(body);
+//       console.log(headers)
+//     });
 
-    client.subscribe('/queue/channel.open', (body, headers) => {
-      console.log(body);
-      console.log(headers)
-    });
+//     client.subscribe('/queue/channel.open', (body, headers) => {
+//       console.log(body);
+//       console.log(headers)
+//     });
 
-    client.subscribe('/queue/channel.close', (body, headers) => {
-      console.log(body);
-      console.log(headers)
-    });
+//     client.subscribe('/queue/channel.close', (body, headers) => {
+//       console.log(body);
+//       console.log(headers)
+//     });
 
-    client.subscribe('/queue/channel.send', (body, headers) => {
-      console.log(body);
-      console.log(headers);
-    });
+//     client.subscribe('/queue/channel.send', (body, headers) => {
+//       console.log(body);
+//       console.log(headers);
+//     });
 
-  });
+//   });
 
-})();
+// })();
