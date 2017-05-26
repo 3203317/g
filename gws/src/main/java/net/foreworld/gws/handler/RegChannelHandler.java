@@ -23,7 +23,7 @@ public class RegChannelHandler extends SimpleChannelInboundHandler<Builder> {
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-		logger.error("{}", cause);
+		logger.error("", cause);
 		ctx.close();
 	}
 

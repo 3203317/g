@@ -1,16 +1,10 @@
 package net.foreworld.gws.server;
 
 import javax.annotation.Resource;
-import javax.jms.Queue;
-import javax.jms.Topic;
 
-import org.apache.activemq.command.ActiveMQQueue;
-import org.apache.activemq.command.ActiveMQTopic;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
@@ -35,12 +29,6 @@ import net.foreworld.gws.util.ChannelUtil;
 public class WsServer extends Server {
 
 	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
-	
-	
-
-
-	
-	
 
 	@Value("${server.port:1234}")
 	private int port;

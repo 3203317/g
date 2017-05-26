@@ -2,8 +2,6 @@ package net.foreworld.gws.codec;
 
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import io.netty.buffer.ByteBuf;
@@ -20,8 +18,6 @@ import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 @Component
 @Sharable
 public class BinaryDecode extends MessageToMessageDecoder<BinaryWebSocketFrame> {
-
-	private static final Logger logger = LoggerFactory.getLogger(BinaryDecode.class);
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, BinaryWebSocketFrame msg, List<Object> out) throws Exception {
