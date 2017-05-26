@@ -6,7 +6,7 @@
 	<artifactId>gwsb</artifactId>
 	<packaging>jar</packaging>
 	<version>1.0.1</version>
-	<name>socket :: netty</name>
+	<name>socket :: b</name>
 	<url>http://www.foreworld.net/</url>
 
 	<properties>
@@ -122,6 +122,11 @@
 			<groupId>net.foreworld</groupId>
 			<artifactId>fore-util</artifactId>
 			<version>1.10.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-protobuf</artifactId>
+			<version>2.0.13</version>
 		</dependency>
 	</dependencies>
 
