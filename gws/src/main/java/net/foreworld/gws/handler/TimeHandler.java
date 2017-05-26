@@ -66,7 +66,8 @@ public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProto
 
 		ctx.writeAndFlush(resp);
 
-		jmsMessagingTemplate.convertAndSend(queue_channel_send, ctx.channel().id().asLongText() + ":" + new Date());
+//		jmsMessagingTemplate.convertAndSend(queue_channel_send, ctx.channel().id().asLongText() + "s 第三法:" + new Date());
+		jmsMessagingTemplate.convertAndSend(queue_channel_send, msg.toByteArray());
 
 	}
 
