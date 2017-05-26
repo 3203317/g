@@ -1,4 +1,4 @@
-package net.foreworld.util;
+package net.foreworld.gws.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

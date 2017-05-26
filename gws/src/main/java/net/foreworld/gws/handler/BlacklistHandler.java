@@ -12,7 +12,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import net.foreworld.util.RedisUtil;
+import net.foreworld.gws.util.RedisUtil;
 import redis.clients.jedis.Jedis;
 
 /**

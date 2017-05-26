@@ -26,7 +26,7 @@ import net.foreworld.gws.protobuf.Method.RequestProtobuf;
 import net.foreworld.gws.protobuf.method.user.Login;
 import net.foreworld.gws.util.ChannelUtil;
 import net.foreworld.gws.util.Constants;
-import net.foreworld.util.RedisUtil;
+import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.util.StringUtil;
 import redis.clients.jedis.Jedis;
 
