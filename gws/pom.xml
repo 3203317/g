@@ -125,6 +125,11 @@
 			<version>2.2.3</version>
 		</dependency>
 
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>fore-util</artifactId>
+			<version>1.10.2</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

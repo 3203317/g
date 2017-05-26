@@ -1,4 +1,4 @@
-package net.foreworld.gws.server;
+package net.foreworld.util;
 
 /**
  *
