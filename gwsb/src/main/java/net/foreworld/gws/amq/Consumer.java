@@ -1,16 +1,22 @@
 package net.foreworld.gws.amq;
 
+import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
+import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.method.user.Login;
 import net.foreworld.gws.protobuf.model.User;
 
 /**
@@ -18,18 +24,30 @@ import net.foreworld.gws.protobuf.model.User;
  * @author huangxin
  *
  */
+@PropertySource("classpath:activemq.properties")
 @Component
 public class Consumer {
 
+	@Value("${queue.back.send}")
+	private String queue_back_send;
+
+	@Resource(name = "jmsMessagingTemplate")
+	private JmsMessagingTemplate jmsMessagingTemplate;
+
 	private static final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
-	@JmsListener(destination = "channel.send")
-	public void channel_send(BytesMessage text) {
+	@JmsListener(destination = "${queue.channel.send}")
+	public void channel_send(BytesMessage msg) {
+
+		if (!(msg instanceof BytesMessage)) {
+			logger.error("not convert");
+			return;
+		}
 
 		try {
-			int len = (int) text.getBodyLength();
+			int len = (int) msg.getBodyLength();
 			byte[] data = new byte[len];
-			text.readBytes(data);
+			msg.readBytes(data);
 
 			Method.RequestProtobuf method = Method.RequestProtobuf.parseFrom(data);
 			logger.info("{}:{}:{}:{}", method.getVersion(), method.getMethod(), method.getSeqId(),
@@ -44,5 +62,37 @@ public class Consumer {
 		} catch (JMSException e) {
 			logger.error("", e);
 		}
+	}
+
+	@JmsListener(destination = "${queue.channel.open}")
+	public void channel_open(TextMessage msg) {
+
+		if (!(msg instanceof TextMessage)) {
+			logger.error("not convert");
+			return;
+		}
+
+		TextMessage text = (TextMessage) msg;
+		try {
+			logger.info(text.getText());
+
+			Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+
+			resp.setVersion(1);
+			resp.setMethod(2);
+			resp.setSeqId(3);
+			resp.setTimestamp(System.currentTimeMillis());
+
+			Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf.newBuilder();
+			data.setToken("token");
+
+			resp.setData(data.build().toByteString());
+
+			jmsMessagingTemplate.convertAndSend(queue_back_send, resp.build().toByteArray());
+
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+
 	}
 }
