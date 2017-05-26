@@ -85,22 +85,26 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 					ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
 
 					ChannelUtil.getDefault().putChannel(channel_id, channel);
-					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + ":" + channel_id);
+					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
 					logger.info("channel open {}:{}", server_id, channel_id);
 
-					Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+					// Method.ResponseProtobuf.Builder resp =
+					// Method.ResponseProtobuf.newBuilder();
+					//
+					// resp.setVersion(msg.getVersion());
+					// resp.setMethod(msg.getMethod());
+					// resp.setSeqId(msg.getSeqId());
+					// resp.setTimestamp(System.currentTimeMillis());
+					//
+					// Login.ResponseProtobuf.Builder data =
+					// Login.ResponseProtobuf.newBuilder();
+					// data.setToken(token);
+					//
+					// resp.setData(data.build().toByteString());
+					//
+					// ctx.writeAndFlush(resp);
 
-					resp.setVersion(msg.getVersion());
-					resp.setMethod(msg.getMethod());
-					resp.setSeqId(msg.getSeqId());
-					resp.setTimestamp(System.currentTimeMillis());
-
-					Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf.newBuilder();
-					data.setToken(token);
-
-					resp.setData(data.build().toByteString());
-
-					ctx.writeAndFlush(resp);
+					ctx.flush();
 					return;
 				}
 
