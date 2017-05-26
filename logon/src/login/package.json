@@ -6,6 +6,8 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "google-protobuf": "3.3.0",
+    "stompit": "0.25.0",
     "stomp-client": "0.9.0",
     "speedt-utils": "0.1.69",
     "speedt-redis": "0.1.60",
