@@ -28,6 +28,9 @@ import net.foreworld.gws.protobuf.model.User;
 @Component
 public class Consumer {
 
+	@Value("${app.version}")
+	private int app_version;
+
 	@Value("${queue.back.send}")
 	private String queue_back_send;
 
@@ -63,22 +66,33 @@ public class Consumer {
 	public void channel_open(TextMessage msg) {
 
 		try {
-			logger.info(msg.getText());
+
+			String[] text = msg.getText().split("::");
 
 			Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
 
-			resp.setVersion(1);
-			resp.setMethod(2);
-			resp.setSeqId(3);
+			resp.setVersion(app_version);
+			resp.setMethod(95);
+			resp.setSeqId(1);
 			resp.setTimestamp(System.currentTimeMillis());
 
 			Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf.newBuilder();
-			data.setToken("token");
+			data.setToken(text[1]);
 
 			resp.setData(data.build().toByteString());
 
 			jmsMessagingTemplate.convertAndSend(queue_back_send, resp.build().toByteArray());
 
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
+	@JmsListener(destination = "${queue.channel.close}")
+	public void channel_close(TextMessage msg) {
+
+		try {
+			logger.info(msg.getText());
 		} catch (JMSException e) {
 			logger.error("", e);
 		}

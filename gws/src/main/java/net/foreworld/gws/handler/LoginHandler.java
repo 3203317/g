@@ -76,33 +76,14 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 				final String channel_id = channel.id().asLongText();
 
-				final String token = verify(code, channel_id);
-
-				logger.info("{} : {}", code, token);
-
-				if (null != token) {
+				if (verify(code, channel_id)) {
+					logger.info("{} : {}", code, channel_id);
 
 					ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
 
 					ChannelUtil.getDefault().putChannel(channel_id, channel);
 					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
 					logger.info("channel open {}:{}", server_id, channel_id);
-
-					// Method.ResponseProtobuf.Builder resp =
-					// Method.ResponseProtobuf.newBuilder();
-					//
-					// resp.setVersion(msg.getVersion());
-					// resp.setMethod(msg.getMethod());
-					// resp.setSeqId(msg.getSeqId());
-					// resp.setTimestamp(System.currentTimeMillis());
-					//
-					// Login.ResponseProtobuf.Builder data =
-					// Login.ResponseProtobuf.newBuilder();
-					// data.setToken(token);
-					//
-					// resp.setData(data.build().toByteString());
-					//
-					// ctx.writeAndFlush(resp);
 
 					ctx.flush();
 					return;
@@ -133,17 +114,17 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	}
 
 	/**
-	 *
+	 * 
 	 * @param code
 	 * @param uuid
 	 * @return
 	 */
-	private String verify(String code, String uuid) {
+	private boolean verify(String code, String uuid) {
 
 		code = StringUtil.isEmpty(code);
 
 		if (null == code) {
-			return null;
+			return false;
 		}
 
 		List<String> s = new ArrayList<String>();
@@ -161,16 +142,12 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 		Jedis j = RedisUtil.getDefault().getJedis();
 
 		if (null == j)
-			return null;
+			return false;
 
 		Object o = j.evalsha(sha_token, s, b);
 		j.close();
 
-		if (null == o || !Constants.OK.equals(o)) {
-			return null;
-		}
-
-		return uuid;
+		return Constants.OK.equals(o);
 	}
 
 }
