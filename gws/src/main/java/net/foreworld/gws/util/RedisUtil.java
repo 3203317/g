@@ -35,37 +35,37 @@ public final class RedisUtil {
 
 	private static String PASS;
 
-	@Value("${db.maxIdle}")
+	@Value("${db.redis.maxIdle}")
 	public void setMaxIdle(int maxIdle) {
 		MAXIDLE = maxIdle;
 	}
 
-	@Value("${db.maxWaitMillis}")
+	@Value("${db.redis.maxWaitMillis}")
 	public void setMaxWaitMillis(int maxWaitMillis) {
 		MAXWAITMILLIS = maxWaitMillis;
 	}
 
-	@Value("${db.testOnBorrow:true}")
+	@Value("${db.redis.testOnBorrow:true}")
 	public void setTestOnBorrow(boolean testOnBorrow) {
 		TESTONBORROW = testOnBorrow;
 	}
 
-	@Value("${db.host:127.0.0.1}")
+	@Value("${db.redis.host:127.0.0.1}")
 	public void setHost(String host) {
 		HOST = host;
 	}
 
-	@Value("${db.port:6379}")
+	@Value("${db.redis.port:6379}")
 	public void setPort(int port) {
 		PORT = port;
 	}
 
-	@Value("${db.timeout}")
+	@Value("${db.redis.timeout}")
 	public void setTimeout(int timeout) {
 		TIMEOUT = timeout;
 	}
 
-	@Value("${db.pass}")
+	@Value("${db.redis.pass}")
 	public void setPass(String pass) {
 		PASS = pass;
 	}
