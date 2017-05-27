@@ -116,12 +116,12 @@ public class WsServer extends Server {
 	private void beforeShut() {
 		ChannelUtil.getDefault().close();
 		jmsMessagingTemplate.convertAndSend(queue_front_stop, server_id);
-		logger.info("front amq stop {}", server_id);
+		logger.info("front amq stop: {}", server_id);
 	}
 
 	private void afterStart() {
 		jmsMessagingTemplate.convertAndSend(queue_front_start, server_id);
-		logger.info("front amq start {}", server_id);
+		logger.info("front amq start: {}", server_id);
 	}
 
 }

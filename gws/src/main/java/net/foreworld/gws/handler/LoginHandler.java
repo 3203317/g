@@ -83,7 +83,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 					ChannelUtil.getDefault().putChannel(channel_id, channel);
 					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
-					logger.info("channel open {}:{}", server_id, channel_id);
+					logger.info("channel amq open: {}:{}", server_id, channel_id);
 
 					ctx.flush();
 					return;

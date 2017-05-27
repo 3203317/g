@@ -92,7 +92,7 @@ public class Consumer {
 	public void channel_close(TextMessage msg) {
 
 		try {
-			logger.info(msg.getText());
+			logger.info("channel amq close: {}", msg.getText());
 		} catch (JMSException e) {
 			logger.error("", e);
 		}
@@ -102,7 +102,7 @@ public class Consumer {
 	public void front_start(TextMessage msg) {
 
 		try {
-			logger.info(msg.getText());
+			logger.info("front amq start: {}", msg.getText());
 		} catch (JMSException e) {
 			logger.error("", e);
 		}
@@ -112,7 +112,7 @@ public class Consumer {
 	public void front_stop(TextMessage msg) {
 
 		try {
-			logger.info(msg.getText());
+			logger.info("front amq stop: {}", msg.getText());
 		} catch (JMSException e) {
 			logger.error("", e);
 		}

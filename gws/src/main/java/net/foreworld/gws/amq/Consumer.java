@@ -28,11 +28,6 @@ public class Consumer {
 	@JmsListener(destination = "${queue.back.send}")
 	public void back_send(BytesMessage msg) {
 
-		if (!(msg instanceof BytesMessage)) {
-			logger.error("not convert");
-			return;
-		}
-
 		try {
 			int len = (int) msg.getBodyLength();
 			byte[] data = new byte[len];
