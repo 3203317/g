@@ -39,11 +39,6 @@ public class Consumer {
 	@JmsListener(destination = "${queue.channel.send}")
 	public void channel_send(BytesMessage msg) {
 
-		if (!(msg instanceof BytesMessage)) {
-			logger.error("not convert");
-			return;
-		}
-
 		try {
 			int len = (int) msg.getBodyLength();
 			byte[] data = new byte[len];
@@ -67,14 +62,8 @@ public class Consumer {
 	@JmsListener(destination = "${queue.channel.open}")
 	public void channel_open(TextMessage msg) {
 
-		if (!(msg instanceof TextMessage)) {
-			logger.error("not convert");
-			return;
-		}
-
-		TextMessage text = (TextMessage) msg;
 		try {
-			logger.info(text.getText());
+			logger.info(msg.getText());
 
 			Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
 
@@ -93,6 +82,25 @@ public class Consumer {
 		} catch (JMSException e) {
 			logger.error("", e);
 		}
+	}
 
+	@JmsListener(destination = "${queue.front.start}")
+	public void front_start(TextMessage msg) {
+
+		try {
+			logger.info(msg.getText());
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
+	@JmsListener(destination = "${queue.front.stop}")
+	public void front_stop(TextMessage msg) {
+
+		try {
+			logger.info(msg.getText());
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
 	}
 }
