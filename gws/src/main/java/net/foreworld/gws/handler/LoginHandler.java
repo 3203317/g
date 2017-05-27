@@ -77,7 +77,6 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 				final String channel_id = channel.id().asLongText();
 
 				if (verify(code, channel_id)) {
-					logger.info("{} : {}", code, channel_id);
 
 					ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
 

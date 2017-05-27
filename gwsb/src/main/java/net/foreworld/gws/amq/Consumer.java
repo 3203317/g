@@ -1,5 +1,7 @@
 package net.foreworld.gws.amq;
 
+import java.util.UUID;
+
 import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
@@ -51,8 +53,21 @@ public class Consumer {
 			logger.info("{}:{}:{}:{}", method.getVersion(), method.getMethod(), method.getSeqId(),
 					method.getTimestamp());
 
-			User.UserProtobuf user = User.UserProtobuf.parseFrom(method.getData());
-			logger.info("{}:{}", user.getUserName(), user.getUserPass());
+			Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+
+			resp.setVersion(method.getVersion());
+			resp.setMethod(method.getMethod());
+			resp.setSeqId(method.getSeqId());
+			resp.setTimestamp(System.currentTimeMillis());
+
+			User.UserProtobuf.Builder user = User.UserProtobuf.newBuilder();
+			user.setUserName("黄鑫");
+			user.setId(UUID.randomUUID().toString());
+			user.setUserPass(UUID.randomUUID().toString());
+
+			resp.setData(user.build().toByteString());
+
+			jmsMessagingTemplate.convertAndSend(queue_back_send, resp.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			e.printStackTrace();
