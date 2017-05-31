@@ -24,6 +24,7 @@ import net.foreworld.gws.codec.BinaryBuildEncode;
 import net.foreworld.gws.codec.BinaryDecode;
 import net.foreworld.gws.handler.BlacklistHandler;
 import net.foreworld.gws.handler.ExceptionHandler;
+import net.foreworld.gws.handler.HeartbeatHandler;
 import net.foreworld.gws.handler.LoginHandler;
 import net.foreworld.gws.handler.ProtocolSafeHandler;
 import net.foreworld.gws.handler.TimeHandler;
@@ -80,6 +81,9 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Resource(name = "exceptionHandler")
 	private ExceptionHandler exceptionHandler;
 
+	@Resource(name = "heartbeatHandler")
+	private HeartbeatHandler heartbeatHandler;
+
 	@Override
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
@@ -109,6 +113,7 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(binaryBuildEncode);
 
 		pipe.addLast(loginHandler);
+		pipe.addLast(heartbeatHandler);
 
 		pipe.addLast(timeVersionHandler);
 		pipe.addLast(timeMethodHandler);
