@@ -11,7 +11,6 @@ message RequestProtobuf {
   uint64 seqId = 3;
   uint64 timestamp = 4;
   bytes data = 5;
-  string sender = 6;
 }
 
 message ResponseProtobuf {
@@ -21,5 +20,4 @@ message ResponseProtobuf {
   uint64 timestamp = 4;
   bytes data = 5;
   bytes error = 6;
-  string sender = 7;
 }
