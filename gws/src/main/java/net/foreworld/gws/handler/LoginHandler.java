@@ -115,10 +115,10 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 	/**
 	 * 
 	 * @param code
-	 * @param uuid
+	 * @param channel_id
 	 * @return
 	 */
-	private boolean verify(String code, String uuid) {
+	private boolean verify(String code, String channel_id) {
 
 		code = StringUtil.isEmpty(code);
 
@@ -128,13 +128,13 @@ public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProt
 
 		List<String> s = new ArrayList<String>();
 		s.add("code");
-		s.add("access_token");
+		s.add("channel_id");
 		s.add("seconds");
 		s.add("server_id");
 
 		List<String> b = new ArrayList<String>();
 		b.add(code);
-		b.add(uuid);
+		b.add(channel_id);
 		b.add(String.valueOf(sha_token_expire));
 		b.add(server_id);
 
