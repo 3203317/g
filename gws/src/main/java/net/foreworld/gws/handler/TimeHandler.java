@@ -14,6 +14,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.foreworld.gws.protobuf.Method;
 import net.foreworld.gws.protobuf.Method.RequestProtobuf;
+import net.foreworld.gws.protobuf.Sender;
 
 /**
  *
@@ -33,10 +34,18 @@ public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProto
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
+	@Value("${server.id}")
+	private String server_id;
+
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
 		logger.info("{}:{}", msg.getSeqId(), msg.getTimestamp());
-		jmsMessagingTemplate.convertAndSend(queue_channel_send, msg.toByteArray());
+
+		Sender.SenderProtobuf.Builder sender = Sender.SenderProtobuf.newBuilder();
+		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
+		sender.setMethod(msg.toByteString());
+
+		jmsMessagingTemplate.convertAndSend(queue_channel_send, sender.build().toByteArray());
 	}
 
 }

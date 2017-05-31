@@ -18,6 +18,7 @@ import org.springframework.stereotype.Component;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.Sender;
 import net.foreworld.gws.protobuf.method.user.Login;
 import net.foreworld.gws.protobuf.model.User;
 
@@ -49,7 +50,10 @@ public class Consumer {
 			byte[] data = new byte[len];
 			msg.readBytes(data);
 
-			Method.RequestProtobuf method = Method.RequestProtobuf.parseFrom(data);
+			Sender.SenderProtobuf sender = Sender.SenderProtobuf.parseFrom(data);
+			logger.info("sender: {}", sender.getSender());
+
+			Method.RequestProtobuf method = Method.RequestProtobuf.parseFrom(sender.getMethod());
 			logger.info("{}:{}:{}:{}", method.getVersion(), method.getMethod(), method.getSeqId(),
 					method.getTimestamp());
 
