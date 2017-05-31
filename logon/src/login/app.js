@@ -61,6 +61,14 @@ server.listen(app.get('port'), () => {
   require('./routes')(app);
 });
 
+process.on('uncaughtException', err => {
+  console.error(err);
+});
+
+process.on('exit', () => {
+  // todo
+});
+
 // (function(){
 //   var activemq = conf.emag.activemq;
 //   var Stomp = require('stomp-client');
@@ -73,14 +81,6 @@ server.listen(app.get('port'), () => {
 //       console.log('disconnect');
 //     });
 //   }
-
-//   process.on('uncaughtException', e => {
-//     close();
-//   });
-
-//   process.on('exit', () => {
-//     close();
-//   });
 
 //   client.connect(sessionId => {
 //     console.info('[INFO ] amq client on %s.', sessionId);

@@ -109,9 +109,6 @@ const server = require('./server');
  *
  * @return
  */
-exports.login = function(device_code /* 设备号 */, cb){
-  var self = this;
-};
 
 /**
  *

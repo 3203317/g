@@ -5,17 +5,18 @@ redis.call('SELECT', 8);
 local client_id = ARGV[3];
 local user_id = ARGV[2];
 
--- code = client_id:user_id
-local code = redis.call('GET', client_id .. user_id);
+local  _key = client_id ..'::'.. user_id;
+
+local code = redis.call('GET', _key);
 if code then return code; end;
 
 code = ARGV[1];
 
 local seconds = ARGV[4];
 
--- code = client_id:user_id
-redis.call('SET', client_id .. user_id, code);
-redis.call('EXPIRE', client_id .. user_id, seconds);
+
+redis.call('SET', _key, code);
+redis.call('EXPIRE', _key, seconds);
 
 --[[
 {
