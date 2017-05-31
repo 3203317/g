@@ -42,6 +42,16 @@ public final class Method {
      * <code>optional bytes data = 5;</code>
      */
     com.google.protobuf.ByteString getData();
+
+    /**
+     * <code>optional string sender = 6;</code>
+     */
+    java.lang.String getSender();
+    /**
+     * <code>optional string sender = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getSenderBytes();
   }
   /**
    * Protobuf type {@code gws.RequestProtobuf}
@@ -60,6 +70,7 @@ public final class Method {
       seqId_ = 0L;
       timestamp_ = 0L;
       data_ = com.google.protobuf.ByteString.EMPTY;
+      sender_ = "";
     }
 
     @java.lang.Override
@@ -110,6 +121,12 @@ public final class Method {
             case 42: {
 
               data_ = input.readBytes();
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sender_ = s;
               break;
             }
           }
@@ -180,6 +197,40 @@ public final class Method {
       return data_;
     }
 
+    public static final int SENDER_FIELD_NUMBER = 6;
+    private volatile java.lang.Object sender_;
+    /**
+     * <code>optional string sender = 6;</code>
+     */
+    public java.lang.String getSender() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sender_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string sender = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSenderBytes() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -206,6 +257,9 @@ public final class Method {
       }
       if (!data_.isEmpty()) {
         output.writeBytes(5, data_);
+      }
+      if (!getSenderBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, sender_);
       }
     }
 
@@ -234,6 +288,9 @@ public final class Method {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(5, data_);
       }
+      if (!getSenderBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, sender_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -260,6 +317,8 @@ public final class Method {
           == other.getTimestamp());
       result = result && getData()
           .equals(other.getData());
+      result = result && getSender()
+          .equals(other.getSender());
       return result;
     }
 
@@ -282,6 +341,8 @@ public final class Method {
           getTimestamp());
       hash = (37 * hash) + DATA_FIELD_NUMBER;
       hash = (53 * hash) + getData().hashCode();
+      hash = (37 * hash) + SENDER_FIELD_NUMBER;
+      hash = (53 * hash) + getSender().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -410,6 +471,8 @@ public final class Method {
 
         data_ = com.google.protobuf.ByteString.EMPTY;
 
+        sender_ = "";
+
         return this;
       }
 
@@ -437,6 +500,7 @@ public final class Method {
         result.seqId_ = seqId_;
         result.timestamp_ = timestamp_;
         result.data_ = data_;
+        result.sender_ = sender_;
         onBuilt();
         return result;
       }
@@ -492,6 +556,10 @@ public final class Method {
         }
         if (other.getData() != com.google.protobuf.ByteString.EMPTY) {
           setData(other.getData());
+        }
+        if (!other.getSender().isEmpty()) {
+          sender_ = other.sender_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -651,6 +719,75 @@ public final class Method {
         onChanged();
         return this;
       }
+
+      private java.lang.Object sender_ = "";
+      /**
+       * <code>optional string sender = 6;</code>
+       */
+      public java.lang.String getSender() {
+        java.lang.Object ref = sender_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sender_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string sender = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSenderBytes() {
+        java.lang.Object ref = sender_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sender_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string sender = 6;</code>
+       */
+      public Builder setSender(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sender = 6;</code>
+       */
+      public Builder clearSender() {
+        
+        sender_ = getDefaultInstance().getSender();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sender = 6;</code>
+       */
+      public Builder setSenderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sender_ = value;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -733,6 +870,16 @@ public final class Method {
      * <code>optional bytes error = 6;</code>
      */
     com.google.protobuf.ByteString getError();
+
+    /**
+     * <code>optional string sender = 7;</code>
+     */
+    java.lang.String getSender();
+    /**
+     * <code>optional string sender = 7;</code>
+     */
+    com.google.protobuf.ByteString
+        getSenderBytes();
   }
   /**
    * Protobuf type {@code gws.ResponseProtobuf}
@@ -752,6 +899,7 @@ public final class Method {
       timestamp_ = 0L;
       data_ = com.google.protobuf.ByteString.EMPTY;
       error_ = com.google.protobuf.ByteString.EMPTY;
+      sender_ = "";
     }
 
     @java.lang.Override
@@ -807,6 +955,12 @@ public final class Method {
             case 50: {
 
               error_ = input.readBytes();
+              break;
+            }
+            case 58: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              sender_ = s;
               break;
             }
           }
@@ -886,6 +1040,40 @@ public final class Method {
       return error_;
     }
 
+    public static final int SENDER_FIELD_NUMBER = 7;
+    private volatile java.lang.Object sender_;
+    /**
+     * <code>optional string sender = 7;</code>
+     */
+    public java.lang.String getSender() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        sender_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string sender = 7;</code>
+     */
+    public com.google.protobuf.ByteString
+        getSenderBytes() {
+      java.lang.Object ref = sender_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        sender_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -915,6 +1103,9 @@ public final class Method {
       }
       if (!error_.isEmpty()) {
         output.writeBytes(6, error_);
+      }
+      if (!getSenderBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, sender_);
       }
     }
 
@@ -947,6 +1138,9 @@ public final class Method {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(6, error_);
       }
+      if (!getSenderBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, sender_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -975,6 +1169,8 @@ public final class Method {
           .equals(other.getData());
       result = result && getError()
           .equals(other.getError());
+      result = result && getSender()
+          .equals(other.getSender());
       return result;
     }
 
@@ -999,6 +1195,8 @@ public final class Method {
       hash = (53 * hash) + getData().hashCode();
       hash = (37 * hash) + ERROR_FIELD_NUMBER;
       hash = (53 * hash) + getError().hashCode();
+      hash = (37 * hash) + SENDER_FIELD_NUMBER;
+      hash = (53 * hash) + getSender().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1129,6 +1327,8 @@ public final class Method {
 
         error_ = com.google.protobuf.ByteString.EMPTY;
 
+        sender_ = "";
+
         return this;
       }
 
@@ -1157,6 +1357,7 @@ public final class Method {
         result.timestamp_ = timestamp_;
         result.data_ = data_;
         result.error_ = error_;
+        result.sender_ = sender_;
         onBuilt();
         return result;
       }
@@ -1215,6 +1416,10 @@ public final class Method {
         }
         if (other.getError() != com.google.protobuf.ByteString.EMPTY) {
           setError(other.getError());
+        }
+        if (!other.getSender().isEmpty()) {
+          sender_ = other.sender_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -1403,6 +1608,75 @@ public final class Method {
         onChanged();
         return this;
       }
+
+      private java.lang.Object sender_ = "";
+      /**
+       * <code>optional string sender = 7;</code>
+       */
+      public java.lang.String getSender() {
+        java.lang.Object ref = sender_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          sender_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string sender = 7;</code>
+       */
+      public com.google.protobuf.ByteString
+          getSenderBytes() {
+        java.lang.Object ref = sender_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          sender_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string sender = 7;</code>
+       */
+      public Builder setSender(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sender_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sender = 7;</code>
+       */
+      public Builder clearSender() {
+        
+        sender_ = getDefaultInstance().getSender();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string sender = 7;</code>
+       */
+      public Builder setSenderBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        sender_ = value;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1471,14 +1745,15 @@ public final class Method {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025protobuf/method.proto\022\003gws\"b\n\017RequestP" +
+      "\n\025protobuf/method.proto\022\003gws\"r\n\017RequestP" +
       "rotobuf\022\017\n\007version\030\001 \001(\r\022\016\n\006method\030\002 \001(\r" +
       "\022\r\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004da" +
-      "ta\030\005 \001(\014\"r\n\020ResponseProtobuf\022\017\n\007version\030" +
-      "\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004\022\021\n\t" +
-      "timestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014\022\r\n\005error\030\006" +
-      " \001(\014B$\n\032net.foreworld.gws.protobufB\006Meth" +
-      "odb\006proto3"
+      "ta\030\005 \001(\014\022\016\n\006sender\030\006 \001(\t\"\202\001\n\020ResponsePro" +
+      "tobuf\022\017\n\007version\030\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r" +
+      "\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004data" +
+      "\030\005 \001(\014\022\r\n\005error\030\006 \001(\014\022\016\n\006sender\030\007 \001(\tB$\n" +
+      "\032net.foreworld.gws.protobufB\006Methodb\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1497,13 +1772,13 @@ public final class Method {
     internal_static_gws_RequestProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_RequestProtobuf_descriptor,
-        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", });
+        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", "Sender", });
     internal_static_gws_ResponseProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gws_ResponseProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_ResponseProtobuf_descriptor,
-        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", "Error", });
+        new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", "Error", "Sender", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
