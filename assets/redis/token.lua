@@ -29,7 +29,7 @@ redis.call('EXPIRE', user_id, seconds);
 
 local _key = server_id ..'::'.. channel_id;
 
-redis.call('HMSET', _key, 'client_id', client_id, 'user_id', user_id, 'scope', '');
+redis.call('SET', _key, user_id);
 redis.call('EXPIRE', _key, seconds);
 
 
