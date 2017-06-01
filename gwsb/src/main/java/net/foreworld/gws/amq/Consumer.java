@@ -86,21 +86,24 @@ public class Consumer {
 
 		try {
 
-			String[] text = msg.getText().split("::");
+			String token = msg.getText();
+			String[] text = token.split("::");
+
+			Login.ResponseProtobuf.Builder login = Login.ResponseProtobuf.newBuilder();
+			login.setToken(token);
 
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
-
 			resp.setVersion(protocol_version);
 			resp.setMethod(95);
 			resp.setSeqId(1);
 			resp.setTimestamp(System.currentTimeMillis());
+			resp.setData(login.build().toByteString());
 
-			Login.ResponseProtobuf.Builder data = Login.ResponseProtobuf.newBuilder();
-			data.setToken(text[1]);
+			Common.ReceiverProtobuf.Builder receiver = Common.ReceiverProtobuf.newBuilder();
+			receiver.setReceiver(text[1]);
+			receiver.setData(resp.build().toByteString());
 
-			resp.setData(data.build().toByteString());
-
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], resp.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], receiver.build().toByteArray());
 
 		} catch (JMSException e) {
 			logger.error("", e);
