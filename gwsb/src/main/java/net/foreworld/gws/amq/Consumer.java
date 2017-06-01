@@ -26,7 +26,6 @@ import net.foreworld.gws.protobuf.method.user.Login;
  * @author huangxin
  *
  */
-@PropertySource("classpath:protocol.properties")
 @PropertySource("classpath:activemq.properties")
 @Component
 public class Consumer {
