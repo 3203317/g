@@ -19,13 +19,14 @@ import net.foreworld.gws.util.ChannelUtil;
  * @author huangxin
  *
  */
+@PropertySource("classpath:server.properties")
 @PropertySource("classpath:activemq.properties")
 @Component
 public class Consumer {
 
 	private static final Logger logger = LoggerFactory.getLogger(Consumer.class);
 
-	@JmsListener(destination = "${queue.back.send}")
+	@JmsListener(destination = "${queue.back.send}" + "." + "${server.id}")
 	public void back_send(BytesMessage msg) {
 
 		try {
@@ -37,7 +38,6 @@ public class Consumer {
 			ChannelUtil.getDefault().broadcast(b);
 
 		} catch (InvalidProtocolBufferException e) {
-			e.printStackTrace();
 			logger.error("", e);
 		} catch (JMSException e) {
 			logger.error("", e);

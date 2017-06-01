@@ -71,10 +71,10 @@ public class Consumer {
 
 			resp.setData(user.build().toByteString());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send, resp.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + ".bbe1c450365b4bbd839d02411167cdea",
+					resp.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
-			e.printStackTrace();
 			logger.error("", e);
 		} catch (JMSException e) {
 			logger.error("", e);
@@ -100,7 +100,7 @@ public class Consumer {
 
 			resp.setData(data.build().toByteString());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send, resp.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], resp.build().toByteArray());
 
 		} catch (JMSException e) {
 			logger.error("", e);
