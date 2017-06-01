@@ -26,12 +26,13 @@ import net.foreworld.gws.protobuf.method.user.Login;
  * @author huangxin
  *
  */
+@PropertySource("classpath:protocol.properties")
 @PropertySource("classpath:activemq.properties")
 @Component
 public class Consumer {
 
-	@Value("${app.version}")
-	private int app_version;
+	@Value("${protocol.version}")
+	private int protocol_version;
 
 	@Value("${queue.back.send}")
 	private String queue_back_send;
@@ -58,7 +59,7 @@ public class Consumer {
 
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
 
-			resp.setVersion(method.getVersion());
+			resp.setVersion(protocol_version);
 			resp.setMethod(method.getMethod());
 			resp.setSeqId(method.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
@@ -89,7 +90,7 @@ public class Consumer {
 
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
 
-			resp.setVersion(app_version);
+			resp.setVersion(protocol_version);
 			resp.setMethod(95);
 			resp.setSeqId(1);
 			resp.setTimestamp(System.currentTimeMillis());
