@@ -21,8 +21,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.Method.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.method.user.Login;
 import net.foreworld.gws.util.ChannelUtil;
 import net.foreworld.gws.util.Constants;
@@ -39,7 +38,7 @@ import redis.clients.jedis.Jedis;
 @PropertySource("classpath:redis.properties")
 @Component
 @Sharable
-public class LoginHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
+public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 

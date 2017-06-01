@@ -31,7 +31,7 @@ import net.foreworld.gws.handler.TimeHandler;
 import net.foreworld.gws.handler.TimeMethodHandler;
 import net.foreworld.gws.handler.TimeVersionHandler;
 import net.foreworld.gws.handler.TimeoutHandler;
-import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 
 /**
  *
@@ -106,7 +106,7 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(binaryDecode);
 
 		// pipe.addLast(new ProtobufVarint32FrameDecoder());
-		pipe.addLast(new ProtobufDecoder(Method.RequestProtobuf.getDefaultInstance()));
+		pipe.addLast(new ProtobufDecoder(RequestProtobuf.getDefaultInstance()));
 		pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 		// pipe.addLast(new ProtobufEncoder());
 

@@ -11,8 +11,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.Method.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 
 /**
  *
@@ -21,7 +20,7 @@ import net.foreworld.gws.protobuf.Method.RequestProtobuf;
  */
 @Component
 @Sharable
-public class TimeMethodHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
+public class TimeMethodHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 	private static final Logger logger = LoggerFactory.getLogger(TimeMethodHandler.class);
 

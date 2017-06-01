@@ -7,8 +7,7 @@ import org.springframework.stereotype.Component;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.Method.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 
 /**
  *
@@ -17,7 +16,7 @@ import net.foreworld.gws.protobuf.Method.RequestProtobuf;
  */
 @Component
 @Sharable
-public class HeartbeatHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
+public class HeartbeatHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 	private static final Logger logger = LoggerFactory.getLogger(HeartbeatHandler.class);
 

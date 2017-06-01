@@ -9,9 +9,10 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.User;
 import net.foreworld.gws.protobuf.method.user.Login;
-import net.foreworld.gws.protobuf.model.User;
 
 /**
  *
@@ -32,7 +33,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) {
-		Method.RequestProtobuf.Builder req = Method.RequestProtobuf.newBuilder();
+		RequestProtobuf.Builder req = RequestProtobuf.newBuilder();
 		req.setVersion(101);
 		req.setMethod(1);
 		req.setSeqId(56);
@@ -53,7 +54,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-		Method.ResponseProtobuf req = (Method.ResponseProtobuf) msg;
+		ResponseProtobuf req = (ResponseProtobuf) msg;
 		logger.info(req.getSeqId() + "");
 
 		try {

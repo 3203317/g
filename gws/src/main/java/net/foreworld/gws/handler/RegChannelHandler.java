@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import net.foreworld.gws.protobuf.Method.ResponseProtobuf.Builder;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf.Builder;
 import net.foreworld.gws.protobuf.method.user.Login;
 
 /**

@@ -24,7 +24,7 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import net.foreworld.gws.client.handler.LoginHandler;
-import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.util.Client;
 
 /**
@@ -75,7 +75,7 @@ public class TcpClient extends Client {
 				ChannelPipeline pipe = ch.pipeline();
 
 				pipe.addLast(new ProtobufVarint32FrameDecoder());
-				pipe.addLast(new ProtobufDecoder(Method.ResponseProtobuf.getDefaultInstance()));
+				pipe.addLast(new ProtobufDecoder(ResponseProtobuf.getDefaultInstance()));
 				pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 				pipe.addLast(new ProtobufEncoder());
 

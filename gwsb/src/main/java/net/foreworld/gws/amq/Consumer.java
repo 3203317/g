@@ -17,10 +17,9 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.Sender;
+import net.foreworld.gws.protobuf.Common;
+import net.foreworld.gws.protobuf.User;
 import net.foreworld.gws.protobuf.method.user.Login;
-import net.foreworld.gws.protobuf.model.User;
 
 /**
  * 
@@ -50,14 +49,14 @@ public class Consumer {
 			byte[] data = new byte[len];
 			msg.readBytes(data);
 
-			Sender.SenderProtobuf sender = Sender.SenderProtobuf.parseFrom(data);
+			Common.SenderProtobuf sender = Common.SenderProtobuf.parseFrom(data);
 			logger.info("sender: {}", sender.getSender());
 
-			Method.RequestProtobuf method = Method.RequestProtobuf.parseFrom(sender.getMethod());
+			Common.RequestProtobuf method = Common.RequestProtobuf.parseFrom(sender.getData());
 			logger.info("{}:{}:{}:{}", method.getVersion(), method.getMethod(), method.getSeqId(),
 					method.getTimestamp());
 
-			Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
 
 			resp.setVersion(method.getVersion());
 			resp.setMethod(method.getMethod());
@@ -88,7 +87,7 @@ public class Consumer {
 
 			String[] text = msg.getText().split("::");
 
-			Method.ResponseProtobuf.Builder resp = Method.ResponseProtobuf.newBuilder();
+			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
 
 			resp.setVersion(app_version);
 			resp.setMethod(95);

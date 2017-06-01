@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import net.foreworld.gws.protobuf.Method;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.util.ChannelUtil;
 
 /**
@@ -33,7 +33,7 @@ public class Consumer {
 			byte[] data = new byte[len];
 			msg.readBytes(data);
 
-			Method.ResponseProtobuf b = Method.ResponseProtobuf.parseFrom(data);
+			ResponseProtobuf b = ResponseProtobuf.parseFrom(data);
 			ChannelUtil.getDefault().broadcast(b);
 
 		} catch (InvalidProtocolBufferException e) {

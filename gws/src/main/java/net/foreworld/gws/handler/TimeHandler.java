@@ -12,9 +12,8 @@ import org.springframework.stereotype.Component;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import net.foreworld.gws.protobuf.Method;
-import net.foreworld.gws.protobuf.Method.RequestProtobuf;
-import net.foreworld.gws.protobuf.Sender;
+import net.foreworld.gws.protobuf.Common;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 
 /**
  *
@@ -24,7 +23,7 @@ import net.foreworld.gws.protobuf.Sender;
 @PropertySource("classpath:activemq.properties")
 @Component
 @Sharable
-public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProtobuf> {
+public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 	private static final Logger logger = LoggerFactory.getLogger(TimeHandler.class);
 
@@ -41,9 +40,9 @@ public class TimeHandler extends SimpleChannelInboundHandler<Method.RequestProto
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
 		logger.info("{}:{}", msg.getSeqId(), msg.getTimestamp());
 
-		Sender.SenderProtobuf.Builder sender = Sender.SenderProtobuf.newBuilder();
+		Common.SenderProtobuf.Builder sender = Common.SenderProtobuf.newBuilder();
 		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
-		sender.setMethod(msg.toByteString());
+		sender.setData(msg.toByteString());
 
 		jmsMessagingTemplate.convertAndSend(queue_channel_send, sender.build().toByteArray());
 	}
