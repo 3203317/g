@@ -3,7 +3,12 @@ syntax = "proto3";
 package gws;
 
 option java_package = "net.foreworld.gws.protobuf";
-option java_outer_classname = "Method";
+option java_outer_classname = "Common";
+
+message SenderProtobuf {
+  string sender = 1;
+  bytes data = 2;
+}
 
 message RequestProtobuf {
   uint32 version = 1;
@@ -20,4 +25,9 @@ message ResponseProtobuf {
   uint64 timestamp = 4;
   bytes data = 5;
   bytes error = 6;
+}
+
+message ErrorProtobuf {
+  string code = 1;
+  string msg = 2;
 }
