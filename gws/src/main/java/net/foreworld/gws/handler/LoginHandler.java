@@ -34,7 +34,6 @@ import redis.clients.jedis.Jedis;
  * @author huangxin
  *
  */
-@PropertySource("classpath:server.properties")
 @PropertySource("classpath:redis.properties")
 @Component
 @Sharable

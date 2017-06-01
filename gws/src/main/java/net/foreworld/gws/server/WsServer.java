@@ -25,7 +25,6 @@ import net.foreworld.util.Server;
  *
  */
 @PropertySource("classpath:activemq.properties")
-@PropertySource("classpath:server.properties")
 @Component
 public class WsServer extends Server {
 

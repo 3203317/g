@@ -19,7 +19,6 @@ import net.foreworld.gws.util.ChannelUtil;
  * @author huangxin
  *
  */
-@PropertySource("classpath:server.properties")
 @PropertySource("classpath:activemq.properties")
 @Component
 public class Consumer {

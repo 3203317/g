@@ -5,7 +5,6 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import io.netty.channel.ChannelInitializer;
@@ -38,7 +37,6 @@ import net.foreworld.gws.protobuf.Common.RequestProtobuf;
  * @author huangxin
  *
  */
-@PropertySource("classpath:server.properties")
 @Component
 public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 

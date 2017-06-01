@@ -20,7 +20,6 @@ import net.foreworld.gws.util.ChannelUtil;
  *
  */
 @PropertySource("classpath:activemq.properties")
-@PropertySource("classpath:server.properties")
 @Component
 @Sharable
 public class UnRegChannelHandler extends ChannelInboundHandlerAdapter {
