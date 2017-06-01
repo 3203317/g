@@ -11,6 +11,6 @@ message RequestProtobuf {
 }
 
 message ResponseProtobuf {
-  string sender = 1;
+  bytes sender = 1;
   bytes msg = 2;
 }

@@ -2,9 +2,15 @@ syntax = "proto3";
 
 package gws.method.user.get;
 
+import "protobuf/model.user.proto";
+
 option java_package = "net.foreworld.gws.protobuf.method.user";
 option java_outer_classname = "Get";
 
 message RequestProtobuf {
   string id = 1;
+}
+
+message ResponseProtobuf {
+  UserProtobuf user = 1;
 }

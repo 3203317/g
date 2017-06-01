@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package gws.model;
+package gws;
 
-option java_package = "net.foreworld.gws.protobuf.model";
+option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Role";
 
 message RoleProtobuf {
