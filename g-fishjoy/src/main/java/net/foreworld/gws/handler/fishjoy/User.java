@@ -1,11 +1,11 @@
-package net.foreworld.gws.handler;
+package net.foreworld.gws.handler.fishjoy;
+
+import net.foreworld.gws.annotation.Action;
 
 import org.springframework.stereotype.Component;
 
-import net.foreworld.gws.util.Action;
-
 /**
- * 
+ *
  * @author huangxin <3203317@qq.com>
  *
  */
