@@ -45,7 +45,9 @@ $(function(){
         console.log(data)
         console.log('++++')
 
-        var result = gws.ResponseProtobuf.deserializeBinary(data);
+        var receiver = gws.ReceiverProtobuf.deserializeBinary(data);
+
+        var result = gws.ResponseProtobuf.deserializeBinary(receiver.getData());
 
         console.log(result.getVersion());
         console.log(result.getMethod());
