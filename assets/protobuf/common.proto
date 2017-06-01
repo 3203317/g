@@ -10,6 +10,12 @@ message SenderProtobuf {
   bytes data = 2;
 }
 
+message ReceiverProtobuf {
+  string receiver = 1;
+  bytes sender = 2;
+  bytes data = 3;
+}
+
 message RequestProtobuf {
   uint32 version = 1;
   uint32 method = 2;
