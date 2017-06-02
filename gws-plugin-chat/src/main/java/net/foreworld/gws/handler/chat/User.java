@@ -1,4 +1,4 @@
-package net.foreworld.gws.handler.core;
+package net.foreworld.gws.handler.chat;
 
 import net.foreworld.gws.annotation.Action;
 
