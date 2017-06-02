@@ -42,7 +42,7 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 		Common.SenderProtobuf.Builder sender = Common.SenderProtobuf.newBuilder();
 		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
-		sender.setData(msg.toByteString());
+		sender.setData(msg);
 
 		jmsMessagingTemplate.convertAndSend(queue_channel_send, sender.build().toByteArray());
 	}
