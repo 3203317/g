@@ -18,7 +18,8 @@ var exports = {};
 </script>
 
 <script type='text/javascript' src='$!{conf.html.cdn}js/google-protobuf/3.3.0/google-protobuf.js'></script>
-<script type='text/javascript' src='/assets/js/emag.js'></script>
+<script type='text/javascript' src='/assets/js/emag/common.js'></script>
+<script type='text/javascript' src='/assets/js/emag/user.js'></script>
 
 <script type='text/javascript'>
 
@@ -47,9 +48,7 @@ $(function(){
         console.log(data)
         console.log('++++')
 
-        var receiver = gws.ReceiverProtobuf.deserializeBinary(data);
-
-        var result = gws.ResponseProtobuf.deserializeBinary(receiver.getData());
+        var result = gws.ResponseProtobuf.deserializeBinary(data);
 
         console.log(result.getVersion());
         console.log(result.getMethod());
