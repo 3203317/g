@@ -1,7 +1,5 @@
 package net.foreworld.gws.amq;
 
-import java.util.UUID;
-
 import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
@@ -18,8 +16,6 @@ import org.springframework.stereotype.Component;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.foreworld.gws.protobuf.Common;
-import net.foreworld.gws.protobuf.User;
-import net.foreworld.gws.protobuf.method.user.Login;
 
 /**
  * 
@@ -52,7 +48,7 @@ public class Consumer {
 			Common.SenderProtobuf sender = Common.SenderProtobuf.parseFrom(data);
 			logger.info("sender: {}", sender.getSender());
 
-			Common.RequestProtobuf method = Common.RequestProtobuf.parseFrom(sender.getData());
+			Common.RequestProtobuf method = sender.getData();
 			logger.info("{}:{}:{}:{}", method.getVersion(), method.getMethod(), method.getSeqId(),
 					method.getTimestamp());
 
@@ -62,13 +58,6 @@ public class Consumer {
 			resp.setMethod(method.getMethod());
 			resp.setSeqId(method.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
-
-			User.UserProtobuf.Builder user = User.UserProtobuf.newBuilder();
-			user.setUserName("黄鑫");
-			user.setId(UUID.randomUUID().toString());
-			user.setUserPass(UUID.randomUUID().toString());
-
-			resp.setData(user.build().toByteString());
 
 			jmsMessagingTemplate.convertAndSend(queue_back_send + ".bbe1c450365b4bbd839d02411167cdea",
 					resp.build().toByteArray());
@@ -88,19 +77,15 @@ public class Consumer {
 			String token = msg.getText();
 			String[] text = token.split("::");
 
-			Login.ResponseProtobuf.Builder login = Login.ResponseProtobuf.newBuilder();
-			login.setToken(token);
-
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(95);
 			resp.setSeqId(1);
 			resp.setTimestamp(System.currentTimeMillis());
-			resp.setData(login.build().toByteString());
 
 			Common.ReceiverProtobuf.Builder receiver = Common.ReceiverProtobuf.newBuilder();
 			receiver.setReceiver(text[1]);
-			receiver.setData(resp.build().toByteString());
+			receiver.setData(resp);
 
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], receiver.build().toByteArray());
 
