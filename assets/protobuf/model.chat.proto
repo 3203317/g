@@ -8,5 +8,7 @@ option java_outer_classname = "Chat";
 message ChatProtobuf {
   string id = 1;
   uint64 timestamp = 2;
-  bytes comment = 3;
+  string sender = 3;
+  string receiver = 4;
+  bytes comment = 5;
 }
