@@ -46,6 +46,7 @@ public class Consumer {
 			msg.readBytes(data);
 
 			Common.SenderProtobuf sender = Common.SenderProtobuf.parseFrom(data);
+			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
 			Common.RequestProtobuf method = sender.getData();
@@ -53,14 +54,16 @@ public class Consumer {
 					method.getTimestamp());
 
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
-
 			resp.setVersion(protocol_version);
 			resp.setMethod(method.getMethod());
 			resp.setSeqId(method.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + ".bbe1c450365b4bbd839d02411167cdea",
-					resp.build().toByteArray());
+			Common.ReceiverProtobuf.Builder re = Common.ReceiverProtobuf.newBuilder();
+			re.setReceiver(text[1]);
+			re.setData(resp);
+
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], re.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
