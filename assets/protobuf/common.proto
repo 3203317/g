@@ -6,15 +6,13 @@ option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Common";
 
 message SenderProtobuf {
-  string receiver = 1;
-  string sender = 2;
-  bytes data = 3;
+  string sender = 1;
+  bytes data = 2;
 }
 
 message ReceiverProtobuf {
   string receiver = 1;
-  bytes sender = 2;
-  bytes data = 3;
+  bytes data = 2;
 }
 
 message RequestProtobuf {
@@ -31,7 +29,7 @@ message ResponseProtobuf {
   uint64 seqId = 3;
   uint64 timestamp = 4;
   bytes data = 5;
-  bytes error = 6;
+  ErrorProtobuf error = 6;
 }
 
 message ErrorProtobuf {
