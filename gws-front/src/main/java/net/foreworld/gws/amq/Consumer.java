@@ -33,8 +33,8 @@ public class Consumer {
 			byte[] data = new byte[len];
 			msg.readBytes(data);
 
-			Common.ReceiverProtobuf re = Common.ReceiverProtobuf.parseFrom(data);
-			ChannelUtil.getDefault().getChannel(re.getReceiver()).writeAndFlush(re.getData());
+			Common.ReceiverProtobuf rec = Common.ReceiverProtobuf.parseFrom(data);
+			ChannelUtil.getDefault().getChannel(rec.getReceiver()).writeAndFlush(rec.getData());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);

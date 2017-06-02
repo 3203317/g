@@ -49,21 +49,20 @@ public class Consumer {
 			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
-			Common.RequestProtobuf method = sender.getData();
-			logger.info("{}:{}:{}:{}", method.getVersion(), method.getMethod(), method.getSeqId(),
-					method.getTimestamp());
+			Common.RequestProtobuf req = sender.getData();
+			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
 
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
-			resp.setMethod(method.getMethod());
-			resp.setSeqId(method.getSeqId());
+			resp.setMethod(req.getMethod());
+			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
 
-			Common.ReceiverProtobuf.Builder re = Common.ReceiverProtobuf.newBuilder();
-			re.setReceiver(text[1]);
-			re.setData(resp);
+			Common.ReceiverProtobuf.Builder rec = Common.ReceiverProtobuf.newBuilder();
+			rec.setReceiver(text[1]);
+			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], re.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
@@ -86,11 +85,11 @@ public class Consumer {
 			resp.setSeqId(1);
 			resp.setTimestamp(System.currentTimeMillis());
 
-			Common.ReceiverProtobuf.Builder receiver = Common.ReceiverProtobuf.newBuilder();
-			receiver.setReceiver(text[1]);
-			receiver.setData(resp);
+			Common.ReceiverProtobuf.Builder rec = Common.ReceiverProtobuf.newBuilder();
+			rec.setReceiver(text[1]);
+			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], receiver.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (JMSException e) {
 			logger.error("", e);

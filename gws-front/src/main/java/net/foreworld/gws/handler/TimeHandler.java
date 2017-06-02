@@ -38,7 +38,7 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, RequestProtobuf msg) throws Exception {
-		logger.info("{}:{}", msg.getSeqId(), msg.getTimestamp());
+		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(), msg.getSeqId(), msg.getTimestamp());
 
 		Common.SenderProtobuf.Builder sender = Common.SenderProtobuf.newBuilder();
 		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
