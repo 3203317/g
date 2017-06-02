@@ -7,12 +7,12 @@ option java_outer_classname = "Common";
 
 message SenderProtobuf {
   string sender = 1;
-  bytes data = 2;
+  RequestProtobuf data = 2;
 }
 
 message ReceiverProtobuf {
   string receiver = 1;
-  bytes data = 2;
+  ResponseProtobuf data = 2;
 }
 
 message RequestProtobuf {
@@ -30,9 +30,9 @@ message ResponseProtobuf {
   uint64 timestamp = 4;
   bytes data = 5;
   ErrorProtobuf error = 6;
-}
 
-message ErrorProtobuf {
-  string code = 1;
-  string msg = 2;
+  message ErrorProtobuf {
+    string code = 1;
+    bytes msg = 2;
+  }
 }
