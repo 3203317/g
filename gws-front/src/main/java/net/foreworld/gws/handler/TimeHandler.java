@@ -14,6 +14,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import net.foreworld.gws.protobuf.Common;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.util.Constants;
 
 /**
  *
@@ -41,7 +42,7 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
 		sender.setData(msg);
 
-		jmsMessagingTemplate.convertAndSend("queue." + msg.getMethod(), sender.build().toByteArray());
+		jmsMessagingTemplate.convertAndSend(Constants.PLUGIN + msg.getMethod(), sender.build().toByteArray());
 	}
 
 }
