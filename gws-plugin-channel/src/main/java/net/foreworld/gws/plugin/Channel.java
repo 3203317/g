@@ -1,4 +1,4 @@
-package net.foreworld.gws.amq;
+package net.foreworld.gws.plugin;
 
 import javax.annotation.Resource;
 import javax.jms.BytesMessage;
@@ -24,7 +24,7 @@ import net.foreworld.gws.protobuf.Common;
  */
 @PropertySource("classpath:activemq.properties")
 @Component
-public class Consumer {
+public class Channel {
 
 	@Value("${protocol.version}")
 	private int protocol_version;
@@ -35,7 +35,7 @@ public class Consumer {
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
-	private static final Logger logger = LoggerFactory.getLogger(Consumer.class);
+	private static final Logger logger = LoggerFactory.getLogger(Channel.class);
 
 	@JmsListener(destination = "${queue.channel.send}")
 	public void channel_send(BytesMessage msg) {
