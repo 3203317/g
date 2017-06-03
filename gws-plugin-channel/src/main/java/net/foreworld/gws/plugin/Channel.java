@@ -105,23 +105,4 @@ public class Channel {
 		}
 	}
 
-	@JmsListener(destination = "${queue.front.start}")
-	public void front_start(TextMessage msg) {
-
-		try {
-			logger.info("front amq start: {}", msg.getText());
-		} catch (JMSException e) {
-			logger.error("", e);
-		}
-	}
-
-	@JmsListener(destination = "${queue.front.stop}")
-	public void front_stop(TextMessage msg) {
-
-		try {
-			logger.info("front amq stop: {}", msg.getText());
-		} catch (JMSException e) {
-			logger.error("", e);
-		}
-	}
 }
