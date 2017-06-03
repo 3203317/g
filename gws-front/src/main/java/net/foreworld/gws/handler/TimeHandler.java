@@ -27,9 +27,6 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 	private static final Logger logger = LoggerFactory.getLogger(TimeHandler.class);
 
-	@Value("${queue.channel.send}")
-	private String queue_channel_send;
-
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
@@ -44,7 +41,13 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
 		sender.setData(msg);
 
-		jmsMessagingTemplate.convertAndSend(queue_channel_send, sender.build().toByteArray());
+		String q = "";
+
+		if (2 == msg.getMethod()) {
+			q = "fishjoy.shot";
+		}
+
+		jmsMessagingTemplate.convertAndSend(q, sender.build().toByteArray());
 	}
 
 }

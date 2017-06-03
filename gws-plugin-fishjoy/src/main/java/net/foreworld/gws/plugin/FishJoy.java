@@ -36,7 +36,7 @@ public class FishJoy {
 
 	private static final Logger logger = LoggerFactory.getLogger(FishJoy.class);
 
-	@JmsListener(destination = "${queue.channel.send}")
+	@JmsListener(destination = "${queue.fishjoy.shot}")
 	public void shot(BytesMessage msg) {
 
 		try {
