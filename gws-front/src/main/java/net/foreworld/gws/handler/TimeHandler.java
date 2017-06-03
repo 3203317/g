@@ -41,13 +41,7 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
 		sender.setData(msg);
 
-		String q = "";
-
-		if (2 == msg.getMethod()) {
-			q = "fishjoy.shot";
-		}
-
-		jmsMessagingTemplate.convertAndSend(q, sender.build().toByteArray());
+		jmsMessagingTemplate.convertAndSend("queue." + msg.getMethod(), sender.build().toByteArray());
 	}
 
 }
