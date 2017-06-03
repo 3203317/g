@@ -81,7 +81,6 @@ public class Consumer {
 
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
-			resp.setMethod(95);
 			resp.setSeqId(1);
 			resp.setTimestamp(System.currentTimeMillis());
 

@@ -63,32 +63,29 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 	protected void channelRead0(ChannelHandlerContext ctx, final RequestProtobuf msg) throws Exception {
 		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(), msg.getSeqId(), msg.getTimestamp());
 
-		if (95 == msg.getMethod()) {
+		try {
 
-			try {
+			Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg.getData());
+			String code = req.getCode();
 
-				Login.RequestProtobuf req = Login.RequestProtobuf.parseFrom(msg.getData());
-				String code = req.getCode();
+			final Channel channel = ctx.channel();
 
-				final Channel channel = ctx.channel();
+			final String channel_id = channel.id().asLongText();
 
-				final String channel_id = channel.id().asLongText();
+			if (verify(code, channel_id)) {
 
-				if (verify(code, channel_id)) {
+				ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
 
-					ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
+				ChannelUtil.getDefault().putChannel(channel_id, channel);
+				jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
+				logger.info("channel amq open: {}:{}", server_id, channel_id);
 
-					ChannelUtil.getDefault().putChannel(channel_id, channel);
-					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
-					logger.info("channel amq open: {}:{}", server_id, channel_id);
-
-					ctx.flush();
-					return;
-				}
-
-			} catch (InvalidProtocolBufferException e) {
-				logger.error("", e);
+				ctx.flush();
+				return;
 			}
+
+		} catch (InvalidProtocolBufferException e) {
+			logger.error("", e);
 		}
 
 		ChannelFuture future = ctx.close();
