@@ -33,7 +33,7 @@ public class Front {
 	private static final Logger logger = LoggerFactory.getLogger(Front.class);
 
 	@JmsListener(destination = "${queue.front.start}")
-	public void front_start(TextMessage msg) {
+	public void start(TextMessage msg) {
 
 		try {
 			logger.info("front amq start: {}", msg.getText());
@@ -43,7 +43,7 @@ public class Front {
 	}
 
 	@JmsListener(destination = "${queue.front.stop}")
-	public void front_stop(TextMessage msg) {
+	public void stop(TextMessage msg) {
 
 		try {
 			logger.info("front amq stop: {}", msg.getText());

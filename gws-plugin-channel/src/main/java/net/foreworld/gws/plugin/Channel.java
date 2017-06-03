@@ -1,7 +1,6 @@
 package net.foreworld.gws.plugin;
 
 import javax.annotation.Resource;
-import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
@@ -12,8 +11,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
-
-import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.foreworld.gws.protobuf.Common;
 
@@ -37,42 +34,8 @@ public class Channel {
 
 	private static final Logger logger = LoggerFactory.getLogger(Channel.class);
 
-	@JmsListener(destination = "${queue.channel.send}")
-	public void channel_send(BytesMessage msg) {
-
-		try {
-			int len = (int) msg.getBodyLength();
-			byte[] data = new byte[len];
-			msg.readBytes(data);
-
-			Common.SenderProtobuf sender = Common.SenderProtobuf.parseFrom(data);
-			String[] text = sender.getSender().split("::");
-			logger.info("sender: {}", sender.getSender());
-
-			Common.RequestProtobuf req = sender.getData();
-			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
-
-			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
-			resp.setVersion(protocol_version);
-			resp.setMethod(req.getMethod());
-			resp.setSeqId(req.getSeqId());
-			resp.setTimestamp(System.currentTimeMillis());
-
-			Common.ReceiverProtobuf.Builder rec = Common.ReceiverProtobuf.newBuilder();
-			rec.setReceiver(text[1]);
-			rec.setData(resp);
-
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
-
-		} catch (InvalidProtocolBufferException e) {
-			logger.error("", e);
-		} catch (JMSException e) {
-			logger.error("", e);
-		}
-	}
-
 	@JmsListener(destination = "${queue.channel.open}")
-	public void channel_open(TextMessage msg) {
+	public void open(TextMessage msg) {
 
 		try {
 
@@ -96,7 +59,7 @@ public class Channel {
 	}
 
 	@JmsListener(destination = "${queue.channel.close}")
-	public void channel_close(TextMessage msg) {
+	public void close(TextMessage msg) {
 
 		try {
 			logger.info("channel amq close: {}", msg.getText());
