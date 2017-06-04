@@ -87,12 +87,10 @@ $(function(){
           return;
         }
 
-        (function(){
-          var data = gws.user.UserProtobuf.deserializeBinary(result.getData());
-          console.log(data.getId());
-          console.log(data.getUserName());
-          console.log(data.getUserPass());
-        })();
+        if(1001 === result.getMethod()){
+          (function(){
+          })();
+        }
       };
 
 
@@ -143,7 +141,7 @@ $(function(){
     req.setTimestamp(new Date().getTime());
 
     var user = new gws.user.UserProtobuf();
-    user.setUserName('八一猫')
+    user.setNickname('八一猫')
     user.setUserPass('123456');
     req.setData(user.serializeBinary());
 

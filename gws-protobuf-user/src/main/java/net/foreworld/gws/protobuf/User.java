@@ -111,6 +111,11 @@ public final class User {
      */
     com.google.protobuf.ByteString
         getDeviceCodeBytes();
+
+    /**
+     * <code>optional bytes nickname = 11;</code>
+     */
+    com.google.protobuf.ByteString getNickname();
   }
   /**
    * Protobuf type {@code gws.user.UserProtobuf}
@@ -134,6 +139,7 @@ public final class User {
       email_ = "";
       status_ = 0;
       deviceCode_ = "";
+      nickname_ = com.google.protobuf.ByteString.EMPTY;
     }
 
     @java.lang.Override
@@ -218,6 +224,11 @@ public final class User {
               java.lang.String s = input.readStringRequireUtf8();
 
               deviceCode_ = s;
+              break;
+            }
+            case 90: {
+
+              nickname_ = input.readBytes();
               break;
             }
           }
@@ -638,6 +649,15 @@ public final class User {
       }
     }
 
+    public static final int NICKNAME_FIELD_NUMBER = 11;
+    private com.google.protobuf.ByteString nickname_;
+    /**
+     * <code>optional bytes nickname = 11;</code>
+     */
+    public com.google.protobuf.ByteString getNickname() {
+      return nickname_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -680,6 +700,9 @@ public final class User {
       if (!getDeviceCodeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, deviceCode_);
       }
+      if (!nickname_.isEmpty()) {
+        output.writeBytes(11, nickname_);
+      }
     }
 
     public int getSerializedSize() {
@@ -719,6 +742,10 @@ public final class User {
       if (!getDeviceCodeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, deviceCode_);
       }
+      if (!nickname_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(11, nickname_);
+      }
       memoizedSize = size;
       return size;
     }
@@ -754,6 +781,8 @@ public final class User {
           == other.getStatus());
       result = result && getDeviceCode()
           .equals(other.getDeviceCode());
+      result = result && getNickname()
+          .equals(other.getNickname());
       return result;
     }
 
@@ -784,6 +813,8 @@ public final class User {
       hash = (53 * hash) + getStatus();
       hash = (37 * hash) + DEVICE_CODE_FIELD_NUMBER;
       hash = (53 * hash) + getDeviceCode().hashCode();
+      hash = (37 * hash) + NICKNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getNickname().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -922,6 +953,8 @@ public final class User {
 
         deviceCode_ = "";
 
+        nickname_ = com.google.protobuf.ByteString.EMPTY;
+
         return this;
       }
 
@@ -954,6 +987,7 @@ public final class User {
         result.email_ = email_;
         result.status_ = status_;
         result.deviceCode_ = deviceCode_;
+        result.nickname_ = nickname_;
         onBuilt();
         return result;
       }
@@ -1032,6 +1066,9 @@ public final class User {
         if (!other.getDeviceCode().isEmpty()) {
           deviceCode_ = other.deviceCode_;
           onChanged();
+        }
+        if (other.getNickname() != com.google.protobuf.ByteString.EMPTY) {
+          setNickname(other.getNickname());
         }
         onChanged();
         return this;
@@ -1677,6 +1714,35 @@ public final class User {
   checkByteStringIsUtf8(value);
         
         deviceCode_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString nickname_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes nickname = 11;</code>
+       */
+      public com.google.protobuf.ByteString getNickname() {
+        return nickname_;
+      }
+      /**
+       * <code>optional bytes nickname = 11;</code>
+       */
+      public Builder setNickname(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nickname_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes nickname = 11;</code>
+       */
+      public Builder clearNickname() {
+        
+        nickname_ = getDefaultInstance().getNickname();
         onChanged();
         return this;
       }
@@ -3196,17 +3262,18 @@ public final class User {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\031protobuf/model.user.proto\022\010gws.user\"\346\001" +
+      "\n\031protobuf/model.user.proto\022\010gws.user\"\370\001" +
       "\n\014UserProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\tuser_name\030" +
       "\002 \001(\t\022\021\n\tuser_pass\030\003 \001(\t\022\'\n\003sex\030\004 \001(\0162\032." +
       "gws.user.UserProtobuf.Sex\022\016\n\006mobile\030\005 \001(" +
       "\t\022\n\n\002qq\030\006 \001(\t\022\016\n\006weixin\030\007 \001(\t\022\r\n\005email\030\010" +
       " \001(\t\022\016\n\006status\030\t \001(\r\022\023\n\013device_code\030\n \001(" +
-      "\t\"\033\n\003Sex\022\n\n\006FEMALE\020\000\022\010\n\004MALE\020\001\"\035\n\rLoginP" +
-      "rotobuf\022\014\n\004code\030\001 \001(\t\"$\n\023LoginResultProt" +
-      "obuf\022\r\n\005token\030\001 \001(\t\"&\n\024LogoutResultProto" +
-      "buf\022\016\n\006reason\030\001 \001(\014B\"\n\032net.foreworld.gws",
-      ".protobufB\004Userb\006proto3"
+      "\t\022\020\n\010nickname\030\013 \001(\014\"\033\n\003Sex\022\n\n\006FEMALE\020\000\022\010" +
+      "\n\004MALE\020\001\"\035\n\rLoginProtobuf\022\014\n\004code\030\001 \001(\t\"" +
+      "$\n\023LoginResultProtobuf\022\r\n\005token\030\001 \001(\t\"&\n" +
+      "\024LogoutResultProtobuf\022\016\n\006reason\030\001 \001(\014B\"\n",
+      "\032net.foreworld.gws.protobufB\004Userb\006proto" +
+      "3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3225,7 +3292,7 @@ public final class User {
     internal_static_gws_user_UserProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_user_UserProtobuf_descriptor,
-        new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", "Mobile", "Qq", "Weixin", "Email", "Status", "DeviceCode", });
+        new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", "Mobile", "Qq", "Weixin", "Email", "Status", "DeviceCode", "Nickname", });
     internal_static_gws_user_LoginProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gws_user_LoginProtobuf_fieldAccessorTable = new

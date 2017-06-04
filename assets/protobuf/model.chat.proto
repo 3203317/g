@@ -10,10 +10,10 @@ message ChatProtobuf {
   uint64 timestamp = 2;
   string sender = 3;
   string receiver = 4;
-  string comment = 5;
+  bytes comment = 5;
 }
 
 message SendProtobuf {
   string receiver = 1;
-  string comment = 2;
+  bytes comment = 2;
 }

@@ -25,6 +25,7 @@ message UserProtobuf {
   uint32 status = 9;
 
   string device_code = 10;
+  bytes nickname = 11;
 }
 
 message LoginProtobuf {

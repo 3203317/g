@@ -63,7 +63,7 @@ proto.gws.chat.ChatProtobuf.toObject = function(includeInstance, msg) {
     timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
     sender: jspb.Message.getFieldWithDefault(msg, 3, ""),
     receiver: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    comment: jspb.Message.getFieldWithDefault(msg, 5, "")
+    comment: msg.getComment_asB64()
   };
 
   if (includeInstance) {
@@ -117,7 +117,7 @@ proto.gws.chat.ChatProtobuf.deserializeBinaryFromReader = function(msg, reader) 
       msg.setReceiver(value);
       break;
     case 5:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setComment(value);
       break;
     default:
@@ -186,9 +186,9 @@ proto.gws.chat.ChatProtobuf.prototype.serializeBinaryToWriter = function (writer
       f
     );
   }
-  f = this.getComment();
+  f = this.getComment_asU8();
   if (f.length > 0) {
-    writer.writeString(
+    writer.writeBytes(
       5,
       f
     );
@@ -257,15 +257,39 @@ proto.gws.chat.ChatProtobuf.prototype.setReceiver = function(value) {
 
 
 /**
- * optional string comment = 5;
- * @return {string}
+ * optional bytes comment = 5;
+ * @return {!(string|Uint8Array)}
  */
 proto.gws.chat.ChatProtobuf.prototype.getComment = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
-/** @param {string} value */
+/**
+ * optional bytes comment = 5;
+ * This is a type-conversion wrapper around `getComment()`
+ * @return {string}
+ */
+proto.gws.chat.ChatProtobuf.prototype.getComment_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getComment()));
+};
+
+
+/**
+ * optional bytes comment = 5;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getComment()`
+ * @return {!Uint8Array}
+ */
+proto.gws.chat.ChatProtobuf.prototype.getComment_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getComment()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
 proto.gws.chat.ChatProtobuf.prototype.setComment = function(value) {
   jspb.Message.setField(this, 5, value);
 };
@@ -318,7 +342,7 @@ proto.gws.chat.SendProtobuf.prototype.toObject = function(opt_includeInstance) {
 proto.gws.chat.SendProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     receiver: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    comment: jspb.Message.getFieldWithDefault(msg, 2, "")
+    comment: msg.getComment_asB64()
   };
 
   if (includeInstance) {
@@ -360,7 +384,7 @@ proto.gws.chat.SendProtobuf.deserializeBinaryFromReader = function(msg, reader) 
       msg.setReceiver(value);
       break;
     case 2:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setComment(value);
       break;
     default:
@@ -408,9 +432,9 @@ proto.gws.chat.SendProtobuf.prototype.serializeBinaryToWriter = function (writer
       f
     );
   }
-  f = this.getComment();
+  f = this.getComment_asU8();
   if (f.length > 0) {
-    writer.writeString(
+    writer.writeBytes(
       2,
       f
     );
@@ -434,15 +458,39 @@ proto.gws.chat.SendProtobuf.prototype.setReceiver = function(value) {
 
 
 /**
- * optional string comment = 2;
- * @return {string}
+ * optional bytes comment = 2;
+ * @return {!(string|Uint8Array)}
  */
 proto.gws.chat.SendProtobuf.prototype.getComment = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/** @param {string} value */
+/**
+ * optional bytes comment = 2;
+ * This is a type-conversion wrapper around `getComment()`
+ * @return {string}
+ */
+proto.gws.chat.SendProtobuf.prototype.getComment_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getComment()));
+};
+
+
+/**
+ * optional bytes comment = 2;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getComment()`
+ * @return {!Uint8Array}
+ */
+proto.gws.chat.SendProtobuf.prototype.getComment_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getComment()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
 proto.gws.chat.SendProtobuf.prototype.setComment = function(value) {
   jspb.Message.setField(this, 2, value);
 };

@@ -71,7 +71,8 @@ proto.gws.user.UserProtobuf.toObject = function(includeInstance, msg) {
     weixin: jspb.Message.getFieldWithDefault(msg, 7, ""),
     email: jspb.Message.getFieldWithDefault(msg, 8, ""),
     status: jspb.Message.getFieldWithDefault(msg, 9, 0),
-    deviceCode: jspb.Message.getFieldWithDefault(msg, 10, "")
+    deviceCode: jspb.Message.getFieldWithDefault(msg, 10, ""),
+    nickname: msg.getNickname_asB64()
   };
 
   if (includeInstance) {
@@ -147,6 +148,10 @@ proto.gws.user.UserProtobuf.deserializeBinaryFromReader = function(msg, reader) 
     case 10:
       var value = /** @type {string} */ (reader.readString());
       msg.setDeviceCode(value);
+      break;
+    case 11:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setNickname(value);
       break;
     default:
       reader.skipField();
@@ -253,6 +258,13 @@ proto.gws.user.UserProtobuf.prototype.serializeBinaryToWriter = function (writer
   if (f.length > 0) {
     writer.writeString(
       10,
+      f
+    );
+  }
+  f = this.getNickname_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      11,
       f
     );
   }
@@ -406,6 +418,45 @@ proto.gws.user.UserProtobuf.prototype.getDeviceCode = function() {
 /** @param {string} value */
 proto.gws.user.UserProtobuf.prototype.setDeviceCode = function(value) {
   jspb.Message.setField(this, 10, value);
+};
+
+
+/**
+ * optional bytes nickname = 11;
+ * @return {!(string|Uint8Array)}
+ */
+proto.gws.user.UserProtobuf.prototype.getNickname = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
+};
+
+
+/**
+ * optional bytes nickname = 11;
+ * This is a type-conversion wrapper around `getNickname()`
+ * @return {string}
+ */
+proto.gws.user.UserProtobuf.prototype.getNickname_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getNickname()));
+};
+
+
+/**
+ * optional bytes nickname = 11;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getNickname()`
+ * @return {!Uint8Array}
+ */
+proto.gws.user.UserProtobuf.prototype.getNickname_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getNickname()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.gws.user.UserProtobuf.prototype.setNickname = function(value) {
+  jspb.Message.setField(this, 11, value);
 };
 
 
