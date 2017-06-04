@@ -30,11 +30,11 @@ message ResponseProtobuf {
   uint64 timestamp = 4;
   bytes data = 5;
   ErrorProtobuf error = 6;
+}
 
-  message ErrorProtobuf {
-    string code = 1;
-    bytes msg = 2;
-  }
+message ErrorProtobuf {
+  string code = 1;
+  string msg = 2;
 }
 
 message PrimaryKeyProtobuf {

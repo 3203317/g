@@ -6,11 +6,11 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
+goog.provide('proto.gws.ErrorProtobuf');
 goog.provide('proto.gws.PrimaryKeyProtobuf');
 goog.provide('proto.gws.ReceiverProtobuf');
 goog.provide('proto.gws.RequestProtobuf');
 goog.provide('proto.gws.ResponseProtobuf');
-goog.provide('proto.gws.ResponseProtobuf.ErrorProtobuf');
 goog.provide('proto.gws.SenderProtobuf');
 
 goog.require('jspb.Message');
@@ -738,7 +738,7 @@ proto.gws.ResponseProtobuf.toObject = function(includeInstance, msg) {
     seqid: jspb.Message.getFieldWithDefault(msg, 3, 0),
     timestamp: jspb.Message.getFieldWithDefault(msg, 4, 0),
     data: msg.getData_asB64(),
-    error: (f = msg.getError()) && proto.gws.ResponseProtobuf.ErrorProtobuf.toObject(includeInstance, f)
+    error: (f = msg.getError()) && proto.gws.ErrorProtobuf.toObject(includeInstance, f)
   };
 
   if (includeInstance) {
@@ -796,8 +796,8 @@ proto.gws.ResponseProtobuf.deserializeBinaryFromReader = function(msg, reader) {
       msg.setData(value);
       break;
     case 6:
-      var value = new proto.gws.ResponseProtobuf.ErrorProtobuf;
-      reader.readMessage(value,proto.gws.ResponseProtobuf.ErrorProtobuf.deserializeBinaryFromReader);
+      var value = new proto.gws.ErrorProtobuf;
+      reader.readMessage(value,proto.gws.ErrorProtobuf.deserializeBinaryFromReader);
       msg.setError(value);
       break;
     default:
@@ -878,7 +878,7 @@ proto.gws.ResponseProtobuf.prototype.serializeBinaryToWriter = function (writer)
     writer.writeMessage(
       6,
       f,
-      proto.gws.ResponseProtobuf.ErrorProtobuf.serializeBinaryToWriter
+      proto.gws.ErrorProtobuf.serializeBinaryToWriter
     );
   }
 };
@@ -985,15 +985,15 @@ proto.gws.ResponseProtobuf.prototype.setData = function(value) {
 
 /**
  * optional ErrorProtobuf error = 6;
- * @return {?proto.gws.ResponseProtobuf.ErrorProtobuf}
+ * @return {?proto.gws.ErrorProtobuf}
  */
 proto.gws.ResponseProtobuf.prototype.getError = function() {
-  return /** @type{?proto.gws.ResponseProtobuf.ErrorProtobuf} */ (
-    jspb.Message.getWrapperField(this, proto.gws.ResponseProtobuf.ErrorProtobuf, 6));
+  return /** @type{?proto.gws.ErrorProtobuf} */ (
+    jspb.Message.getWrapperField(this, proto.gws.ErrorProtobuf, 6));
 };
 
 
-/** @param {?proto.gws.ResponseProtobuf.ErrorProtobuf|undefined} value */
+/** @param {?proto.gws.ErrorProtobuf|undefined} value */
 proto.gws.ResponseProtobuf.prototype.setError = function(value) {
   jspb.Message.setWrapperField(this, 6, value);
 };
@@ -1024,12 +1024,12 @@ proto.gws.ResponseProtobuf.prototype.hasError = function() {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf = function(opt_data) {
+proto.gws.ErrorProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.ResponseProtobuf.ErrorProtobuf, jspb.Message);
+goog.inherits(proto.gws.ErrorProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.ResponseProtobuf.ErrorProtobuf.displayName = 'proto.gws.ResponseProtobuf.ErrorProtobuf';
+  proto.gws.ErrorProtobuf.displayName = 'proto.gws.ErrorProtobuf';
 }
 
 
@@ -1044,8 +1044,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.ResponseProtobuf.ErrorProtobuf.toObject(opt_includeInstance, this);
+proto.gws.ErrorProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.ErrorProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -1054,13 +1054,13 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.toObject = function(opt_inclu
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.ResponseProtobuf.ErrorProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.ErrorProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.ErrorProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    msg: msg.getMsg_asB64()
+    msg: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -1074,23 +1074,23 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.toObject = function(includeInstance, ms
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.ResponseProtobuf.ErrorProtobuf}
+ * @return {!proto.gws.ErrorProtobuf}
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.deserializeBinary = function(bytes) {
+proto.gws.ErrorProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.ResponseProtobuf.ErrorProtobuf;
-  return proto.gws.ResponseProtobuf.ErrorProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.ErrorProtobuf;
+  return proto.gws.ErrorProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.ResponseProtobuf.ErrorProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.ErrorProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.ResponseProtobuf.ErrorProtobuf}
+ * @return {!proto.gws.ErrorProtobuf}
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.ErrorProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -1102,7 +1102,7 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.deserializeBinaryFromReader = function(
       msg.setCode(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setMsg(value);
       break;
     default:
@@ -1117,10 +1117,10 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.deserializeBinaryFromReader = function(
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.ResponseProtobuf.ErrorProtobuf} message
+ * @param {!proto.gws.ErrorProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.ErrorProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -1129,7 +1129,7 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.serializeBinaryToWriter = function(mess
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.serializeBinary = function() {
+proto.gws.ErrorProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -1141,7 +1141,7 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.serializeBinary = function() 
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.ErrorProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getCode();
   if (f.length > 0) {
@@ -1150,9 +1150,9 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.serializeBinaryToWriter = fun
       f
     );
   }
-  f = this.getMsg_asU8();
+  f = this.getMsg();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       2,
       f
     );
@@ -1164,52 +1164,28 @@ proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.serializeBinaryToWriter = fun
  * optional string code = 1;
  * @return {string}
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.getCode = function() {
+proto.gws.ErrorProtobuf.prototype.getCode = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.setCode = function(value) {
+proto.gws.ErrorProtobuf.prototype.setCode = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional bytes msg = 2;
- * @return {!(string|Uint8Array)}
- */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.getMsg = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * optional bytes msg = 2;
- * This is a type-conversion wrapper around `getMsg()`
+ * optional string msg = 2;
  * @return {string}
  */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.getMsg_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getMsg()));
+proto.gws.ErrorProtobuf.prototype.getMsg = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/**
- * optional bytes msg = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getMsg()`
- * @return {!Uint8Array}
- */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.getMsg_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getMsg()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.gws.ResponseProtobuf.ErrorProtobuf.prototype.setMsg = function(value) {
+/** @param {string} value */
+proto.gws.ErrorProtobuf.prototype.setMsg = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 

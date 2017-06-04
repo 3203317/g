@@ -2124,17 +2124,17 @@ public final class Common {
     com.google.protobuf.ByteString getData();
 
     /**
-     * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+     * <code>optional .gws.ErrorProtobuf error = 6;</code>
      */
     boolean hasError();
     /**
-     * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+     * <code>optional .gws.ErrorProtobuf error = 6;</code>
      */
-    net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf getError();
+    net.foreworld.gws.protobuf.Common.ErrorProtobuf getError();
     /**
-     * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+     * <code>optional .gws.ErrorProtobuf error = 6;</code>
      */
-    net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobufOrBuilder getErrorOrBuilder();
+    net.foreworld.gws.protobuf.Common.ErrorProtobufOrBuilder getErrorOrBuilder();
   }
   /**
    * Protobuf type {@code gws.ResponseProtobuf}
@@ -2206,11 +2206,11 @@ public final class Common {
               break;
             }
             case 50: {
-              net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder subBuilder = null;
+              net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder subBuilder = null;
               if (error_ != null) {
                 subBuilder = error_.toBuilder();
               }
-              error_ = input.readMessage(net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.parser(), extensionRegistry);
+              error_ = input.readMessage(net.foreworld.gws.protobuf.Common.ErrorProtobuf.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(error_);
                 error_ = subBuilder.buildPartial();
@@ -2239,575 +2239,6 @@ public final class Common {
       return net.foreworld.gws.protobuf.Common.internal_static_gws_ResponseProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.foreworld.gws.protobuf.Common.ResponseProtobuf.class, net.foreworld.gws.protobuf.Common.ResponseProtobuf.Builder.class);
-    }
-
-    public interface ErrorProtobufOrBuilder extends
-        // @@protoc_insertion_point(interface_extends:gws.ResponseProtobuf.ErrorProtobuf)
-        com.google.protobuf.MessageOrBuilder {
-
-      /**
-       * <code>optional string code = 1;</code>
-       */
-      java.lang.String getCode();
-      /**
-       * <code>optional string code = 1;</code>
-       */
-      com.google.protobuf.ByteString
-          getCodeBytes();
-
-      /**
-       * <code>optional bytes msg = 2;</code>
-       */
-      com.google.protobuf.ByteString getMsg();
-    }
-    /**
-     * Protobuf type {@code gws.ResponseProtobuf.ErrorProtobuf}
-     */
-    public  static final class ErrorProtobuf extends
-        com.google.protobuf.GeneratedMessageV3 implements
-        // @@protoc_insertion_point(message_implements:gws.ResponseProtobuf.ErrorProtobuf)
-        ErrorProtobufOrBuilder {
-      // Use ErrorProtobuf.newBuilder() to construct.
-      private ErrorProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-        super(builder);
-      }
-      private ErrorProtobuf() {
-        code_ = "";
-        msg_ = com.google.protobuf.ByteString.EMPTY;
-      }
-
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-      getUnknownFields() {
-        return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-      }
-      private ErrorProtobuf(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        this();
-        int mutable_bitField0_ = 0;
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!input.skipField(tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 10: {
-                java.lang.String s = input.readStringRequireUtf8();
-
-                code_ = s;
-                break;
-              }
-              case 18: {
-
-                msg_ = input.readBytes();
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e).setUnfinishedMessage(this);
-        } finally {
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return net.foreworld.gws.protobuf.Common.internal_static_gws_ResponseProtobuf_ErrorProtobuf_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.Common.internal_static_gws_ResponseProtobuf_ErrorProtobuf_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.class, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder.class);
-      }
-
-      public static final int CODE_FIELD_NUMBER = 1;
-      private volatile java.lang.Object code_;
-      /**
-       * <code>optional string code = 1;</code>
-       */
-      public java.lang.String getCode() {
-        java.lang.Object ref = code_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          code_ = s;
-          return s;
-        }
-      }
-      /**
-       * <code>optional string code = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getCodeBytes() {
-        java.lang.Object ref = code_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          code_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      public static final int MSG_FIELD_NUMBER = 2;
-      private com.google.protobuf.ByteString msg_;
-      /**
-       * <code>optional bytes msg = 2;</code>
-       */
-      public com.google.protobuf.ByteString getMsg() {
-        return msg_;
-      }
-
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized == 1) return true;
-        if (isInitialized == 0) return false;
-
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        if (!getCodeBytes().isEmpty()) {
-          com.google.protobuf.GeneratedMessageV3.writeString(output, 1, code_);
-        }
-        if (!msg_.isEmpty()) {
-          output.writeBytes(2, msg_);
-        }
-      }
-
-      public int getSerializedSize() {
-        int size = memoizedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (!getCodeBytes().isEmpty()) {
-          size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, code_);
-        }
-        if (!msg_.isEmpty()) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, msg_);
-        }
-        memoizedSize = size;
-        return size;
-      }
-
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      public boolean equals(final java.lang.Object obj) {
-        if (obj == this) {
-         return true;
-        }
-        if (!(obj instanceof net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf)) {
-          return super.equals(obj);
-        }
-        net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf other = (net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf) obj;
-
-        boolean result = true;
-        result = result && getCode()
-            .equals(other.getCode());
-        result = result && getMsg()
-            .equals(other.getMsg());
-        return result;
-      }
-
-      @java.lang.Override
-      public int hashCode() {
-        if (memoizedHashCode != 0) {
-          return memoizedHashCode;
-        }
-        int hash = 41;
-        hash = (19 * hash) + getDescriptorForType().hashCode();
-        hash = (37 * hash) + CODE_FIELD_NUMBER;
-        hash = (53 * hash) + getCode().hashCode();
-        hash = (37 * hash) + MSG_FIELD_NUMBER;
-        hash = (53 * hash) + getMsg().hashCode();
-        hash = (29 * hash) + unknownFields.hashCode();
-        memoizedHashCode = hash;
-        return hash;
-      }
-
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input);
-      }
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return com.google.protobuf.GeneratedMessageV3
-            .parseWithIOException(PARSER, input, extensionRegistry);
-      }
-
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder() {
-        return DEFAULT_INSTANCE.toBuilder();
-      }
-      public static Builder newBuilder(net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf prototype) {
-        return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() {
-        return this == DEFAULT_INSTANCE
-            ? new Builder() : new Builder().mergeFrom(this);
-      }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code gws.ResponseProtobuf.ErrorProtobuf}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-          // @@protoc_insertion_point(builder_implements:gws.ResponseProtobuf.ErrorProtobuf)
-          net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobufOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return net.foreworld.gws.protobuf.Common.internal_static_gws_ResponseProtobuf_ErrorProtobuf_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return net.foreworld.gws.protobuf.Common.internal_static_gws_ResponseProtobuf_ErrorProtobuf_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.class, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder.class);
-        }
-
-        // Construct using net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessageV3
-                  .alwaysUseFieldBuilders) {
-          }
-        }
-        public Builder clear() {
-          super.clear();
-          code_ = "";
-
-          msg_ = com.google.protobuf.ByteString.EMPTY;
-
-          return this;
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return net.foreworld.gws.protobuf.Common.internal_static_gws_ResponseProtobuf_ErrorProtobuf_descriptor;
-        }
-
-        public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf getDefaultInstanceForType() {
-          return net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.getDefaultInstance();
-        }
-
-        public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf build() {
-          net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf buildPartial() {
-          net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf result = new net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf(this);
-          result.code_ = code_;
-          result.msg_ = msg_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder clone() {
-          return (Builder) super.clone();
-        }
-        public Builder setField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            Object value) {
-          return (Builder) super.setField(field, value);
-        }
-        public Builder clearField(
-            com.google.protobuf.Descriptors.FieldDescriptor field) {
-          return (Builder) super.clearField(field);
-        }
-        public Builder clearOneof(
-            com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-          return (Builder) super.clearOneof(oneof);
-        }
-        public Builder setRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            int index, Object value) {
-          return (Builder) super.setRepeatedField(field, index, value);
-        }
-        public Builder addRepeatedField(
-            com.google.protobuf.Descriptors.FieldDescriptor field,
-            Object value) {
-          return (Builder) super.addRepeatedField(field, value);
-        }
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf) {
-            return mergeFrom((net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf other) {
-          if (other == net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.getDefaultInstance()) return this;
-          if (!other.getCode().isEmpty()) {
-            code_ = other.code_;
-            onChanged();
-          }
-          if (other.getMsg() != com.google.protobuf.ByteString.EMPTY) {
-            setMsg(other.getMsg());
-          }
-          onChanged();
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf) e.getUnfinishedMessage();
-            throw e.unwrapIOException();
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-
-        private java.lang.Object code_ = "";
-        /**
-         * <code>optional string code = 1;</code>
-         */
-        public java.lang.String getCode() {
-          java.lang.Object ref = code_;
-          if (!(ref instanceof java.lang.String)) {
-            com.google.protobuf.ByteString bs =
-                (com.google.protobuf.ByteString) ref;
-            java.lang.String s = bs.toStringUtf8();
-            code_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>optional string code = 1;</code>
-         */
-        public com.google.protobuf.ByteString
-            getCodeBytes() {
-          java.lang.Object ref = code_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            code_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>optional string code = 1;</code>
-         */
-        public Builder setCode(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          code_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>optional string code = 1;</code>
-         */
-        public Builder clearCode() {
-          
-          code_ = getDefaultInstance().getCode();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>optional string code = 1;</code>
-         */
-        public Builder setCodeBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-          
-          code_ = value;
-          onChanged();
-          return this;
-        }
-
-        private com.google.protobuf.ByteString msg_ = com.google.protobuf.ByteString.EMPTY;
-        /**
-         * <code>optional bytes msg = 2;</code>
-         */
-        public com.google.protobuf.ByteString getMsg() {
-          return msg_;
-        }
-        /**
-         * <code>optional bytes msg = 2;</code>
-         */
-        public Builder setMsg(com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  
-          msg_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>optional bytes msg = 2;</code>
-         */
-        public Builder clearMsg() {
-          
-          msg_ = getDefaultInstance().getMsg();
-          onChanged();
-          return this;
-        }
-        public final Builder setUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return this;
-        }
-
-        public final Builder mergeUnknownFields(
-            final com.google.protobuf.UnknownFieldSet unknownFields) {
-          return this;
-        }
-
-
-        // @@protoc_insertion_point(builder_scope:gws.ResponseProtobuf.ErrorProtobuf)
-      }
-
-      // @@protoc_insertion_point(class_scope:gws.ResponseProtobuf.ErrorProtobuf)
-      private static final net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf DEFAULT_INSTANCE;
-      static {
-        DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf();
-      }
-
-      public static net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf getDefaultInstance() {
-        return DEFAULT_INSTANCE;
-      }
-
-      private static final com.google.protobuf.Parser<ErrorProtobuf>
-          PARSER = new com.google.protobuf.AbstractParser<ErrorProtobuf>() {
-        public ErrorProtobuf parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-            return new ErrorProtobuf(input, extensionRegistry);
-        }
-      };
-
-      public static com.google.protobuf.Parser<ErrorProtobuf> parser() {
-        return PARSER;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<ErrorProtobuf> getParserForType() {
-        return PARSER;
-      }
-
-      public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf getDefaultInstanceForType() {
-        return DEFAULT_INSTANCE;
-      }
-
     }
 
     public static final int VERSION_FIELD_NUMBER = 1;
@@ -2856,23 +2287,23 @@ public final class Common {
     }
 
     public static final int ERROR_FIELD_NUMBER = 6;
-    private net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf error_;
+    private net.foreworld.gws.protobuf.Common.ErrorProtobuf error_;
     /**
-     * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+     * <code>optional .gws.ErrorProtobuf error = 6;</code>
      */
     public boolean hasError() {
       return error_ != null;
     }
     /**
-     * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+     * <code>optional .gws.ErrorProtobuf error = 6;</code>
      */
-    public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf getError() {
-      return error_ == null ? net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.getDefaultInstance() : error_;
+    public net.foreworld.gws.protobuf.Common.ErrorProtobuf getError() {
+      return error_ == null ? net.foreworld.gws.protobuf.Common.ErrorProtobuf.getDefaultInstance() : error_;
     }
     /**
-     * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+     * <code>optional .gws.ErrorProtobuf error = 6;</code>
      */
-    public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobufOrBuilder getErrorOrBuilder() {
+    public net.foreworld.gws.protobuf.Common.ErrorProtobufOrBuilder getErrorOrBuilder() {
       return getError();
     }
 
@@ -3378,29 +2809,29 @@ public final class Common {
         return this;
       }
 
-      private net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf error_ = null;
+      private net.foreworld.gws.protobuf.Common.ErrorProtobuf error_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobufOrBuilder> errorBuilder_;
+          net.foreworld.gws.protobuf.Common.ErrorProtobuf, net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder, net.foreworld.gws.protobuf.Common.ErrorProtobufOrBuilder> errorBuilder_;
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
       public boolean hasError() {
         return errorBuilder_ != null || error_ != null;
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
-      public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf getError() {
+      public net.foreworld.gws.protobuf.Common.ErrorProtobuf getError() {
         if (errorBuilder_ == null) {
-          return error_ == null ? net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.getDefaultInstance() : error_;
+          return error_ == null ? net.foreworld.gws.protobuf.Common.ErrorProtobuf.getDefaultInstance() : error_;
         } else {
           return errorBuilder_.getMessage();
         }
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
-      public Builder setError(net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf value) {
+      public Builder setError(net.foreworld.gws.protobuf.Common.ErrorProtobuf value) {
         if (errorBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3414,10 +2845,10 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
       public Builder setError(
-          net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder builderForValue) {
+          net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder builderForValue) {
         if (errorBuilder_ == null) {
           error_ = builderForValue.build();
           onChanged();
@@ -3428,13 +2859,13 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
-      public Builder mergeError(net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf value) {
+      public Builder mergeError(net.foreworld.gws.protobuf.Common.ErrorProtobuf value) {
         if (errorBuilder_ == null) {
           if (error_ != null) {
             error_ =
-              net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.newBuilder(error_).mergeFrom(value).buildPartial();
+              net.foreworld.gws.protobuf.Common.ErrorProtobuf.newBuilder(error_).mergeFrom(value).buildPartial();
           } else {
             error_ = value;
           }
@@ -3446,7 +2877,7 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
       public Builder clearError() {
         if (errorBuilder_ == null) {
@@ -3460,33 +2891,33 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
-      public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder getErrorBuilder() {
+      public net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder getErrorBuilder() {
         
         onChanged();
         return getErrorFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
-      public net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobufOrBuilder getErrorOrBuilder() {
+      public net.foreworld.gws.protobuf.Common.ErrorProtobufOrBuilder getErrorOrBuilder() {
         if (errorBuilder_ != null) {
           return errorBuilder_.getMessageOrBuilder();
         } else {
           return error_ == null ?
-              net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.getDefaultInstance() : error_;
+              net.foreworld.gws.protobuf.Common.ErrorProtobuf.getDefaultInstance() : error_;
         }
       }
       /**
-       * <code>optional .gws.ResponseProtobuf.ErrorProtobuf error = 6;</code>
+       * <code>optional .gws.ErrorProtobuf error = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobufOrBuilder> 
+          net.foreworld.gws.protobuf.Common.ErrorProtobuf, net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder, net.foreworld.gws.protobuf.Common.ErrorProtobufOrBuilder> 
           getErrorFieldBuilder() {
         if (errorBuilder_ == null) {
           errorBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobuf.Builder, net.foreworld.gws.protobuf.Common.ResponseProtobuf.ErrorProtobufOrBuilder>(
+              net.foreworld.gws.protobuf.Common.ErrorProtobuf, net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder, net.foreworld.gws.protobuf.Common.ErrorProtobufOrBuilder>(
                   getError(),
                   getParentForChildren(),
                   isClean());
@@ -3538,6 +2969,646 @@ public final class Common {
     }
 
     public net.foreworld.gws.protobuf.Common.ResponseProtobuf getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface ErrorProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.ErrorProtobuf)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    java.lang.String getCode();
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getCodeBytes();
+
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    java.lang.String getMsg();
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getMsgBytes();
+  }
+  /**
+   * Protobuf type {@code gws.ErrorProtobuf}
+   */
+  public  static final class ErrorProtobuf extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:gws.ErrorProtobuf)
+      ErrorProtobufOrBuilder {
+    // Use ErrorProtobuf.newBuilder() to construct.
+    private ErrorProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private ErrorProtobuf() {
+      code_ = "";
+      msg_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private ErrorProtobuf(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              code_ = s;
+              break;
+            }
+            case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              msg_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return net.foreworld.gws.protobuf.Common.internal_static_gws_ErrorProtobuf_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return net.foreworld.gws.protobuf.Common.internal_static_gws_ErrorProtobuf_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              net.foreworld.gws.protobuf.Common.ErrorProtobuf.class, net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder.class);
+    }
+
+    public static final int CODE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object code_;
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    public java.lang.String getCode() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        code_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCodeBytes() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        code_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int MSG_FIELD_NUMBER = 2;
+    private volatile java.lang.Object msg_;
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    public java.lang.String getMsg() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        msg_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string msg = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMsgBytes() {
+      java.lang.Object ref = msg_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        msg_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getCodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, code_);
+      }
+      if (!getMsgBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, msg_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getCodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, code_);
+      }
+      if (!getMsgBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, msg_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof net.foreworld.gws.protobuf.Common.ErrorProtobuf)) {
+        return super.equals(obj);
+      }
+      net.foreworld.gws.protobuf.Common.ErrorProtobuf other = (net.foreworld.gws.protobuf.Common.ErrorProtobuf) obj;
+
+      boolean result = true;
+      result = result && getCode()
+          .equals(other.getCode());
+      result = result && getMsg()
+          .equals(other.getMsg());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode().hashCode();
+      hash = (37 * hash) + MSG_FIELD_NUMBER;
+      hash = (53 * hash) + getMsg().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(net.foreworld.gws.protobuf.Common.ErrorProtobuf prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code gws.ErrorProtobuf}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:gws.ErrorProtobuf)
+        net.foreworld.gws.protobuf.Common.ErrorProtobufOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return net.foreworld.gws.protobuf.Common.internal_static_gws_ErrorProtobuf_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return net.foreworld.gws.protobuf.Common.internal_static_gws_ErrorProtobuf_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                net.foreworld.gws.protobuf.Common.ErrorProtobuf.class, net.foreworld.gws.protobuf.Common.ErrorProtobuf.Builder.class);
+      }
+
+      // Construct using net.foreworld.gws.protobuf.Common.ErrorProtobuf.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        code_ = "";
+
+        msg_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return net.foreworld.gws.protobuf.Common.internal_static_gws_ErrorProtobuf_descriptor;
+      }
+
+      public net.foreworld.gws.protobuf.Common.ErrorProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.Common.ErrorProtobuf.getDefaultInstance();
+      }
+
+      public net.foreworld.gws.protobuf.Common.ErrorProtobuf build() {
+        net.foreworld.gws.protobuf.Common.ErrorProtobuf result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public net.foreworld.gws.protobuf.Common.ErrorProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.Common.ErrorProtobuf result = new net.foreworld.gws.protobuf.Common.ErrorProtobuf(this);
+        result.code_ = code_;
+        result.msg_ = msg_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof net.foreworld.gws.protobuf.Common.ErrorProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.Common.ErrorProtobuf)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(net.foreworld.gws.protobuf.Common.ErrorProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.Common.ErrorProtobuf.getDefaultInstance()) return this;
+        if (!other.getCode().isEmpty()) {
+          code_ = other.code_;
+          onChanged();
+        }
+        if (!other.getMsg().isEmpty()) {
+          msg_ = other.msg_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        net.foreworld.gws.protobuf.Common.ErrorProtobuf parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (net.foreworld.gws.protobuf.Common.ErrorProtobuf) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object code_ = "";
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public java.lang.String getCode() {
+        java.lang.Object ref = code_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          code_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCodeBytes() {
+        java.lang.Object ref = code_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          code_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public Builder setCode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        code_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public Builder clearCode() {
+        
+        code_ = getDefaultInstance().getCode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public Builder setCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        code_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object msg_ = "";
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public java.lang.String getMsg() {
+        java.lang.Object ref = msg_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          msg_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMsgBytes() {
+        java.lang.Object ref = msg_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          msg_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public Builder setMsg(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public Builder clearMsg() {
+        
+        msg_ = getDefaultInstance().getMsg();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string msg = 2;</code>
+       */
+      public Builder setMsgBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        msg_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:gws.ErrorProtobuf)
+    }
+
+    // @@protoc_insertion_point(class_scope:gws.ErrorProtobuf)
+    private static final net.foreworld.gws.protobuf.Common.ErrorProtobuf DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Common.ErrorProtobuf();
+    }
+
+    public static net.foreworld.gws.protobuf.Common.ErrorProtobuf getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ErrorProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<ErrorProtobuf>() {
+      public ErrorProtobuf parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ErrorProtobuf(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ErrorProtobuf> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ErrorProtobuf> getParserForType() {
+      return PARSER;
+    }
+
+    public net.foreworld.gws.protobuf.Common.ErrorProtobuf getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -4067,10 +4138,10 @@ public final class Common {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_gws_ResponseProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_ResponseProtobuf_ErrorProtobuf_descriptor;
+    internal_static_gws_ErrorProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_ResponseProtobuf_ErrorProtobuf_fieldAccessorTable;
+      internal_static_gws_ErrorProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_gws_PrimaryKeyProtobuf_descriptor;
   private static final 
@@ -4091,14 +4162,14 @@ public final class Common {
       "\n\010receiver\030\001 \001(\t\022#\n\004data\030\002 \001(\0132\025.gws.Res" +
       "ponseProtobuf\"b\n\017RequestProtobuf\022\017\n\007vers" +
       "ion\030\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004" +
-      "\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014\"\303\001\n\020Re" +
+      "\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014\"\206\001\n\020Re" +
       "sponseProtobuf\022\017\n\007version\030\001 \001(\r\022\016\n\006metho" +
       "d\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(" +
-      "\004\022\014\n\004data\030\005 \001(\014\0222\n\005error\030\006 \001(\0132#.gws.Res",
-      "ponseProtobuf.ErrorProtobuf\032*\n\rErrorProt" +
-      "obuf\022\014\n\004code\030\001 \001(\t\022\013\n\003msg\030\002 \001(\014\" \n\022Prima" +
-      "ryKeyProtobuf\022\n\n\002id\030\001 \001(\tB$\n\032net.forewor" +
-      "ld.gws.protobufB\006Commonb\006proto3"
+      "\004\022\014\n\004data\030\005 \001(\014\022!\n\005error\030\006 \001(\0132\022.gws.Err",
+      "orProtobuf\"*\n\rErrorProtobuf\022\014\n\004code\030\001 \001(" +
+      "\t\022\013\n\003msg\030\002 \001(\t\" \n\022PrimaryKeyProtobuf\022\n\n\002" +
+      "id\030\001 \001(\tB$\n\032net.foreworld.gws.protobufB\006" +
+      "Commonb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4136,14 +4207,14 @@ public final class Common {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_ResponseProtobuf_descriptor,
         new java.lang.String[] { "Version", "Method", "SeqId", "Timestamp", "Data", "Error", });
-    internal_static_gws_ResponseProtobuf_ErrorProtobuf_descriptor =
-      internal_static_gws_ResponseProtobuf_descriptor.getNestedTypes().get(0);
-    internal_static_gws_ResponseProtobuf_ErrorProtobuf_fieldAccessorTable = new
+    internal_static_gws_ErrorProtobuf_descriptor =
+      getDescriptor().getMessageTypes().get(4);
+    internal_static_gws_ErrorProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_ResponseProtobuf_ErrorProtobuf_descriptor,
+        internal_static_gws_ErrorProtobuf_descriptor,
         new java.lang.String[] { "Code", "Msg", });
     internal_static_gws_PrimaryKeyProtobuf_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_gws_PrimaryKeyProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_PrimaryKeyProtobuf_descriptor,
