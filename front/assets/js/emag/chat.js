@@ -342,7 +342,7 @@ proto.gws.chat.SendProtobuf.prototype.toObject = function(opt_includeInstance) {
 proto.gws.chat.SendProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     receiver: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    comment: msg.getComment_asB64()
+    comment: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -384,7 +384,7 @@ proto.gws.chat.SendProtobuf.deserializeBinaryFromReader = function(msg, reader) 
       msg.setReceiver(value);
       break;
     case 2:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setComment(value);
       break;
     default:
@@ -432,9 +432,9 @@ proto.gws.chat.SendProtobuf.prototype.serializeBinaryToWriter = function (writer
       f
     );
   }
-  f = this.getComment_asU8();
+  f = this.getComment();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       2,
       f
     );
@@ -458,39 +458,15 @@ proto.gws.chat.SendProtobuf.prototype.setReceiver = function(value) {
 
 
 /**
- * optional bytes comment = 2;
- * @return {!(string|Uint8Array)}
- */
-proto.gws.chat.SendProtobuf.prototype.getComment = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
-};
-
-
-/**
- * optional bytes comment = 2;
- * This is a type-conversion wrapper around `getComment()`
+ * optional string comment = 2;
  * @return {string}
  */
-proto.gws.chat.SendProtobuf.prototype.getComment_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getComment()));
+proto.gws.chat.SendProtobuf.prototype.getComment = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
-/**
- * optional bytes comment = 2;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getComment()`
- * @return {!Uint8Array}
- */
-proto.gws.chat.SendProtobuf.prototype.getComment_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getComment()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
+/** @param {string} value */
 proto.gws.chat.SendProtobuf.prototype.setComment = function(value) {
   jspb.Message.setField(this, 2, value);
 };
