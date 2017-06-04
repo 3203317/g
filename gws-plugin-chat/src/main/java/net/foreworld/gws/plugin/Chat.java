@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
+import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
 import net.foreworld.gws.protobuf.Chat.ChatSendProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
@@ -59,11 +60,15 @@ public class Chat {
 			ChatSendProtobuf send = ChatSendProtobuf.parseFrom(req.getData());
 			logger.info("{}:{}", send.getReceiver(), send.getComment());
 
+			ChatProtobuf.Builder ch = ChatProtobuf.newBuilder();
+			ch.setComment(send.getComment());
+
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
+			resp.setData(ch.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);

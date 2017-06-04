@@ -78,19 +78,25 @@ $(function(){
         console.log(result.getTimestamp());
         console.log('----');
 
-        if(95 === result.getMethod()){
-          (function(){
-            var data = gws.UserLoginResultProtobuf.deserializeBinary(result.getData());
-            console.log(data.getToken());
-          })();
 
-          return;
+
+        switch(result.getMethod()){
+          case 95:{
+            (function(){
+              var data = gws.UserLoginResultProtobuf.deserializeBinary(result.getData());
+              console.log(data.getToken());
+            })();
+            break;
+          }
+          case 2001:{
+            (function(){
+              var data = gws.ChatProtobuf.deserializeBinary(result.getData());
+              console.log(data.getComment());
+            })();
+            break;
+          }
         }
 
-        if(1001 === result.getMethod()){
-          (function(){
-          })();
-        }
       };
 
 
