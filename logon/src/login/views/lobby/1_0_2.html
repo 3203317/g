@@ -41,7 +41,7 @@ $(function(){
 
   $('#send').click(function(){
 
-    var send = new gws.chat.SendProtobuf();
+    var send = new gws.ChatSendProtobuf();
     send.setReceiver($('#user_id').val())
     send.setComment($('#msg').val());
 
@@ -80,7 +80,7 @@ $(function(){
 
         if(95 === result.getMethod()){
           (function(){
-            var data = gws.user.LoginResultProtobuf.deserializeBinary(result.getData());
+            var data = gws.UserLoginResultProtobuf.deserializeBinary(result.getData());
             console.log(data.getToken());
           })();
 
@@ -100,7 +100,7 @@ $(function(){
       req.setSeqid(parseInt(Math.random() * 1000));
       req.setTimestamp(new Date().getTime());
 
-      var login = new gws.user.LoginProtobuf();
+      var login = new gws.UserLoginProtobuf();
       login.setCode(location.search.match(/code=([\w\-]+)/) ? RegExp.$1 : '');
       req.setData(login.serializeBinary());
 
@@ -140,7 +140,7 @@ $(function(){
     req.setSeqid(parseInt(Math.random() * 1000));
     req.setTimestamp(new Date().getTime());
 
-    var user = new gws.user.UserProtobuf();
+    var user = new gws.UserProtobuf();
     user.setNickname('八一猫')
     user.setUserPass('123456');
     req.setData(user.serializeBinary());

@@ -25,17 +25,17 @@ message UserProtobuf {
   uint32 status = 9;
 
   string device_code = 10;
-  bytes nickname = 11;
+  string nickname = 11;
 }
 
-message LoginProtobuf {
+message UserLoginProtobuf {
   string code = 1;
 }
 
-message LoginResultProtobuf {
+message UserLoginResultProtobuf {
   string token = 1;
 }
 
-message LogoutResultProtobuf {
-  bytes reason = 1;
+message UserLogoutResultProtobuf {
+  string reason = 1;
 }

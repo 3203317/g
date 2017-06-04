@@ -113,9 +113,14 @@ public final class User {
         getDeviceCodeBytes();
 
     /**
-     * <code>optional bytes nickname = 11;</code>
+     * <code>optional string nickname = 11;</code>
      */
-    com.google.protobuf.ByteString getNickname();
+    java.lang.String getNickname();
+    /**
+     * <code>optional string nickname = 11;</code>
+     */
+    com.google.protobuf.ByteString
+        getNicknameBytes();
   }
   /**
    * Protobuf type {@code gws.UserProtobuf}
@@ -139,7 +144,7 @@ public final class User {
       email_ = "";
       status_ = 0;
       deviceCode_ = "";
-      nickname_ = com.google.protobuf.ByteString.EMPTY;
+      nickname_ = "";
     }
 
     @java.lang.Override
@@ -227,8 +232,9 @@ public final class User {
               break;
             }
             case 90: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              nickname_ = input.readBytes();
+              nickname_ = s;
               break;
             }
           }
@@ -650,12 +656,37 @@ public final class User {
     }
 
     public static final int NICKNAME_FIELD_NUMBER = 11;
-    private com.google.protobuf.ByteString nickname_;
+    private volatile java.lang.Object nickname_;
     /**
-     * <code>optional bytes nickname = 11;</code>
+     * <code>optional string nickname = 11;</code>
      */
-    public com.google.protobuf.ByteString getNickname() {
-      return nickname_;
+    public java.lang.String getNickname() {
+      java.lang.Object ref = nickname_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        nickname_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string nickname = 11;</code>
+     */
+    public com.google.protobuf.ByteString
+        getNicknameBytes() {
+      java.lang.Object ref = nickname_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        nickname_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -700,8 +731,8 @@ public final class User {
       if (!getDeviceCodeBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, deviceCode_);
       }
-      if (!nickname_.isEmpty()) {
-        output.writeBytes(11, nickname_);
+      if (!getNicknameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, nickname_);
       }
     }
 
@@ -742,9 +773,8 @@ public final class User {
       if (!getDeviceCodeBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, deviceCode_);
       }
-      if (!nickname_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(11, nickname_);
+      if (!getNicknameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, nickname_);
       }
       memoizedSize = size;
       return size;
@@ -953,7 +983,7 @@ public final class User {
 
         deviceCode_ = "";
 
-        nickname_ = com.google.protobuf.ByteString.EMPTY;
+        nickname_ = "";
 
         return this;
       }
@@ -1067,8 +1097,9 @@ public final class User {
           deviceCode_ = other.deviceCode_;
           onChanged();
         }
-        if (other.getNickname() != com.google.protobuf.ByteString.EMPTY) {
-          setNickname(other.getNickname());
+        if (!other.getNickname().isEmpty()) {
+          nickname_ = other.nickname_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -1718,17 +1749,43 @@ public final class User {
         return this;
       }
 
-      private com.google.protobuf.ByteString nickname_ = com.google.protobuf.ByteString.EMPTY;
+      private java.lang.Object nickname_ = "";
       /**
-       * <code>optional bytes nickname = 11;</code>
+       * <code>optional string nickname = 11;</code>
        */
-      public com.google.protobuf.ByteString getNickname() {
-        return nickname_;
+      public java.lang.String getNickname() {
+        java.lang.Object ref = nickname_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          nickname_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional bytes nickname = 11;</code>
+       * <code>optional string nickname = 11;</code>
        */
-      public Builder setNickname(com.google.protobuf.ByteString value) {
+      public com.google.protobuf.ByteString
+          getNicknameBytes() {
+        java.lang.Object ref = nickname_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          nickname_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string nickname = 11;</code>
+       */
+      public Builder setNickname(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -1738,11 +1795,25 @@ public final class User {
         return this;
       }
       /**
-       * <code>optional bytes nickname = 11;</code>
+       * <code>optional string nickname = 11;</code>
        */
       public Builder clearNickname() {
         
         nickname_ = getDefaultInstance().getNickname();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string nickname = 11;</code>
+       */
+      public Builder setNicknameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        nickname_ = value;
         onChanged();
         return this;
       }
@@ -1795,8 +1866,8 @@ public final class User {
 
   }
 
-  public interface LoginProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.LoginProtobuf)
+  public interface UserLoginProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.UserLoginProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1810,17 +1881,17 @@ public final class User {
         getCodeBytes();
   }
   /**
-   * Protobuf type {@code gws.LoginProtobuf}
+   * Protobuf type {@code gws.UserLoginProtobuf}
    */
-  public  static final class LoginProtobuf extends
+  public  static final class UserLoginProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.LoginProtobuf)
-      LoginProtobufOrBuilder {
-    // Use LoginProtobuf.newBuilder() to construct.
-    private LoginProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:gws.UserLoginProtobuf)
+      UserLoginProtobufOrBuilder {
+    // Use UserLoginProtobuf.newBuilder() to construct.
+    private UserLoginProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private LoginProtobuf() {
+    private UserLoginProtobuf() {
       code_ = "";
     }
 
@@ -1829,7 +1900,7 @@ public final class User {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private LoginProtobuf(
+    private UserLoginProtobuf(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -1868,14 +1939,14 @@ public final class User {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              net.foreworld.gws.protobuf.User.LoginProtobuf.class, net.foreworld.gws.protobuf.User.LoginProtobuf.Builder.class);
+              net.foreworld.gws.protobuf.User.UserLoginProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginProtobuf.Builder.class);
     }
 
     public static final int CODE_FIELD_NUMBER = 1;
@@ -1947,10 +2018,10 @@ public final class User {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof net.foreworld.gws.protobuf.User.LoginProtobuf)) {
+      if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLoginProtobuf)) {
         return super.equals(obj);
       }
-      net.foreworld.gws.protobuf.User.LoginProtobuf other = (net.foreworld.gws.protobuf.User.LoginProtobuf) obj;
+      net.foreworld.gws.protobuf.User.UserLoginProtobuf other = (net.foreworld.gws.protobuf.User.UserLoginProtobuf) obj;
 
       boolean result = true;
       result = result && getCode()
@@ -1972,58 +2043,58 @@ public final class User {
       return hash;
     }
 
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(byte[] data)
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(java.io.InputStream input)
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseDelimitedFrom(java.io.InputStream input)
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseDelimitedFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2035,7 +2106,7 @@ public final class User {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(net.foreworld.gws.protobuf.User.LoginProtobuf prototype) {
+    public static Builder newBuilder(net.foreworld.gws.protobuf.User.UserLoginProtobuf prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2050,25 +2121,25 @@ public final class User {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.LoginProtobuf}
+     * Protobuf type {@code gws.UserLoginProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.LoginProtobuf)
-        net.foreworld.gws.protobuf.User.LoginProtobufOrBuilder {
+        // @@protoc_insertion_point(builder_implements:gws.UserLoginProtobuf)
+        net.foreworld.gws.protobuf.User.UserLoginProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                net.foreworld.gws.protobuf.User.LoginProtobuf.class, net.foreworld.gws.protobuf.User.LoginProtobuf.Builder.class);
+                net.foreworld.gws.protobuf.User.UserLoginProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginProtobuf.Builder.class);
       }
 
-      // Construct using net.foreworld.gws.protobuf.User.LoginProtobuf.newBuilder()
+      // Construct using net.foreworld.gws.protobuf.User.UserLoginProtobuf.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2092,23 +2163,23 @@ public final class User {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
       }
 
-      public net.foreworld.gws.protobuf.User.LoginProtobuf getDefaultInstanceForType() {
-        return net.foreworld.gws.protobuf.User.LoginProtobuf.getDefaultInstance();
+      public net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.User.UserLoginProtobuf.getDefaultInstance();
       }
 
-      public net.foreworld.gws.protobuf.User.LoginProtobuf build() {
-        net.foreworld.gws.protobuf.User.LoginProtobuf result = buildPartial();
+      public net.foreworld.gws.protobuf.User.UserLoginProtobuf build() {
+        net.foreworld.gws.protobuf.User.UserLoginProtobuf result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public net.foreworld.gws.protobuf.User.LoginProtobuf buildPartial() {
-        net.foreworld.gws.protobuf.User.LoginProtobuf result = new net.foreworld.gws.protobuf.User.LoginProtobuf(this);
+      public net.foreworld.gws.protobuf.User.UserLoginProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.User.UserLoginProtobuf result = new net.foreworld.gws.protobuf.User.UserLoginProtobuf(this);
         result.code_ = code_;
         onBuilt();
         return result;
@@ -2141,16 +2212,16 @@ public final class User {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof net.foreworld.gws.protobuf.User.LoginProtobuf) {
-          return mergeFrom((net.foreworld.gws.protobuf.User.LoginProtobuf)other);
+        if (other instanceof net.foreworld.gws.protobuf.User.UserLoginProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.User.UserLoginProtobuf)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(net.foreworld.gws.protobuf.User.LoginProtobuf other) {
-        if (other == net.foreworld.gws.protobuf.User.LoginProtobuf.getDefaultInstance()) return this;
+      public Builder mergeFrom(net.foreworld.gws.protobuf.User.UserLoginProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.User.UserLoginProtobuf.getDefaultInstance()) return this;
         if (!other.getCode().isEmpty()) {
           code_ = other.code_;
           onChanged();
@@ -2167,11 +2238,11 @@ public final class User {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        net.foreworld.gws.protobuf.User.LoginProtobuf parsedMessage = null;
+        net.foreworld.gws.protobuf.User.UserLoginProtobuf parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (net.foreworld.gws.protobuf.User.LoginProtobuf) e.getUnfinishedMessage();
+          parsedMessage = (net.foreworld.gws.protobuf.User.UserLoginProtobuf) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2260,46 +2331,46 @@ public final class User {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.LoginProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.UserLoginProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.LoginProtobuf)
-    private static final net.foreworld.gws.protobuf.User.LoginProtobuf DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:gws.UserLoginProtobuf)
+    private static final net.foreworld.gws.protobuf.User.UserLoginProtobuf DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.LoginProtobuf();
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLoginProtobuf();
     }
 
-    public static net.foreworld.gws.protobuf.User.LoginProtobuf getDefaultInstance() {
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<LoginProtobuf>
-        PARSER = new com.google.protobuf.AbstractParser<LoginProtobuf>() {
-      public LoginProtobuf parsePartialFrom(
+    private static final com.google.protobuf.Parser<UserLoginProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<UserLoginProtobuf>() {
+      public UserLoginProtobuf parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new LoginProtobuf(input, extensionRegistry);
+          return new UserLoginProtobuf(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<LoginProtobuf> parser() {
+    public static com.google.protobuf.Parser<UserLoginProtobuf> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<LoginProtobuf> getParserForType() {
+    public com.google.protobuf.Parser<UserLoginProtobuf> getParserForType() {
       return PARSER;
     }
 
-    public net.foreworld.gws.protobuf.User.LoginProtobuf getDefaultInstanceForType() {
+    public net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface LoginResultProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.LoginResultProtobuf)
+  public interface UserLoginResultProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.UserLoginResultProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2313,17 +2384,17 @@ public final class User {
         getTokenBytes();
   }
   /**
-   * Protobuf type {@code gws.LoginResultProtobuf}
+   * Protobuf type {@code gws.UserLoginResultProtobuf}
    */
-  public  static final class LoginResultProtobuf extends
+  public  static final class UserLoginResultProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.LoginResultProtobuf)
-      LoginResultProtobufOrBuilder {
-    // Use LoginResultProtobuf.newBuilder() to construct.
-    private LoginResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:gws.UserLoginResultProtobuf)
+      UserLoginResultProtobufOrBuilder {
+    // Use UserLoginResultProtobuf.newBuilder() to construct.
+    private UserLoginResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private LoginResultProtobuf() {
+    private UserLoginResultProtobuf() {
       token_ = "";
     }
 
@@ -2332,7 +2403,7 @@ public final class User {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private LoginResultProtobuf(
+    private UserLoginResultProtobuf(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2371,14 +2442,14 @@ public final class User {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              net.foreworld.gws.protobuf.User.LoginResultProtobuf.class, net.foreworld.gws.protobuf.User.LoginResultProtobuf.Builder.class);
+              net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.Builder.class);
     }
 
     public static final int TOKEN_FIELD_NUMBER = 1;
@@ -2450,10 +2521,10 @@ public final class User {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof net.foreworld.gws.protobuf.User.LoginResultProtobuf)) {
+      if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLoginResultProtobuf)) {
         return super.equals(obj);
       }
-      net.foreworld.gws.protobuf.User.LoginResultProtobuf other = (net.foreworld.gws.protobuf.User.LoginResultProtobuf) obj;
+      net.foreworld.gws.protobuf.User.UserLoginResultProtobuf other = (net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) obj;
 
       boolean result = true;
       result = result && getToken()
@@ -2475,58 +2546,58 @@ public final class User {
       return hash;
     }
 
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(byte[] data)
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(java.io.InputStream input)
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseDelimitedFrom(java.io.InputStream input)
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseDelimitedFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -2538,7 +2609,7 @@ public final class User {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(net.foreworld.gws.protobuf.User.LoginResultProtobuf prototype) {
+    public static Builder newBuilder(net.foreworld.gws.protobuf.User.UserLoginResultProtobuf prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -2553,25 +2624,25 @@ public final class User {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.LoginResultProtobuf}
+     * Protobuf type {@code gws.UserLoginResultProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.LoginResultProtobuf)
-        net.foreworld.gws.protobuf.User.LoginResultProtobufOrBuilder {
+        // @@protoc_insertion_point(builder_implements:gws.UserLoginResultProtobuf)
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                net.foreworld.gws.protobuf.User.LoginResultProtobuf.class, net.foreworld.gws.protobuf.User.LoginResultProtobuf.Builder.class);
+                net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.Builder.class);
       }
 
-      // Construct using net.foreworld.gws.protobuf.User.LoginResultProtobuf.newBuilder()
+      // Construct using net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -2595,23 +2666,23 @@ public final class User {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
       }
 
-      public net.foreworld.gws.protobuf.User.LoginResultProtobuf getDefaultInstanceForType() {
-        return net.foreworld.gws.protobuf.User.LoginResultProtobuf.getDefaultInstance();
+      public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.getDefaultInstance();
       }
 
-      public net.foreworld.gws.protobuf.User.LoginResultProtobuf build() {
-        net.foreworld.gws.protobuf.User.LoginResultProtobuf result = buildPartial();
+      public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf build() {
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobuf result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public net.foreworld.gws.protobuf.User.LoginResultProtobuf buildPartial() {
-        net.foreworld.gws.protobuf.User.LoginResultProtobuf result = new net.foreworld.gws.protobuf.User.LoginResultProtobuf(this);
+      public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobuf result = new net.foreworld.gws.protobuf.User.UserLoginResultProtobuf(this);
         result.token_ = token_;
         onBuilt();
         return result;
@@ -2644,16 +2715,16 @@ public final class User {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof net.foreworld.gws.protobuf.User.LoginResultProtobuf) {
-          return mergeFrom((net.foreworld.gws.protobuf.User.LoginResultProtobuf)other);
+        if (other instanceof net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.User.UserLoginResultProtobuf)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(net.foreworld.gws.protobuf.User.LoginResultProtobuf other) {
-        if (other == net.foreworld.gws.protobuf.User.LoginResultProtobuf.getDefaultInstance()) return this;
+      public Builder mergeFrom(net.foreworld.gws.protobuf.User.UserLoginResultProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.getDefaultInstance()) return this;
         if (!other.getToken().isEmpty()) {
           token_ = other.token_;
           onChanged();
@@ -2670,11 +2741,11 @@ public final class User {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        net.foreworld.gws.protobuf.User.LoginResultProtobuf parsedMessage = null;
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (net.foreworld.gws.protobuf.User.LoginResultProtobuf) e.getUnfinishedMessage();
+          parsedMessage = (net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -2763,66 +2834,71 @@ public final class User {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.LoginResultProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.UserLoginResultProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.LoginResultProtobuf)
-    private static final net.foreworld.gws.protobuf.User.LoginResultProtobuf DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:gws.UserLoginResultProtobuf)
+    private static final net.foreworld.gws.protobuf.User.UserLoginResultProtobuf DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.LoginResultProtobuf();
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLoginResultProtobuf();
     }
 
-    public static net.foreworld.gws.protobuf.User.LoginResultProtobuf getDefaultInstance() {
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<LoginResultProtobuf>
-        PARSER = new com.google.protobuf.AbstractParser<LoginResultProtobuf>() {
-      public LoginResultProtobuf parsePartialFrom(
+    private static final com.google.protobuf.Parser<UserLoginResultProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<UserLoginResultProtobuf>() {
+      public UserLoginResultProtobuf parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new LoginResultProtobuf(input, extensionRegistry);
+          return new UserLoginResultProtobuf(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<LoginResultProtobuf> parser() {
+    public static com.google.protobuf.Parser<UserLoginResultProtobuf> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<LoginResultProtobuf> getParserForType() {
+    public com.google.protobuf.Parser<UserLoginResultProtobuf> getParserForType() {
       return PARSER;
     }
 
-    public net.foreworld.gws.protobuf.User.LoginResultProtobuf getDefaultInstanceForType() {
+    public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
   }
 
-  public interface LogoutResultProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.LogoutResultProtobuf)
+  public interface UserLogoutResultProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.UserLogoutResultProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional bytes reason = 1;</code>
+     * <code>optional string reason = 1;</code>
      */
-    com.google.protobuf.ByteString getReason();
+    java.lang.String getReason();
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getReasonBytes();
   }
   /**
-   * Protobuf type {@code gws.LogoutResultProtobuf}
+   * Protobuf type {@code gws.UserLogoutResultProtobuf}
    */
-  public  static final class LogoutResultProtobuf extends
+  public  static final class UserLogoutResultProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.LogoutResultProtobuf)
-      LogoutResultProtobufOrBuilder {
-    // Use LogoutResultProtobuf.newBuilder() to construct.
-    private LogoutResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      // @@protoc_insertion_point(message_implements:gws.UserLogoutResultProtobuf)
+      UserLogoutResultProtobufOrBuilder {
+    // Use UserLogoutResultProtobuf.newBuilder() to construct.
+    private UserLogoutResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private LogoutResultProtobuf() {
-      reason_ = com.google.protobuf.ByteString.EMPTY;
+    private UserLogoutResultProtobuf() {
+      reason_ = "";
     }
 
     @java.lang.Override
@@ -2830,7 +2906,7 @@ public final class User {
     getUnknownFields() {
       return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
-    private LogoutResultProtobuf(
+    private UserLogoutResultProtobuf(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -2851,8 +2927,9 @@ public final class User {
               break;
             }
             case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
 
-              reason_ = input.readBytes();
+              reason_ = s;
               break;
             }
           }
@@ -2868,23 +2945,48 @@ public final class User {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              net.foreworld.gws.protobuf.User.LogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.LogoutResultProtobuf.Builder.class);
+              net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.Builder.class);
     }
 
     public static final int REASON_FIELD_NUMBER = 1;
-    private com.google.protobuf.ByteString reason_;
+    private volatile java.lang.Object reason_;
     /**
-     * <code>optional bytes reason = 1;</code>
+     * <code>optional string reason = 1;</code>
      */
-    public com.google.protobuf.ByteString getReason() {
-      return reason_;
+    public java.lang.String getReason() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        reason_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReasonBytes() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
     }
 
     private byte memoizedIsInitialized = -1;
@@ -2899,8 +3001,8 @@ public final class User {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!reason_.isEmpty()) {
-        output.writeBytes(1, reason_);
+      if (!getReasonBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, reason_);
       }
     }
 
@@ -2909,9 +3011,8 @@ public final class User {
       if (size != -1) return size;
 
       size = 0;
-      if (!reason_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, reason_);
+      if (!getReasonBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, reason_);
       }
       memoizedSize = size;
       return size;
@@ -2923,10 +3024,10 @@ public final class User {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof net.foreworld.gws.protobuf.User.LogoutResultProtobuf)) {
+      if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf)) {
         return super.equals(obj);
       }
-      net.foreworld.gws.protobuf.User.LogoutResultProtobuf other = (net.foreworld.gws.protobuf.User.LogoutResultProtobuf) obj;
+      net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf other = (net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) obj;
 
       boolean result = true;
       result = result && getReason()
@@ -2948,58 +3049,58 @@ public final class User {
       return hash;
     }
 
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(byte[] data)
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(java.io.InputStream input)
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseDelimitedFrom(java.io.InputStream input)
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseDelimitedFrom(
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf parseFrom(
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3011,7 +3112,7 @@ public final class User {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(net.foreworld.gws.protobuf.User.LogoutResultProtobuf prototype) {
+    public static Builder newBuilder(net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() {
@@ -3026,25 +3127,25 @@ public final class User {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.LogoutResultProtobuf}
+     * Protobuf type {@code gws.UserLogoutResultProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.LogoutResultProtobuf)
-        net.foreworld.gws.protobuf.User.LogoutResultProtobufOrBuilder {
+        // @@protoc_insertion_point(builder_implements:gws.UserLogoutResultProtobuf)
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                net.foreworld.gws.protobuf.User.LogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.LogoutResultProtobuf.Builder.class);
+                net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.Builder.class);
       }
 
-      // Construct using net.foreworld.gws.protobuf.User.LogoutResultProtobuf.newBuilder()
+      // Construct using net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3061,30 +3162,30 @@ public final class User {
       }
       public Builder clear() {
         super.clear();
-        reason_ = com.google.protobuf.ByteString.EMPTY;
+        reason_ = "";
 
         return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
       }
 
-      public net.foreworld.gws.protobuf.User.LogoutResultProtobuf getDefaultInstanceForType() {
-        return net.foreworld.gws.protobuf.User.LogoutResultProtobuf.getDefaultInstance();
+      public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.getDefaultInstance();
       }
 
-      public net.foreworld.gws.protobuf.User.LogoutResultProtobuf build() {
-        net.foreworld.gws.protobuf.User.LogoutResultProtobuf result = buildPartial();
+      public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf build() {
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public net.foreworld.gws.protobuf.User.LogoutResultProtobuf buildPartial() {
-        net.foreworld.gws.protobuf.User.LogoutResultProtobuf result = new net.foreworld.gws.protobuf.User.LogoutResultProtobuf(this);
+      public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf result = new net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf(this);
         result.reason_ = reason_;
         onBuilt();
         return result;
@@ -3117,18 +3218,19 @@ public final class User {
         return (Builder) super.addRepeatedField(field, value);
       }
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof net.foreworld.gws.protobuf.User.LogoutResultProtobuf) {
-          return mergeFrom((net.foreworld.gws.protobuf.User.LogoutResultProtobuf)other);
+        if (other instanceof net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(net.foreworld.gws.protobuf.User.LogoutResultProtobuf other) {
-        if (other == net.foreworld.gws.protobuf.User.LogoutResultProtobuf.getDefaultInstance()) return this;
-        if (other.getReason() != com.google.protobuf.ByteString.EMPTY) {
-          setReason(other.getReason());
+      public Builder mergeFrom(net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.getDefaultInstance()) return this;
+        if (!other.getReason().isEmpty()) {
+          reason_ = other.reason_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -3142,11 +3244,11 @@ public final class User {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        net.foreworld.gws.protobuf.User.LogoutResultProtobuf parsedMessage = null;
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (net.foreworld.gws.protobuf.User.LogoutResultProtobuf) e.getUnfinishedMessage();
+          parsedMessage = (net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3156,17 +3258,43 @@ public final class User {
         return this;
       }
 
-      private com.google.protobuf.ByteString reason_ = com.google.protobuf.ByteString.EMPTY;
+      private java.lang.Object reason_ = "";
       /**
-       * <code>optional bytes reason = 1;</code>
+       * <code>optional string reason = 1;</code>
        */
-      public com.google.protobuf.ByteString getReason() {
-        return reason_;
+      public java.lang.String getReason() {
+        java.lang.Object ref = reason_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          reason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
       }
       /**
-       * <code>optional bytes reason = 1;</code>
+       * <code>optional string reason = 1;</code>
        */
-      public Builder setReason(com.google.protobuf.ByteString value) {
+      public com.google.protobuf.ByteString
+          getReasonBytes() {
+        java.lang.Object ref = reason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          reason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder setReason(
+          java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
@@ -3176,11 +3304,25 @@ public final class User {
         return this;
       }
       /**
-       * <code>optional bytes reason = 1;</code>
+       * <code>optional string reason = 1;</code>
        */
       public Builder clearReason() {
         
         reason_ = getDefaultInstance().getReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder setReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        reason_ = value;
         onChanged();
         return this;
       }
@@ -3195,39 +3337,39 @@ public final class User {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.LogoutResultProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.UserLogoutResultProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.LogoutResultProtobuf)
-    private static final net.foreworld.gws.protobuf.User.LogoutResultProtobuf DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:gws.UserLogoutResultProtobuf)
+    private static final net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.LogoutResultProtobuf();
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf();
     }
 
-    public static net.foreworld.gws.protobuf.User.LogoutResultProtobuf getDefaultInstance() {
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<LogoutResultProtobuf>
-        PARSER = new com.google.protobuf.AbstractParser<LogoutResultProtobuf>() {
-      public LogoutResultProtobuf parsePartialFrom(
+    private static final com.google.protobuf.Parser<UserLogoutResultProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<UserLogoutResultProtobuf>() {
+      public UserLogoutResultProtobuf parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-          return new LogoutResultProtobuf(input, extensionRegistry);
+          return new UserLogoutResultProtobuf(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<LogoutResultProtobuf> parser() {
+    public static com.google.protobuf.Parser<UserLogoutResultProtobuf> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<LogoutResultProtobuf> getParserForType() {
+    public com.google.protobuf.Parser<UserLogoutResultProtobuf> getParserForType() {
       return PARSER;
     }
 
-    public net.foreworld.gws.protobuf.User.LogoutResultProtobuf getDefaultInstanceForType() {
+    public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -3239,20 +3381,20 @@ public final class User {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_gws_UserProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_LoginProtobuf_descriptor;
+    internal_static_gws_UserLoginProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_LoginProtobuf_fieldAccessorTable;
+      internal_static_gws_UserLoginProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_LoginResultProtobuf_descriptor;
+    internal_static_gws_UserLoginResultProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_LoginResultProtobuf_fieldAccessorTable;
+      internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_LogoutResultProtobuf_descriptor;
+    internal_static_gws_UserLogoutResultProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_LogoutResultProtobuf_fieldAccessorTable;
+      internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3268,11 +3410,12 @@ public final class User {
       "serProtobuf.Sex\022\016\n\006mobile\030\005 \001(\t\022\n\n\002qq\030\006 " +
       "\001(\t\022\016\n\006weixin\030\007 \001(\t\022\r\n\005email\030\010 \001(\t\022\016\n\006st" +
       "atus\030\t \001(\r\022\023\n\013device_code\030\n \001(\t\022\020\n\010nickn" +
-      "ame\030\013 \001(\014\"\033\n\003Sex\022\n\n\006FEMALE\020\000\022\010\n\004MALE\020\001\"\035" +
-      "\n\rLoginProtobuf\022\014\n\004code\030\001 \001(\t\"$\n\023LoginRe" +
-      "sultProtobuf\022\r\n\005token\030\001 \001(\t\"&\n\024LogoutRes" +
-      "ultProtobuf\022\016\n\006reason\030\001 \001(\014B\"\n\032net.forew",
-      "orld.gws.protobufB\004Userb\006proto3"
+      "ame\030\013 \001(\t\"\033\n\003Sex\022\n\n\006FEMALE\020\000\022\010\n\004MALE\020\001\"!" +
+      "\n\021UserLoginProtobuf\022\014\n\004code\030\001 \001(\t\"(\n\027Use" +
+      "rLoginResultProtobuf\022\r\n\005token\030\001 \001(\t\"*\n\030U" +
+      "serLogoutResultProtobuf\022\016\n\006reason\030\001 \001(\tB",
+      "\"\n\032net.foreworld.gws.protobufB\004Userb\006pro" +
+      "to3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3292,23 +3435,23 @@ public final class User {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_UserProtobuf_descriptor,
         new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", "Mobile", "Qq", "Weixin", "Email", "Status", "DeviceCode", "Nickname", });
-    internal_static_gws_LoginProtobuf_descriptor =
+    internal_static_gws_UserLoginProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_gws_LoginProtobuf_fieldAccessorTable = new
+    internal_static_gws_UserLoginProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_LoginProtobuf_descriptor,
+        internal_static_gws_UserLoginProtobuf_descriptor,
         new java.lang.String[] { "Code", });
-    internal_static_gws_LoginResultProtobuf_descriptor =
+    internal_static_gws_UserLoginResultProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_gws_LoginResultProtobuf_fieldAccessorTable = new
+    internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_LoginResultProtobuf_descriptor,
+        internal_static_gws_UserLoginResultProtobuf_descriptor,
         new java.lang.String[] { "Token", });
-    internal_static_gws_LogoutResultProtobuf_descriptor =
+    internal_static_gws_UserLogoutResultProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_gws_LogoutResultProtobuf_fieldAccessorTable = new
+    internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_LogoutResultProtobuf_descriptor,
+        internal_static_gws_UserLogoutResultProtobuf_descriptor,
         new java.lang.String[] { "Reason", });
   }
 

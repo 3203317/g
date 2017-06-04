@@ -6,9 +6,9 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
-goog.provide('proto.gws.LoginProtobuf');
-goog.provide('proto.gws.LoginResultProtobuf');
-goog.provide('proto.gws.LogoutResultProtobuf');
+goog.provide('proto.gws.UserLoginProtobuf');
+goog.provide('proto.gws.UserLoginResultProtobuf');
+goog.provide('proto.gws.UserLogoutResultProtobuf');
 goog.provide('proto.gws.UserProtobuf');
 goog.provide('proto.gws.UserProtobuf.Sex');
 
@@ -72,7 +72,7 @@ proto.gws.UserProtobuf.toObject = function(includeInstance, msg) {
     email: jspb.Message.getFieldWithDefault(msg, 8, ""),
     status: jspb.Message.getFieldWithDefault(msg, 9, 0),
     deviceCode: jspb.Message.getFieldWithDefault(msg, 10, ""),
-    nickname: msg.getNickname_asB64()
+    nickname: jspb.Message.getFieldWithDefault(msg, 11, "")
   };
 
   if (includeInstance) {
@@ -150,7 +150,7 @@ proto.gws.UserProtobuf.deserializeBinaryFromReader = function(msg, reader) {
       msg.setDeviceCode(value);
       break;
     case 11:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setNickname(value);
       break;
     default:
@@ -261,9 +261,9 @@ proto.gws.UserProtobuf.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
-  f = this.getNickname_asU8();
+  f = this.getNickname();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       11,
       f
     );
@@ -422,39 +422,15 @@ proto.gws.UserProtobuf.prototype.setDeviceCode = function(value) {
 
 
 /**
- * optional bytes nickname = 11;
- * @return {!(string|Uint8Array)}
- */
-proto.gws.UserProtobuf.prototype.getNickname = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
-};
-
-
-/**
- * optional bytes nickname = 11;
- * This is a type-conversion wrapper around `getNickname()`
+ * optional string nickname = 11;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getNickname_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getNickname()));
+proto.gws.UserProtobuf.prototype.getNickname = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 11, ""));
 };
 
 
-/**
- * optional bytes nickname = 11;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getNickname()`
- * @return {!Uint8Array}
- */
-proto.gws.UserProtobuf.prototype.getNickname_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getNickname()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
+/** @param {string} value */
 proto.gws.UserProtobuf.prototype.setNickname = function(value) {
   jspb.Message.setField(this, 11, value);
 };
@@ -479,12 +455,12 @@ proto.gws.UserProtobuf.Sex = {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.LoginProtobuf = function(opt_data) {
+proto.gws.UserLoginProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.LoginProtobuf, jspb.Message);
+goog.inherits(proto.gws.UserLoginProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.LoginProtobuf.displayName = 'proto.gws.LoginProtobuf';
+  proto.gws.UserLoginProtobuf.displayName = 'proto.gws.UserLoginProtobuf';
 }
 
 
@@ -499,8 +475,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.LoginProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.LoginProtobuf.toObject(opt_includeInstance, this);
+proto.gws.UserLoginProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.UserLoginProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -509,10 +485,10 @@ proto.gws.LoginProtobuf.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.LoginProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.UserLoginProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.LoginProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.UserLoginProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
@@ -528,23 +504,23 @@ proto.gws.LoginProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.LoginProtobuf}
+ * @return {!proto.gws.UserLoginProtobuf}
  */
-proto.gws.LoginProtobuf.deserializeBinary = function(bytes) {
+proto.gws.UserLoginProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.LoginProtobuf;
-  return proto.gws.LoginProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.UserLoginProtobuf;
+  return proto.gws.UserLoginProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.LoginProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.UserLoginProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.LoginProtobuf}
+ * @return {!proto.gws.UserLoginProtobuf}
  */
-proto.gws.LoginProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.UserLoginProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -567,10 +543,10 @@ proto.gws.LoginProtobuf.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.LoginProtobuf} message
+ * @param {!proto.gws.UserLoginProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.UserLoginProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -579,7 +555,7 @@ proto.gws.LoginProtobuf.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.LoginProtobuf.prototype.serializeBinary = function() {
+proto.gws.UserLoginProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -591,7 +567,7 @@ proto.gws.LoginProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.UserLoginProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getCode();
   if (f.length > 0) {
@@ -607,13 +583,13 @@ proto.gws.LoginProtobuf.prototype.serializeBinaryToWriter = function (writer) {
  * optional string code = 1;
  * @return {string}
  */
-proto.gws.LoginProtobuf.prototype.getCode = function() {
+proto.gws.UserLoginProtobuf.prototype.getCode = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.LoginProtobuf.prototype.setCode = function(value) {
+proto.gws.UserLoginProtobuf.prototype.setCode = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -629,12 +605,12 @@ proto.gws.LoginProtobuf.prototype.setCode = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.LoginResultProtobuf = function(opt_data) {
+proto.gws.UserLoginResultProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.LoginResultProtobuf, jspb.Message);
+goog.inherits(proto.gws.UserLoginResultProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.LoginResultProtobuf.displayName = 'proto.gws.LoginResultProtobuf';
+  proto.gws.UserLoginResultProtobuf.displayName = 'proto.gws.UserLoginResultProtobuf';
 }
 
 
@@ -649,8 +625,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.LoginResultProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.LoginResultProtobuf.toObject(opt_includeInstance, this);
+proto.gws.UserLoginResultProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.UserLoginResultProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -659,10 +635,10 @@ proto.gws.LoginResultProtobuf.prototype.toObject = function(opt_includeInstance)
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.LoginResultProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.UserLoginResultProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.LoginResultProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.UserLoginResultProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     token: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
@@ -678,23 +654,23 @@ proto.gws.LoginResultProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.LoginResultProtobuf}
+ * @return {!proto.gws.UserLoginResultProtobuf}
  */
-proto.gws.LoginResultProtobuf.deserializeBinary = function(bytes) {
+proto.gws.UserLoginResultProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.LoginResultProtobuf;
-  return proto.gws.LoginResultProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.UserLoginResultProtobuf;
+  return proto.gws.UserLoginResultProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.LoginResultProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.UserLoginResultProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.LoginResultProtobuf}
+ * @return {!proto.gws.UserLoginResultProtobuf}
  */
-proto.gws.LoginResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.UserLoginResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -717,10 +693,10 @@ proto.gws.LoginResultProtobuf.deserializeBinaryFromReader = function(msg, reader
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.LoginResultProtobuf} message
+ * @param {!proto.gws.UserLoginResultProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginResultProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.UserLoginResultProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -729,7 +705,7 @@ proto.gws.LoginResultProtobuf.serializeBinaryToWriter = function(message, writer
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.LoginResultProtobuf.prototype.serializeBinary = function() {
+proto.gws.UserLoginResultProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -741,7 +717,7 @@ proto.gws.LoginResultProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.UserLoginResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getToken();
   if (f.length > 0) {
@@ -757,13 +733,13 @@ proto.gws.LoginResultProtobuf.prototype.serializeBinaryToWriter = function (writ
  * optional string token = 1;
  * @return {string}
  */
-proto.gws.LoginResultProtobuf.prototype.getToken = function() {
+proto.gws.UserLoginResultProtobuf.prototype.getToken = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.LoginResultProtobuf.prototype.setToken = function(value) {
+proto.gws.UserLoginResultProtobuf.prototype.setToken = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -779,12 +755,12 @@ proto.gws.LoginResultProtobuf.prototype.setToken = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.LogoutResultProtobuf = function(opt_data) {
+proto.gws.UserLogoutResultProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.LogoutResultProtobuf, jspb.Message);
+goog.inherits(proto.gws.UserLogoutResultProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.LogoutResultProtobuf.displayName = 'proto.gws.LogoutResultProtobuf';
+  proto.gws.UserLogoutResultProtobuf.displayName = 'proto.gws.UserLogoutResultProtobuf';
 }
 
 
@@ -799,8 +775,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.LogoutResultProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.LogoutResultProtobuf.toObject(opt_includeInstance, this);
+proto.gws.UserLogoutResultProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.UserLogoutResultProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -809,12 +785,12 @@ proto.gws.LogoutResultProtobuf.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.LogoutResultProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.UserLogoutResultProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.LogoutResultProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.UserLogoutResultProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
-    reason: msg.getReason_asB64()
+    reason: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
 
   if (includeInstance) {
@@ -828,23 +804,23 @@ proto.gws.LogoutResultProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.LogoutResultProtobuf}
+ * @return {!proto.gws.UserLogoutResultProtobuf}
  */
-proto.gws.LogoutResultProtobuf.deserializeBinary = function(bytes) {
+proto.gws.UserLogoutResultProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.LogoutResultProtobuf;
-  return proto.gws.LogoutResultProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.UserLogoutResultProtobuf;
+  return proto.gws.UserLogoutResultProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.LogoutResultProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.UserLogoutResultProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.LogoutResultProtobuf}
+ * @return {!proto.gws.UserLogoutResultProtobuf}
  */
-proto.gws.LogoutResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.UserLogoutResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -852,7 +828,7 @@ proto.gws.LogoutResultProtobuf.deserializeBinaryFromReader = function(msg, reade
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      var value = /** @type {string} */ (reader.readString());
       msg.setReason(value);
       break;
     default:
@@ -867,10 +843,10 @@ proto.gws.LogoutResultProtobuf.deserializeBinaryFromReader = function(msg, reade
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.LogoutResultProtobuf} message
+ * @param {!proto.gws.UserLogoutResultProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LogoutResultProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.UserLogoutResultProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -879,7 +855,7 @@ proto.gws.LogoutResultProtobuf.serializeBinaryToWriter = function(message, write
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.LogoutResultProtobuf.prototype.serializeBinary = function() {
+proto.gws.UserLogoutResultProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -891,11 +867,11 @@ proto.gws.LogoutResultProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LogoutResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.UserLogoutResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getReason_asU8();
+  f = this.getReason();
   if (f.length > 0) {
-    writer.writeBytes(
+    writer.writeString(
       1,
       f
     );
@@ -904,40 +880,16 @@ proto.gws.LogoutResultProtobuf.prototype.serializeBinaryToWriter = function (wri
 
 
 /**
- * optional bytes reason = 1;
- * @return {!(string|Uint8Array)}
- */
-proto.gws.LogoutResultProtobuf.prototype.getReason = function() {
-  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
-};
-
-
-/**
- * optional bytes reason = 1;
- * This is a type-conversion wrapper around `getReason()`
+ * optional string reason = 1;
  * @return {string}
  */
-proto.gws.LogoutResultProtobuf.prototype.getReason_asB64 = function() {
-  return /** @type {string} */ (jspb.Message.bytesAsB64(
-      this.getReason()));
+proto.gws.UserLogoutResultProtobuf.prototype.getReason = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/**
- * optional bytes reason = 1;
- * Note that Uint8Array is not supported on all browsers.
- * @see http://caniuse.com/Uint8Array
- * This is a type-conversion wrapper around `getReason()`
- * @return {!Uint8Array}
- */
-proto.gws.LogoutResultProtobuf.prototype.getReason_asU8 = function() {
-  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
-      this.getReason()));
-};
-
-
-/** @param {!(string|Uint8Array)} value */
-proto.gws.LogoutResultProtobuf.prototype.setReason = function(value) {
+/** @param {string} value */
+proto.gws.UserLogoutResultProtobuf.prototype.setReason = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
