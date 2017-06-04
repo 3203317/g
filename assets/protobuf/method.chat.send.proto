@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package gws.method.chat.send;
+
+import "protobuf/model.chat.proto";
+
+option java_package = "net.foreworld.gws.protobuf.method.chat";
+option java_outer_classname = "Send";
+
+message RequestProtobuf {
+  string receiver = 1;
+  bytes comment = 2;
+}
+
+message ResponseProtobuf {
+  ChatProtobuf chat = 1;
+}
