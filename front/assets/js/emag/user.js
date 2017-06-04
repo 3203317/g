@@ -6,11 +6,11 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
-goog.provide('proto.gws.LoginProtobuf');
-goog.provide('proto.gws.LoginResultProtobuf');
-goog.provide('proto.gws.LogoutResultProtobuf');
-goog.provide('proto.gws.UserProtobuf');
-goog.provide('proto.gws.UserProtobuf.Sex');
+goog.provide('proto.gws.user.LoginProtobuf');
+goog.provide('proto.gws.user.LoginResultProtobuf');
+goog.provide('proto.gws.user.LogoutResultProtobuf');
+goog.provide('proto.gws.user.UserProtobuf');
+goog.provide('proto.gws.user.UserProtobuf.Sex');
 
 goog.require('jspb.Message');
 goog.require('jspb.BinaryReader');
@@ -27,12 +27,12 @@ goog.require('jspb.BinaryWriter');
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.UserProtobuf = function(opt_data) {
+proto.gws.user.UserProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.UserProtobuf, jspb.Message);
+goog.inherits(proto.gws.user.UserProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.UserProtobuf.displayName = 'proto.gws.UserProtobuf';
+  proto.gws.user.UserProtobuf.displayName = 'proto.gws.user.UserProtobuf';
 }
 
 
@@ -47,8 +47,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.UserProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.UserProtobuf.toObject(opt_includeInstance, this);
+proto.gws.user.UserProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.user.UserProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -57,10 +57,10 @@ proto.gws.UserProtobuf.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.UserProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.user.UserProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.UserProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.user.UserProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
     userName: jspb.Message.getFieldWithDefault(msg, 2, ""),
@@ -85,23 +85,23 @@ proto.gws.UserProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.UserProtobuf}
+ * @return {!proto.gws.user.UserProtobuf}
  */
-proto.gws.UserProtobuf.deserializeBinary = function(bytes) {
+proto.gws.user.UserProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.UserProtobuf;
-  return proto.gws.UserProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.user.UserProtobuf;
+  return proto.gws.user.UserProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.UserProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.user.UserProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.UserProtobuf}
+ * @return {!proto.gws.user.UserProtobuf}
  */
-proto.gws.UserProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.user.UserProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -121,7 +121,7 @@ proto.gws.UserProtobuf.deserializeBinaryFromReader = function(msg, reader) {
       msg.setUserPass(value);
       break;
     case 4:
-      var value = /** @type {!proto.gws.UserProtobuf.Sex} */ (reader.readEnum());
+      var value = /** @type {!proto.gws.user.UserProtobuf.Sex} */ (reader.readEnum());
       msg.setSex(value);
       break;
     case 5:
@@ -160,10 +160,10 @@ proto.gws.UserProtobuf.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.UserProtobuf} message
+ * @param {!proto.gws.user.UserProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.UserProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.user.UserProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -172,7 +172,7 @@ proto.gws.UserProtobuf.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.UserProtobuf.prototype.serializeBinary = function() {
+proto.gws.user.UserProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -184,7 +184,7 @@ proto.gws.UserProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.UserProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.user.UserProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getId();
   if (f.length > 0) {
@@ -263,13 +263,13 @@ proto.gws.UserProtobuf.prototype.serializeBinaryToWriter = function (writer) {
  * optional string id = 1;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getId = function() {
+proto.gws.user.UserProtobuf.prototype.getId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setId = function(value) {
+proto.gws.user.UserProtobuf.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -278,13 +278,13 @@ proto.gws.UserProtobuf.prototype.setId = function(value) {
  * optional string user_name = 2;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getUserName = function() {
+proto.gws.user.UserProtobuf.prototype.getUserName = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setUserName = function(value) {
+proto.gws.user.UserProtobuf.prototype.setUserName = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -293,28 +293,28 @@ proto.gws.UserProtobuf.prototype.setUserName = function(value) {
  * optional string user_pass = 3;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getUserPass = function() {
+proto.gws.user.UserProtobuf.prototype.getUserPass = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setUserPass = function(value) {
+proto.gws.user.UserProtobuf.prototype.setUserPass = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
 
 /**
  * optional Sex sex = 4;
- * @return {!proto.gws.UserProtobuf.Sex}
+ * @return {!proto.gws.user.UserProtobuf.Sex}
  */
-proto.gws.UserProtobuf.prototype.getSex = function() {
-  return /** @type {!proto.gws.UserProtobuf.Sex} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+proto.gws.user.UserProtobuf.prototype.getSex = function() {
+  return /** @type {!proto.gws.user.UserProtobuf.Sex} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
 };
 
 
-/** @param {!proto.gws.UserProtobuf.Sex} value */
-proto.gws.UserProtobuf.prototype.setSex = function(value) {
+/** @param {!proto.gws.user.UserProtobuf.Sex} value */
+proto.gws.user.UserProtobuf.prototype.setSex = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -323,13 +323,13 @@ proto.gws.UserProtobuf.prototype.setSex = function(value) {
  * optional string mobile = 5;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getMobile = function() {
+proto.gws.user.UserProtobuf.prototype.getMobile = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setMobile = function(value) {
+proto.gws.user.UserProtobuf.prototype.setMobile = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -338,13 +338,13 @@ proto.gws.UserProtobuf.prototype.setMobile = function(value) {
  * optional string qq = 6;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getQq = function() {
+proto.gws.user.UserProtobuf.prototype.getQq = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setQq = function(value) {
+proto.gws.user.UserProtobuf.prototype.setQq = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 
@@ -353,13 +353,13 @@ proto.gws.UserProtobuf.prototype.setQq = function(value) {
  * optional string weixin = 7;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getWeixin = function() {
+proto.gws.user.UserProtobuf.prototype.getWeixin = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setWeixin = function(value) {
+proto.gws.user.UserProtobuf.prototype.setWeixin = function(value) {
   jspb.Message.setField(this, 7, value);
 };
 
@@ -368,13 +368,13 @@ proto.gws.UserProtobuf.prototype.setWeixin = function(value) {
  * optional string email = 8;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getEmail = function() {
+proto.gws.user.UserProtobuf.prototype.getEmail = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 8, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setEmail = function(value) {
+proto.gws.user.UserProtobuf.prototype.setEmail = function(value) {
   jspb.Message.setField(this, 8, value);
 };
 
@@ -383,13 +383,13 @@ proto.gws.UserProtobuf.prototype.setEmail = function(value) {
  * optional uint32 status = 9;
  * @return {number}
  */
-proto.gws.UserProtobuf.prototype.getStatus = function() {
+proto.gws.user.UserProtobuf.prototype.getStatus = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 9, 0));
 };
 
 
 /** @param {number} value */
-proto.gws.UserProtobuf.prototype.setStatus = function(value) {
+proto.gws.user.UserProtobuf.prototype.setStatus = function(value) {
   jspb.Message.setField(this, 9, value);
 };
 
@@ -398,13 +398,13 @@ proto.gws.UserProtobuf.prototype.setStatus = function(value) {
  * optional string device_code = 10;
  * @return {string}
  */
-proto.gws.UserProtobuf.prototype.getDeviceCode = function() {
+proto.gws.user.UserProtobuf.prototype.getDeviceCode = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 10, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.UserProtobuf.prototype.setDeviceCode = function(value) {
+proto.gws.user.UserProtobuf.prototype.setDeviceCode = function(value) {
   jspb.Message.setField(this, 10, value);
 };
 
@@ -412,7 +412,7 @@ proto.gws.UserProtobuf.prototype.setDeviceCode = function(value) {
 /**
  * @enum {number}
  */
-proto.gws.UserProtobuf.Sex = {
+proto.gws.user.UserProtobuf.Sex = {
   FEMALE: 0,
   MALE: 1
 };
@@ -428,12 +428,12 @@ proto.gws.UserProtobuf.Sex = {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.LoginProtobuf = function(opt_data) {
+proto.gws.user.LoginProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.LoginProtobuf, jspb.Message);
+goog.inherits(proto.gws.user.LoginProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.LoginProtobuf.displayName = 'proto.gws.LoginProtobuf';
+  proto.gws.user.LoginProtobuf.displayName = 'proto.gws.user.LoginProtobuf';
 }
 
 
@@ -448,8 +448,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.LoginProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.LoginProtobuf.toObject(opt_includeInstance, this);
+proto.gws.user.LoginProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.user.LoginProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -458,10 +458,10 @@ proto.gws.LoginProtobuf.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.LoginProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.user.LoginProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.LoginProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.user.LoginProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     code: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
@@ -477,23 +477,23 @@ proto.gws.LoginProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.LoginProtobuf}
+ * @return {!proto.gws.user.LoginProtobuf}
  */
-proto.gws.LoginProtobuf.deserializeBinary = function(bytes) {
+proto.gws.user.LoginProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.LoginProtobuf;
-  return proto.gws.LoginProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.user.LoginProtobuf;
+  return proto.gws.user.LoginProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.LoginProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.user.LoginProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.LoginProtobuf}
+ * @return {!proto.gws.user.LoginProtobuf}
  */
-proto.gws.LoginProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.user.LoginProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -516,10 +516,10 @@ proto.gws.LoginProtobuf.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.LoginProtobuf} message
+ * @param {!proto.gws.user.LoginProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.user.LoginProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -528,7 +528,7 @@ proto.gws.LoginProtobuf.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.LoginProtobuf.prototype.serializeBinary = function() {
+proto.gws.user.LoginProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -540,7 +540,7 @@ proto.gws.LoginProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.user.LoginProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getCode();
   if (f.length > 0) {
@@ -556,13 +556,13 @@ proto.gws.LoginProtobuf.prototype.serializeBinaryToWriter = function (writer) {
  * optional string code = 1;
  * @return {string}
  */
-proto.gws.LoginProtobuf.prototype.getCode = function() {
+proto.gws.user.LoginProtobuf.prototype.getCode = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.LoginProtobuf.prototype.setCode = function(value) {
+proto.gws.user.LoginProtobuf.prototype.setCode = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -578,12 +578,12 @@ proto.gws.LoginProtobuf.prototype.setCode = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.LoginResultProtobuf = function(opt_data) {
+proto.gws.user.LoginResultProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.LoginResultProtobuf, jspb.Message);
+goog.inherits(proto.gws.user.LoginResultProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.LoginResultProtobuf.displayName = 'proto.gws.LoginResultProtobuf';
+  proto.gws.user.LoginResultProtobuf.displayName = 'proto.gws.user.LoginResultProtobuf';
 }
 
 
@@ -598,8 +598,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.LoginResultProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.LoginResultProtobuf.toObject(opt_includeInstance, this);
+proto.gws.user.LoginResultProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.user.LoginResultProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -608,10 +608,10 @@ proto.gws.LoginResultProtobuf.prototype.toObject = function(opt_includeInstance)
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.LoginResultProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.user.LoginResultProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.LoginResultProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.user.LoginResultProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     token: jspb.Message.getFieldWithDefault(msg, 1, "")
   };
@@ -627,23 +627,23 @@ proto.gws.LoginResultProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.LoginResultProtobuf}
+ * @return {!proto.gws.user.LoginResultProtobuf}
  */
-proto.gws.LoginResultProtobuf.deserializeBinary = function(bytes) {
+proto.gws.user.LoginResultProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.LoginResultProtobuf;
-  return proto.gws.LoginResultProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.user.LoginResultProtobuf;
+  return proto.gws.user.LoginResultProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.LoginResultProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.user.LoginResultProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.LoginResultProtobuf}
+ * @return {!proto.gws.user.LoginResultProtobuf}
  */
-proto.gws.LoginResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.user.LoginResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -666,10 +666,10 @@ proto.gws.LoginResultProtobuf.deserializeBinaryFromReader = function(msg, reader
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.LoginResultProtobuf} message
+ * @param {!proto.gws.user.LoginResultProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginResultProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.user.LoginResultProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -678,7 +678,7 @@ proto.gws.LoginResultProtobuf.serializeBinaryToWriter = function(message, writer
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.LoginResultProtobuf.prototype.serializeBinary = function() {
+proto.gws.user.LoginResultProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -690,7 +690,7 @@ proto.gws.LoginResultProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LoginResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.user.LoginResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getToken();
   if (f.length > 0) {
@@ -706,13 +706,13 @@ proto.gws.LoginResultProtobuf.prototype.serializeBinaryToWriter = function (writ
  * optional string token = 1;
  * @return {string}
  */
-proto.gws.LoginResultProtobuf.prototype.getToken = function() {
+proto.gws.user.LoginResultProtobuf.prototype.getToken = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.LoginResultProtobuf.prototype.setToken = function(value) {
+proto.gws.user.LoginResultProtobuf.prototype.setToken = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -728,12 +728,12 @@ proto.gws.LoginResultProtobuf.prototype.setToken = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.LogoutResultProtobuf = function(opt_data) {
+proto.gws.user.LogoutResultProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.LogoutResultProtobuf, jspb.Message);
+goog.inherits(proto.gws.user.LogoutResultProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.LogoutResultProtobuf.displayName = 'proto.gws.LogoutResultProtobuf';
+  proto.gws.user.LogoutResultProtobuf.displayName = 'proto.gws.user.LogoutResultProtobuf';
 }
 
 
@@ -748,8 +748,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.LogoutResultProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.LogoutResultProtobuf.toObject(opt_includeInstance, this);
+proto.gws.user.LogoutResultProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.user.LogoutResultProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -758,10 +758,10 @@ proto.gws.LogoutResultProtobuf.prototype.toObject = function(opt_includeInstance
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.LogoutResultProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.user.LogoutResultProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.LogoutResultProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.user.LogoutResultProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     reason: msg.getReason_asB64()
   };
@@ -777,23 +777,23 @@ proto.gws.LogoutResultProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.LogoutResultProtobuf}
+ * @return {!proto.gws.user.LogoutResultProtobuf}
  */
-proto.gws.LogoutResultProtobuf.deserializeBinary = function(bytes) {
+proto.gws.user.LogoutResultProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.LogoutResultProtobuf;
-  return proto.gws.LogoutResultProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.user.LogoutResultProtobuf;
+  return proto.gws.user.LogoutResultProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.LogoutResultProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.user.LogoutResultProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.LogoutResultProtobuf}
+ * @return {!proto.gws.user.LogoutResultProtobuf}
  */
-proto.gws.LogoutResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.user.LogoutResultProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -816,10 +816,10 @@ proto.gws.LogoutResultProtobuf.deserializeBinaryFromReader = function(msg, reade
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.LogoutResultProtobuf} message
+ * @param {!proto.gws.user.LogoutResultProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LogoutResultProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.user.LogoutResultProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -828,7 +828,7 @@ proto.gws.LogoutResultProtobuf.serializeBinaryToWriter = function(message, write
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.LogoutResultProtobuf.prototype.serializeBinary = function() {
+proto.gws.user.LogoutResultProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -840,7 +840,7 @@ proto.gws.LogoutResultProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.LogoutResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.user.LogoutResultProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getReason_asU8();
   if (f.length > 0) {
@@ -856,7 +856,7 @@ proto.gws.LogoutResultProtobuf.prototype.serializeBinaryToWriter = function (wri
  * optional bytes reason = 1;
  * @return {!(string|Uint8Array)}
  */
-proto.gws.LogoutResultProtobuf.prototype.getReason = function() {
+proto.gws.user.LogoutResultProtobuf.prototype.getReason = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
@@ -866,7 +866,7 @@ proto.gws.LogoutResultProtobuf.prototype.getReason = function() {
  * This is a type-conversion wrapper around `getReason()`
  * @return {string}
  */
-proto.gws.LogoutResultProtobuf.prototype.getReason_asB64 = function() {
+proto.gws.user.LogoutResultProtobuf.prototype.getReason_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getReason()));
 };
@@ -879,14 +879,14 @@ proto.gws.LogoutResultProtobuf.prototype.getReason_asB64 = function() {
  * This is a type-conversion wrapper around `getReason()`
  * @return {!Uint8Array}
  */
-proto.gws.LogoutResultProtobuf.prototype.getReason_asU8 = function() {
+proto.gws.user.LogoutResultProtobuf.prototype.getReason_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getReason()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.gws.LogoutResultProtobuf.prototype.setReason = function(value) {
+proto.gws.user.LogoutResultProtobuf.prototype.setReason = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 

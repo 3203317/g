@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package gws;
+package gws.chat;
 
 option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Chat";

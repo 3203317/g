@@ -15,7 +15,7 @@ public final class User {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface UserProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.UserProtobuf)
+      // @@protoc_insertion_point(interface_extends:gws.user.UserProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -49,11 +49,11 @@ public final class User {
         getUserPassBytes();
 
     /**
-     * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+     * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
      */
     int getSexValue();
     /**
-     * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+     * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
      */
     net.foreworld.gws.protobuf.User.UserProtobuf.Sex getSex();
 
@@ -113,11 +113,11 @@ public final class User {
         getDeviceCodeBytes();
   }
   /**
-   * Protobuf type {@code gws.UserProtobuf}
+   * Protobuf type {@code gws.user.UserProtobuf}
    */
   public  static final class UserProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.UserProtobuf)
+      // @@protoc_insertion_point(message_implements:gws.user.UserProtobuf)
       UserProtobufOrBuilder {
     // Use UserProtobuf.newBuilder() to construct.
     private UserProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -233,18 +233,18 @@ public final class User {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_UserProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_UserProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_UserProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_UserProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.foreworld.gws.protobuf.User.UserProtobuf.class, net.foreworld.gws.protobuf.User.UserProtobuf.Builder.class);
     }
 
     /**
-     * Protobuf enum {@code gws.UserProtobuf.Sex}
+     * Protobuf enum {@code gws.user.UserProtobuf.Sex}
      */
     public enum Sex
         implements com.google.protobuf.ProtocolMessageEnum {
@@ -338,7 +338,7 @@ public final class User {
         this.value = value;
       }
 
-      // @@protoc_insertion_point(enum_scope:gws.UserProtobuf.Sex)
+      // @@protoc_insertion_point(enum_scope:gws.user.UserProtobuf.Sex)
     }
 
     public static final int ID_FIELD_NUMBER = 1;
@@ -446,13 +446,13 @@ public final class User {
     public static final int SEX_FIELD_NUMBER = 4;
     private int sex_;
     /**
-     * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+     * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
      */
     public int getSexValue() {
       return sex_;
     }
     /**
-     * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+     * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
      */
     public net.foreworld.gws.protobuf.User.UserProtobuf.Sex getSex() {
       net.foreworld.gws.protobuf.User.UserProtobuf.Sex result = net.foreworld.gws.protobuf.User.UserProtobuf.Sex.valueOf(sex_);
@@ -867,20 +867,20 @@ public final class User {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.UserProtobuf}
+     * Protobuf type {@code gws.user.UserProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.UserProtobuf)
+        // @@protoc_insertion_point(builder_implements:gws.user.UserProtobuf)
         net.foreworld.gws.protobuf.User.UserProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_UserProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_UserProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_UserProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_UserProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.foreworld.gws.protobuf.User.UserProtobuf.class, net.foreworld.gws.protobuf.User.UserProtobuf.Builder.class);
       }
@@ -927,7 +927,7 @@ public final class User {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_UserProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_UserProtobuf_descriptor;
       }
 
       public net.foreworld.gws.protobuf.User.UserProtobuf getDefaultInstanceForType() {
@@ -1268,13 +1268,13 @@ public final class User {
 
       private int sex_ = 0;
       /**
-       * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+       * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
        */
       public int getSexValue() {
         return sex_;
       }
       /**
-       * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+       * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
        */
       public Builder setSexValue(int value) {
         sex_ = value;
@@ -1282,14 +1282,14 @@ public final class User {
         return this;
       }
       /**
-       * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+       * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
        */
       public net.foreworld.gws.protobuf.User.UserProtobuf.Sex getSex() {
         net.foreworld.gws.protobuf.User.UserProtobuf.Sex result = net.foreworld.gws.protobuf.User.UserProtobuf.Sex.valueOf(sex_);
         return result == null ? net.foreworld.gws.protobuf.User.UserProtobuf.Sex.UNRECOGNIZED : result;
       }
       /**
-       * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+       * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
        */
       public Builder setSex(net.foreworld.gws.protobuf.User.UserProtobuf.Sex value) {
         if (value == null) {
@@ -1301,7 +1301,7 @@ public final class User {
         return this;
       }
       /**
-       * <code>optional .gws.UserProtobuf.Sex sex = 4;</code>
+       * <code>optional .gws.user.UserProtobuf.Sex sex = 4;</code>
        */
       public Builder clearSex() {
         
@@ -1691,10 +1691,10 @@ public final class User {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.UserProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.user.UserProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.UserProtobuf)
+    // @@protoc_insertion_point(class_scope:gws.user.UserProtobuf)
     private static final net.foreworld.gws.protobuf.User.UserProtobuf DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserProtobuf();
@@ -1730,7 +1730,7 @@ public final class User {
   }
 
   public interface LoginProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.LoginProtobuf)
+      // @@protoc_insertion_point(interface_extends:gws.user.LoginProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -1744,11 +1744,11 @@ public final class User {
         getCodeBytes();
   }
   /**
-   * Protobuf type {@code gws.LoginProtobuf}
+   * Protobuf type {@code gws.user.LoginProtobuf}
    */
   public  static final class LoginProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.LoginProtobuf)
+      // @@protoc_insertion_point(message_implements:gws.user.LoginProtobuf)
       LoginProtobufOrBuilder {
     // Use LoginProtobuf.newBuilder() to construct.
     private LoginProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -1802,12 +1802,12 @@ public final class User {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.foreworld.gws.protobuf.User.LoginProtobuf.class, net.foreworld.gws.protobuf.User.LoginProtobuf.Builder.class);
     }
@@ -1984,20 +1984,20 @@ public final class User {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.LoginProtobuf}
+     * Protobuf type {@code gws.user.LoginProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.LoginProtobuf)
+        // @@protoc_insertion_point(builder_implements:gws.user.LoginProtobuf)
         net.foreworld.gws.protobuf.User.LoginProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.foreworld.gws.protobuf.User.LoginProtobuf.class, net.foreworld.gws.protobuf.User.LoginProtobuf.Builder.class);
       }
@@ -2026,7 +2026,7 @@ public final class User {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginProtobuf_descriptor;
       }
 
       public net.foreworld.gws.protobuf.User.LoginProtobuf getDefaultInstanceForType() {
@@ -2194,10 +2194,10 @@ public final class User {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.LoginProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.user.LoginProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.LoginProtobuf)
+    // @@protoc_insertion_point(class_scope:gws.user.LoginProtobuf)
     private static final net.foreworld.gws.protobuf.User.LoginProtobuf DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.LoginProtobuf();
@@ -2233,7 +2233,7 @@ public final class User {
   }
 
   public interface LoginResultProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.LoginResultProtobuf)
+      // @@protoc_insertion_point(interface_extends:gws.user.LoginResultProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2247,11 +2247,11 @@ public final class User {
         getTokenBytes();
   }
   /**
-   * Protobuf type {@code gws.LoginResultProtobuf}
+   * Protobuf type {@code gws.user.LoginResultProtobuf}
    */
   public  static final class LoginResultProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.LoginResultProtobuf)
+      // @@protoc_insertion_point(message_implements:gws.user.LoginResultProtobuf)
       LoginResultProtobufOrBuilder {
     // Use LoginResultProtobuf.newBuilder() to construct.
     private LoginResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -2305,12 +2305,12 @@ public final class User {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginResultProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginResultProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.foreworld.gws.protobuf.User.LoginResultProtobuf.class, net.foreworld.gws.protobuf.User.LoginResultProtobuf.Builder.class);
     }
@@ -2487,20 +2487,20 @@ public final class User {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.LoginResultProtobuf}
+     * Protobuf type {@code gws.user.LoginResultProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.LoginResultProtobuf)
+        // @@protoc_insertion_point(builder_implements:gws.user.LoginResultProtobuf)
         net.foreworld.gws.protobuf.User.LoginResultProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginResultProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginResultProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.foreworld.gws.protobuf.User.LoginResultProtobuf.class, net.foreworld.gws.protobuf.User.LoginResultProtobuf.Builder.class);
       }
@@ -2529,7 +2529,7 @@ public final class User {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LoginResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LoginResultProtobuf_descriptor;
       }
 
       public net.foreworld.gws.protobuf.User.LoginResultProtobuf getDefaultInstanceForType() {
@@ -2697,10 +2697,10 @@ public final class User {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.LoginResultProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.user.LoginResultProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.LoginResultProtobuf)
+    // @@protoc_insertion_point(class_scope:gws.user.LoginResultProtobuf)
     private static final net.foreworld.gws.protobuf.User.LoginResultProtobuf DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.LoginResultProtobuf();
@@ -2736,7 +2736,7 @@ public final class User {
   }
 
   public interface LogoutResultProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.LogoutResultProtobuf)
+      // @@protoc_insertion_point(interface_extends:gws.user.LogoutResultProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -2745,11 +2745,11 @@ public final class User {
     com.google.protobuf.ByteString getReason();
   }
   /**
-   * Protobuf type {@code gws.LogoutResultProtobuf}
+   * Protobuf type {@code gws.user.LogoutResultProtobuf}
    */
   public  static final class LogoutResultProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.LogoutResultProtobuf)
+      // @@protoc_insertion_point(message_implements:gws.user.LogoutResultProtobuf)
       LogoutResultProtobufOrBuilder {
     // Use LogoutResultProtobuf.newBuilder() to construct.
     private LogoutResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -2802,12 +2802,12 @@ public final class User {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_LogoutResultProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.User.internal_static_gws_user_LogoutResultProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.foreworld.gws.protobuf.User.LogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.LogoutResultProtobuf.Builder.class);
     }
@@ -2960,20 +2960,20 @@ public final class User {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.LogoutResultProtobuf}
+     * Protobuf type {@code gws.user.LogoutResultProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.LogoutResultProtobuf)
+        // @@protoc_insertion_point(builder_implements:gws.user.LogoutResultProtobuf)
         net.foreworld.gws.protobuf.User.LogoutResultProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LogoutResultProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LogoutResultProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.foreworld.gws.protobuf.User.LogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.LogoutResultProtobuf.Builder.class);
       }
@@ -3002,7 +3002,7 @@ public final class User {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.User.internal_static_gws_LogoutResultProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.User.internal_static_gws_user_LogoutResultProtobuf_descriptor;
       }
 
       public net.foreworld.gws.protobuf.User.LogoutResultProtobuf getDefaultInstanceForType() {
@@ -3129,10 +3129,10 @@ public final class User {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.LogoutResultProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.user.LogoutResultProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.LogoutResultProtobuf)
+    // @@protoc_insertion_point(class_scope:gws.user.LogoutResultProtobuf)
     private static final net.foreworld.gws.protobuf.User.LogoutResultProtobuf DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.LogoutResultProtobuf();
@@ -3168,25 +3168,25 @@ public final class User {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_UserProtobuf_descriptor;
+    internal_static_gws_user_UserProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_UserProtobuf_fieldAccessorTable;
+      internal_static_gws_user_UserProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_LoginProtobuf_descriptor;
+    internal_static_gws_user_LoginProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_LoginProtobuf_fieldAccessorTable;
+      internal_static_gws_user_LoginProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_LoginResultProtobuf_descriptor;
+    internal_static_gws_user_LoginResultProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_LoginResultProtobuf_fieldAccessorTable;
+      internal_static_gws_user_LoginResultProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_LogoutResultProtobuf_descriptor;
+    internal_static_gws_user_LogoutResultProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_LogoutResultProtobuf_fieldAccessorTable;
+      internal_static_gws_user_LogoutResultProtobuf_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -3196,17 +3196,17 @@ public final class User {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\031protobuf/model.user.proto\022\003gws\"\341\001\n\014Use" +
-      "rProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\tuser_name\030\002 \001(\t" +
-      "\022\021\n\tuser_pass\030\003 \001(\t\022\"\n\003sex\030\004 \001(\0162\025.gws.U" +
-      "serProtobuf.Sex\022\016\n\006mobile\030\005 \001(\t\022\n\n\002qq\030\006 " +
-      "\001(\t\022\016\n\006weixin\030\007 \001(\t\022\r\n\005email\030\010 \001(\t\022\016\n\006st" +
-      "atus\030\t \001(\r\022\023\n\013device_code\030\n \001(\t\"\033\n\003Sex\022\n" +
-      "\n\006FEMALE\020\000\022\010\n\004MALE\020\001\"\035\n\rLoginProtobuf\022\014\n" +
-      "\004code\030\001 \001(\t\"$\n\023LoginResultProtobuf\022\r\n\005to" +
-      "ken\030\001 \001(\t\"&\n\024LogoutResultProtobuf\022\016\n\006rea" +
-      "son\030\001 \001(\014B\"\n\032net.foreworld.gws.protobufB",
-      "\004Userb\006proto3"
+      "\n\031protobuf/model.user.proto\022\010gws.user\"\346\001" +
+      "\n\014UserProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\tuser_name\030" +
+      "\002 \001(\t\022\021\n\tuser_pass\030\003 \001(\t\022\'\n\003sex\030\004 \001(\0162\032." +
+      "gws.user.UserProtobuf.Sex\022\016\n\006mobile\030\005 \001(" +
+      "\t\022\n\n\002qq\030\006 \001(\t\022\016\n\006weixin\030\007 \001(\t\022\r\n\005email\030\010" +
+      " \001(\t\022\016\n\006status\030\t \001(\r\022\023\n\013device_code\030\n \001(" +
+      "\t\"\033\n\003Sex\022\n\n\006FEMALE\020\000\022\010\n\004MALE\020\001\"\035\n\rLoginP" +
+      "rotobuf\022\014\n\004code\030\001 \001(\t\"$\n\023LoginResultProt" +
+      "obuf\022\r\n\005token\030\001 \001(\t\"&\n\024LogoutResultProto" +
+      "buf\022\016\n\006reason\030\001 \001(\014B\"\n\032net.foreworld.gws",
+      ".protobufB\004Userb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3220,29 +3220,29 @@ public final class User {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_gws_UserProtobuf_descriptor =
+    internal_static_gws_user_UserProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_gws_UserProtobuf_fieldAccessorTable = new
+    internal_static_gws_user_UserProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_UserProtobuf_descriptor,
+        internal_static_gws_user_UserProtobuf_descriptor,
         new java.lang.String[] { "Id", "UserName", "UserPass", "Sex", "Mobile", "Qq", "Weixin", "Email", "Status", "DeviceCode", });
-    internal_static_gws_LoginProtobuf_descriptor =
+    internal_static_gws_user_LoginProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_gws_LoginProtobuf_fieldAccessorTable = new
+    internal_static_gws_user_LoginProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_LoginProtobuf_descriptor,
+        internal_static_gws_user_LoginProtobuf_descriptor,
         new java.lang.String[] { "Code", });
-    internal_static_gws_LoginResultProtobuf_descriptor =
+    internal_static_gws_user_LoginResultProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(2);
-    internal_static_gws_LoginResultProtobuf_fieldAccessorTable = new
+    internal_static_gws_user_LoginResultProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_LoginResultProtobuf_descriptor,
+        internal_static_gws_user_LoginResultProtobuf_descriptor,
         new java.lang.String[] { "Token", });
-    internal_static_gws_LogoutResultProtobuf_descriptor =
+    internal_static_gws_user_LogoutResultProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(3);
-    internal_static_gws_LogoutResultProtobuf_fieldAccessorTable = new
+    internal_static_gws_user_LogoutResultProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_LogoutResultProtobuf_descriptor,
+        internal_static_gws_user_LogoutResultProtobuf_descriptor,
         new java.lang.String[] { "Reason", });
   }
 

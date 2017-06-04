@@ -57,7 +57,7 @@ $(function(){
 
         if(95 === result.getMethod()){
           (function(){
-            var data = gws.LoginResultProtobuf.deserializeBinary(result.getData());
+            var data = gws.user.LoginResultProtobuf.deserializeBinary(result.getData());
             console.log(data.getToken());
           })();
 
@@ -65,7 +65,7 @@ $(function(){
         }
 
         (function(){
-          var data = gws.UserProtobuf.deserializeBinary(result.getData());
+          var data = gws.user.UserProtobuf.deserializeBinary(result.getData());
           console.log(data.getId());
           console.log(data.getUserName());
           console.log(data.getUserPass());
@@ -79,7 +79,7 @@ $(function(){
       req.setSeqid(parseInt(Math.random() * 1000));
       req.setTimestamp(new Date().getTime());
 
-      var login = new gws.LoginProtobuf();
+      var login = new gws.user.LoginProtobuf();
       login.setCode(location.search.match(/code=([\w\-]+)/) ? RegExp.$1 : '');
       req.setData(login.serializeBinary());
 
@@ -119,7 +119,7 @@ $(function(){
     req.setSeqid(parseInt(Math.random() * 1000));
     req.setTimestamp(new Date().getTime());
 
-    var user = new gws.UserProtobuf();
+    var user = new gws.user.UserProtobuf();
     user.setUserName('八一猫')
     user.setUserPass('123456');
     req.setData(user.serializeBinary());
