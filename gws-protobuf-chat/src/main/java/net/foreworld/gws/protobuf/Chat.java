@@ -15,7 +15,7 @@ public final class Chat {
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   public interface ChatProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.chat.ChatProtobuf)
+      // @@protoc_insertion_point(interface_extends:gws.ChatProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -59,11 +59,11 @@ public final class Chat {
     com.google.protobuf.ByteString getComment();
   }
   /**
-   * Protobuf type {@code gws.chat.ChatProtobuf}
+   * Protobuf type {@code gws.ChatProtobuf}
    */
   public  static final class ChatProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.chat.ChatProtobuf)
+      // @@protoc_insertion_point(message_implements:gws.ChatProtobuf)
       ChatProtobufOrBuilder {
     // Use ChatProtobuf.newBuilder() to construct.
     private ChatProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -143,12 +143,12 @@ public final class Chat {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_ChatProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.Chat.internal_static_gws_ChatProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_ChatProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.Chat.internal_static_gws_ChatProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.foreworld.gws.protobuf.Chat.ChatProtobuf.class, net.foreworld.gws.protobuf.Chat.ChatProtobuf.Builder.class);
     }
@@ -454,20 +454,20 @@ public final class Chat {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.chat.ChatProtobuf}
+     * Protobuf type {@code gws.ChatProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.chat.ChatProtobuf)
+        // @@protoc_insertion_point(builder_implements:gws.ChatProtobuf)
         net.foreworld.gws.protobuf.Chat.ChatProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_ChatProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_ChatProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_ChatProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_ChatProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.foreworld.gws.protobuf.Chat.ChatProtobuf.class, net.foreworld.gws.protobuf.Chat.ChatProtobuf.Builder.class);
       }
@@ -504,7 +504,7 @@ public final class Chat {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_ChatProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_ChatProtobuf_descriptor;
       }
 
       public net.foreworld.gws.protobuf.Chat.ChatProtobuf getDefaultInstanceForType() {
@@ -883,10 +883,10 @@ public final class Chat {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.chat.ChatProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.ChatProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.chat.ChatProtobuf)
+    // @@protoc_insertion_point(class_scope:gws.ChatProtobuf)
     private static final net.foreworld.gws.protobuf.Chat.ChatProtobuf DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Chat.ChatProtobuf();
@@ -922,7 +922,7 @@ public final class Chat {
   }
 
   public interface SendProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.chat.SendProtobuf)
+      // @@protoc_insertion_point(interface_extends:gws.SendProtobuf)
       com.google.protobuf.MessageOrBuilder {
 
     /**
@@ -946,11 +946,11 @@ public final class Chat {
         getCommentBytes();
   }
   /**
-   * Protobuf type {@code gws.chat.SendProtobuf}
+   * Protobuf type {@code gws.SendProtobuf}
    */
   public  static final class SendProtobuf extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.chat.SendProtobuf)
+      // @@protoc_insertion_point(message_implements:gws.SendProtobuf)
       SendProtobufOrBuilder {
     // Use SendProtobuf.newBuilder() to construct.
     private SendProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
@@ -1011,12 +1011,12 @@ public final class Chat {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_SendProtobuf_descriptor;
+      return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_SendProtobuf_fieldAccessorTable
+      return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               net.foreworld.gws.protobuf.Chat.SendProtobuf.class, net.foreworld.gws.protobuf.Chat.SendProtobuf.Builder.class);
     }
@@ -1237,20 +1237,20 @@ public final class Chat {
       return builder;
     }
     /**
-     * Protobuf type {@code gws.chat.SendProtobuf}
+     * Protobuf type {@code gws.SendProtobuf}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.chat.SendProtobuf)
+        // @@protoc_insertion_point(builder_implements:gws.SendProtobuf)
         net.foreworld.gws.protobuf.Chat.SendProtobufOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_SendProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_SendProtobuf_fieldAccessorTable
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
                 net.foreworld.gws.protobuf.Chat.SendProtobuf.class, net.foreworld.gws.protobuf.Chat.SendProtobuf.Builder.class);
       }
@@ -1281,7 +1281,7 @@ public final class Chat {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return net.foreworld.gws.protobuf.Chat.internal_static_gws_chat_SendProtobuf_descriptor;
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_descriptor;
       }
 
       public net.foreworld.gws.protobuf.Chat.SendProtobuf getDefaultInstanceForType() {
@@ -1523,10 +1523,10 @@ public final class Chat {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:gws.chat.SendProtobuf)
+      // @@protoc_insertion_point(builder_scope:gws.SendProtobuf)
     }
 
-    // @@protoc_insertion_point(class_scope:gws.chat.SendProtobuf)
+    // @@protoc_insertion_point(class_scope:gws.SendProtobuf)
     private static final net.foreworld.gws.protobuf.Chat.SendProtobuf DEFAULT_INSTANCE;
     static {
       DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Chat.SendProtobuf();
@@ -1562,15 +1562,15 @@ public final class Chat {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_chat_ChatProtobuf_descriptor;
+    internal_static_gws_ChatProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_chat_ChatProtobuf_fieldAccessorTable;
+      internal_static_gws_ChatProtobuf_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_chat_SendProtobuf_descriptor;
+    internal_static_gws_SendProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_chat_SendProtobuf_fieldAccessorTable;
+      internal_static_gws_SendProtobuf_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1580,12 +1580,12 @@ public final class Chat {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\031protobuf/model.chat.proto\022\010gws.chat\"`\n" +
-      "\014ChatProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\ttimestamp\030\002" +
-      " \001(\004\022\016\n\006sender\030\003 \001(\t\022\020\n\010receiver\030\004 \001(\t\022\017" +
-      "\n\007comment\030\005 \001(\014\"1\n\014SendProtobuf\022\020\n\010recei" +
-      "ver\030\001 \001(\t\022\017\n\007comment\030\002 \001(\tB\"\n\032net.forewo" +
-      "rld.gws.protobufB\004Chatb\006proto3"
+      "\n\031protobuf/model.chat.proto\022\003gws\"`\n\014Chat" +
+      "Protobuf\022\n\n\002id\030\001 \001(\t\022\021\n\ttimestamp\030\002 \001(\004\022" +
+      "\016\n\006sender\030\003 \001(\t\022\020\n\010receiver\030\004 \001(\t\022\017\n\007com" +
+      "ment\030\005 \001(\014\"1\n\014SendProtobuf\022\020\n\010receiver\030\001" +
+      " \001(\t\022\017\n\007comment\030\002 \001(\tB\"\n\032net.foreworld.g" +
+      "ws.protobufB\004Chatb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1599,17 +1599,17 @@ public final class Chat {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_gws_chat_ChatProtobuf_descriptor =
+    internal_static_gws_ChatProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(0);
-    internal_static_gws_chat_ChatProtobuf_fieldAccessorTable = new
+    internal_static_gws_ChatProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_chat_ChatProtobuf_descriptor,
+        internal_static_gws_ChatProtobuf_descriptor,
         new java.lang.String[] { "Id", "Timestamp", "Sender", "Receiver", "Comment", });
-    internal_static_gws_chat_SendProtobuf_descriptor =
+    internal_static_gws_SendProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
-    internal_static_gws_chat_SendProtobuf_fieldAccessorTable = new
+    internal_static_gws_SendProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_chat_SendProtobuf_descriptor,
+        internal_static_gws_SendProtobuf_descriptor,
         new java.lang.String[] { "Receiver", "Comment", });
   }
 
