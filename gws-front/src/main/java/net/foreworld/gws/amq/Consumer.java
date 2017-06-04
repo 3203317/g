@@ -3,7 +3,7 @@ package net.foreworld.gws.amq;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import net.foreworld.gws.protobuf.Common;
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.util.ChannelUtil;
 import net.foreworld.gws.util.Constants;
 
@@ -35,8 +35,7 @@ public class Consumer {
 			byte[] data = new byte[len];
 			msg.readBytes(data);
 
-			Common.ReceiverProtobuf rec = Common.ReceiverProtobuf
-					.parseFrom(data);
+			ReceiverProtobuf rec = ReceiverProtobuf.parseFrom(data);
 
 			if (Constants.ALL.equals(rec.getReceiver())) {
 				ChannelUtil.getDefault().broadcast(rec.getData());

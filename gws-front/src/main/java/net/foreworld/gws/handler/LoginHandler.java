@@ -70,8 +70,9 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 		try {
 
-			UserLoginProtobuf req = UserLoginProtobuf.parseFrom(msg.getData());
-			String code = req.getCode();
+			UserLoginProtobuf login = UserLoginProtobuf
+					.parseFrom(msg.getData());
+			String code = login.getCode();
 
 			final Channel channel = ctx.channel();
 

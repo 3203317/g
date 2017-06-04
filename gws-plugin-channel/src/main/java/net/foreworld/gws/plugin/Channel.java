@@ -4,6 +4,9 @@ import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,10 +15,8 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import net.foreworld.gws.protobuf.Common;
-
 /**
- * 
+ *
  * @author huangxin
  *
  */
@@ -42,16 +43,17 @@ public class Channel {
 			String token = msg.getText();
 			String[] text = token.split("::");
 
-			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf.newBuilder();
+			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setSeqId(1);
 			resp.setTimestamp(System.currentTimeMillis());
 
-			Common.ReceiverProtobuf.Builder rec = Common.ReceiverProtobuf.newBuilder();
+			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);
 			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(
+					queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (JMSException e) {
 			logger.error("", e);

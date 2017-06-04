@@ -6,8 +6,8 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 import javax.annotation.Resource;
 
-import net.foreworld.gws.protobuf.Common;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.util.Constants;
 
 import org.slf4j.Logger;
@@ -42,8 +42,7 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(),
 				msg.getSeqId(), msg.getTimestamp());
 
-		Common.SenderProtobuf.Builder sender = Common.SenderProtobuf
-				.newBuilder();
+		SenderProtobuf.Builder sender = SenderProtobuf.newBuilder();
 		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
 		sender.setData(msg);
 

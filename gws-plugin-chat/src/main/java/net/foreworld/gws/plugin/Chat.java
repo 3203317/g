@@ -5,7 +5,10 @@ import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
 import net.foreworld.gws.protobuf.Chat.ChatSendProtobuf;
-import net.foreworld.gws.protobuf.Common;
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,27 +48,24 @@ public class Chat {
 			byte[] data = new byte[len];
 			msg.readBytes(data);
 
-			Common.SenderProtobuf sender = Common.SenderProtobuf
-					.parseFrom(data);
+			SenderProtobuf sender = SenderProtobuf.parseFrom(data);
 			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
-			Common.RequestProtobuf req = sender.getData();
+			RequestProtobuf req = sender.getData();
 			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(),
 					req.getSeqId(), req.getTimestamp());
 
 			ChatSendProtobuf send = ChatSendProtobuf.parseFrom(req.getData());
 			logger.info("{}:{}", send.getReceiver(), send.getComment());
 
-			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf
-					.newBuilder();
+			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
 
-			Common.ReceiverProtobuf.Builder rec = Common.ReceiverProtobuf
-					.newBuilder();
+			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);
 			rec.setData(resp);
 
