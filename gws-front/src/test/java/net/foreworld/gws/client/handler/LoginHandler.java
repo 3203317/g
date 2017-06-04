@@ -1,18 +1,17 @@
 package net.foreworld.gws.client.handler;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.User;
-import net.foreworld.gws.protobuf.method.user.Login;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -23,7 +22,8 @@ import net.foreworld.gws.protobuf.method.user.Login;
 @Sharable
 public class LoginHandler extends ChannelInboundHandlerAdapter {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(LoginHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -39,7 +39,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 		req.setSeqId(56);
 		req.setTimestamp(System.currentTimeMillis());
 
-		Login.RequestProtobuf.Builder login = Login.RequestProtobuf.newBuilder();
+		User.LoginProtobuf.Builder login = User.LoginProtobuf.newBuilder();
 		login.setCode("123456");
 
 		req.setData(login.build().toByteString());

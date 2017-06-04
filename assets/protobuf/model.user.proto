@@ -26,3 +26,15 @@ message UserProtobuf {
 
   string device_code = 10;
 }
+
+message LoginProtobuf {
+  string code = 1;
+}
+
+message LoginResultProtobuf {
+  string token = 1;
+}
+
+message LogoutResultProtobuf {
+  bytes reason = 1;
+}

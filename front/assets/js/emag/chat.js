@@ -7,8 +7,7 @@
 
 
 goog.provide('proto.gws.ChatProtobuf');
-goog.provide('proto.gws.method.chat.send.RequestProtobuf');
-goog.provide('proto.gws.method.chat.send.ResponseProtobuf');
+goog.provide('proto.gws.SendProtobuf');
 
 goog.require('jspb.Message');
 goog.require('jspb.BinaryReader');
@@ -307,12 +306,12 @@ proto.gws.ChatProtobuf.prototype.setComment = function(value) {
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.method.chat.send.RequestProtobuf = function(opt_data) {
+proto.gws.SendProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.method.chat.send.RequestProtobuf, jspb.Message);
+goog.inherits(proto.gws.SendProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.method.chat.send.RequestProtobuf.displayName = 'proto.gws.method.chat.send.RequestProtobuf';
+  proto.gws.SendProtobuf.displayName = 'proto.gws.SendProtobuf';
 }
 
 
@@ -327,8 +326,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.method.chat.send.RequestProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.method.chat.send.RequestProtobuf.toObject(opt_includeInstance, this);
+proto.gws.SendProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.SendProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -337,10 +336,10 @@ proto.gws.method.chat.send.RequestProtobuf.prototype.toObject = function(opt_inc
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.method.chat.send.RequestProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.SendProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.method.chat.send.RequestProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.SendProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     receiver: jspb.Message.getFieldWithDefault(msg, 1, ""),
     comment: msg.getComment_asB64()
@@ -357,23 +356,23 @@ proto.gws.method.chat.send.RequestProtobuf.toObject = function(includeInstance, 
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.method.chat.send.RequestProtobuf}
+ * @return {!proto.gws.SendProtobuf}
  */
-proto.gws.method.chat.send.RequestProtobuf.deserializeBinary = function(bytes) {
+proto.gws.SendProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.method.chat.send.RequestProtobuf;
-  return proto.gws.method.chat.send.RequestProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.SendProtobuf;
+  return proto.gws.SendProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.method.chat.send.RequestProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.SendProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.method.chat.send.RequestProtobuf}
+ * @return {!proto.gws.SendProtobuf}
  */
-proto.gws.method.chat.send.RequestProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.SendProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -400,10 +399,10 @@ proto.gws.method.chat.send.RequestProtobuf.deserializeBinaryFromReader = functio
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.method.chat.send.RequestProtobuf} message
+ * @param {!proto.gws.SendProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.method.chat.send.RequestProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.SendProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -412,7 +411,7 @@ proto.gws.method.chat.send.RequestProtobuf.serializeBinaryToWriter = function(me
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.method.chat.send.RequestProtobuf.prototype.serializeBinary = function() {
+proto.gws.SendProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -424,7 +423,7 @@ proto.gws.method.chat.send.RequestProtobuf.prototype.serializeBinary = function(
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.method.chat.send.RequestProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.SendProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getReceiver();
   if (f.length > 0) {
@@ -447,13 +446,13 @@ proto.gws.method.chat.send.RequestProtobuf.prototype.serializeBinaryToWriter = f
  * optional string receiver = 1;
  * @return {string}
  */
-proto.gws.method.chat.send.RequestProtobuf.prototype.getReceiver = function() {
+proto.gws.SendProtobuf.prototype.getReceiver = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.method.chat.send.RequestProtobuf.prototype.setReceiver = function(value) {
+proto.gws.SendProtobuf.prototype.setReceiver = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -462,7 +461,7 @@ proto.gws.method.chat.send.RequestProtobuf.prototype.setReceiver = function(valu
  * optional bytes comment = 2;
  * @return {!(string|Uint8Array)}
  */
-proto.gws.method.chat.send.RequestProtobuf.prototype.getComment = function() {
+proto.gws.SendProtobuf.prototype.getComment = function() {
   return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -472,7 +471,7 @@ proto.gws.method.chat.send.RequestProtobuf.prototype.getComment = function() {
  * This is a type-conversion wrapper around `getComment()`
  * @return {string}
  */
-proto.gws.method.chat.send.RequestProtobuf.prototype.getComment_asB64 = function() {
+proto.gws.SendProtobuf.prototype.getComment_asB64 = function() {
   return /** @type {string} */ (jspb.Message.bytesAsB64(
       this.getComment()));
 };
@@ -485,182 +484,15 @@ proto.gws.method.chat.send.RequestProtobuf.prototype.getComment_asB64 = function
  * This is a type-conversion wrapper around `getComment()`
  * @return {!Uint8Array}
  */
-proto.gws.method.chat.send.RequestProtobuf.prototype.getComment_asU8 = function() {
+proto.gws.SendProtobuf.prototype.getComment_asU8 = function() {
   return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
       this.getComment()));
 };
 
 
 /** @param {!(string|Uint8Array)} value */
-proto.gws.method.chat.send.RequestProtobuf.prototype.setComment = function(value) {
+proto.gws.SendProtobuf.prototype.setComment = function(value) {
   jspb.Message.setField(this, 2, value);
-};
-
-
-
-/**
- * Generated by JsPbCodeGenerator.
- * @param {Array=} opt_data Optional initial data array, typically from a
- * server response, or constructed directly in Javascript. The array is used
- * in place and becomes part of the constructed object. It is not cloned.
- * If no data is provided, the constructed object will be empty, but still
- * valid.
- * @extends {jspb.Message}
- * @constructor
- */
-proto.gws.method.chat.send.ResponseProtobuf = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
-};
-goog.inherits(proto.gws.method.chat.send.ResponseProtobuf, jspb.Message);
-if (goog.DEBUG && !COMPILED) {
-  proto.gws.method.chat.send.ResponseProtobuf.displayName = 'proto.gws.method.chat.send.ResponseProtobuf';
-}
-
-
-if (jspb.Message.GENERATE_TO_OBJECT) {
-/**
- * Creates an object representation of this proto suitable for use in Soy templates.
- * Field names that are reserved in JavaScript and will be renamed to pb_name.
- * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
- * For the list of reserved names please see:
- *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
- * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
- *     for transitional soy proto support: http://goto/soy-param-migration
- * @return {!Object}
- */
-proto.gws.method.chat.send.ResponseProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.method.chat.send.ResponseProtobuf.toObject(opt_includeInstance, this);
-};
-
-
-/**
- * Static version of the {@see toObject} method.
- * @param {boolean|undefined} includeInstance Whether to include the JSPB
- *     instance for transitional soy proto support:
- *     http://goto/soy-param-migration
- * @param {!proto.gws.method.chat.send.ResponseProtobuf} msg The msg instance to transform.
- * @return {!Object}
- */
-proto.gws.method.chat.send.ResponseProtobuf.toObject = function(includeInstance, msg) {
-  var f, obj = {
-    chat: (f = msg.getChat()) && proto.gws.ChatProtobuf.toObject(includeInstance, f)
-  };
-
-  if (includeInstance) {
-    obj.$jspbMessageInstance = msg;
-  }
-  return obj;
-};
-}
-
-
-/**
- * Deserializes binary data (in protobuf wire format).
- * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.method.chat.send.ResponseProtobuf}
- */
-proto.gws.method.chat.send.ResponseProtobuf.deserializeBinary = function(bytes) {
-  var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.method.chat.send.ResponseProtobuf;
-  return proto.gws.method.chat.send.ResponseProtobuf.deserializeBinaryFromReader(msg, reader);
-};
-
-
-/**
- * Deserializes binary data (in protobuf wire format) from the
- * given reader into the given message object.
- * @param {!proto.gws.method.chat.send.ResponseProtobuf} msg The message object to deserialize into.
- * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.method.chat.send.ResponseProtobuf}
- */
-proto.gws.method.chat.send.ResponseProtobuf.deserializeBinaryFromReader = function(msg, reader) {
-  while (reader.nextField()) {
-    if (reader.isEndGroup()) {
-      break;
-    }
-    var field = reader.getFieldNumber();
-    switch (field) {
-    case 1:
-      var value = new proto.gws.ChatProtobuf;
-      reader.readMessage(value,proto.gws.ChatProtobuf.deserializeBinaryFromReader);
-      msg.setChat(value);
-      break;
-    default:
-      reader.skipField();
-      break;
-    }
-  }
-  return msg;
-};
-
-
-/**
- * Class method variant: serializes the given message to binary data
- * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.method.chat.send.ResponseProtobuf} message
- * @param {!jspb.BinaryWriter} writer
- */
-proto.gws.method.chat.send.ResponseProtobuf.serializeBinaryToWriter = function(message, writer) {
-  message.serializeBinaryToWriter(writer);
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format).
- * @return {!Uint8Array}
- */
-proto.gws.method.chat.send.ResponseProtobuf.prototype.serializeBinary = function() {
-  var writer = new jspb.BinaryWriter();
-  this.serializeBinaryToWriter(writer);
-  return writer.getResultBuffer();
-};
-
-
-/**
- * Serializes the message to binary data (in protobuf wire format),
- * writing to the given BinaryWriter.
- * @param {!jspb.BinaryWriter} writer
- */
-proto.gws.method.chat.send.ResponseProtobuf.prototype.serializeBinaryToWriter = function (writer) {
-  var f = undefined;
-  f = this.getChat();
-  if (f != null) {
-    writer.writeMessage(
-      1,
-      f,
-      proto.gws.ChatProtobuf.serializeBinaryToWriter
-    );
-  }
-};
-
-
-/**
- * optional gws.ChatProtobuf chat = 1;
- * @return {?proto.gws.ChatProtobuf}
- */
-proto.gws.method.chat.send.ResponseProtobuf.prototype.getChat = function() {
-  return /** @type{?proto.gws.ChatProtobuf} */ (
-    jspb.Message.getWrapperField(this, proto.gws.ChatProtobuf, 1));
-};
-
-
-/** @param {?proto.gws.ChatProtobuf|undefined} value */
-proto.gws.method.chat.send.ResponseProtobuf.prototype.setChat = function(value) {
-  jspb.Message.setWrapperField(this, 1, value);
-};
-
-
-proto.gws.method.chat.send.ResponseProtobuf.prototype.clearChat = function() {
-  this.setChat(undefined);
-};
-
-
-/**
- * Returns whether this field is set.
- * @return {!boolean}
- */
-proto.gws.method.chat.send.ResponseProtobuf.prototype.hasChat = function() {
-  return jspb.Message.getField(this, 1) != null;
 };
 
 

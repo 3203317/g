@@ -36,3 +36,7 @@ message ResponseProtobuf {
     bytes msg = 2;
   }
 }
+
+message PrimaryKeyProtobuf {
+  string id = 1;
+}

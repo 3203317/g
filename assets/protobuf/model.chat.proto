@@ -12,3 +12,8 @@ message ChatProtobuf {
   string receiver = 4;
   bytes comment = 5;
 }
+
+message SendProtobuf {
+  string receiver = 1;
+  bytes comment = 2;
+}

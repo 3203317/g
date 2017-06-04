@@ -30,7 +30,6 @@ var exports = {};
 $(function(){
 
   var gws = proto.gws;
-  var method = gws.method;
 
   var socket = null;
 
@@ -58,7 +57,7 @@ $(function(){
 
         if(95 === result.getMethod()){
           (function(){
-            var data = method.user.login.ResponseProtobuf.deserializeBinary(result.getData());
+            var data = gws.LoginResultProtobuf.deserializeBinary(result.getData());
             console.log(data.getToken());
           })();
 
@@ -80,7 +79,7 @@ $(function(){
       req.setSeqid(parseInt(Math.random() * 1000));
       req.setTimestamp(new Date().getTime());
 
-      var login = new method.user.login.RequestProtobuf();
+      var login = new gws.LoginProtobuf();
       login.setCode(location.search.match(/code=([\w\-]+)/) ? RegExp.$1 : '');
       req.setData(login.serializeBinary());
 

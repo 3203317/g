@@ -921,11 +921,585 @@ public final class Chat {
 
   }
 
+  public interface SendProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.SendProtobuf)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string receiver = 1;</code>
+     */
+    java.lang.String getReceiver();
+    /**
+     * <code>optional string receiver = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getReceiverBytes();
+
+    /**
+     * <code>optional bytes comment = 2;</code>
+     */
+    com.google.protobuf.ByteString getComment();
+  }
+  /**
+   * Protobuf type {@code gws.SendProtobuf}
+   */
+  public  static final class SendProtobuf extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:gws.SendProtobuf)
+      SendProtobufOrBuilder {
+    // Use SendProtobuf.newBuilder() to construct.
+    private SendProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SendProtobuf() {
+      receiver_ = "";
+      comment_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private SendProtobuf(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              receiver_ = s;
+              break;
+            }
+            case 18: {
+
+              comment_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              net.foreworld.gws.protobuf.Chat.SendProtobuf.class, net.foreworld.gws.protobuf.Chat.SendProtobuf.Builder.class);
+    }
+
+    public static final int RECEIVER_FIELD_NUMBER = 1;
+    private volatile java.lang.Object receiver_;
+    /**
+     * <code>optional string receiver = 1;</code>
+     */
+    public java.lang.String getReceiver() {
+      java.lang.Object ref = receiver_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        receiver_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string receiver = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReceiverBytes() {
+      java.lang.Object ref = receiver_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        receiver_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int COMMENT_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString comment_;
+    /**
+     * <code>optional bytes comment = 2;</code>
+     */
+    public com.google.protobuf.ByteString getComment() {
+      return comment_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getReceiverBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, receiver_);
+      }
+      if (!comment_.isEmpty()) {
+        output.writeBytes(2, comment_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getReceiverBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, receiver_);
+      }
+      if (!comment_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, comment_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof net.foreworld.gws.protobuf.Chat.SendProtobuf)) {
+        return super.equals(obj);
+      }
+      net.foreworld.gws.protobuf.Chat.SendProtobuf other = (net.foreworld.gws.protobuf.Chat.SendProtobuf) obj;
+
+      boolean result = true;
+      result = result && getReceiver()
+          .equals(other.getReceiver());
+      result = result && getComment()
+          .equals(other.getComment());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + RECEIVER_FIELD_NUMBER;
+      hash = (53 * hash) + getReceiver().hashCode();
+      hash = (37 * hash) + COMMENT_FIELD_NUMBER;
+      hash = (53 * hash) + getComment().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(net.foreworld.gws.protobuf.Chat.SendProtobuf prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code gws.SendProtobuf}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:gws.SendProtobuf)
+        net.foreworld.gws.protobuf.Chat.SendProtobufOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                net.foreworld.gws.protobuf.Chat.SendProtobuf.class, net.foreworld.gws.protobuf.Chat.SendProtobuf.Builder.class);
+      }
+
+      // Construct using net.foreworld.gws.protobuf.Chat.SendProtobuf.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        receiver_ = "";
+
+        comment_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return net.foreworld.gws.protobuf.Chat.internal_static_gws_SendProtobuf_descriptor;
+      }
+
+      public net.foreworld.gws.protobuf.Chat.SendProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.Chat.SendProtobuf.getDefaultInstance();
+      }
+
+      public net.foreworld.gws.protobuf.Chat.SendProtobuf build() {
+        net.foreworld.gws.protobuf.Chat.SendProtobuf result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public net.foreworld.gws.protobuf.Chat.SendProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.Chat.SendProtobuf result = new net.foreworld.gws.protobuf.Chat.SendProtobuf(this);
+        result.receiver_ = receiver_;
+        result.comment_ = comment_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof net.foreworld.gws.protobuf.Chat.SendProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.Chat.SendProtobuf)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(net.foreworld.gws.protobuf.Chat.SendProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.Chat.SendProtobuf.getDefaultInstance()) return this;
+        if (!other.getReceiver().isEmpty()) {
+          receiver_ = other.receiver_;
+          onChanged();
+        }
+        if (other.getComment() != com.google.protobuf.ByteString.EMPTY) {
+          setComment(other.getComment());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        net.foreworld.gws.protobuf.Chat.SendProtobuf parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (net.foreworld.gws.protobuf.Chat.SendProtobuf) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object receiver_ = "";
+      /**
+       * <code>optional string receiver = 1;</code>
+       */
+      public java.lang.String getReceiver() {
+        java.lang.Object ref = receiver_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          receiver_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string receiver = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getReceiverBytes() {
+        java.lang.Object ref = receiver_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          receiver_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string receiver = 1;</code>
+       */
+      public Builder setReceiver(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        receiver_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string receiver = 1;</code>
+       */
+      public Builder clearReceiver() {
+        
+        receiver_ = getDefaultInstance().getReceiver();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string receiver = 1;</code>
+       */
+      public Builder setReceiverBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        receiver_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString comment_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes comment = 2;</code>
+       */
+      public com.google.protobuf.ByteString getComment() {
+        return comment_;
+      }
+      /**
+       * <code>optional bytes comment = 2;</code>
+       */
+      public Builder setComment(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        comment_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes comment = 2;</code>
+       */
+      public Builder clearComment() {
+        
+        comment_ = getDefaultInstance().getComment();
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:gws.SendProtobuf)
+    }
+
+    // @@protoc_insertion_point(class_scope:gws.SendProtobuf)
+    private static final net.foreworld.gws.protobuf.Chat.SendProtobuf DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Chat.SendProtobuf();
+    }
+
+    public static net.foreworld.gws.protobuf.Chat.SendProtobuf getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<SendProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<SendProtobuf>() {
+      public SendProtobuf parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new SendProtobuf(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<SendProtobuf> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<SendProtobuf> getParserForType() {
+      return PARSER;
+    }
+
+    public net.foreworld.gws.protobuf.Chat.SendProtobuf getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_gws_ChatProtobuf_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_gws_ChatProtobuf_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_gws_SendProtobuf_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_gws_SendProtobuf_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -938,8 +1512,9 @@ public final class Chat {
       "\n\031protobuf/model.chat.proto\022\003gws\"`\n\014Chat" +
       "Protobuf\022\n\n\002id\030\001 \001(\t\022\021\n\ttimestamp\030\002 \001(\004\022" +
       "\016\n\006sender\030\003 \001(\t\022\020\n\010receiver\030\004 \001(\t\022\017\n\007com" +
-      "ment\030\005 \001(\014B\"\n\032net.foreworld.gws.protobuf" +
-      "B\004Chatb\006proto3"
+      "ment\030\005 \001(\014\"1\n\014SendProtobuf\022\020\n\010receiver\030\001" +
+      " \001(\t\022\017\n\007comment\030\002 \001(\014B\"\n\032net.foreworld.g" +
+      "ws.protobufB\004Chatb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -959,6 +1534,12 @@ public final class Chat {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_ChatProtobuf_descriptor,
         new java.lang.String[] { "Id", "Timestamp", "Sender", "Receiver", "Comment", });
+    internal_static_gws_SendProtobuf_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_gws_SendProtobuf_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_gws_SendProtobuf_descriptor,
+        new java.lang.String[] { "Receiver", "Comment", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
