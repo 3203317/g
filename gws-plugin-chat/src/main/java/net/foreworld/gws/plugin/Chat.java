@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
+import net.foreworld.gws.protobuf.Chat.ChatSendProtobuf;
 import net.foreworld.gws.protobuf.Common;
 
 import org.slf4j.Logger;
@@ -53,8 +54,7 @@ public class Chat {
 			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(),
 					req.getSeqId(), req.getTimestamp());
 
-			net.foreworld.gws.protobuf.Chat.SendProtobuf send = net.foreworld.gws.protobuf.Chat.SendProtobuf
-					.parseFrom(req.getData());
+			ChatSendProtobuf send = ChatSendProtobuf.parseFrom(req.getData());
 			logger.info("{}:{}", send.getReceiver(), send.getComment());
 
 			Common.ResponseProtobuf.Builder resp = Common.ResponseProtobuf

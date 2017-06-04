@@ -6,6 +6,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.User;
+import net.foreworld.gws.protobuf.User.UserLoginProtobuf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,7 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 		req.setSeqId(56);
 		req.setTimestamp(System.currentTimeMillis());
 
-		User.LoginProtobuf.Builder login = User.LoginProtobuf.newBuilder();
+		UserLoginProtobuf.Builder login = UserLoginProtobuf.newBuilder();
 		login.setCode("123456");
 
 		req.setData(login.build().toByteString());

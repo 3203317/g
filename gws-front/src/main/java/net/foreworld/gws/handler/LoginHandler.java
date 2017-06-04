@@ -14,7 +14,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.User;
+import net.foreworld.gws.protobuf.User.UserLoginProtobuf;
 import net.foreworld.gws.util.ChannelUtil;
 import net.foreworld.gws.util.Constants;
 import net.foreworld.gws.util.RedisUtil;
@@ -70,8 +70,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 		try {
 
-			User.LoginProtobuf req = User.LoginProtobuf
-					.parseFrom(msg.getData());
+			UserLoginProtobuf req = UserLoginProtobuf.parseFrom(msg.getData());
 			String code = req.getCode();
 
 			final Channel channel = ctx.channel();
