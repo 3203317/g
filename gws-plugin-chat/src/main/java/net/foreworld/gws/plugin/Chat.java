@@ -4,13 +4,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
-import net.foreworld.gws.protobuf.Chat.ChatSendProtobuf;
-import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.Common.SenderProtobuf;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,6 +13,13 @@ import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
+import net.foreworld.gws.protobuf.Chat.ChatSendProtobuf;
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 
 /**
  *
@@ -54,14 +54,13 @@ public class Chat {
 			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
-			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(),
-					req.getSeqId(), req.getTimestamp());
+			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
 
-			ChatSendProtobuf send = ChatSendProtobuf.parseFrom(req.getData());
-			logger.info("{}:{}", send.getReceiver(), send.getComment());
+			ChatSendProtobuf chatSend = ChatSendProtobuf.parseFrom(req.getData());
+			logger.info("{}:{}", chatSend.getReceiver(), chatSend.getComment());
 
 			ChatProtobuf.Builder ch = ChatProtobuf.newBuilder();
-			ch.setComment(send.getComment());
+			ch.setComment(chatSend.getComment());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
@@ -74,8 +73,7 @@ public class Chat {
 			rec.setReceiver(text[1]);
 			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(
-					queue_back_send + "." + text[0], rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);

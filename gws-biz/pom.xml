@@ -19,7 +19,7 @@
 		<targetResourcesProject>${basedir}/src/main/resources</targetResourcesProject>
 		<targetXMLPackage>mapper</targetXMLPackage>
 		<!-- 编译jdk版本 -->
-		<jdk.version>1.6</jdk.version>
+		<java.version>1.8</java.version>
 		<!-- 依赖版本 -->
 		<mybatis.version>3.3.0</mybatis.version>
 		<mapper.version>3.3.0</mapper.version>
@@ -36,16 +36,6 @@
 			<version>7.0.10</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session-data-redis</artifactId>
-			<version>1.0.2.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.session</groupId>
-			<artifactId>spring-session</artifactId>
-			<version>1.0.2.RELEASE</version>
-		</dependency>
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
@@ -247,41 +237,21 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
+
 	<repositories>
 		<repository>
-			<id>nexus</id>
-			<name>local private nexus</name>
-			<url>http://maven.oschina.net/content/groups/public/</url>
+			<id>taobao</id>
+			<name>taobao</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
 			<releases>
 				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>sonatype-nexus-releases</id>
-			<name>Sonatype Nexus Releases</name>
-			<url>http://oss.sonatype.org/content/repositories/releases</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>sonatype-nexus-snapshots</id>
-			<name>Sonatype Nexus Snapshots</name>
-			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
 			</snapshots>
 		</repository>
 	</repositories>
+
 	<build>
 		<resources>
 			<resource>
@@ -296,26 +266,10 @@
 		</resources>
 		<plugins>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<version>6.1.26</version>
-				<configuration>
-					<scanIntervalSeconds>0</scanIntervalSeconds>
-					<contextPath>/</contextPath>
-					<connectors>
-						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
-							<port>8091</port>
-						</connector>
-					</connectors>
-					<webDefaultXml>webdefault.xml</webDefaultXml>
-					<reload>manual</reload>
-				</configuration>
-			</plugin>
-			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
 				</configuration>
 			</plugin>
 			<plugin>
