@@ -26,7 +26,13 @@ public interface UserFriendsService extends IService<UserFriends> {
 		}
 	}
 
-	List<UserFriends> findByUserFriends(UserFriends entity, int page, int rows);
+	/**
+	 * 获取我的好友
+	 * 
+	 * @param my_id
+	 * @return
+	 */
+	List<UserFriends> findMyFriends(String my_id);
 
 	/**
 	 * 申请加为好友
@@ -34,6 +40,17 @@ public interface UserFriendsService extends IService<UserFriends> {
 	 * @param entity
 	 * @return
 	 */
-	ResultMap<UserFriends> apply(UserFriends entity);
+	ResultMap<Void> apply(UserFriends entity);
+
+	/**
+	 * 判断双方是否是好友
+	 * 
+	 * @param my_id
+	 *            我的id
+	 * @param friend_id
+	 *            朋友的id
+	 * @return
+	 */
+	ResultMap<Void> checkFriends(String my_id, String friend_id);
 
 }
