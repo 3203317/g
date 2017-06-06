@@ -23,6 +23,8 @@ public class User implements Serializable {
 	@GeneratedValue(generator = "UUID")
 	private String id;
 
+	private String p_id;
+
 	private String user_name;
 	private String user_pass;
 
@@ -40,6 +42,14 @@ public class User implements Serializable {
 	private String nickname;
 
 	private Date create_time;
+
+	public String getP_id() {
+		return p_id;
+	}
+
+	public void setP_id(String p_id) {
+		this.p_id = p_id;
+	}
 
 	public String getUser_name() {
 		return user_name;
