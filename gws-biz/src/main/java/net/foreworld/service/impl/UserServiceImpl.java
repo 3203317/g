@@ -19,7 +19,7 @@ import tk.mybatis.mapper.entity.Example;
  * @author huangxin <3203317@qq.com>
  *
  */
-@Service("UserService")
+@Service("userService")
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	@Override
