@@ -13,7 +13,7 @@ import net.foreworld.model.Role;
 public interface RoleService extends IService<Role> {
 
 	enum Status {
-		START(1), STOP(0);
+		ENABLE(1), DISABLE(0);
 
 		private int value = 0;
 

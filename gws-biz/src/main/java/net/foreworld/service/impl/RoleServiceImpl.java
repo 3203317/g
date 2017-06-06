@@ -30,7 +30,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	public int save(Role entity) {
 		entity.setId(null);
 		entity.setCreate_time(new Date());
-		entity.setStatus(Status.START.value());
+		entity.setStatus(Status.ENABLE.value());
 		return super.save(entity);
 	}
 

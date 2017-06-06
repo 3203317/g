@@ -12,6 +12,34 @@ import net.foreworld.model.User;
  */
 public interface UserService extends IService<User> {
 
+	enum Status {
+		ENABLE(1), DISABLE(0);
+
+		private int value = 0;
+
+		private Status(int value) {
+			this.value = value;
+		}
+
+		public int value() {
+			return this.value;
+		}
+	}
+
+	enum Sex {
+		male(1), female(0);
+
+		private int value = 0;
+
+		private Sex(int value) {
+			this.value = value;
+		}
+
+		public int value() {
+			return this.value;
+		}
+	}
+
 	List<User> findByUser(User entity, int page, int rows);
 
 	/**

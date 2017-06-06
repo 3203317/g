@@ -60,6 +60,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		}
 
 		entity.setUser_pass(Md5.encode(entity.getUser_pass()));
+		entity.setStatus(UserService.Status.ENABLE.value());
 		save(entity);
 
 		map.setData(entity);
