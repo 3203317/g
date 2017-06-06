@@ -4,8 +4,8 @@ import net.foreworld.model.Role;
 import net.foreworld.util.MyMapper;
 
 /**
- *
- * @author Administrator
+ * 
+ * @author huangxin <3203317@qq.com>
  *
  */
 public interface RoleMapper extends MyMapper<Role> {

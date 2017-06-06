@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
- * @author Administrator
+ * 
+ * @author huangxin <3203317@qq.com>
  *
  * @param <T>
  */
