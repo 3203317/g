@@ -1,4 +1,4 @@
-package net.foreworld.gws.test;
+package net.foreworld.test;
 
 import java.util.List;
 
