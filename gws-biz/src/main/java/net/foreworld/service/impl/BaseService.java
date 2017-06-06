@@ -2,20 +2,20 @@ package net.foreworld.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.annotation.Resource;
 
 import net.foreworld.service.IService;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- * 
+ *
  * @author huangxin <3203317@qq.com>
  *
  * @param <T>
  */
 public abstract class BaseService<T> implements IService<T> {
 
-	@Autowired
+	@Resource
 	protected Mapper<T> mapper;
 
 	public Mapper<T> getMapper() {
