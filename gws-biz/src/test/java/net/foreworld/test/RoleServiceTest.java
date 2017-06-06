@@ -5,15 +5,19 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.test.annotation.Rollback;
+
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.Role;
 import net.foreworld.service.RoleService;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.springframework.test.annotation.Rollback;
-
 public class RoleServiceTest extends BasicTest {
+
+	private static final Logger logger = LoggerFactory.getLogger(RoleServiceTest.class);
 
 	@Resource
 	private RoleService roleService;
@@ -24,7 +28,7 @@ public class RoleServiceTest extends BasicTest {
 	// 标明使用完此方法后事务不回滚, true时为回滚
 	public void test_findByRole() {
 		List<Role> list = roleService.findByRole(null, 1, Integer.MAX_VALUE);
-		System.out.println("-----" + list.size());
+		logger.info("{}", list.size());
 	}
 
 	@Test
@@ -40,8 +44,7 @@ public class RoleServiceTest extends BasicTest {
 
 	@Test
 	public void test_setStatus() {
-		ResultMap<Void> map = roleService.setStatus(
-				"ce2b91715e884800ad24bb5acba8cce2", RoleService.Status.STOP);
+		ResultMap<Void> map = roleService.setStatus("ce2b91715e884800ad24bb5acba8cce2", RoleService.Status.STOP);
 		Assert.assertTrue(map.getMsg(), map.getSuccess());
 	}
 
