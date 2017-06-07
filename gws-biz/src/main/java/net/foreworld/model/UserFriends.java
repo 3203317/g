@@ -40,6 +40,19 @@ public class UserFriends implements Serializable {
 
 	private String apply_content;
 
+	/**
+	 * 拒绝原因
+	 */
+	private String reason;
+
+	public String getReason() {
+		return reason;
+	}
+
+	public void setReason(String reason) {
+		this.reason = reason;
+	}
+
 	public String getApply_content() {
 		return apply_content;
 	}

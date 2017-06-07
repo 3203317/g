@@ -13,7 +13,7 @@ import net.foreworld.model.UserFriends;
 public interface UserFriendsService extends IService<UserFriends> {
 
 	enum Status {
-		APPLY(1);
+		APPLY(1), AGREE(2), REJECT(3);
 
 		private int value = 0;
 
@@ -27,14 +27,13 @@ public interface UserFriendsService extends IService<UserFriends> {
 	}
 
 	/**
-	 * 
 	 * 获取我的好友列表
 	 * 
 	 * @param my_id
-	 *            我的id
+	 * @param status
 	 * @return
 	 */
-	List<UserFriends> getMyFriends(String my_id);
+	List<UserFriends> getMyFriends(String my_id, Status status);
 
 	/**
 	 * 申请加为好友

@@ -6,7 +6,18 @@
 		parameterType="java.util.Map">
 
 		SELECT
-		a.*
+		a.id,
+
+		a.friend_a,
+		a.friend_b,
+
+		a.friend_a_alias,
+		a.friend_b_alias,
+
+		a.status,
+		a.create_time,
+		a.apply_content,
+		a.reason
 
 		FROM
 		s_user_friends a
@@ -19,7 +30,8 @@
 		SELECT
 		b.id,
 
-		b.friend_b friend_a,
+		b.friend_b
+		friend_a,
 		b.friend_a friend_b,
 
 		b.friend_b_alias
@@ -29,7 +41,9 @@
 		friend_b_alias,
 
 		b.status,
-		b.create_time
+		b.create_time,
+		b.apply_content,
+		b.reason
 
 		FROM
 		s_user_friends b

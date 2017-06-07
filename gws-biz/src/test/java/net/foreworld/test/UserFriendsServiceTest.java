@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.UserFriends;
 import net.foreworld.service.UserFriendsService;
+import net.foreworld.service.UserFriendsService.Status;
 
 /**
  * 
@@ -27,7 +28,7 @@ public class UserFriendsServiceTest extends BasicTest {
 
 	@Test
 	public void test_getMyFriends() {
-		List<UserFriends> list = userFriendsService.getMyFriends("1");
+		List<UserFriends> list = userFriendsService.getMyFriends("1", Status.AGREE);
 		logger.debug("{}", list.size());
 	}
 

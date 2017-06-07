@@ -34,7 +34,7 @@ public class UserFriendsServiceImpl extends BaseService<UserFriends> implements 
 	}
 
 	@Override
-	public List<UserFriends> getMyFriends(String my_id) {
+	public List<UserFriends> getMyFriends(String my_id, Status status) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("my_id", my_id);
 		return ((UserFriendsMapper) mapper).getMyFriends(map);
