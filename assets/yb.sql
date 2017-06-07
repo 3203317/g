@@ -10,10 +10,28 @@ Target Server Type    : MYSQL
 Target Server Version : 50623
 File Encoding         : 65001
 
-Date: 2017-06-06 16:18:49
+Date: 2017-06-07 17:58:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for `s_cfg`
+-- ----------------------------
+DROP TABLE IF EXISTS `s_cfg`;
+CREATE TABLE `s_cfg` (
+  `key_` varchar(32) NOT NULL DEFAULT '',
+  `value_` varchar(32) DEFAULT NULL,
+  `title` varchar(64) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`key_`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of s_cfg
+-- ----------------------------
+INSERT INTO `s_cfg` VALUES ('1', '2', '4', '2017-06-06 10:29:31', '3');
 
 -- ----------------------------
 -- Table structure for `s_role`
@@ -47,19 +65,20 @@ CREATE TABLE `s_user` (
   `mobile` varchar(64) DEFAULT NULL,
   `qq` varchar(64) DEFAULT NULL,
   `weixin` varchar(64) DEFAULT NULL,
+  `nickname` varchar(64) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
   `status` int(2) DEFAULT NULL,
   `device_code` varchar(255) DEFAULT NULL,
-  `nickname` varchar(64) DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of s_user
 -- ----------------------------
-INSERT INTO `s_user` VALUES ('1', 'superman', 'hx', '2017-06-06 10:29:31', '1', null, null, null, null, null, null, null, null);
+INSERT INTO `s_user` VALUES ('1', 'superman', 'hx', 'c4ca4238a0b923820dcc509a6f75849b', '1', null, null, null, null, null, null, null, null);
 INSERT INTO `s_user` VALUES ('2', 'guest', 'wy', '2017-06-06 10:29:44', '0', null, null, null, null, null, null, null, null);
+INSERT INTO `s_user` VALUES ('22c14bc40b464618a7b1b4631e1e4b44', null, 'hxi', 'e10adc3949ba59abbe56e057f20f883e', null, null, null, null, null, null, '2017-06-07 15:58:16', '1', null);
 
 -- ----------------------------
 -- Table structure for `s_user_friends`
@@ -73,9 +92,12 @@ CREATE TABLE `s_user_friends` (
   `friend_b_alias` varchar(64) DEFAULT NULL,
   `status` int(2) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
+  `apply_content` varchar(255) DEFAULT NULL,
+  `reason` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of s_user_friends
 -- ----------------------------
+INSERT INTO `s_user_friends` VALUES ('f8910bf315d647e089445b19d80b1237', 'hx', 'wy', null, null, '1', '2017-06-07 14:51:35', 'i want', null);
