@@ -31,14 +31,12 @@ public class SysCfgServiceTest extends BasicTest {
 	@Test
 	@Transactional
 	@Rollback(false)
-	// 标明使用完此方法后事务不回滚, true时为回滚
 	public void test_findBySysCfg() {
 		List<SysCfg> list = sysCfgService.findBySysCfg(null, 1, Integer.MAX_VALUE);
 		logger.debug("{}", list.size());
 	}
 
 	@Test
-	// 标明使用完此方法后事务不回滚, true时为回滚
 	public void test_editInfo() {
 		SysCfg entity = new SysCfg();
 

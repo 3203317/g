@@ -59,4 +59,15 @@ public class UserFriendsServiceImpl extends BaseService<UserFriends> implements 
 
 	}
 
+	@Override
+	public ResultMap<Void> agree(String id, String friend_b) {
+		return null;
+	}
+
+	@Override
+	public ResultMap<Void> reject(String id, String friend_b, String reason) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
