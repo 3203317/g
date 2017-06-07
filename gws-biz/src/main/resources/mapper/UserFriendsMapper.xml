@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.foreworld.mapper.UserFriendsMapper">
+
+	<select id="findByMyFriends" resultType="net.foreworld.model.UserFriends"
+		parameterType="java.util.Map">
+
+		SELECT
+		a.*
+
+		FROM
+		s_user_friends a
+		WHERE
+
+		a.friend_a=#{my_id}
+
+		UNION
+
+		SELECT
+		b.id,
+
+		b.friend_b friend_a,
+		b.friend_a friend_b,
+
+		b.friend_b_alias
+		friend_a_alias,
+
+		b.friend_a_alias
+		friend_b_alias,
+
+		b.status,
+		b.create_time
+
+		FROM
+		s_user_friends b
+		WHERE
+		b.friend_b=#{my_id}
+
+	</select>
+</mapper>

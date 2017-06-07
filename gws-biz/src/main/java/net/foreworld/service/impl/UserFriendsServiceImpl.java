@@ -1,15 +1,15 @@
 package net.foreworld.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
-
+import net.foreworld.mapper.UserFriendsMapper;
 import net.foreworld.model.UserFriends;
 import net.foreworld.service.UserFriendsService;
-import tk.mybatis.mapper.entity.Example;
 
 /**
  * 
@@ -34,11 +34,9 @@ public class UserFriendsServiceImpl extends BaseService<UserFriends> implements 
 
 	@Override
 	public List<UserFriends> findByMyFriends(String my_id) {
-		Example example = new Example(UserFriends.class);
-		example.setOrderByClause("create_time DESC");
-
-		PageHelper.startPage(1, Integer.MAX_VALUE);
-		return selectByExample(example);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("my_id", my_id);
+		return ((UserFriendsMapper) mapper).findByMyFriends(map);
 	}
 
 }

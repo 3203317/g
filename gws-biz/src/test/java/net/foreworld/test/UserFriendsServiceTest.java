@@ -25,7 +25,7 @@ public class UserFriendsServiceTest extends BasicTest {
 
 	@Test
 	public void test_findByMyFriends() {
-		List<UserFriends> list = userFriendsService.findByMyFriends("121");
+		List<UserFriends> list = userFriendsService.findByMyFriends("1");
 		logger.debug("{}", list.size());
 	}
 

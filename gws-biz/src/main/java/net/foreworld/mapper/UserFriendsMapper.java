@@ -1,5 +1,8 @@
 package net.foreworld.mapper;
 
+import java.util.List;
+import java.util.Map;
+
 import net.foreworld.model.UserFriends;
 
 /**
@@ -9,4 +12,5 @@ import net.foreworld.model.UserFriends;
  */
 public interface UserFriendsMapper extends MyMapper<UserFriends> {
 
+	List<UserFriends> findByMyFriends(Map<String, Object> map);
 }
