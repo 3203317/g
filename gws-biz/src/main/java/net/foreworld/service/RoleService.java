@@ -2,18 +2,17 @@ package net.foreworld.service;
 
 import java.util.List;
 
-import net.foreworld.model.ResultMap;
 import net.foreworld.model.Role;
 
 /**
- *
- * @author huangxin <3203317@qq.com>
+ * 
+ * @author huangxin
  *
  */
 public interface RoleService extends IService<Role> {
 
 	enum Status {
-		START(1), STOP(0);
+		ENABLE(1), DISABLE(0);
 
 		private int value = 0;
 
@@ -27,27 +26,5 @@ public interface RoleService extends IService<Role> {
 	}
 
 	List<Role> findByRole(Role entity, int page, int rows);
-
-	/**
-	 *
-	 * @param entity
-	 * @return
-	 */
-	ResultMap<Void> editInfo(Role entity);
-
-	/**
-	 *
-	 * @param entity
-	 * @return
-	 */
-	ResultMap<Role> saveNew(Role entity);
-
-	/**
-	 *
-	 * @param id
-	 * @param status
-	 * @return
-	 */
-	ResultMap<Void> setStatus(String id, Status status);
 
 }

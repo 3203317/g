@@ -17,7 +17,7 @@ import javax.persistence.Transient;
 @Table(name = "s_user")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = -3117837844994616855L;
+	private static final long serialVersionUID = -7920195546550646523L;
 
 	@Id
 	@Column(name = "id")
@@ -27,34 +27,47 @@ public class User implements Serializable {
 	/* 推荐人 */
 	private String p_id;
 
-	/* only */
 	private String user_name;
 
 	private String user_pass;
 
-	/* only */
+	private Integer sex;
+
 	private String mobile;
 
-	/* 昵称 */
-	/* only */
-	private String nickname;
+	private String qq;
 
-	/* only */
-	private String email;
-
-	/* only */
 	private String weixin;
 
-	/* only */
-	private String qq;
+	private String nickname;
+
+	private String email;
 
 	private Date create_time;
 
 	private Integer status;
 
+	private String device_code;
+
 	/* 父对象 */
 	@Transient
 	private User _t_p_User;
+
+	public Integer getSex() {
+		return sex;
+	}
+
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
+
+	public String getDevice_code() {
+		return device_code;
+	}
+
+	public void setDevice_code(String device_code) {
+		this.device_code = device_code;
+	}
 
 	public User get_t_p_User() {
 		return _t_p_User;

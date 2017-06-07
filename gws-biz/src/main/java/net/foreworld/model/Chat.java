@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "c_chat")
 public class Chat implements Serializable {
 
-	private static final long serialVersionUID = 3798926073002514849L;
+	private static final long serialVersionUID = 547675984801849039L;
 
 	@Id
 	@Column(name = "id")

@@ -3,8 +3,8 @@ package net.foreworld.mapper;
 import net.foreworld.model.User;
 
 /**
- *
- * @author huangxin <3203317@qq.com>
+ * 
+ * @author huangxin
  *
  */
 public interface UserMapper extends MyMapper<User> {

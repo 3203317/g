@@ -3,8 +3,8 @@ package net.foreworld.mapper;
 import net.foreworld.model.SysCfg;
 
 /**
- *
- * @author huangxin <3203317@qq.com>
+ * 
+ * @author huangxin
  *
  */
 public interface SysCfgMapper extends MyMapper<SysCfg> {

@@ -5,7 +5,7 @@ import tk.mybatis.mapper.common.MySqlMapper;
 
 /**
  * 
- * @author huangxin <3203317@qq.com>
+ * @author huangxin
  *
  * @param <T>
  */

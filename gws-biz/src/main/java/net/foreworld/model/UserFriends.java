@@ -9,8 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
- * @author huangxin <3203317@qq.com>
+ * 
+ * @author huangxin
  *
  */
 @Table(name = "s_user_friends")

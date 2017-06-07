@@ -1,8 +1,8 @@
 package net.foreworld.model;
 
 /**
- *
- * @author huangxin <3203317@qq.com>
+ * 
+ * @author huangxin
  *
  */
 public class QueryModel {

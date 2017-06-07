@@ -8,8 +8,8 @@ import net.foreworld.service.IService;
 import tk.mybatis.mapper.common.Mapper;
 
 /**
- *
- * @author Administrator
+ * 
+ * @author huangxin
  *
  * @param <T>
  */

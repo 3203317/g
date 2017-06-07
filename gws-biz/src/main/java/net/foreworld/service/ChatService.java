@@ -6,7 +6,7 @@ import net.foreworld.model.Chat;
 
 /**
  * 
- * @author huangxin <3203317@qq.com>
+ * @author huangxin
  *
  */
 public interface ChatService extends IService<Chat> {

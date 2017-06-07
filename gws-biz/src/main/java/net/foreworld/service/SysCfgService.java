@@ -6,8 +6,8 @@ import net.foreworld.model.ResultMap;
 import net.foreworld.model.SysCfg;
 
 /**
- *
- * @author huangxin <3203317@qq.com>
+ * 
+ * @author huangxin
  *
  */
 public interface SysCfgService extends IService<SysCfg> {
