@@ -1,8 +1,8 @@
 package net.foreworld.model;
 
 /**
- *
- * @author Administrator
+ * 
+ * @author huangxin
  *
  * @param <T>
  */

@@ -8,14 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
- * @author Administrator
+ * 
+ * @author huangxin
  *
  */
 @Table(name = "s_cfg")
 public class SysCfg implements Serializable {
-
-	private static final long serialVersionUID = 4405049762353813061L;
 
 	@Id
 	@Column(name = "key_")
@@ -25,8 +23,6 @@ public class SysCfg implements Serializable {
 	private String title;
 	private Date create_time;
 	private String comment;
-
-	/*-----分割线-----*/
 
 	public String getKey_() {
 		return key_;

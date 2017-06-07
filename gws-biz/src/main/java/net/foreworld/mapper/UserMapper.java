@@ -4,7 +4,7 @@ import net.foreworld.model.User;
 
 /**
  *
- * @author Administrator
+ * @author huangxin <3203317@qq.com>
  *
  */
 public interface UserMapper extends MyMapper<User> {

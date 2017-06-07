@@ -24,14 +24,12 @@ public class NoticeServiceImpl extends BaseService<Notice> implements NoticeServ
 	public int save(Notice entity) {
 		entity.setId(null);
 		entity.setCreate_time(new Date());
-		entity.setView_count(0);
 		return super.save(entity);
 	}
 
 	@Override
 	public int updateNotNull(Notice entity) {
 		entity.setCreate_time(null);
-		entity.setUser_id(null);
 		return super.updateNotNull(entity);
 	}
 
@@ -42,23 +40,7 @@ public class NoticeServiceImpl extends BaseService<Notice> implements NoticeServ
 		if (null == entity)
 			return null;
 
-		entity.setView_count(entity.getView_count() + 1);
-		updateView_count(id, entity.getView_count());
-
 		return entity;
-	}
-
-	/**
-	 * 修改浏览量
-	 *
-	 * @param id
-	 * @param view_count
-	 */
-	private void updateView_count(String id, int view_count) {
-		Notice entity = new Notice();
-		entity.setId(id);
-		entity.setView_count(view_count);
-		updateNotNull(entity);
 	}
 
 	@Override

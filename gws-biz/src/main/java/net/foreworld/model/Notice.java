@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name = "w_notice")
 public class Notice implements Serializable {
 
-	private static final long serialVersionUID = 4204799309802253673L;
+	private static final long serialVersionUID = -5761557888839098437L;
 
 	@Id
 	@Column(name = "id")
@@ -26,25 +26,9 @@ public class Notice implements Serializable {
 	private String title;
 	private String content;
 	private Date create_time;
-	private String user_id;
-
-	/**
-	 * 查看数
-	 */
-	private Integer view_count;
-
-	/*-----分割线-----*/
 
 	public String getId() {
 		return id;
-	}
-
-	public Integer getView_count() {
-		return view_count;
-	}
-
-	public void setView_count(Integer view_count) {
-		this.view_count = view_count;
 	}
 
 	public void setId(String id) {
@@ -75,11 +59,4 @@ public class Notice implements Serializable {
 		this.create_time = create_time;
 	}
 
-	public String getUser_id() {
-		return user_id;
-	}
-
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
 }

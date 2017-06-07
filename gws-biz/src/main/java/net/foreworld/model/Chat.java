@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
+ * 
  * @author huangxin <3203317@qq.com>
  *
  */
@@ -27,7 +27,15 @@ public class Chat implements Serializable {
 	private String receiver;
 	private Date create_time;
 
-	private String comment;
+	private String content;
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
 
 	public String getSender() {
 		return sender;
@@ -43,14 +51,6 @@ public class Chat implements Serializable {
 
 	public void setReceiver(String receiver) {
 		this.receiver = receiver;
-	}
-
-	public String getComment() {
-		return comment;
-	}
-
-	public void setComment(String comment) {
-		this.comment = comment;
 	}
 
 	public String getId() {

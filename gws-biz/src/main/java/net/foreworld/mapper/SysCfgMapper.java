@@ -4,7 +4,7 @@ import net.foreworld.model.SysCfg;
 
 /**
  *
- * @author Administrator
+ * @author huangxin <3203317@qq.com>
  *
  */
 public interface SysCfgMapper extends MyMapper<SysCfg> {
