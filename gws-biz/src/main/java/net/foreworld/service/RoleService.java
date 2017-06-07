@@ -6,14 +6,14 @@ import net.foreworld.model.ResultMap;
 import net.foreworld.model.Role;
 
 /**
- * 
+ *
  * @author huangxin <3203317@qq.com>
  *
  */
 public interface RoleService extends IService<Role> {
 
 	enum Status {
-		ENABLE(1), DISABLE(0);
+		START(1), STOP(0);
 
 		private int value = 0;
 
@@ -34,6 +34,13 @@ public interface RoleService extends IService<Role> {
 	 * @return
 	 */
 	ResultMap<Void> editInfo(Role entity);
+
+	/**
+	 *
+	 * @param entity
+	 * @return
+	 */
+	ResultMap<Role> saveNew(Role entity);
 
 	/**
 	 *

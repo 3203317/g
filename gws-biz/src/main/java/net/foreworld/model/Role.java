@@ -29,6 +29,8 @@ public class Role implements Serializable {
 
 	private Integer status;
 
+	/*-----分割线-----*/
+
 	public String getRole_desc() {
 		return role_desc;
 	}

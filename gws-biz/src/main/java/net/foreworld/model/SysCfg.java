@@ -12,10 +12,10 @@ import javax.persistence.Table;
  * @author Administrator
  *
  */
-@Table(name = "w_cfg")
+@Table(name = "s_cfg")
 public class SysCfg implements Serializable {
 
-	private static final long serialVersionUID = -8182700323766883342L;
+	private static final long serialVersionUID = 4405049762353813061L;
 
 	@Id
 	@Column(name = "key_")
@@ -24,7 +24,9 @@ public class SysCfg implements Serializable {
 	private String value_;
 	private String title;
 	private Date create_time;
-	private String describe;
+	private String comment;
+
+	/*-----分割线-----*/
 
 	public String getKey_() {
 		return key_;
@@ -58,12 +60,12 @@ public class SysCfg implements Serializable {
 		this.create_time = create_time;
 	}
 
-	public String getDescribe() {
-		return describe;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 }

@@ -16,30 +16,47 @@ import javax.persistence.Table;
 @Table(name = "w_notice")
 public class Notice implements Serializable {
 
-	private static final long serialVersionUID = 4034728784541327389L;
+	private static final long serialVersionUID = 4204799309802253673L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(generator = "UUID")
 	private String id;
 
-	/**
-	 * 接收人
-	 */
-	private String receiver;
-
+	private String title;
 	private String content;
-
 	private Date create_time;
+	private String user_id;
 
-	private Integer status;
+	/**
+	 * 查看数
+	 */
+	private Integer view_count;
 
-	public String getReceiver() {
-		return receiver;
+	/*-----分割线-----*/
+
+	public String getId() {
+		return id;
 	}
 
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
+	public Integer getView_count() {
+		return view_count;
+	}
+
+	public void setView_count(Integer view_count) {
+		this.view_count = view_count;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getContent() {
@@ -50,14 +67,6 @@ public class Notice implements Serializable {
 		this.content = content;
 	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
 	public Date getCreate_time() {
 		return create_time;
 	}
@@ -66,12 +75,11 @@ public class Notice implements Serializable {
 		this.create_time = create_time;
 	}
 
-	public Integer getStatus() {
-		return status;
+	public String getUser_id() {
+		return user_id;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
 	}
-
 }

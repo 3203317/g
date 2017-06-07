@@ -4,12 +4,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.github.pagehelper.PageHelper;
 
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.Role;
 import net.foreworld.service.RoleService;
+import net.foreworld.util.StringUtil;
 import tk.mybatis.mapper.entity.Example;
 
 /**
@@ -30,7 +32,7 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	public int save(Role entity) {
 		entity.setId(null);
 		entity.setCreate_time(new Date());
-		entity.setStatus(Status.ENABLE.value());
+		entity.setStatus(Status.START.value());
 		return super.save(entity);
 	}
 
@@ -53,6 +55,23 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 	}
 
 	@Override
+	public ResultMap<Role> saveNew(Role entity) {
+		ResultMap<Role> map = new ResultMap<Role>();
+		map.setSuccess(false);
+
+		Role byDb = getByRole_name(entity.getRole_name());
+		if (null != byDb) {
+			map.setMsg("role is exist");
+			return map;
+		}
+
+		save(entity);
+		map.setData(entity);
+		map.setSuccess(true);
+		return map;
+	}
+
+	@Override
 	public ResultMap<Void> setStatus(String id, Status status) {
 		ResultMap<Void> map = new ResultMap<Void>();
 
@@ -65,4 +84,24 @@ public class RoleServiceImpl extends BaseService<Role> implements RoleService {
 		return map;
 	}
 
+	/**
+	 *
+	 * @param role_name
+	 *            角色名
+	 * @return role
+	 */
+	private Role getByRole_name(String role_name) {
+		role_name = StringUtil.isEmpty(role_name);
+
+		if (null == role_name) {
+			return null;
+		}
+
+		Example example = new Example(Role.class);
+		Example.Criteria criteria = example.createCriteria();
+		criteria.andEqualTo("role_name", role_name);
+		List<Role> list = selectByExample(example);
+		Assert.notNull(list, "role list is null");
+		return 1 == list.size() ? list.get(0) : null;
+	}
 }

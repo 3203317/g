@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -16,32 +17,62 @@ import javax.persistence.Table;
 @Table(name = "s_user")
 public class User implements Serializable {
 
-	private static final long serialVersionUID = -4891273607017288161L;
+	private static final long serialVersionUID = 3660088808064034358L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(generator = "UUID")
 	private String id;
 
+	/* 推荐人 */
 	private String p_id;
 
+	/* only */
 	private String user_name;
+
 	private String user_pass;
 
-	private Integer sex;
-
+	/* only */
 	private String mobile;
 
-	private String qq;
-	private String weixin;
+	/* 昵称 */
+	/* only */
+	private String nickname;
+
+	/* only */
 	private String email;
+
+	/* only */
+	private String weixin;
+
+	/* only */
+	private String qq;
+
+	private Date create_time;
 
 	private Integer status;
 
-	private String device_code;
-	private String nickname;
+	/* 父对象 */
+	@Transient
+	private User _t_pUser;
 
-	private Date create_time;
+	/*-----分割线-----*/
+
+	public User get_t_pUser() {
+		return _t_pUser;
+	}
+
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+
+	public void set_t_pUser(User _t_pUser) {
+		this._t_pUser = _t_pUser;
+	}
 
 	public String getP_id() {
 		return p_id;
@@ -59,20 +90,20 @@ public class User implements Serializable {
 		this.user_name = user_name;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getUser_pass() {
 		return user_pass;
 	}
 
 	public void setUser_pass(String user_pass) {
 		this.user_pass = user_pass;
-	}
-
-	public Integer getSex() {
-		return sex;
-	}
-
-	public void setSex(Integer sex) {
-		this.sex = sex;
 	}
 
 	public String getMobile() {
@@ -83,20 +114,12 @@ public class User implements Serializable {
 		this.mobile = mobile;
 	}
 
-	public String getQq() {
-		return qq;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
-
-	public String getWeixin() {
-		return weixin;
-	}
-
-	public void setWeixin(String weixin) {
-		this.weixin = weixin;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getEmail() {
@@ -107,28 +130,12 @@ public class User implements Serializable {
 		this.email = email;
 	}
 
-	public String getDevice_code() {
-		return device_code;
+	public String getWeixin() {
+		return weixin;
 	}
 
-	public void setDevice_code(String device_code) {
-		this.device_code = device_code;
-	}
-
-	public String getNickname() {
-		return nickname;
-	}
-
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
-	}
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
+	public void setWeixin(String weixin) {
+		this.weixin = weixin;
 	}
 
 	public Date getCreate_time() {
