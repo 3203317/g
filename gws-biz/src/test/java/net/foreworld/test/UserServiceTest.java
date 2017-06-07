@@ -47,4 +47,11 @@ public class UserServiceTest extends BasicTest {
 		Assert.assertTrue(map.getMsg(), map.getSuccess());
 	}
 
+	@Test
+	public void test_changePwd() {
+
+		ResultMap<Void> map = userService.changePwd("1", "123456", "1");
+		Assert.assertTrue(map.getMsg(), map.getSuccess());
+	}
+
 }

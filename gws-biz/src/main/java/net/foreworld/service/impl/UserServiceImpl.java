@@ -98,4 +98,36 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 
 	}
 
+	@Override
+	public ResultMap<Void> changePwd(String id, String old_pass, String new_pass) {
+
+		ResultMap<Void> map = new ResultMap<Void>();
+		map.setSuccess(false);
+
+		new_pass = StringUtil.isEmpty(new_pass);
+
+		if (null == new_pass) {
+			map.setMsg("新密码不能为空");
+			return map;
+		}
+
+		User _user = selectByKey(id);
+
+		Assert.notNull(_user, "user is not null");
+
+		if (!Md5.encode(old_pass).equals(_user.getUser_pass())) {
+			map.setMsg("老密码错误");
+			return map;
+		}
+
+		User entity = new User();
+		entity.setId(id);
+		entity.setUser_pass(Md5.encode(new_pass));
+
+		super.updateNotNull(entity);
+
+		map.setSuccess(true);
+		return map;
+	}
+
 }

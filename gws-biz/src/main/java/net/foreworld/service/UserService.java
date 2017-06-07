@@ -59,4 +59,16 @@ public interface UserService extends IService<User> {
 	 */
 	User getByName(String user_name);
 
+	/**
+	 * 修改用户的密码
+	 * 
+	 * @param id
+	 * @param old_pass
+	 *            老密码
+	 * @param new_pass
+	 *            新密码
+	 * @return
+	 */
+	ResultMap<Void> changePwd(String id, String old_pass, String new_pass);
+
 }
