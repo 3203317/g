@@ -50,11 +50,4 @@ public interface UserService extends IService<User> {
 	 */
 	List<User> findByUser(User entity, int page, int rows);
 
-	/**
-	 *
-	 * @param entity
-	 * @return
-	 */
-	User getByUser(User entity);
-
 }
