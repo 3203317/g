@@ -51,4 +51,58 @@
 		b.friend_b=#{my_id}
 
 	</select>
+
+	<select id="findByMyAndFriend" resultType="net.foreworld.model.UserFriends"
+		parameterType="java.util.Map">
+		SELECT
+		a.id,
+
+		a.friend_a,
+		a.friend_b,
+
+		a.friend_a_alias,
+		a.friend_b_alias,
+
+		a.status,
+		a.create_time,
+		a.apply_content,
+		a.reason
+
+		FROM
+		s_user_friends a
+		WHERE
+
+		a.friend_a=#{my_id}
+		AND
+		a.friend_b=#{friend_id}
+		AND
+		a.status=#{agree}
+
+		UNION
+
+		SELECT
+		b.id,
+
+		b.friend_a,
+		b.friend_b,
+
+		b.friend_a_alias,
+		b.friend_b_alias,
+
+		b.status,
+		b.create_time,
+		b.apply_content,
+		b.reason
+
+		FROM
+		s_user_friends b
+		WHERE
+
+		b.friend_a=#{friend_id}
+		AND
+		b.friend_b=#{my_id}
+		AND
+		b.status=#{agree}
+	</select>
+
 </mapper>

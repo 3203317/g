@@ -13,4 +13,6 @@ import net.foreworld.model.UserFriends;
 public interface UserFriendsMapper extends MyMapper<UserFriends> {
 
 	List<UserFriends> getMyFriends(Map<String, Object> map);
+
+	List<UserFriends> findByMyAndFriend(Map<String, Object> map);
 }

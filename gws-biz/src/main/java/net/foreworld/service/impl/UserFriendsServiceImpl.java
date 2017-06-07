@@ -44,6 +44,12 @@ public class UserFriendsServiceImpl extends BaseService<UserFriends> implements 
 	public ResultMap<Void> apply(UserFriends entity) {
 
 		ResultMap<Void> map = new ResultMap<Void>();
+		map.setSuccess(false);
+
+		if (checkBothIsFriend(entity.getFriend_a(), entity.getFriend_b())) {
+			map.setMsg("双方是好友");
+			return map;
+		}
 
 		UserFriends _entity = new UserFriends();
 		_entity.setStatus(UserFriendsService.Status.APPLY.value());
@@ -68,6 +74,24 @@ public class UserFriendsServiceImpl extends BaseService<UserFriends> implements 
 	public ResultMap<Void> reject(String id, String friend_b, String reason) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	/**
+	 * 检测双方是否是好友
+	 * 
+	 * @param my_id
+	 * @param friend_id
+	 * @return
+	 */
+	private boolean checkBothIsFriend(String my_id, String friend_id) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("my_id", my_id);
+		map.put("friend_id", friend_id);
+		map.put("agree", Status.AGREE.value());
+		List<UserFriends> list = ((UserFriendsMapper) mapper).findByMyAndFriend(map);
+
+		return 0 < list.size();
 	}
 
 }
