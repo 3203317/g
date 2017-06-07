@@ -38,6 +38,16 @@ public class UserFriends implements Serializable {
 	private Date create_time;
 	private Integer status;
 
+	private String apply_content;
+
+	public String getApply_content() {
+		return apply_content;
+	}
+
+	public void setApply_content(String apply_content) {
+		this.apply_content = apply_content;
+	}
+
 	public String getFriend_a() {
 		return friend_a;
 	}
