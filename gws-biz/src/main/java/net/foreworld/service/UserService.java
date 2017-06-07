@@ -35,6 +35,7 @@ public interface UserService extends IService<User> {
 	ResultMap<User> login(String user_name, String user_pass);
 
 	/**
+	 * 用户注册
 	 *
 	 * @param entity
 	 * @return
@@ -49,5 +50,13 @@ public interface UserService extends IService<User> {
 	 * @return
 	 */
 	List<User> findByUser(User entity, int page, int rows);
+
+	/**
+	 * 通过用户名获取用户
+	 * 
+	 * @param user_name
+	 * @return
+	 */
+	User getByName(String user_name);
 
 }

@@ -5,11 +5,13 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.annotation.Rollback;
 
+import net.foreworld.model.ResultMap;
 import net.foreworld.model.User;
 import net.foreworld.service.UserService;
 
@@ -32,6 +34,17 @@ public class UserServiceTest extends BasicTest {
 	public void test_findByUser() {
 		List<User> list = userService.findByUser(null, 1, Integer.MAX_VALUE);
 		logger.debug("{}", list.size());
+	}
+
+	@Test
+	public void test_register() {
+
+		User entity = new User();
+		entity.setUser_name("hxi");
+		entity.setUser_pass("123456");
+
+		ResultMap<User> map = userService.register(entity);
+		Assert.assertTrue(map.getMsg(), map.getSuccess());
 	}
 
 }
