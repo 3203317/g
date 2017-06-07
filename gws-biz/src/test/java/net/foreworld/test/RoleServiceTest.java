@@ -13,6 +13,11 @@ import org.springframework.test.annotation.Rollback;
 import net.foreworld.model.Role;
 import net.foreworld.service.RoleService;
 
+/**
+ * 
+ * @author huangxin
+ *
+ */
 public class RoleServiceTest extends BasicTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(RoleServiceTest.class);
