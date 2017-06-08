@@ -1,7 +1,6 @@
 package net.foreworld.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -9,13 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
-
 import net.foreworld.model.Group;
-import net.foreworld.model.User;
+import net.foreworld.model.ResultMap;
 import net.foreworld.service.GroupService;
 import net.foreworld.service.UserService;
-import tk.mybatis.mapper.entity.Example;
 
 /**
  * 
@@ -44,16 +40,19 @@ public class GroupServiceImpl extends BaseService<Group> implements GroupService
 	}
 
 	@Override
-	public List<Group> findByGroup(Group entity, int page, int rows) {
+	public ResultMap<String> search(String user_id, String group_type, String group_id) {
 
-		List<User> list = userService.selectByExample(null);
-		logger.info("{}", list.size());
+		ResultMap<String> map = new ResultMap<String>();
 
-		Example example = new Example(Group.class);
-		example.setOrderByClause("create_time DESC");
+		Group group = new Group();
+		group.setGroup_name(new Date().toString());
 
-		PageHelper.startPage(page, rows);
-		return selectByExample(example);
+		save(group);
+
+		map.setData(group.getGroup_name());
+
+		map.setSuccess(true);
+		return map;
 	}
 
 }
