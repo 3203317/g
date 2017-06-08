@@ -25,6 +25,6 @@ public interface GroupService extends IService<Group> {
 		}
 	}
 
-	List<Group> findByRole(Group entity, int page, int rows);
+	List<Group> findByGroup(Group entity, int page, int rows);
 
 }

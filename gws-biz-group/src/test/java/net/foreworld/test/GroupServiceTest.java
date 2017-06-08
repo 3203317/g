@@ -23,14 +23,14 @@ public class GroupServiceTest extends BasicTest {
 	private static final Logger logger = LoggerFactory.getLogger(GroupServiceTest.class);
 
 	@Resource
-	private GroupService roleService;
+	private GroupService groupService;
 
 	@Test
 	@Transactional
 	@Rollback(false)
 	// 标明使用完此方法后事务不回滚, true时为回滚
 	public void test_findByRole() {
-		List<Group> list = roleService.findByRole(null, 1, Integer.MAX_VALUE);
+		List<Group> list = groupService.findByGroup(null, 1, Integer.MAX_VALUE);
 		logger.debug("{}", list.size());
 	}
 

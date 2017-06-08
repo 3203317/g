@@ -16,26 +16,17 @@ import javax.persistence.Table;
 @Table(name = "g_group")
 public class Group implements Serializable {
 
-	private static final long serialVersionUID = -5946595441604102860L;
+	private static final long serialVersionUID = -6390664045260044818L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(generator = "UUID")
 	private String id;
 
-	private String role_name;
-	private String role_desc;
+	private String group_name;
 	private Date create_time;
 
 	private Integer status;
-
-	public String getRole_desc() {
-		return role_desc;
-	}
-
-	public void setRole_desc(String role_desc) {
-		this.role_desc = role_desc;
-	}
 
 	public String getId() {
 		return id;
@@ -45,12 +36,12 @@ public class Group implements Serializable {
 		this.id = id;
 	}
 
-	public String getRole_name() {
-		return role_name;
+	public String getGroup_name() {
+		return group_name;
 	}
 
-	public void setRole_name(String role_name) {
-		this.role_name = role_name;
+	public void setGroup_name(String group_name) {
+		this.group_name = group_name;
 	}
 
 	public Date getCreate_time() {

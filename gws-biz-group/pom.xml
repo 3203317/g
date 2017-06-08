@@ -198,6 +198,11 @@
 			<artifactId>gws-biz</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-biz-user</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>
