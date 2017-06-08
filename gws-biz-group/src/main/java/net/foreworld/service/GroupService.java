@@ -2,17 +2,17 @@ package net.foreworld.service;
 
 import java.util.List;
 
-import net.foreworld.model.Chat;
+import net.foreworld.model.Group;
 
 /**
  * 
  * @author huangxin
  *
  */
-public interface ChatService extends IService<Chat> {
+public interface GroupService extends IService<Group> {
 
 	enum Status {
-		READ(1), UNREAD(0);
+		ENABLE(1), DISABLE(0);
 
 		private int value = 0;
 
@@ -25,6 +25,6 @@ public interface ChatService extends IService<Chat> {
 		}
 	}
 
-	List<Chat> findByChat(Chat entity, int page, int rows);
+	List<Group> findByRole(Group entity, int page, int rows);
 
 }

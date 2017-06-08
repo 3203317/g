@@ -9,48 +9,32 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * 
+ *
  * @author huangxin <3203317@qq.com>
  *
  */
-@Table(name = "c_chat")
-public class Chat implements Serializable {
+@Table(name = "g_group")
+public class Group implements Serializable {
 
-	private static final long serialVersionUID = 547675984801849039L;
+	private static final long serialVersionUID = -5946595441604102860L;
 
 	@Id
 	@Column(name = "id")
 	@GeneratedValue(generator = "UUID")
 	private String id;
 
-	private String sender;
-	private String receiver;
+	private String role_name;
+	private String role_desc;
 	private Date create_time;
 
-	private String content;
+	private Integer status;
 
-	public String getContent() {
-		return content;
+	public String getRole_desc() {
+		return role_desc;
 	}
 
-	public void setContent(String content) {
-		this.content = content;
-	}
-
-	public String getSender() {
-		return sender;
-	}
-
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
-
-	public String getReceiver() {
-		return receiver;
-	}
-
-	public void setReceiver(String receiver) {
-		this.receiver = receiver;
+	public void setRole_desc(String role_desc) {
+		this.role_desc = role_desc;
 	}
 
 	public String getId() {
@@ -61,6 +45,14 @@ public class Chat implements Serializable {
 		this.id = id;
 	}
 
+	public String getRole_name() {
+		return role_name;
+	}
+
+	public void setRole_name(String role_name) {
+		this.role_name = role_name;
+	}
+
 	public Date getCreate_time() {
 		return create_time;
 	}
@@ -69,4 +61,11 @@ public class Chat implements Serializable {
 		this.create_time = create_time;
 	}
 
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
 }

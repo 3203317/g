@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 
-import net.foreworld.model.Role;
-import net.foreworld.service.RoleService;
+import net.foreworld.model.Group;
+import net.foreworld.service.GroupService;
 import tk.mybatis.mapper.entity.Example;
 
 /**
@@ -17,24 +17,24 @@ import tk.mybatis.mapper.entity.Example;
  *
  */
 @Service("roleService")
-public class RoleServiceImpl extends BaseService<Role> implements RoleService {
+public class GroupServiceImpl extends BaseService<Group> implements GroupService {
 
 	@Override
-	public int updateNotNull(Role entity) {
+	public int updateNotNull(Group entity) {
 		entity.setCreate_time(null);
 		return super.updateNotNull(entity);
 	}
 
 	@Override
-	public int save(Role entity) {
+	public int save(Group entity) {
 		entity.setId(null);
 		entity.setCreate_time(new Date());
 		return super.save(entity);
 	}
 
 	@Override
-	public List<Role> findByRole(Role entity, int page, int rows) {
-		Example example = new Example(Role.class);
+	public List<Group> findByRole(Group entity, int page, int rows) {
+		Example example = new Example(Group.class);
 		example.setOrderByClause("create_time DESC");
 
 		PageHelper.startPage(page, rows);
