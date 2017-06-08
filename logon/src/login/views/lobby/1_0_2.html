@@ -7,6 +7,12 @@
 	<body>
 
     <input type='button' id='shot' value='shot'><p></p>
+
+    加入群组：（8人场）
+    <input type='text' id='group_type' />
+    <input type='text' id='group_id' />
+    <input type='button' id='searchGroup' value='searchGroup'><p></p>
+
     <input type='button' id='logout' value='logout'><p></p>
 
     <textarea rows='8' cols='50'></textarea><p></p>
@@ -26,6 +32,7 @@ var exports = {};
 <script type='text/javascript' src='/assets/js/emag/common.js'></script>
 <script type='text/javascript' src='/assets/js/emag/user.js'></script>
 <script type='text/javascript' src='/assets/js/emag/chat.js'></script>
+<script type='text/javascript' src='/assets/js/emag/group.js'></script>
 
 <script type='text/javascript'>
 
@@ -38,6 +45,23 @@ $(function(){
   var gws = proto.gws;
 
   var socket = null;
+
+  $('#searchGroup').click(function(){
+
+    var data = new gws.GroupSearchProtobuf();
+    data.setGroupType($('#group_type').val())
+    data.setGroupId($('#group_id').val());
+
+    var req = new gws.RequestProtobuf();
+    req.setVersion(102);
+    req.setMethod(3001);
+    req.setSeqid(parseInt(Math.random() * 1000));
+    req.setTimestamp(new Date().getTime());
+    req.setData(data.serializeBinary());
+
+    var binary = req.serializeBinary();
+    socket.send(binary);
+  });
 
   $('#send').click(function(){
 
@@ -92,6 +116,13 @@ $(function(){
             (function(){
               var data = gws.ChatProtobuf.deserializeBinary(result.getData());
               console.log(data.getComment());
+            })();
+            break;
+          }
+          case 3001:{
+            (function(){
+              var data = gws.GroupProtobuf.deserializeBinary(result.getData());
+              console.log(data.getId());
             })();
             break;
           }
