@@ -22,7 +22,7 @@ import tk.mybatis.mapper.entity.Example;
  * @author huangxin
  *
  */
-@Service("roleService")
+@Service("groupService")
 public class GroupServiceImpl extends BaseService<Group> implements GroupService {
 
 	@Resource
