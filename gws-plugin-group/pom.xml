@@ -128,6 +128,11 @@
 			<artifactId>gws-protobuf-common</artifactId>
 			<version>2.0.13</version>
 		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-protobuf-group</artifactId>
+			<version>2.0.13</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

@@ -4,11 +4,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.Common.SenderProtobuf;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +14,13 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
+import net.foreworld.gws.protobuf.Group.GroupProtobuf;
+import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
+
 /**
  *
  * @author huangxin <3203317@qq.com>
@@ -26,7 +28,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
  */
 @PropertySource("classpath:activemq.properties")
 @Component
-public class FishJoy {
+public class Group {
 
 	@Value("${protocol.version}")
 	private int protocol_version;
@@ -37,10 +39,10 @@ public class FishJoy {
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
-	private static final Logger logger = LoggerFactory.getLogger(FishJoy.class);
+	private static final Logger logger = LoggerFactory.getLogger(Group.class);
 
-	@JmsListener(destination = "qq3203317.1001")
-	public void shot(BytesMessage msg) {
+	@JmsListener(destination = "qq3203317.3001")
+	public void search(BytesMessage msg) {
 
 		try {
 			int len = (int) msg.getBodyLength();
@@ -52,21 +54,26 @@ public class FishJoy {
 			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
-			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(),
-					req.getSeqId(), req.getTimestamp());
+			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
+
+			GroupSearchProtobuf chatSend = GroupSearchProtobuf.parseFrom(req.getData());
+			logger.info("{}:{}", chatSend.getGroupType(), chatSend.getGroupId());
+
+			GroupProtobuf.Builder ch = GroupProtobuf.newBuilder();
+			ch.setId("123321");
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
+			resp.setData(ch.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);
 			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(
-					queue_back_send + "." + text[0], rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
