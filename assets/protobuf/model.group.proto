@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package gws;
+
+option java_package = "net.foreworld.gws.protobuf";
+option java_outer_classname = "Group";
+
+message GroupProtobuf {
+  string id = 1;
+}
+
+message GroupSearchProtobuf {
+  string group_type = 1;
+  string group_id = 2;
+}
