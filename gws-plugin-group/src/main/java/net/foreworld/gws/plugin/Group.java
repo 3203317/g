@@ -20,6 +20,8 @@ import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
+import net.foreworld.model.ResultMap;
+import net.foreworld.service.GroupService;
 
 /**
  *
@@ -38,6 +40,9 @@ public class Group {
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
+
+	@Resource
+	private GroupService groupService;
 
 	private static final Logger logger = LoggerFactory.getLogger(Group.class);
 
@@ -61,6 +66,9 @@ public class Group {
 
 			GroupProtobuf.Builder ch = GroupProtobuf.newBuilder();
 			ch.setId("123321");
+
+			ResultMap<String> map = groupService.search("user_id", "group_type", "group_id");
+			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
