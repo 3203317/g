@@ -6,11 +6,11 @@
 'use strict';
 
 const login = require('../controllers/login');
-const lobby = require('../controllers/lobby');
+const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
   app.get('/user/login$', login.indexUI);
   app.post('/user/login$', login.index);
 
-  app.get('/', login.login_validate, lobby.indexUI);
+  app.get('/', fishjoy.indexUI);
 };
