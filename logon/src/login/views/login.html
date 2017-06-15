@@ -81,7 +81,8 @@
         data: data,
         success: function(data){
           if(data.error) return alert(JSON.stringify(data.error));
-          location.href = '$!{virtualPath}?code='+ data.data[0] +'&s='+ data.data[1];
+          // location.href = '$!{virtualPath}?code='+ data.data[0] +'&s='+ data.data[1];
+          location.href = '$!{virtualPath}';
         },
         error: function(){
           alert(arguments[2]);

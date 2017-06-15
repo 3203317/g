@@ -25,7 +25,8 @@ app.set('port', process.env.PORT || 8888)
    .use(express.favicon())
    .use(express.json())
    .use(express.urlencoded())
-   .use(express.methodOverride());
+   .use(express.methodOverride())
+   .use(express.cookieParser());
 
 /* production */
 if('production' === app.get('env')){
@@ -43,6 +44,14 @@ if('development' === app.get('env')){
         showStack: true
       }));
 }
+
+app.use(express.session({
+  secret: conf.cookie.secret,
+  key: conf.cookie.key,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 1  //1 days
+  }
+}));
 
 app.use(app.router)
     /* velocity */

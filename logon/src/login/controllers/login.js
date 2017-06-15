@@ -18,18 +18,30 @@ exports.indexUI = function(req, res, next){
     conf: conf,
     title: '游客登陆 | '+ conf.corp.name,
     data: {}
-  });  // render
+  });
 };
 
-/**
- * 1、返回access_token（用于登陆tcp服务器），有效期1分钟
- */
 exports.index = function(req, res, next){
   var query = req.body;
 
-  biz.user.login(query, (err, code, token /* 授权码及服务器信息 */) => {
+  biz.user.login(query, (err, code, doc) => {
     if(err) return next(err);
     if(code) return res.send({ error: { code: code } });
-    res.send({ data: token });
-  }); // login
+
+    req.session.lv = 3;
+    req.session.user = doc;
+    res.send({});
+  });
+};
+
+/**
+ * 用户会话验证
+ *
+ * @params
+ * @return
+ */
+exports.login_validate = function(req, res, next){
+  if(3 === req.session.lv) return next();
+  if(req.xhr) return res.send({ success: false, msg: '无权访问' });
+  res.redirect('/client/user/login?refererUrl='+ escape(req.url));
 };

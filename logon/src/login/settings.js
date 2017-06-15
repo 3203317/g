@@ -10,6 +10,7 @@ module.exports = {
     name: 'foreworld.net'
   },
   cookie: {
+    key: 'login',
     secret: 'login'
   },
   html: {

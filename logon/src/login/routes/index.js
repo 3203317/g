@@ -12,5 +12,5 @@ module.exports = function(app){
   app.get('/user/login$', login.indexUI);
   app.post('/user/login$', login.index);
 
-  app.get('/', lobby.indexUI);
+  app.get('/', login.login_validate, lobby.indexUI);
 };

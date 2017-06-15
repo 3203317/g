@@ -131,24 +131,26 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
       return cb(null, '103');
 
-    var p1 = new Promise((resolve, reject) => {
-      self.authorize(doc.id, 'e0b13571d00d4606b9570415423cb5be', (err, code) => {
-        if(err) return reject(err);
-        resolve(code);
-      });
-    });
+    // var p1 = new Promise((resolve, reject) => {
+    //   self.authorize(doc.id, '5a2c6a1043454b168e6d3e8bef5cbce2', (err, code) => {
+    //     if(err) return reject(err);
+    //     resolve(code);
+    //   });
+    // });
 
-    var p2 = new Promise((resolve, reject) => {
-      // 服务器可用性
-      server.available((err, info) => {
-        if(err) return reject(err);
-        resolve(info);
-      });
-    });
+    // var p2 = new Promise((resolve, reject) => {
+    //   // 服务器可用性
+    //   server.available((err, info) => {
+    //     if(err) return reject(err);
+    //     resolve(info);
+    //   });
+    // });
 
-    Promise.all([p1, p2]).then(values => {
-      cb(null, null, values);
-    }).catch(cb);
+    // Promise.all([p1, p2]).then(values => {
+    //   cb(null, null, values);
+    // }).catch(cb);
+
+    cb(null, null, doc);
 
   });
 };
