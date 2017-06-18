@@ -70,8 +70,8 @@ public class Channel {
 
 		try {
 
-			String token = msg.getText();
-			String[] text = token.split("::");
+			String channel = msg.getText();
+			String[] text = channel.split("::");
 
 			ResultMap<Void> map = userService.logout(text[0], text[1]);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());

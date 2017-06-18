@@ -27,7 +27,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 			.getLogger(UserServiceImpl.class);
 
 	@Value("${sha.user.logout}")
-	private String user_logout;
+	private String sha_user_logout;
 
 	@Override
 	public ResultMap<Void> logout(String server_id, String channel_id) {
@@ -48,7 +48,7 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		b.add(server_id);
 		b.add(channel_id);
 
-		j.evalsha(user_logout, s, b);
+		j.evalsha(sha_user_logout, s, b);
 		j.close();
 
 		map.setSuccess(true);
