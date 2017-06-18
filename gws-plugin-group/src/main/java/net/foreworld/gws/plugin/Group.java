@@ -71,7 +71,7 @@ public class Group {
 			ch.setId("123321");
 
 			ResultMap<String> map = groupService.search("user_id",
-					"group_type", "group_id");
+					"group_type");
 			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
@@ -118,8 +118,8 @@ public class Group {
 			GroupProtobuf.Builder ch = GroupProtobuf.newBuilder();
 			ch.setId("123321");
 
-			ResultMap<String> map = groupService.search("user_id",
-					"group_type", "group_id");
+			ResultMap<String> map = groupService.entry("user_id",
+					 "group_id");
 			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
