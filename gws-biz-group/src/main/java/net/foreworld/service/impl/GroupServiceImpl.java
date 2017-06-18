@@ -41,6 +41,9 @@ public class GroupServiceImpl extends BaseService<Group> implements
 	public ResultMap<String> entry(String user_id, String group_id) {
 
 		ResultMap<String> map = new ResultMap<String>();
+		map.setSuccess(false);
+
+		quit(user_id);
 
 		Group group = new Group();
 		group.setGroup_name(new Date().toString());
@@ -49,6 +52,14 @@ public class GroupServiceImpl extends BaseService<Group> implements
 
 		map.setData("群组号");
 		map.setSuccess(true);
+		return map;
+	}
+
+	@Override
+	public ResultMap<String> quit(String user_id) {
+
+		ResultMap<String> map = new ResultMap<String>();
+		map.setSuccess(false);
 		return map;
 	}
 
