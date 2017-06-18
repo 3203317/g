@@ -121,7 +121,7 @@
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-biz-base</artifactId>
+			<artifactId>gws-biz</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
