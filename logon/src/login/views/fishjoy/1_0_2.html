@@ -8,13 +8,13 @@
 
     <input type='button' id='logout' value='logout'><p></p>
 
-    <input type='button' id='barenchang' value='8人场'>
-    <input type='button' id='wurenchang' value='5人场'>
-    <input type='button' id='kuaisuchang' value='快速场'><p></p>
+    <input type='button' onclick='searchGroup("a")' value='8人场'>
+    <input type='button' onclick='searchGroup("b")' value='5人场'>
+    <input type='button' onclick='searchGroup("c")' value='快速场'><p></p>
 
     加入群组：
     <input type='text' id='group_id' />
-    <input type='button' id='searchGroup' value='searchGroup'><p></p>
+    <input type='button' id='entryGroup' value='entryGroup'><p></p>
 
     <textarea rows='8' cols='50'></textarea>
     <textarea rows='8' cols='50'></textarea><p></p>
@@ -44,21 +44,35 @@ var exports = {};
 
 <script type='text/javascript'>
 
+var socket = null;
+var gws = proto.gws;
+
+function searchGroup(group_type){
+
+  var data = new gws.GroupSearchProtobuf();
+  data.setGroupType(group_type);
+
+  var req = new gws.RequestProtobuf();
+  req.setVersion(102);
+  req.setMethod(3001);
+  req.setSeqid(parseInt(Math.random() * 1000));
+  req.setTimestamp(new Date().getTime());
+  req.setData(data.serializeBinary());
+
+  var binary = req.serializeBinary();
+  socket.send(binary);
+}
+
 $(function(){
 
-  var gws = proto.gws;
+  $('#entryGroup').click(function(){
 
-  var socket = null;
-
-  $('#searchGroup').click(function(){
-
-    var data = new gws.GroupSearchProtobuf();
-    data.setGroupType($('#group_type').val())
+    var data = new gws.GroupEntryProtobuf();
     data.setGroupId($('#group_id').val());
 
     var req = new gws.RequestProtobuf();
     req.setVersion(102);
-    req.setMethod(3001);
+    req.setMethod(3002);
     req.setSeqid(parseInt(Math.random() * 1000));
     req.setTimestamp(new Date().getTime());
     req.setData(data.serializeBinary());
