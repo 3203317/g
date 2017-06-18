@@ -6,6 +6,8 @@ import javax.jms.TextMessage;
 
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.model.ResultMap;
+import net.foreworld.service.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,9 @@ public class Channel {
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
+
+	@Resource
+	private UserService userService;
 
 	private static final Logger logger = LoggerFactory.getLogger(Channel.class);
 
@@ -64,7 +69,13 @@ public class Channel {
 	public void close(TextMessage msg) {
 
 		try {
-			logger.info("channel amq close: {}", msg.getText());
+
+			String token = msg.getText();
+			String[] text = token.split("::");
+
+			ResultMap<Void> map = userService.logout(text[0], text[1]);
+			logger.info("{}:{}", map.getSuccess(), map.getMsg());
+
 		} catch (JMSException e) {
 			logger.error("", e);
 		}

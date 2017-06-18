@@ -25,7 +25,7 @@ public class UserServiceTest extends BasicTest {
 
 	@Test
 	public void test_findByRole() {
-		ResultMap<String> map = userService.logout("user_id");
+		ResultMap<Void> map = userService.logout("server_id", "channel_id");
 		Assert.assertTrue(map.getMsg(), map.getSuccess());
 	}
 

@@ -12,9 +12,10 @@ public interface UserService extends IService<User> {
 
 	/**
 	 *
-	 * @param user_id
+	 * @param server_id
+	 * @param channel_id
 	 * @return
 	 */
-	ResultMap<String> logout(String user_id);
+	ResultMap<Void> logout(String server_id, String channel_id);
 
 }

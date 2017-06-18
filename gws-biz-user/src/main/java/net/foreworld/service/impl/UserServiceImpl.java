@@ -1,12 +1,19 @@
 package net.foreworld.service.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.User;
 import net.foreworld.service.UserService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import redis.clients.jedis.Jedis;
 
 /**
  *
@@ -19,10 +26,31 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 	private static final Logger logger = LoggerFactory
 			.getLogger(UserServiceImpl.class);
 
-	@Override
-	public ResultMap<String> logout(String user_id) {
+	@Value("${sha.user.logout}")
+	private String user_logout;
 
-		ResultMap<String> map = new ResultMap<String>();
+	@Override
+	public ResultMap<Void> logout(String server_id, String channel_id) {
+
+		ResultMap<Void> map = new ResultMap<Void>();
+		map.setSuccess(false);
+
+		Jedis j = RedisUtil.getDefault().getJedis();
+
+		if (null == j)
+			return map;
+
+		List<String> s = new ArrayList<String>();
+		s.add("server_id");
+		s.add("channel_id");
+
+		List<String> b = new ArrayList<String>();
+		b.add(server_id);
+		b.add(channel_id);
+
+		j.evalsha(user_logout, s, b);
+		j.close();
+
 		map.setSuccess(true);
 		return map;
 	}
