@@ -164,10 +164,6 @@ public class Group extends BasePlugin {
 			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
-			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
-
-			ResultMap<Void> map = groupService.quit(text[0], text[1]);
-			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
@@ -177,9 +173,22 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);
-			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+			ResultMap<Void> map = groupService.quit(text[0], text[1]);
+			logger.info("{}:{}", map.getSuccess(), map.getMsg());
+
+			if (!map.getSuccess()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode("error_quit");
+				err.setMsg(map.getMsg());
+
+				resp.setError(err);
+
+				rec.setData(resp);
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
