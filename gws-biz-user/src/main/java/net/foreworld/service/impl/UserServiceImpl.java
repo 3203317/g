@@ -3,6 +3,7 @@ package net.foreworld.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.foreworld.gws.util.Constants;
 import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.User;
@@ -48,10 +49,12 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		b.add(server_id);
 		b.add(channel_id);
 
-		j.evalsha(sha_user_logout, s, b);
+		Object o = j.evalsha(sha_user_logout, s, b);
 		j.close();
 
-		map.setSuccess(true);
+		map.setMsg(o.toString());
+
+		map.setSuccess(Constants.OK.equals(o));
 		return map;
 	}
 

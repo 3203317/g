@@ -45,8 +45,7 @@ public class Channel {
 
 		try {
 
-			String token = msg.getText();
-			String[] text = token.split("::");
+			String[] text = msg.getText().split("::");
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
@@ -70,8 +69,7 @@ public class Channel {
 
 		try {
 
-			String channel = msg.getText();
-			String[] text = channel.split("::");
+			String[] text = msg.getText().split("::");
 
 			ResultMap<Void> map = userService.logout(text[0], text[1]);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
