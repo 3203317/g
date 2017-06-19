@@ -138,6 +138,11 @@
 			<artifactId>gws-biz-group</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-plugin</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

@@ -34,7 +34,7 @@ import net.foreworld.util.StringUtil;
  */
 @PropertySource("classpath:activemq.properties")
 @Component
-public class Group {
+public class Group extends BasePlugin {
 
 	@Value("${protocol.version}")
 	private int protocol_version;
@@ -54,11 +54,8 @@ public class Group {
 	public void search(BytesMessage msg) {
 
 		try {
-			int len = (int) msg.getBodyLength();
-			byte[] data = new byte[len];
-			msg.readBytes(data);
 
-			SenderProtobuf sender = SenderProtobuf.parseFrom(data);
+			SenderProtobuf sender = read(msg);
 			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
@@ -119,11 +116,8 @@ public class Group {
 	public void entry(BytesMessage msg) {
 
 		try {
-			int len = (int) msg.getBodyLength();
-			byte[] data = new byte[len];
-			msg.readBytes(data);
 
-			SenderProtobuf sender = SenderProtobuf.parseFrom(data);
+			SenderProtobuf sender = read(msg);
 			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
@@ -163,11 +157,8 @@ public class Group {
 	public void quit(BytesMessage msg) {
 
 		try {
-			int len = (int) msg.getBodyLength();
-			byte[] data = new byte[len];
-			msg.readBytes(data);
 
-			SenderProtobuf sender = SenderProtobuf.parseFrom(data);
+			SenderProtobuf sender = read(msg);
 			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
