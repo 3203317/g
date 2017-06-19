@@ -120,7 +120,8 @@ $(function(){
         console.log(result.getTimestamp());
         console.log('----');
 
-
+        var err = result.getError();
+        if(err) return console.error(err.getCode(), err.getMsg());
 
         switch(result.getMethod()){
           case 95:{
@@ -138,17 +139,13 @@ $(function(){
             break;
           }
           case 3001:{
-            (function(){
-              var data = gws.GroupProtobuf.deserializeBinary(result.getData());
-              console.log(data.getId());
-            })();
+            console.info('data is null');
             break;
           }
         }
-
       };
 
-
+      // first
       var req = new gws.RequestProtobuf();
       req.setVersion(101);
       req.setMethod(95);
