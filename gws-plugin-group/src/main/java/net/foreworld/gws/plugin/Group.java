@@ -103,6 +103,7 @@ public class Group extends BasePlugin {
 			ResultMap<Void> map = groupService.search(text[0], text[1], groupType);
 			logger.info("{}:{}", map.getSuccess(), map.getData());
 
+			rec.setData(resp);
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
