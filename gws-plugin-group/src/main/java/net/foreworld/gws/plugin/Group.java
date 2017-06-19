@@ -12,6 +12,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
@@ -72,17 +73,31 @@ public class Group {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);
-			rec.setData(resp);
 
-			GroupSearchProtobuf groupSearch = GroupSearchProtobuf.parseFrom(req.getData());
+			ByteString _data = req.getData();
+
+			if (_data.isEmpty()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode("invalid_data");
+
+				resp.setError(err);
+				rec.setData(resp);
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
+
+			GroupSearchProtobuf groupSearch = GroupSearchProtobuf.parseFrom(_data);
 			String groupType = StringUtil.isEmpty(groupSearch.getGroupType());
 
 			if (null == groupType) {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setCode("null_grouptype");
+				err.setCode("invalid_grouptype");
 
 				resp.setError(err);
+				rec.setData(resp);
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 				return;
