@@ -24,7 +24,7 @@ public class GroupServiceTest extends BasicTest {
 
 	@Test
 	public void test_findByRole() {
-		ResultMap<String> map = groupService.search("user_id", "group_type");
+		ResultMap<Void> map = groupService.search("server_id", "channel_id", "group_type");
 		Assert.assertTrue(map.getMsg(), map.getSuccess());
 	}
 

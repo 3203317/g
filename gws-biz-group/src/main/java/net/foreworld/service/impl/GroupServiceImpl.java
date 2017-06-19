@@ -21,40 +21,37 @@ public class GroupServiceImpl extends BaseService<Group> implements GroupService
 	private static final Logger logger = LoggerFactory.getLogger(GroupServiceImpl.class);
 
 	@Override
-	public ResultMap<String> search(String user_id, String group_type) {
+	public ResultMap<Void> search(String server_id, String channel_id, String group_type) {
 
-		ResultMap<String> map = new ResultMap<String>();
-
-		Group group = new Group();
-		group.setGroup_name(new Date().toString());
-
-		map.setData(group.getGroup_name());
-
-		map.setData("成功了吗？");
-		map.setSuccess(true);
-		return map;
-	}
-
-	@Override
-	public ResultMap<String> entry(String user_id, String group_id) {
-
-		ResultMap<String> map = new ResultMap<String>();
+		ResultMap<Void> map = new ResultMap<Void>();
 		map.setSuccess(false);
 
-		quit(user_id);
+		quit(server_id, channel_id);
 
 		Group group = new Group();
 		group.setGroup_name(new Date().toString());
 
-		map.setData(group.getGroup_name());
-
-		map.setData("群组号");
 		map.setSuccess(true);
 		return map;
 	}
 
 	@Override
-	public ResultMap<Void> quit(String channel_id) {
+	public ResultMap<Void> entry(String server_id, String channel_id, String group_id) {
+
+		ResultMap<Void> map = new ResultMap<Void>();
+		map.setSuccess(false);
+
+		quit(server_id, channel_id);
+
+		Group group = new Group();
+		group.setGroup_name(new Date().toString());
+
+		map.setSuccess(true);
+		return map;
+	}
+
+	@Override
+	public ResultMap<Void> quit(String server_id, String channel_id) {
 
 		ResultMap<Void> map = new ResultMap<Void>();
 		map.setSuccess(false);

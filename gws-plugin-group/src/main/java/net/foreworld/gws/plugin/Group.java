@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
@@ -23,6 +24,7 @@ import net.foreworld.gws.protobuf.Group.GroupProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.GroupService;
+import net.foreworld.util.StringUtil;
 
 /**
  *
@@ -60,27 +62,34 @@ public class Group {
 			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
-			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
-
-			GroupSearchProtobuf chatSend = GroupSearchProtobuf.parseFrom(req.getData());
-			logger.info("{}", chatSend.getGroupType());
-
-			GroupProtobuf.Builder ch = GroupProtobuf.newBuilder();
-			ch.setId("123321");
-
-			ResultMap<String> map = groupService.search("user_id", "group_type");
-			logger.info("{}:{}", map.getSuccess(), map.getData());
+			logger.debug("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
-			resp.setData(ch.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);
 			rec.setData(resp);
+
+			GroupSearchProtobuf groupSearch = GroupSearchProtobuf.parseFrom(req.getData());
+			String groupType = StringUtil.isEmpty(groupSearch.getGroupType());
+
+			if (null == groupType) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode("null_grouptype");
+
+				resp.setError(err);
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
+
+			ResultMap<Void> map = groupService.search(text[0], text[1], groupType);
+			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
@@ -112,7 +121,7 @@ public class Group {
 			GroupProtobuf.Builder ch = GroupProtobuf.newBuilder();
 			ch.setId("123321");
 
-			ResultMap<String> map = groupService.entry("user_id", "group_id");
+			ResultMap<Void> map = groupService.entry(text[0], text[1], "group_id");
 			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
@@ -150,7 +159,7 @@ public class Group {
 			RequestProtobuf req = sender.getData();
 			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
 
-			ResultMap<Void> map = groupService.quit("user_id");
+			ResultMap<Void> map = groupService.quit(text[0], text[1]);
 			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();

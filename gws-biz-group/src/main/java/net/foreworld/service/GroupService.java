@@ -12,21 +12,23 @@ public interface GroupService extends IService<Group> {
 
 	/**
 	 * 搜索群组并加入
-	 *
-	 * @param user_id
+	 * 
+	 * @param server_id
+	 * @param channel_id
 	 * @param group_type
 	 * @return
 	 */
-	ResultMap<String> search(String user_id, String group_type);
+	ResultMap<Void> search(String server_id, String channel_id, String group_type);
 
 	/**
 	 * 进入指定群组
-	 *
-	 * @param user_id
+	 * 
+	 * @param server_id
+	 * @param channel_id
 	 * @param group_id
 	 * @return
 	 */
-	ResultMap<String> entry(String user_id, String group_id);
+	ResultMap<Void> entry(String server_id, String channel_id, String group_id);
 
 	/**
 	 * 
@@ -37,10 +39,10 @@ public interface GroupService extends IService<Group> {
 	 * 正常退出<br/>
 	 * 强制退出<br/>
 	 * 
-	 * 
+	 * @param server_id
 	 * @param channel_id
 	 * @return
 	 */
-	ResultMap<Void> quit(String channel_id);
+	ResultMap<Void> quit(String server_id, String channel_id);
 
 }
