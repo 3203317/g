@@ -2,13 +2,13 @@ package net.foreworld.service.impl;
 
 import java.util.Date;
 
-import net.foreworld.model.Group;
-import net.foreworld.model.ResultMap;
-import net.foreworld.service.GroupService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import net.foreworld.model.Group;
+import net.foreworld.model.ResultMap;
+import net.foreworld.service.GroupService;
 
 /**
  *
@@ -16,11 +16,9 @@ import org.springframework.stereotype.Service;
  *
  */
 @Service("groupService")
-public class GroupServiceImpl extends BaseService<Group> implements
-		GroupService {
+public class GroupServiceImpl extends BaseService<Group> implements GroupService {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(GroupServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(GroupServiceImpl.class);
 
 	@Override
 	public ResultMap<String> search(String user_id, String group_type) {
@@ -56,9 +54,9 @@ public class GroupServiceImpl extends BaseService<Group> implements
 	}
 
 	@Override
-	public ResultMap<String> quit(String user_id) {
+	public ResultMap<Void> quit(String channel_id) {
 
-		ResultMap<String> map = new ResultMap<String>();
+		ResultMap<Void> map = new ResultMap<Void>();
 		map.setSuccess(false);
 		return map;
 	}
