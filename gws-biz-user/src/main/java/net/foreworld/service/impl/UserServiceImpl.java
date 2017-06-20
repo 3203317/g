@@ -3,17 +3,16 @@ package net.foreworld.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.foreworld.gws.util.Constants;
-import net.foreworld.gws.util.RedisUtil;
-import net.foreworld.model.ResultMap;
-import net.foreworld.model.User;
-import net.foreworld.service.UserService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import net.foreworld.gws.util.Constants;
+import net.foreworld.gws.util.RedisUtil;
+import net.foreworld.model.ResultMap;
+import net.foreworld.model.User;
+import net.foreworld.service.UserService;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -24,8 +23,7 @@ import redis.clients.jedis.Jedis;
 @Service("userService")
 public class UserServiceImpl extends BaseService<User> implements UserService {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(UserServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Value("${sha.user.logout}")
 	private String sha_user_logout;
@@ -52,9 +50,12 @@ public class UserServiceImpl extends BaseService<User> implements UserService {
 		Object o = j.evalsha(sha_user_logout, s, b);
 		j.close();
 
-		map.setMsg(o.toString());
+		if (!Constants.OK.equals(o)) {
+			map.setMsg(o.toString());
+			return map;
+		}
 
-		map.setSuccess(Constants.OK.equals(o));
+		map.setSuccess(true);
 		return map;
 	}
 

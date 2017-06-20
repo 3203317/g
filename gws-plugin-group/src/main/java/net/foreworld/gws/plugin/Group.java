@@ -21,7 +21,6 @@ import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupEntryProtobuf;
-import net.foreworld.gws.protobuf.Group.GroupProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.GroupService;
@@ -85,10 +84,9 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			GroupSearchProtobuf groupSearch = GroupSearchProtobuf.parseFrom(_data);
-			String groupType = StringUtil.isEmpty(groupSearch.getGroupType());
+			String _group_type = StringUtil.isEmpty(GroupSearchProtobuf.parseFrom(_data).getGroupType());
 
-			if (null == groupType) {
+			if (null == _group_type) {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
 				err.setCode("invalid_grouptype");
@@ -100,8 +98,20 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			ResultMap<Void> map = groupService.search(text[0], text[1], groupType);
+			ResultMap<Void> map = groupService.search(text[0], text[1], _group_type);
 			logger.info("{}:{}", map.getSuccess(), map.getData());
+
+			if (!map.getSuccess()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setMsg(map.getMsg());
+
+				resp.setError(err);
+				rec.setData(resp);
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
 
 			rec.setData(resp);
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
@@ -123,28 +133,61 @@ public class Group extends BasePlugin {
 			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
-			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
-
-			GroupEntryProtobuf chatSend = GroupEntryProtobuf.parseFrom(req.getData());
-			logger.info("{}", chatSend.getGroupId());
-
-			GroupProtobuf.Builder ch = GroupProtobuf.newBuilder();
-			ch.setId("123321");
-
-			ResultMap<Void> map = groupService.entry(text[0], text[1], "group_id");
-			logger.info("{}:{}", map.getSuccess(), map.getData());
+			logger.debug("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
-			resp.setData(ch.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(text[1]);
-			rec.setData(resp);
 
+			ByteString _data = req.getData();
+
+			if (_data.isEmpty()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode("invalid_data");
+
+				resp.setError(err);
+				rec.setData(resp);
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
+
+			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(_data).getGroupId());
+
+			if (null == _group_id) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode("invalid_group_id");
+
+				resp.setError(err);
+				rec.setData(resp);
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
+
+			ResultMap<Void> map = groupService.entry(text[0], text[1], _group_id);
+			logger.info("{}:{}", map.getSuccess(), map.getData());
+
+			if (!map.getSuccess()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setMsg(map.getMsg());
+
+				resp.setError(err);
+				rec.setData(resp);
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
+
+			rec.setData(resp);
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
@@ -164,6 +207,7 @@ public class Group extends BasePlugin {
 			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
+			logger.debug("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
@@ -175,20 +219,22 @@ public class Group extends BasePlugin {
 			rec.setReceiver(text[1]);
 
 			ResultMap<Void> map = groupService.quit(text[0], text[1]);
-			logger.info("{}:{}", map.getSuccess(), map.getMsg());
+			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			if (!map.getSuccess()) {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setCode("error_quit");
 				err.setMsg(map.getMsg());
 
 				resp.setError(err);
-
 				rec.setData(resp);
+
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 				return;
 			}
+
+			rec.setData(resp);
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
