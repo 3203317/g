@@ -91,20 +91,31 @@ public class Channel {
 			return;
 		}
 
+		// 给相关成员每人发送一条退出消息
+
+		List<Receiver<User>> list = map.getData();
+
+		if (null == list) {
+			return;
+		}
+
+		int j = list.size();
+
+		if (0 == j) {
+			return;
+		}
+
 		ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 		resp.setVersion(protocol_version);
-		// 给同组其他成员分别发送一条退出消息
 		resp.setMethod(3004);
 		resp.setTimestamp(System.currentTimeMillis());
 
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-		List<Receiver<User>> list = map.getData();
+		for (int i = 0; i < j; i++) {
+			Receiver<User> receiver = list.get(i);
 
-		for (int i = 0, j = list.size(); i < j; i++) {
-			Receiver<User> channel = list.get(i);
-
-			User _u = channel.getData();
+			User _u = receiver.getData();
 
 			UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
 			_ub.setId(_u.getId());
@@ -114,8 +125,8 @@ public class Channel {
 			resp.setData(_ub.build().toByteString());
 
 			rec.setData(resp);
-			rec.setReceiver(channel.getChannel_id());
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + channel.getServer_id(),
+			rec.setReceiver(receiver.getChannel_id());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
 					rec.build().toByteArray());
 		}
 	}
