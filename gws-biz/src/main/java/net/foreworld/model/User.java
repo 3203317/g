@@ -10,11 +10,12 @@ import java.util.Date;
  */
 public class User implements Serializable {
 
-	private static final long serialVersionUID = -6390664045260044818L;
+	private static final long serialVersionUID = -8840009604804059617L;
 
 	private String id;
 
-	private String group_name;
+	private String user_name;
+	private String nickname;
 	private Date create_time;
 
 	private Integer status;
@@ -27,12 +28,20 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public String getGroup_name() {
-		return group_name;
+	public String getUser_name() {
+		return user_name;
 	}
 
-	public void setGroup_name(String group_name) {
-		this.group_name = group_name;
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public Date getCreate_time() {
@@ -50,4 +59,5 @@ public class User implements Serializable {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
 }

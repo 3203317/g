@@ -1,6 +1,10 @@
 package net.foreworld.service;
 
+import java.util.List;
+
+import net.foreworld.model.Channel;
 import net.foreworld.model.ResultMap;
+import net.foreworld.model.User;
 
 /**
  *
@@ -29,19 +33,6 @@ public interface GroupService extends IService {
 	 */
 	ResultMap<Void> entry(String server_id, String channel_id, String group_id);
 
-	/**
-	 * 
-	 * <p>
-	 * 退出群组
-	 * </p>
-	 *
-	 * 正常退出<br/>
-	 * 强制退出<br/>
-	 * 
-	 * @param server_id
-	 * @param channel_id
-	 * @return
-	 */
-	ResultMap<Void> quit(String server_id, String channel_id);
+	ResultMap<List<Channel<User>>> quit(String server_id, String channel_id);
 
 }

@@ -1,5 +1,7 @@
 package net.foreworld.gws.plugin;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
@@ -22,7 +24,10 @@ import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupEntryProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
+import net.foreworld.gws.protobuf.User.UserProtobuf;
+import net.foreworld.model.Channel;
 import net.foreworld.model.ResultMap;
+import net.foreworld.model.User;
 import net.foreworld.service.GroupService;
 import net.foreworld.util.StringUtil;
 
@@ -211,14 +216,12 @@ public class Group extends BasePlugin {
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
-			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(text[1]);
 
-			ResultMap<Void> map = groupService.quit(text[0], text[1]);
+			ResultMap<List<Channel<User>>> map = groupService.quit(text[0], text[1]);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -226,15 +229,46 @@ public class Group extends BasePlugin {
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
 				err.setMsg(map.getMsg());
 
+				resp.setMethod(req.getMethod());
 				resp.setError(err);
 				rec.setData(resp);
 
+				rec.setReceiver(text[1]);
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 				return;
 			}
 
-			rec.setData(resp);
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+			List<Channel<User>> list = map.getData();
+
+			if (0 == list.size()) {
+
+				resp.setMethod(req.getMethod());
+				rec.setData(resp);
+
+				rec.setReceiver(text[1]);
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+				return;
+			}
+
+			resp.setMethod(3004);
+
+			for (int i = 0, j = list.size(); i < j; i++) {
+				Channel<User> channel = list.get(i);
+
+				User _u = channel.getData();
+
+				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
+				_ub.setId(_u.getId());
+				_ub.setUserName(_u.getUser_name());
+				_ub.setNickname(_u.getNickname());
+
+				resp.setData(_ub.build().toByteString());
+
+				rec.setData(resp);
+				rec.setReceiver(channel.getChannel_id());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + channel.getServer_id(),
+						rec.build().toByteArray());
+			}
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
