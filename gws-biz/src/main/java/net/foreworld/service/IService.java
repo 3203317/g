@@ -6,9 +6,8 @@ import org.springframework.stereotype.Service;
  * 
  * @author huangxin
  *
- * @param <T>
  */
 @Service
-public interface IService<T> {
+public interface IService {
 
 }

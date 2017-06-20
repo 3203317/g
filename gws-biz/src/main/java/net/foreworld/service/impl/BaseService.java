@@ -8,6 +8,6 @@ import net.foreworld.service.IService;
  *
  * @param <T>
  */
-public abstract class BaseService<T> implements IService<T> {
+public abstract class BaseService implements IService {
 
 }

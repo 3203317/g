@@ -173,7 +173,7 @@ public class Group extends BasePlugin {
 			}
 
 			ResultMap<Void> map = groupService.entry(text[0], text[1], _group_id);
-			logger.info("{}:{}", map.getSuccess(), map.getData());
+			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
 
@@ -219,7 +219,7 @@ public class Group extends BasePlugin {
 			rec.setReceiver(text[1]);
 
 			ResultMap<Void> map = groupService.quit(text[0], text[1]);
-			logger.info("{}:{}", map.getSuccess(), map.getData());
+			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
 

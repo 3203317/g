@@ -1,6 +1,5 @@
 package net.foreworld.service;
 
-import net.foreworld.model.Group;
 import net.foreworld.model.ResultMap;
 
 /**
@@ -8,7 +7,7 @@ import net.foreworld.model.ResultMap;
  * @author huangxin
  *
  */
-public interface GroupService extends IService<Group> {
+public interface GroupService extends IService {
 
 	/**
 	 * 搜索群组并加入

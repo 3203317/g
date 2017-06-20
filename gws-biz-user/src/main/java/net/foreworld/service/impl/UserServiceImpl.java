@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import net.foreworld.gws.util.Constants;
 import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.User;
 import net.foreworld.service.UserService;
 import redis.clients.jedis.Jedis;
 
@@ -21,7 +20,7 @@ import redis.clients.jedis.Jedis;
  *
  */
 @Service("userService")
-public class UserServiceImpl extends BaseService<User> implements UserService {
+public class UserServiceImpl extends BaseService implements UserService {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
