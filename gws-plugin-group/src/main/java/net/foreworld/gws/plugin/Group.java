@@ -60,6 +60,8 @@ public class Group extends BasePlugin {
 		try {
 
 			SenderProtobuf sender = read(msg);
+			quit(sender);
+
 			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
@@ -134,6 +136,9 @@ public class Group extends BasePlugin {
 		try {
 
 			SenderProtobuf sender = read(msg);
+
+			quit(sender);
+
 			String[] text = sender.getSender().split("::");
 			logger.info("sender: {}", sender.getSender());
 
@@ -207,73 +212,76 @@ public class Group extends BasePlugin {
 
 		try {
 
-			SenderProtobuf sender = read(msg);
-			String[] text = sender.getSender().split("::");
-			logger.info("sender: {}", sender.getSender());
-
-			RequestProtobuf req = sender.getData();
-			logger.debug("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
-
-			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
-			resp.setVersion(protocol_version);
-			resp.setSeqId(req.getSeqId());
-			resp.setTimestamp(System.currentTimeMillis());
-
-			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-
-			ResultMap<List<Channel<User>>> map = groupService.quit(text[0], text[1]);
-			logger.info("{}:{}", map.getSuccess(), map.getMsg());
-
-			if (!map.getSuccess()) {
-
-				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setMsg(map.getMsg());
-
-				resp.setMethod(req.getMethod());
-				resp.setError(err);
-				rec.setData(resp);
-
-				rec.setReceiver(text[1]);
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
-				return;
-			}
-
-			List<Channel<User>> list = map.getData();
-
-			if (0 == list.size()) {
-
-				resp.setMethod(req.getMethod());
-				rec.setData(resp);
-
-				rec.setReceiver(text[1]);
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
-				return;
-			}
-
-			resp.setMethod(3004);
-
-			for (int i = 0, j = list.size(); i < j; i++) {
-				Channel<User> channel = list.get(i);
-
-				User _u = channel.getData();
-
-				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-				_ub.setId(_u.getId());
-				_ub.setUserName(_u.getUser_name());
-				_ub.setNickname(_u.getNickname());
-
-				resp.setData(_ub.build().toByteString());
-
-				rec.setData(resp);
-				rec.setReceiver(channel.getChannel_id());
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + channel.getServer_id(),
-						rec.build().toByteArray());
-			}
+			quit(read(msg));
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
 		} catch (JMSException e) {
 			logger.error("", e);
+		}
+	}
+
+	private void quit(SenderProtobuf sender) {
+
+		String[] text = sender.getSender().split("::");
+		logger.info("sender: {}", sender.getSender());
+
+		RequestProtobuf req = sender.getData();
+		logger.debug("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
+
+		ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
+		resp.setVersion(protocol_version);
+		resp.setSeqId(req.getSeqId());
+		resp.setTimestamp(System.currentTimeMillis());
+
+		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
+
+		// 执行业务层用户退出操作
+		ResultMap<List<Channel<User>>> map = groupService.quit(text[0], text[1]);
+		logger.info("{}:{}", map.getSuccess(), map.getMsg());
+
+		if (!map.getSuccess()) {
+
+			ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+			err.setMsg(map.getMsg());
+
+			resp.setMethod(req.getMethod());
+			resp.setError(err);
+			rec.setData(resp);
+
+			rec.setReceiver(text[1]);
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+			return;
+		}
+
+		// 给用户自己发送一条成功消息
+		resp.setMethod(req.getMethod());
+		rec.setData(resp);
+
+		rec.setReceiver(text[1]);
+		jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+
+		// 给同组其他成员分别发送一条退出消息
+		resp.setMethod(3004);
+
+		List<Channel<User>> list = map.getData();
+
+		for (int i = 0, j = list.size(); i < j; i++) {
+			Channel<User> channel = list.get(i);
+
+			User _u = channel.getData();
+
+			UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
+			_ub.setId(_u.getId());
+			_ub.setUserName(_u.getUser_name());
+			_ub.setNickname(_u.getNickname());
+
+			resp.setData(_ub.build().toByteString());
+
+			rec.setData(resp);
+			rec.setReceiver(channel.getChannel_id());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + channel.getServer_id(),
+					rec.build().toByteArray());
 		}
 	}
 
