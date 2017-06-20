@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @author huangxin
  *
  */
-@Service("userService")
+@Service("chatService")
 public class ChatServiceImpl extends BaseService implements ChatService {
 
 	private static final Logger logger = LoggerFactory
