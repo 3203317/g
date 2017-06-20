@@ -25,7 +25,7 @@ import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupEntryProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
 import net.foreworld.gws.protobuf.User.UserProtobuf;
-import net.foreworld.model.Channel;
+import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.User;
 import net.foreworld.service.GroupService;
@@ -236,8 +236,8 @@ public class Group extends BasePlugin {
 
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-		// 执行业务层用户退出操作
-		ResultMap<List<Channel<User>>> map = groupService.quit(text[0], text[1]);
+		// 执行业务层用户退出群组操作
+		ResultMap<List<Receiver<User>>> map = groupService.quit(text[0], text[1]);
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -264,10 +264,10 @@ public class Group extends BasePlugin {
 		// 给同组其他成员分别发送一条退出消息
 		resp.setMethod(3004);
 
-		List<Channel<User>> list = map.getData();
+		List<Receiver<User>> list = map.getData();
 
 		for (int i = 0, j = list.size(); i < j; i++) {
-			Channel<User> channel = list.get(i);
+			Receiver<User> channel = list.get(i);
 
 			User _u = channel.getData();
 

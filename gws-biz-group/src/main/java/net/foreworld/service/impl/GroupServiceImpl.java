@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import net.foreworld.model.Channel;
+import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.User;
 import net.foreworld.service.GroupService;
@@ -46,9 +46,9 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 	}
 
 	@Override
-	public ResultMap<List<Channel<User>>> quit(String server_id, String channel_id) {
+	public ResultMap<List<Receiver<User>>> quit(String server_id, String channel_id) {
 
-		ResultMap<List<Channel<User>>> map = new ResultMap<List<Channel<User>>>();
+		ResultMap<List<Receiver<User>>> map = new ResultMap<List<Receiver<User>>>();
 		map.setSuccess(false);
 		return map;
 	}

@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @author huangxin <3203317@qq.com>
  *
  */
-public class Channel<T> implements Serializable {
+public class Receiver<T> implements Serializable {
 
 	private static final long serialVersionUID = -8053149866254281688L;
 
