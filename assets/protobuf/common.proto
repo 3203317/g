@@ -6,8 +6,9 @@ option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Common";
 
 message SenderProtobuf {
-  string sender = 1;
-  RequestProtobuf data = 2;
+  string server_id = 1;
+  string channel_id = 2;
+  RequestProtobuf data = 3;
 }
 
 message ReceiverProtobuf {

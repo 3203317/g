@@ -63,7 +63,8 @@ proto.gws.SenderProtobuf.prototype.toObject = function(opt_includeInstance) {
  */
 proto.gws.SenderProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
-    sender: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    serverId: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    channelId: jspb.Message.getFieldWithDefault(msg, 2, ""),
     data: (f = msg.getData()) && proto.gws.RequestProtobuf.toObject(includeInstance, f)
   };
 
@@ -103,9 +104,13 @@ proto.gws.SenderProtobuf.deserializeBinaryFromReader = function(msg, reader) {
     switch (field) {
     case 1:
       var value = /** @type {string} */ (reader.readString());
-      msg.setSender(value);
+      msg.setServerId(value);
       break;
     case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setChannelId(value);
+      break;
+    case 3:
       var value = new proto.gws.RequestProtobuf;
       reader.readMessage(value,proto.gws.RequestProtobuf.deserializeBinaryFromReader);
       msg.setData(value);
@@ -148,17 +153,24 @@ proto.gws.SenderProtobuf.prototype.serializeBinary = function() {
  */
 proto.gws.SenderProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
-  f = this.getSender();
+  f = this.getServerId();
   if (f.length > 0) {
     writer.writeString(
       1,
       f
     );
   }
+  f = this.getChannelId();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
   f = this.getData();
   if (f != null) {
     writer.writeMessage(
-      2,
+      3,
       f,
       proto.gws.RequestProtobuf.serializeBinaryToWriter
     );
@@ -167,33 +179,48 @@ proto.gws.SenderProtobuf.prototype.serializeBinaryToWriter = function (writer) {
 
 
 /**
- * optional string sender = 1;
+ * optional string server_id = 1;
  * @return {string}
  */
-proto.gws.SenderProtobuf.prototype.getSender = function() {
+proto.gws.SenderProtobuf.prototype.getServerId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.SenderProtobuf.prototype.setSender = function(value) {
+proto.gws.SenderProtobuf.prototype.setServerId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional RequestProtobuf data = 2;
+ * optional string channel_id = 2;
+ * @return {string}
+ */
+proto.gws.SenderProtobuf.prototype.getChannelId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/** @param {string} value */
+proto.gws.SenderProtobuf.prototype.setChannelId = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional RequestProtobuf data = 3;
  * @return {?proto.gws.RequestProtobuf}
  */
 proto.gws.SenderProtobuf.prototype.getData = function() {
   return /** @type{?proto.gws.RequestProtobuf} */ (
-    jspb.Message.getWrapperField(this, proto.gws.RequestProtobuf, 2));
+    jspb.Message.getWrapperField(this, proto.gws.RequestProtobuf, 3));
 };
 
 
 /** @param {?proto.gws.RequestProtobuf|undefined} value */
 proto.gws.SenderProtobuf.prototype.setData = function(value) {
-  jspb.Message.setWrapperField(this, 2, value);
+  jspb.Message.setWrapperField(this, 3, value);
 };
 
 
@@ -207,7 +234,7 @@ proto.gws.SenderProtobuf.prototype.clearData = function() {
  * @return {!boolean}
  */
 proto.gws.SenderProtobuf.prototype.hasData = function() {
-  return jspb.Message.getField(this, 2) != null;
+  return jspb.Message.getField(this, 3) != null;
 };
 
 

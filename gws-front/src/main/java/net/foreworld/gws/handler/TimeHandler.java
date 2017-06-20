@@ -43,7 +43,8 @@ public class TimeHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 				msg.getSeqId(), msg.getTimestamp());
 
 		SenderProtobuf.Builder sender = SenderProtobuf.newBuilder();
-		sender.setSender(server_id + "::" + ctx.channel().id().asLongText());
+		sender.setServerId(server_id);
+		sender.setChannelId(ctx.channel().id().asLongText());
 		sender.setData(msg);
 
 		jmsMessagingTemplate.convertAndSend(Constants.PLUGIN + msg.getMethod(),

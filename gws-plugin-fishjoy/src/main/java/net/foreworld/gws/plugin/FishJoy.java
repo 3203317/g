@@ -48,8 +48,6 @@ public class FishJoy {
 			msg.readBytes(data);
 
 			SenderProtobuf sender = SenderProtobuf.parseFrom(data);
-			String[] text = sender.getSender().split("::");
-			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
 			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(),
@@ -62,11 +60,12 @@ public class FishJoy {
 			resp.setTimestamp(System.currentTimeMillis());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(text[1]);
+			rec.setReceiver(sender.getChannelId());
 			rec.setData(resp);
 
 			jmsMessagingTemplate.convertAndSend(
-					queue_back_send + "." + text[0], rec.build().toByteArray());
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);

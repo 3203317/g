@@ -51,17 +51,16 @@ public class Chat extends BasePlugin {
 		try {
 
 			SenderProtobuf sender = read(msg);
-			String[] text = sender.getSender().split("::");
-			logger.info("sender: {}", sender.getSender());
 
 			RequestProtobuf req = sender.getData();
 
 			ChatSendProtobuf chatSend = ChatSendProtobuf.parseFrom(req
 					.getData());
 
-			ResultMap<Receiver<ChatMsg>> map = chatService.send(text[0],
-					text[1], System.currentTimeMillis(),
-					chatSend.getReceiver(), chatSend.getComment());
+			ResultMap<Receiver<ChatMsg>> map = chatService.send(
+					sender.getServerId(), sender.getChannelId(),
+					System.currentTimeMillis(), chatSend.getReceiver(),
+					chatSend.getComment());
 
 			if (!map.getSuccess()) {
 				return;

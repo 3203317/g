@@ -19,25 +19,35 @@ public final class Common {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string sender = 1;</code>
+     * <code>optional string server_id = 1;</code>
      */
-    java.lang.String getSender();
+    java.lang.String getServerId();
     /**
-     * <code>optional string sender = 1;</code>
+     * <code>optional string server_id = 1;</code>
      */
     com.google.protobuf.ByteString
-        getSenderBytes();
+        getServerIdBytes();
 
     /**
-     * <code>optional .gws.RequestProtobuf data = 2;</code>
+     * <code>optional string channel_id = 2;</code>
+     */
+    java.lang.String getChannelId();
+    /**
+     * <code>optional string channel_id = 2;</code>
+     */
+    com.google.protobuf.ByteString
+        getChannelIdBytes();
+
+    /**
+     * <code>optional .gws.RequestProtobuf data = 3;</code>
      */
     boolean hasData();
     /**
-     * <code>optional .gws.RequestProtobuf data = 2;</code>
+     * <code>optional .gws.RequestProtobuf data = 3;</code>
      */
     net.foreworld.gws.protobuf.Common.RequestProtobuf getData();
     /**
-     * <code>optional .gws.RequestProtobuf data = 2;</code>
+     * <code>optional .gws.RequestProtobuf data = 3;</code>
      */
     net.foreworld.gws.protobuf.Common.RequestProtobufOrBuilder getDataOrBuilder();
   }
@@ -53,7 +63,8 @@ public final class Common {
       super(builder);
     }
     private SenderProtobuf() {
-      sender_ = "";
+      serverId_ = "";
+      channelId_ = "";
     }
 
     @java.lang.Override
@@ -84,10 +95,16 @@ public final class Common {
             case 10: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              sender_ = s;
+              serverId_ = s;
               break;
             }
             case 18: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              channelId_ = s;
+              break;
+            }
+            case 26: {
               net.foreworld.gws.protobuf.Common.RequestProtobuf.Builder subBuilder = null;
               if (data_ != null) {
                 subBuilder = data_.toBuilder();
@@ -123,56 +140,90 @@ public final class Common {
               net.foreworld.gws.protobuf.Common.SenderProtobuf.class, net.foreworld.gws.protobuf.Common.SenderProtobuf.Builder.class);
     }
 
-    public static final int SENDER_FIELD_NUMBER = 1;
-    private volatile java.lang.Object sender_;
+    public static final int SERVER_ID_FIELD_NUMBER = 1;
+    private volatile java.lang.Object serverId_;
     /**
-     * <code>optional string sender = 1;</code>
+     * <code>optional string server_id = 1;</code>
      */
-    public java.lang.String getSender() {
-      java.lang.Object ref = sender_;
+    public java.lang.String getServerId() {
+      java.lang.Object ref = serverId_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        sender_ = s;
+        serverId_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string sender = 1;</code>
+     * <code>optional string server_id = 1;</code>
      */
     public com.google.protobuf.ByteString
-        getSenderBytes() {
-      java.lang.Object ref = sender_;
+        getServerIdBytes() {
+      java.lang.Object ref = serverId_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        sender_ = b;
+        serverId_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
       }
     }
 
-    public static final int DATA_FIELD_NUMBER = 2;
+    public static final int CHANNEL_ID_FIELD_NUMBER = 2;
+    private volatile java.lang.Object channelId_;
+    /**
+     * <code>optional string channel_id = 2;</code>
+     */
+    public java.lang.String getChannelId() {
+      java.lang.Object ref = channelId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        channelId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string channel_id = 2;</code>
+     */
+    public com.google.protobuf.ByteString
+        getChannelIdBytes() {
+      java.lang.Object ref = channelId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        channelId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int DATA_FIELD_NUMBER = 3;
     private net.foreworld.gws.protobuf.Common.RequestProtobuf data_;
     /**
-     * <code>optional .gws.RequestProtobuf data = 2;</code>
+     * <code>optional .gws.RequestProtobuf data = 3;</code>
      */
     public boolean hasData() {
       return data_ != null;
     }
     /**
-     * <code>optional .gws.RequestProtobuf data = 2;</code>
+     * <code>optional .gws.RequestProtobuf data = 3;</code>
      */
     public net.foreworld.gws.protobuf.Common.RequestProtobuf getData() {
       return data_ == null ? net.foreworld.gws.protobuf.Common.RequestProtobuf.getDefaultInstance() : data_;
     }
     /**
-     * <code>optional .gws.RequestProtobuf data = 2;</code>
+     * <code>optional .gws.RequestProtobuf data = 3;</code>
      */
     public net.foreworld.gws.protobuf.Common.RequestProtobufOrBuilder getDataOrBuilder() {
       return getData();
@@ -190,11 +241,14 @@ public final class Common {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getSenderBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, sender_);
+      if (!getServerIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, serverId_);
+      }
+      if (!getChannelIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, channelId_);
       }
       if (data_ != null) {
-        output.writeMessage(2, getData());
+        output.writeMessage(3, getData());
       }
     }
 
@@ -203,12 +257,15 @@ public final class Common {
       if (size != -1) return size;
 
       size = 0;
-      if (!getSenderBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, sender_);
+      if (!getServerIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, serverId_);
+      }
+      if (!getChannelIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, channelId_);
       }
       if (data_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getData());
+          .computeMessageSize(3, getData());
       }
       memoizedSize = size;
       return size;
@@ -226,8 +283,10 @@ public final class Common {
       net.foreworld.gws.protobuf.Common.SenderProtobuf other = (net.foreworld.gws.protobuf.Common.SenderProtobuf) obj;
 
       boolean result = true;
-      result = result && getSender()
-          .equals(other.getSender());
+      result = result && getServerId()
+          .equals(other.getServerId());
+      result = result && getChannelId()
+          .equals(other.getChannelId());
       result = result && (hasData() == other.hasData());
       if (hasData()) {
         result = result && getData()
@@ -243,8 +302,10 @@ public final class Common {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SENDER_FIELD_NUMBER;
-      hash = (53 * hash) + getSender().hashCode();
+      hash = (37 * hash) + SERVER_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getServerId().hashCode();
+      hash = (37 * hash) + CHANNEL_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getChannelId().hashCode();
       if (hasData()) {
         hash = (37 * hash) + DATA_FIELD_NUMBER;
         hash = (53 * hash) + getData().hashCode();
@@ -367,7 +428,9 @@ public final class Common {
       }
       public Builder clear() {
         super.clear();
-        sender_ = "";
+        serverId_ = "";
+
+        channelId_ = "";
 
         if (dataBuilder_ == null) {
           data_ = null;
@@ -397,7 +460,8 @@ public final class Common {
 
       public net.foreworld.gws.protobuf.Common.SenderProtobuf buildPartial() {
         net.foreworld.gws.protobuf.Common.SenderProtobuf result = new net.foreworld.gws.protobuf.Common.SenderProtobuf(this);
-        result.sender_ = sender_;
+        result.serverId_ = serverId_;
+        result.channelId_ = channelId_;
         if (dataBuilder_ == null) {
           result.data_ = data_;
         } else {
@@ -444,8 +508,12 @@ public final class Common {
 
       public Builder mergeFrom(net.foreworld.gws.protobuf.Common.SenderProtobuf other) {
         if (other == net.foreworld.gws.protobuf.Common.SenderProtobuf.getDefaultInstance()) return this;
-        if (!other.getSender().isEmpty()) {
-          sender_ = other.sender_;
+        if (!other.getServerId().isEmpty()) {
+          serverId_ = other.serverId_;
+          onChanged();
+        }
+        if (!other.getChannelId().isEmpty()) {
+          channelId_ = other.channelId_;
           onChanged();
         }
         if (other.hasData()) {
@@ -477,71 +545,140 @@ public final class Common {
         return this;
       }
 
-      private java.lang.Object sender_ = "";
+      private java.lang.Object serverId_ = "";
       /**
-       * <code>optional string sender = 1;</code>
+       * <code>optional string server_id = 1;</code>
        */
-      public java.lang.String getSender() {
-        java.lang.Object ref = sender_;
+      public java.lang.String getServerId() {
+        java.lang.Object ref = serverId_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          sender_ = s;
+          serverId_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string sender = 1;</code>
+       * <code>optional string server_id = 1;</code>
        */
       public com.google.protobuf.ByteString
-          getSenderBytes() {
-        java.lang.Object ref = sender_;
+          getServerIdBytes() {
+        java.lang.Object ref = serverId_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          sender_ = b;
+          serverId_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string sender = 1;</code>
+       * <code>optional string server_id = 1;</code>
        */
-      public Builder setSender(
+      public Builder setServerId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        sender_ = value;
+        serverId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sender = 1;</code>
+       * <code>optional string server_id = 1;</code>
        */
-      public Builder clearSender() {
+      public Builder clearServerId() {
         
-        sender_ = getDefaultInstance().getSender();
+        serverId_ = getDefaultInstance().getServerId();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string sender = 1;</code>
+       * <code>optional string server_id = 1;</code>
        */
-      public Builder setSenderBytes(
+      public Builder setServerIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        sender_ = value;
+        serverId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object channelId_ = "";
+      /**
+       * <code>optional string channel_id = 2;</code>
+       */
+      public java.lang.String getChannelId() {
+        java.lang.Object ref = channelId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          channelId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string channel_id = 2;</code>
+       */
+      public com.google.protobuf.ByteString
+          getChannelIdBytes() {
+        java.lang.Object ref = channelId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          channelId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string channel_id = 2;</code>
+       */
+      public Builder setChannelId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        channelId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string channel_id = 2;</code>
+       */
+      public Builder clearChannelId() {
+        
+        channelId_ = getDefaultInstance().getChannelId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string channel_id = 2;</code>
+       */
+      public Builder setChannelIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        channelId_ = value;
         onChanged();
         return this;
       }
@@ -550,13 +687,13 @@ public final class Common {
       private com.google.protobuf.SingleFieldBuilderV3<
           net.foreworld.gws.protobuf.Common.RequestProtobuf, net.foreworld.gws.protobuf.Common.RequestProtobuf.Builder, net.foreworld.gws.protobuf.Common.RequestProtobufOrBuilder> dataBuilder_;
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public boolean hasData() {
         return dataBuilder_ != null || data_ != null;
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public net.foreworld.gws.protobuf.Common.RequestProtobuf getData() {
         if (dataBuilder_ == null) {
@@ -566,7 +703,7 @@ public final class Common {
         }
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public Builder setData(net.foreworld.gws.protobuf.Common.RequestProtobuf value) {
         if (dataBuilder_ == null) {
@@ -582,7 +719,7 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public Builder setData(
           net.foreworld.gws.protobuf.Common.RequestProtobuf.Builder builderForValue) {
@@ -596,7 +733,7 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public Builder mergeData(net.foreworld.gws.protobuf.Common.RequestProtobuf value) {
         if (dataBuilder_ == null) {
@@ -614,7 +751,7 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public Builder clearData() {
         if (dataBuilder_ == null) {
@@ -628,7 +765,7 @@ public final class Common {
         return this;
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public net.foreworld.gws.protobuf.Common.RequestProtobuf.Builder getDataBuilder() {
         
@@ -636,7 +773,7 @@ public final class Common {
         return getDataFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       public net.foreworld.gws.protobuf.Common.RequestProtobufOrBuilder getDataOrBuilder() {
         if (dataBuilder_ != null) {
@@ -647,7 +784,7 @@ public final class Common {
         }
       }
       /**
-       * <code>optional .gws.RequestProtobuf data = 2;</code>
+       * <code>optional .gws.RequestProtobuf data = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           net.foreworld.gws.protobuf.Common.RequestProtobuf, net.foreworld.gws.protobuf.Common.RequestProtobuf.Builder, net.foreworld.gws.protobuf.Common.RequestProtobufOrBuilder> 
@@ -4156,20 +4293,20 @@ public final class Common {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025protobuf/common.proto\022\003gws\"D\n\016SenderPr" +
-      "otobuf\022\016\n\006sender\030\001 \001(\t\022\"\n\004data\030\002 \001(\0132\024.g" +
-      "ws.RequestProtobuf\"I\n\020ReceiverProtobuf\022\020" +
-      "\n\010receiver\030\001 \001(\t\022#\n\004data\030\002 \001(\0132\025.gws.Res" +
-      "ponseProtobuf\"b\n\017RequestProtobuf\022\017\n\007vers" +
-      "ion\030\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004" +
-      "\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014\"\206\001\n\020Re" +
-      "sponseProtobuf\022\017\n\007version\030\001 \001(\r\022\016\n\006metho" +
-      "d\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001(" +
-      "\004\022\014\n\004data\030\005 \001(\014\022!\n\005error\030\006 \001(\0132\022.gws.Err",
-      "orProtobuf\"*\n\rErrorProtobuf\022\014\n\004code\030\001 \001(" +
-      "\t\022\013\n\003msg\030\002 \001(\t\" \n\022PrimaryKeyProtobuf\022\n\n\002" +
-      "id\030\001 \001(\tB$\n\032net.foreworld.gws.protobufB\006" +
-      "Commonb\006proto3"
+      "\n\025protobuf/common.proto\022\003gws\"[\n\016SenderPr" +
+      "otobuf\022\021\n\tserver_id\030\001 \001(\t\022\022\n\nchannel_id\030" +
+      "\002 \001(\t\022\"\n\004data\030\003 \001(\0132\024.gws.RequestProtobu" +
+      "f\"I\n\020ReceiverProtobuf\022\020\n\010receiver\030\001 \001(\t\022" +
+      "#\n\004data\030\002 \001(\0132\025.gws.ResponseProtobuf\"b\n\017" +
+      "RequestProtobuf\022\017\n\007version\030\001 \001(\r\022\016\n\006meth" +
+      "od\030\002 \001(\r\022\r\n\005seqId\030\003 \001(\004\022\021\n\ttimestamp\030\004 \001" +
+      "(\004\022\014\n\004data\030\005 \001(\014\"\206\001\n\020ResponseProtobuf\022\017\n" +
+      "\007version\030\001 \001(\r\022\016\n\006method\030\002 \001(\r\022\r\n\005seqId\030" +
+      "\003 \001(\004\022\021\n\ttimestamp\030\004 \001(\004\022\014\n\004data\030\005 \001(\014\022!",
+      "\n\005error\030\006 \001(\0132\022.gws.ErrorProtobuf\"*\n\rErr" +
+      "orProtobuf\022\014\n\004code\030\001 \001(\t\022\013\n\003msg\030\002 \001(\t\" \n" +
+      "\022PrimaryKeyProtobuf\022\n\n\002id\030\001 \001(\tB$\n\032net.f" +
+      "oreworld.gws.protobufB\006Commonb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4188,7 +4325,7 @@ public final class Common {
     internal_static_gws_SenderProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_SenderProtobuf_descriptor,
-        new java.lang.String[] { "Sender", "Data", });
+        new java.lang.String[] { "ServerId", "ChannelId", "Data", });
     internal_static_gws_ReceiverProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gws_ReceiverProtobuf_fieldAccessorTable = new

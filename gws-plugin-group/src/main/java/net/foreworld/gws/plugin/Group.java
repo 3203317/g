@@ -64,9 +64,6 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			String[] text = sender.getSender().split("::");
-			logger.info("sender: {}", sender.getSender());
-
 			RequestProtobuf req = sender.getData();
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
@@ -76,7 +73,7 @@ public class Group extends BasePlugin {
 			resp.setTimestamp(System.currentTimeMillis());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(text[1]);
+			rec.setReceiver(sender.getChannelId());
 
 			ByteString _data = req.getData();
 
@@ -89,7 +86,7 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ text[0], rec.build().toByteArray());
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
@@ -105,12 +102,12 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ text[0], rec.build().toByteArray());
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
-			ResultMap<Void> map = groupService.search(text[0], text[1],
-					_group_type);
+			ResultMap<Void> map = groupService.search(sender.getServerId(),
+					sender.getChannelId(), _group_type);
 			logger.info("{}:{}", map.getSuccess(), map.getData());
 
 			if (!map.getSuccess()) {
@@ -122,13 +119,14 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ text[0], rec.build().toByteArray());
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
 			rec.setData(resp);
 			jmsMessagingTemplate.convertAndSend(
-					queue_back_send + "." + text[0], rec.build().toByteArray());
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
@@ -148,9 +146,6 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			String[] text = sender.getSender().split("::");
-			logger.info("sender: {}", sender.getSender());
-
 			RequestProtobuf req = sender.getData();
 			logger.debug("{}:{}:{}:{}", req.getVersion(), req.getMethod(),
 					req.getSeqId(), req.getTimestamp());
@@ -162,7 +157,7 @@ public class Group extends BasePlugin {
 			resp.setTimestamp(System.currentTimeMillis());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(text[1]);
+			rec.setReceiver(sender.getChannelId());
 
 			ByteString _data = req.getData();
 
@@ -175,7 +170,7 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ text[0], rec.build().toByteArray());
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
@@ -191,12 +186,12 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ text[0], rec.build().toByteArray());
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
-			ResultMap<Void> map = groupService.entry(text[0], text[1],
-					_group_id);
+			ResultMap<Void> map = groupService.entry(sender.getServerId(),
+					sender.getChannelId(), _group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -208,13 +203,14 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ text[0], rec.build().toByteArray());
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
 			rec.setData(resp);
 			jmsMessagingTemplate.convertAndSend(
-					queue_back_send + "." + text[0], rec.build().toByteArray());
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
@@ -239,9 +235,6 @@ public class Group extends BasePlugin {
 
 	private boolean quit(SenderProtobuf sender) {
 
-		String[] text = sender.getSender().split("::");
-		logger.info("sender: {}", sender.getSender());
-
 		RequestProtobuf req = sender.getData();
 
 		ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
@@ -252,8 +245,8 @@ public class Group extends BasePlugin {
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		// 执行业务层用户退出群组操作
-		ResultMap<List<Receiver<User>>> map = groupService.quit(text[0],
-				text[1]);
+		ResultMap<List<Receiver<User>>> map = groupService.quit(
+				sender.getServerId(), sender.getChannelId());
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -265,9 +258,10 @@ public class Group extends BasePlugin {
 			resp.setMethod(req.getMethod());
 			rec.setData(resp);
 
-			rec.setReceiver(text[1]);
+			rec.setReceiver(sender.getChannelId());
 			jmsMessagingTemplate.convertAndSend(
-					queue_back_send + "." + text[0], rec.build().toByteArray());
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 			return false;
 		}
 
