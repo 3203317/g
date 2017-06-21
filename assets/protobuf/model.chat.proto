@@ -13,7 +13,3 @@ message ChatProtobuf {
   string comment = 5;
 }
 
-message ChatSendProtobuf {
-  string receiver = 1;
-  string comment = 2;
-}

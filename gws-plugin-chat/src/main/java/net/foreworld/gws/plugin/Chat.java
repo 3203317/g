@@ -4,6 +4,16 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
+import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
+import net.foreworld.model.ChatMsg;
+import net.foreworld.model.Receiver;
+import net.foreworld.model.ResultMap;
+import net.foreworld.service.ChatService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,17 +23,6 @@ import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-
-import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
-import net.foreworld.gws.protobuf.Chat.ChatSendProtobuf;
-import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.Common.SenderProtobuf;
-import net.foreworld.model.ChatMsg;
-import net.foreworld.model.Receiver;
-import net.foreworld.model.ResultMap;
-import net.foreworld.service.ChatService;
 
 /**
  *
@@ -57,10 +56,11 @@ public class Chat extends BasePlugin {
 
 			RequestProtobuf req = sender.getData();
 
-			ChatSendProtobuf chatSend = ChatSendProtobuf.parseFrom(req.getData());
+			ChatProtobuf chat = ChatProtobuf.parseFrom(req.getData());
 
-			ResultMap<Receiver<ChatMsg>> map = chatService.send(sender.getServerId(), sender.getChannelId(),
-					chatSend.getReceiver(), chatSend.getComment());
+			ResultMap<Receiver<ChatMsg>> map = chatService.send(
+					sender.getServerId(), sender.getChannelId(),
+					chat.getReceiver(), chat.getComment());
 
 			if (!map.getSuccess()) {
 				return;
@@ -88,8 +88,8 @@ public class Chat extends BasePlugin {
 			rec.setReceiver(receiver.getChannel_id());
 			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+					+ receiver.getServer_id(), rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
