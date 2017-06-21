@@ -13,7 +13,7 @@ public class Bullet implements Serializable {
 
 	private Integer level;
 
-	private String angle;
+	private Float angle;
 
 	public Integer getLevel() {
 		return level;
@@ -23,11 +23,11 @@ public class Bullet implements Serializable {
 		this.level = level;
 	}
 
-	public String getAngle() {
+	public Float getAngle() {
 		return angle;
 	}
 
-	public void setAngle(String angle) {
+	public void setAngle(Float angle) {
 		this.angle = angle;
 	}
 
