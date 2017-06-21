@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package gws;
+
+option java_package = "net.foreworld.gws.protobuf";
+option java_outer_classname = "Fishjoy";
+
+message FishjoyBulletProtobuf {
+  uint32 level = 1;
+  float angle = 2;
+}

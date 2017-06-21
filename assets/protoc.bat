@@ -12,4 +12,7 @@ protoc.exe --js_out=library=..\front\assets\js\emag\chat,binary:. .\protobuf\mod
 protoc.exe --java_out=..\gws-protobuf-group\src\main\java\ .\protobuf\model.group.proto
 protoc.exe --js_out=library=..\front\assets\js\emag\group,binary:. .\protobuf\model.group.proto
 
+protoc.exe --java_out=..\gws-protobuf-fishjoy\src\main\java\ .\protobuf\model.fishjoy.proto
+protoc.exe --js_out=library=..\front\assets\js\emag\fishjoy,binary:. .\protobuf\model.fishjoy.proto
+
 
