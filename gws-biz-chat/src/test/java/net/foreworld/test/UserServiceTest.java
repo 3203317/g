@@ -2,10 +2,10 @@ package net.foreworld.test;
 
 import javax.annotation.Resource;
 
-import net.foreworld.service.ChatService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import net.foreworld.service.ChatService;
 
 /**
  *
@@ -14,8 +14,7 @@ import org.slf4j.LoggerFactory;
  */
 public class UserServiceTest extends BasicTest {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(UserServiceTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
 	@Resource
 	private ChatService userService;
