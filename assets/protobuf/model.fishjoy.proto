@@ -6,6 +6,8 @@ option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Fishjoy";
 
 message FishjoyBulletProtobuf {
-  uint32 level = 1;
-  float angle = 2;
+  uint64 timestamp = 1;
+  uint32 level = 2;
+  float angle = 3;
+  string sender = 4;
 }
