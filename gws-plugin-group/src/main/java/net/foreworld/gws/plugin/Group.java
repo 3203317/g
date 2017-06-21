@@ -6,17 +6,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.ByteString;
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
@@ -30,6 +19,16 @@ import net.foreworld.model.ResultMap;
 import net.foreworld.model.User;
 import net.foreworld.service.GroupService;
 import net.foreworld.util.StringUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -75,61 +74,33 @@ public class Group extends BasePlugin {
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(sender.getChannelId());
 
-			ByteString _data = req.getData();
+			String _group_type = StringUtil.isEmpty(GroupSearchProtobuf
+					.parseFrom(req.getData()).getGroupType());
 
-			if (_data.isEmpty()) {
-
-				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setCode("invalid_data");
-
-				resp.setError(err);
-				rec.setData(resp);
-
-				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
-				return;
-			}
-
-			String _group_type = StringUtil.isEmpty(GroupSearchProtobuf.parseFrom(_data).getGroupType());
-
-			// 判断群组类型是否为空
-			if (null == _group_type) {
-
-				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setCode("invalid_grouptype");
-
-				resp.setError(err);
-				rec.setData(resp);
-
-				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
-				return;
-			}
-
-			ResultMap<List<Receiver<User>>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
-					_group_type);
+			ResultMap<List<Receiver<User>>> map = groupService.search(
+					sender.getServerId(), sender.getChannelId(), _group_type);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode(map.getCode());
 				err.setMsg(map.getMsg());
 
 				resp.setError(err);
 				rec.setData(resp);
 
 				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
 			// 已经成功加入了某一个群组
 			rec.setData(resp);
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 
 			// 给相关人员每人发送一条进入群组消息
 
@@ -162,8 +133,8 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 				rec.setReceiver(receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ receiver.getServer_id(), rec.build().toByteArray());
 			}
 
 		} catch (InvalidProtocolBufferException e) {
@@ -194,61 +165,33 @@ public class Group extends BasePlugin {
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setReceiver(sender.getChannelId());
 
-			ByteString _data = req.getData();
+			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(
+					req.getData()).getGroupId());
 
-			if (_data.isEmpty()) {
-
-				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setCode("invalid_data");
-
-				resp.setError(err);
-				rec.setData(resp);
-
-				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
-				return;
-			}
-
-			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(_data).getGroupId());
-
-			// 判断群组类型是否为空
-			if (null == _group_id) {
-
-				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setCode("invalid_group_id");
-
-				resp.setError(err);
-				rec.setData(resp);
-
-				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
-				return;
-			}
-
-			ResultMap<List<Receiver<User>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
-					_group_id);
+			ResultMap<List<Receiver<User>>> map = groupService.entry(
+					sender.getServerId(), sender.getChannelId(), _group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode(map.getCode());
 				err.setMsg(map.getMsg());
 
 				resp.setError(err);
 				rec.setData(resp);
 
 				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
 			// 已经成功加入了某一个群组
 			rec.setData(resp);
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 
 			// 给相关人员每人发送一条进入群组消息
 
@@ -281,8 +224,8 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 				rec.setReceiver(receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ receiver.getServer_id(), rec.build().toByteArray());
 			}
 
 		} catch (InvalidProtocolBufferException e) {
@@ -318,7 +261,8 @@ public class Group extends BasePlugin {
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		// 执行业务层用户退出群组操作
-		ResultMap<List<Receiver<User>>> map = groupService.quit(sender.getServerId(), sender.getChannelId());
+		ResultMap<List<Receiver<User>>> map = groupService.quit(
+				sender.getServerId(), sender.getChannelId());
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -332,8 +276,9 @@ public class Group extends BasePlugin {
 			rec.setData(resp);
 			rec.setReceiver(sender.getChannelId());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 			return false;
 		}
 
@@ -367,8 +312,8 @@ public class Group extends BasePlugin {
 			rec.setData(resp);
 			rec.setReceiver(receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+					+ receiver.getServer_id(), rec.build().toByteArray());
 		}
 
 		return true;
