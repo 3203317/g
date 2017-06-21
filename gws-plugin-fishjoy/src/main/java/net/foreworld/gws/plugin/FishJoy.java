@@ -18,6 +18,7 @@ import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.Common.SenderProtobuf;
+import net.foreworld.service.FishjoyService;
 
 /**
  *
@@ -36,6 +37,9 @@ public class FishJoy extends BasePlugin {
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
+
+	@Resource
+	private FishjoyService fishjoyService;
 
 	private static final Logger logger = LoggerFactory.getLogger(FishJoy.class);
 
