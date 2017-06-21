@@ -10,4 +10,7 @@ message FishjoyBulletProtobuf {
   uint32 level = 2;
   float angle = 3;
   string sender = 4;
+  float x = 5;
+  float y = 6;
+  uint32 speed = 7;
 }

@@ -42,6 +42,21 @@ public final class Fishjoy {
      */
     com.google.protobuf.ByteString
         getSenderBytes();
+
+    /**
+     * <code>optional float x = 5;</code>
+     */
+    float getX();
+
+    /**
+     * <code>optional float y = 6;</code>
+     */
+    float getY();
+
+    /**
+     * <code>optional uint32 speed = 7;</code>
+     */
+    int getSpeed();
   }
   /**
    * Protobuf type {@code gws.FishjoyBulletProtobuf}
@@ -59,6 +74,9 @@ public final class Fishjoy {
       level_ = 0;
       angle_ = 0F;
       sender_ = "";
+      x_ = 0F;
+      y_ = 0F;
+      speed_ = 0;
     }
 
     @java.lang.Override
@@ -105,6 +123,21 @@ public final class Fishjoy {
               java.lang.String s = input.readStringRequireUtf8();
 
               sender_ = s;
+              break;
+            }
+            case 45: {
+
+              x_ = input.readFloat();
+              break;
+            }
+            case 53: {
+
+              y_ = input.readFloat();
+              break;
+            }
+            case 56: {
+
+              speed_ = input.readUInt32();
               break;
             }
           }
@@ -191,6 +224,33 @@ public final class Fishjoy {
       }
     }
 
+    public static final int X_FIELD_NUMBER = 5;
+    private float x_;
+    /**
+     * <code>optional float x = 5;</code>
+     */
+    public float getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 6;
+    private float y_;
+    /**
+     * <code>optional float y = 6;</code>
+     */
+    public float getY() {
+      return y_;
+    }
+
+    public static final int SPEED_FIELD_NUMBER = 7;
+    private int speed_;
+    /**
+     * <code>optional uint32 speed = 7;</code>
+     */
+    public int getSpeed() {
+      return speed_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -215,6 +275,15 @@ public final class Fishjoy {
       if (!getSenderBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sender_);
       }
+      if (x_ != 0F) {
+        output.writeFloat(5, x_);
+      }
+      if (y_ != 0F) {
+        output.writeFloat(6, y_);
+      }
+      if (speed_ != 0) {
+        output.writeUInt32(7, speed_);
+      }
     }
 
     public int getSerializedSize() {
@@ -236,6 +305,18 @@ public final class Fishjoy {
       }
       if (!getSenderBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sender_);
+      }
+      if (x_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(5, x_);
+      }
+      if (y_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(6, y_);
+      }
+      if (speed_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(7, speed_);
       }
       memoizedSize = size;
       return size;
@@ -263,6 +344,16 @@ public final class Fishjoy {
               other.getAngle()));
       result = result && getSender()
           .equals(other.getSender());
+      result = result && (
+          java.lang.Float.floatToIntBits(getX())
+          == java.lang.Float.floatToIntBits(
+              other.getX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getY())
+          == java.lang.Float.floatToIntBits(
+              other.getY()));
+      result = result && (getSpeed()
+          == other.getSpeed());
       return result;
     }
 
@@ -283,6 +374,14 @@ public final class Fishjoy {
           getAngle());
       hash = (37 * hash) + SENDER_FIELD_NUMBER;
       hash = (53 * hash) + getSender().hashCode();
+      hash = (37 * hash) + X_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getX());
+      hash = (37 * hash) + Y_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getY());
+      hash = (37 * hash) + SPEED_FIELD_NUMBER;
+      hash = (53 * hash) + getSpeed();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -409,6 +508,12 @@ public final class Fishjoy {
 
         sender_ = "";
 
+        x_ = 0F;
+
+        y_ = 0F;
+
+        speed_ = 0;
+
         return this;
       }
 
@@ -435,6 +540,9 @@ public final class Fishjoy {
         result.level_ = level_;
         result.angle_ = angle_;
         result.sender_ = sender_;
+        result.x_ = x_;
+        result.y_ = y_;
+        result.speed_ = speed_;
         onBuilt();
         return result;
       }
@@ -488,6 +596,15 @@ public final class Fishjoy {
         if (!other.getSender().isEmpty()) {
           sender_ = other.sender_;
           onChanged();
+        }
+        if (other.getX() != 0F) {
+          setX(other.getX());
+        }
+        if (other.getY() != 0F) {
+          setY(other.getY());
+        }
+        if (other.getSpeed() != 0) {
+          setSpeed(other.getSpeed());
         }
         onChanged();
         return this;
@@ -661,6 +778,84 @@ public final class Fishjoy {
         onChanged();
         return this;
       }
+
+      private float x_ ;
+      /**
+       * <code>optional float x = 5;</code>
+       */
+      public float getX() {
+        return x_;
+      }
+      /**
+       * <code>optional float x = 5;</code>
+       */
+      public Builder setX(float value) {
+        
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float x = 5;</code>
+       */
+      public Builder clearX() {
+        
+        x_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float y_ ;
+      /**
+       * <code>optional float y = 6;</code>
+       */
+      public float getY() {
+        return y_;
+      }
+      /**
+       * <code>optional float y = 6;</code>
+       */
+      public Builder setY(float value) {
+        
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float y = 6;</code>
+       */
+      public Builder clearY() {
+        
+        y_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private int speed_ ;
+      /**
+       * <code>optional uint32 speed = 7;</code>
+       */
+      public int getSpeed() {
+        return speed_;
+      }
+      /**
+       * <code>optional uint32 speed = 7;</code>
+       */
+      public Builder setSpeed(int value) {
+        
+        speed_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 speed = 7;</code>
+       */
+      public Builder clearSpeed() {
+        
+        speed_ = 0;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -724,11 +919,12 @@ public final class Fishjoy {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\034protobuf/model.fishjoy.proto\022\003gws\"X\n\025F" +
+      "\n\034protobuf/model.fishjoy.proto\022\003gws\"}\n\025F" +
       "ishjoyBulletProtobuf\022\021\n\ttimestamp\030\001 \001(\004\022" +
       "\r\n\005level\030\002 \001(\r\022\r\n\005angle\030\003 \001(\002\022\016\n\006sender\030" +
-      "\004 \001(\tB%\n\032net.foreworld.gws.protobufB\007Fis" +
-      "hjoyb\006proto3"
+      "\004 \001(\t\022\t\n\001x\030\005 \001(\002\022\t\n\001y\030\006 \001(\002\022\r\n\005speed\030\007 \001" +
+      "(\rB%\n\032net.foreworld.gws.protobufB\007Fishjo" +
+      "yb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -747,7 +943,7 @@ public final class Fishjoy {
     internal_static_gws_FishjoyBulletProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyBulletProtobuf_descriptor,
-        new java.lang.String[] { "Timestamp", "Level", "Angle", "Sender", });
+        new java.lang.String[] { "Timestamp", "Level", "Angle", "Sender", "X", "Y", "Speed", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
