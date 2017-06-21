@@ -66,7 +66,7 @@ public class Chat extends BasePlugin {
 				return;
 			}
 
-			// 给接收方发送一条消息
+			// 一对一发送
 			Receiver<ChatMsg> receiver = map.getData();
 			ChatMsg cm = receiver.getData();
 

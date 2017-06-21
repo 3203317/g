@@ -4,11 +4,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.Common.SenderProtobuf;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +14,11 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
+
 /**
  *
  * @author huangxin <3203317@qq.com>
@@ -26,7 +26,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
  */
 @PropertySource("classpath:activemq.properties")
 @Component
-public class FishJoy {
+public class FishJoy extends BasePlugin {
 
 	@Value("${protocol.version}")
 	private int protocol_version;
@@ -43,15 +43,11 @@ public class FishJoy {
 	public void shot(BytesMessage msg) {
 
 		try {
-			int len = (int) msg.getBodyLength();
-			byte[] data = new byte[len];
-			msg.readBytes(data);
 
-			SenderProtobuf sender = SenderProtobuf.parseFrom(data);
+			SenderProtobuf sender = read(msg);
 
 			RequestProtobuf req = sender.getData();
-			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(),
-					req.getSeqId(), req.getTimestamp());
+			logger.info("{}:{}:{}:{}", req.getVersion(), req.getMethod(), req.getSeqId(), req.getTimestamp());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
@@ -63,9 +59,8 @@ public class FishJoy {
 			rec.setReceiver(sender.getChannelId());
 			rec.setData(resp);
 
-			jmsMessagingTemplate.convertAndSend(
-					queue_back_send + "." + sender.getServerId(), rec.build()
-							.toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
+					rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
