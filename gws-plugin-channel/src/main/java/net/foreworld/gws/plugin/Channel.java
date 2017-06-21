@@ -126,6 +126,7 @@ public class Channel {
 
 			rec.setData(resp);
 			rec.setReceiver(receiver.getChannel_id());
+
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
 					rec.build().toByteArray());
 		}

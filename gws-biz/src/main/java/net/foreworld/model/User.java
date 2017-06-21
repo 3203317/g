@@ -1,7 +1,6 @@
 package net.foreworld.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  *
@@ -16,7 +15,7 @@ public class User implements Serializable {
 
 	private String user_name;
 	private String nickname;
-	private Date create_time;
+	private Long create_time;
 
 	private Integer status;
 
@@ -44,11 +43,11 @@ public class User implements Serializable {
 		this.nickname = nickname;
 	}
 
-	public Date getCreate_time() {
+	public Long getCreate_time() {
 		return create_time;
 	}
 
-	public void setCreate_time(Date create_time) {
+	public void setCreate_time(Long create_time) {
 		this.create_time = create_time;
 	}
 

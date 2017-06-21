@@ -22,25 +22,17 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 	private static final Logger logger = LoggerFactory.getLogger(GroupServiceImpl.class);
 
 	@Override
-	public ResultMap<Void> search(String server_id, String channel_id, String group_type) {
+	public ResultMap<List<Receiver<User>>> search(String server_id, String channel_id, String group_type) {
 
-		ResultMap<Void> map = new ResultMap<Void>();
-		map.setSuccess(false);
-
-		quit(server_id, channel_id);
-
+		ResultMap<List<Receiver<User>>> map = new ResultMap<List<Receiver<User>>>();
 		map.setSuccess(true);
 		return map;
 	}
 
 	@Override
-	public ResultMap<Void> entry(String server_id, String channel_id, String group_id) {
+	public ResultMap<List<Receiver<User>>> entry(String server_id, String channel_id, String group_id) {
 
-		ResultMap<Void> map = new ResultMap<Void>();
-		map.setSuccess(false);
-
-		quit(server_id, channel_id);
-
+		ResultMap<List<Receiver<User>>> map = new ResultMap<List<Receiver<User>>>();
 		map.setSuccess(true);
 		return map;
 	}
