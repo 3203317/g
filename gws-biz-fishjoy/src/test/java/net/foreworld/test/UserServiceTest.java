@@ -5,7 +5,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.foreworld.service.ChatService;
+import net.foreworld.service.FishjoyService;
 
 /**
  *
@@ -17,6 +17,6 @@ public class UserServiceTest extends BasicTest {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceTest.class);
 
 	@Resource
-	private ChatService userService;
+	private FishjoyService userService;
 
 }
