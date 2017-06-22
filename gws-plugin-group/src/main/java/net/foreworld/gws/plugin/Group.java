@@ -67,12 +67,10 @@ public class Group extends BasePlugin {
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
-			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(sender.getChannelId());
 
 			String _group_type = StringUtil.isEmpty(GroupSearchProtobuf.parseFrom(req.getData()).getGroupType());
 
@@ -86,19 +84,17 @@ public class Group extends BasePlugin {
 				err.setCode(map.getCode());
 				err.setMsg(map.getMsg());
 
+				resp.setMethod(req.getMethod());
 				resp.setError(err);
+
 				rec.setData(resp);
+				rec.setReceiver(sender.getChannelId());
 
 				// 消息回传给自己
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
 						rec.build().toByteArray());
 				return;
 			}
-
-			// 已经成功加入了某一个群组
-			rec.setData(resp);
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
 
 			// 给相关人员每人发送一条进入群组消息
 
@@ -114,96 +110,7 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			resp.setMethod(3005);
-
-			for (int i = 0; i < j; i++) {
-				Receiver<User> receiver = list.get(i);
-
-				User _u = receiver.getData();
-
-				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-				_ub.setId(_u.getId());
-				_ub.setUserName(_u.getUser_name());
-				_ub.setNickname(_u.getNickname());
-
-				resp.setData(_ub.build().toByteString());
-
-				rec.setData(resp);
-				rec.setReceiver(receiver.getChannel_id());
-
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
-						rec.build().toByteArray());
-			}
-
-		} catch (InvalidProtocolBufferException e) {
-			logger.error("", e);
-		} catch (JMSException e) {
-			logger.error("", e);
-		}
-	}
-
-	@JmsListener(destination = "qq3203317.3002")
-	public void entry(BytesMessage msg) {
-
-		try {
-
-			SenderProtobuf sender = read(msg);
-			if (!quit(sender)) {
-				return;
-			}
-
-			RequestProtobuf req = sender.getData();
-
-			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
-			resp.setVersion(protocol_version);
-			resp.setMethod(req.getMethod());
-			resp.setSeqId(req.getSeqId());
-			resp.setTimestamp(System.currentTimeMillis());
-
-			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(sender.getChannelId());
-
-			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
-
-			ResultMap<List<Receiver<User>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
-					_group_id);
-			logger.info("{}:{}", map.getSuccess(), map.getMsg());
-
-			if (!map.getSuccess()) {
-
-				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
-				err.setCode(map.getCode());
-				err.setMsg(map.getMsg());
-
-				resp.setError(err);
-				rec.setData(resp);
-
-				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
-				return;
-			}
-
-			// 已经成功加入了某一个群组
-			rec.setData(resp);
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
-
-			// 给相关人员每人发送一条进入群组消息
-
-			List<Receiver<User>> list = map.getData();
-
-			if (null == list) {
-				return;
-			}
-
-			int j = list.size();
-
-			if (0 == j) {
-				return;
-			}
-
-			resp.setMethod(3005);
+			resp.setMethod(3002);
 
 			for (int i = 0; i < j; i++) {
 				Receiver<User> receiver = list.get(i);
@@ -232,6 +139,91 @@ public class Group extends BasePlugin {
 	}
 
 	@JmsListener(destination = "qq3203317.3003")
+	public void entry(BytesMessage msg) {
+
+		try {
+
+			SenderProtobuf sender = read(msg);
+			if (!quit(sender)) {
+				return;
+			}
+
+			RequestProtobuf req = sender.getData();
+
+			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
+			resp.setVersion(protocol_version);
+			resp.setSeqId(req.getSeqId());
+			resp.setTimestamp(System.currentTimeMillis());
+
+			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
+
+			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
+
+			ResultMap<List<Receiver<User>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
+					_group_id);
+			logger.info("{}:{}", map.getSuccess(), map.getMsg());
+
+			if (!map.getSuccess()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode(map.getCode());
+				err.setMsg(map.getMsg());
+
+				resp.setMethod(req.getMethod());
+				resp.setError(err);
+
+				rec.setData(resp);
+				rec.setReceiver(sender.getChannelId());
+
+				// 消息回传给自己
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
+						rec.build().toByteArray());
+				return;
+			}
+
+			// 给相关人员发送一条进入群组消息
+
+			List<Receiver<User>> list = map.getData();
+
+			if (null == list) {
+				return;
+			}
+
+			int j = list.size();
+
+			if (0 == j) {
+				return;
+			}
+
+			resp.setMethod(3004);
+
+			for (int i = 0; i < j; i++) {
+				Receiver<User> receiver = list.get(i);
+
+				User _u = receiver.getData();
+
+				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
+				_ub.setId(_u.getId());
+				_ub.setUserName(_u.getUser_name());
+				_ub.setNickname(_u.getNickname());
+
+				resp.setData(_ub.build().toByteString());
+
+				rec.setData(resp);
+				rec.setReceiver(receiver.getChannel_id());
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+						rec.build().toByteArray());
+			}
+
+		} catch (InvalidProtocolBufferException e) {
+			logger.error("", e);
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
+	@JmsListener(destination = "qq3203317.3005")
 	public void quit(BytesMessage msg) {
 
 		try {
@@ -263,10 +255,11 @@ public class Group extends BasePlugin {
 		if (!map.getSuccess()) {
 
 			ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+			err.setCode(map.getCode());
 			err.setMsg(map.getMsg());
 
-			resp.setError(err);
 			resp.setMethod(req.getMethod());
+			resp.setError(err);
 
 			rec.setData(resp);
 			rec.setReceiver(sender.getChannelId());
@@ -288,8 +281,8 @@ public class Group extends BasePlugin {
 			return true;
 		}
 
-		// 给相关人员每人发送一条退出群组消息
-		resp.setMethod(3004);
+		// 给相关人员发送一条退出群组消息
+		resp.setMethod(3006);
 
 		for (int i = 0; i < j; i++) {
 			Receiver<User> receiver = list.get(i);
@@ -313,7 +306,7 @@ public class Group extends BasePlugin {
 		return true;
 	}
 
-	@JmsListener(destination = "qq3203317.3006")
+	@JmsListener(destination = "qq3203317.3007")
 	public void view(BytesMessage msg) {
 
 		try {
@@ -327,12 +320,10 @@ public class Group extends BasePlugin {
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
-			resp.setMethod(req.getMethod());
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(sender.getChannelId());
 
 			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
 
@@ -346,8 +337,11 @@ public class Group extends BasePlugin {
 				err.setCode(map.getCode());
 				err.setMsg(map.getMsg());
 
+				resp.setMethod(req.getMethod());
 				resp.setError(err);
+
 				rec.setData(resp);
+				rec.setReceiver(sender.getChannelId());
 
 				// 消息回传给自己
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
@@ -355,12 +349,7 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			// 已经成功加入了某一个群组
-			rec.setData(resp);
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
-
-			// 给相关人员每人发送一条进入群组消息
+			// 给相关人员发送一条进入群组消息
 
 			List<Receiver<User>> list = map.getData();
 
@@ -374,7 +363,7 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			resp.setMethod(3005);
+			resp.setMethod(3008);
 
 			for (int i = 0; i < j; i++) {
 				Receiver<User> receiver = list.get(i);
