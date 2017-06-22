@@ -58,8 +58,8 @@ public class Channel {
 			resp.setTimestamp(System.currentTimeMillis());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
-			rec.setReceiver(text[1]);
 			rec.setData(resp);
+			rec.setReceiver(text[1]);
 
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
 
