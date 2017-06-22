@@ -72,10 +72,10 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String _group_type = StringUtil.isEmpty(GroupSearchProtobuf.parseFrom(req.getData()).getGroupType());
+			String group_type = StringUtil.isEmpty(GroupSearchProtobuf.parseFrom(req.getData()).getGroupType());
 
 			ResultMap<List<Receiver<User>>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
-					_group_type);
+					group_type);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -98,13 +98,13 @@ public class Group extends BasePlugin {
 
 			// 给相关人员发送一条进入群组消息
 
-			List<Receiver<User>> list = map.getData();
+			List<Receiver<User>> _list = map.getData();
 
-			if (null == list) {
+			if (null == _list) {
 				return;
 			}
 
-			int j = list.size();
+			int j = _list.size();
 
 			if (0 == j) {
 				return;
@@ -113,9 +113,9 @@ public class Group extends BasePlugin {
 			resp.setMethod(3002);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<User> receiver = list.get(i);
+				Receiver<User> _receiver = _list.get(i);
 
-				User _u = receiver.getData();
+				User _u = _receiver.getData();
 
 				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
 				_ub.setId(_u.getId());
@@ -125,9 +125,9 @@ public class Group extends BasePlugin {
 				resp.setData(_ub.build().toByteString());
 
 				rec.setData(resp);
-				rec.setReceiver(receiver.getChannel_id());
+				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 						rec.build().toByteArray());
 			}
 
@@ -157,10 +157,10 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
+			String group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
 
 			ResultMap<List<Receiver<User>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
-					_group_id);
+					group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -183,13 +183,13 @@ public class Group extends BasePlugin {
 
 			// 给相关人员发送一条进入群组消息
 
-			List<Receiver<User>> list = map.getData();
+			List<Receiver<User>> _list = map.getData();
 
-			if (null == list) {
+			if (null == _list) {
 				return;
 			}
 
-			int j = list.size();
+			int j = _list.size();
 
 			if (0 == j) {
 				return;
@@ -198,9 +198,9 @@ public class Group extends BasePlugin {
 			resp.setMethod(3004);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<User> receiver = list.get(i);
+				Receiver<User> _receiver = _list.get(i);
 
-				User _u = receiver.getData();
+				User _u = _receiver.getData();
 
 				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
 				_ub.setId(_u.getId());
@@ -210,9 +210,9 @@ public class Group extends BasePlugin {
 				resp.setData(_ub.build().toByteString());
 
 				rec.setData(resp);
-				rec.setReceiver(receiver.getChannel_id());
+				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 						rec.build().toByteArray());
 			}
 
@@ -269,13 +269,13 @@ public class Group extends BasePlugin {
 			return false;
 		}
 
-		List<Receiver<User>> list = map.getData();
+		List<Receiver<User>> _list = map.getData();
 
-		if (null == list) {
+		if (null == _list) {
 			return true;
 		}
 
-		int j = list.size();
+		int j = _list.size();
 
 		if (0 == j) {
 			return true;
@@ -285,9 +285,9 @@ public class Group extends BasePlugin {
 		resp.setMethod(3006);
 
 		for (int i = 0; i < j; i++) {
-			Receiver<User> receiver = list.get(i);
+			Receiver<User> _receiver = _list.get(i);
 
-			User _u = receiver.getData();
+			User _u = _receiver.getData();
 
 			UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
 			_ub.setId(_u.getId());
@@ -297,9 +297,9 @@ public class Group extends BasePlugin {
 			resp.setData(_ub.build().toByteString());
 
 			rec.setData(resp);
-			rec.setReceiver(receiver.getChannel_id());
+			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 					rec.build().toByteArray());
 		}
 
@@ -325,10 +325,10 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
+			String group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
 
 			ResultMap<List<Receiver<User>>> map = groupService.visit(sender.getServerId(), sender.getChannelId(),
-					_group_id);
+					group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -351,13 +351,13 @@ public class Group extends BasePlugin {
 
 			// 给相关人员发送一条进入群组消息
 
-			List<Receiver<User>> list = map.getData();
+			List<Receiver<User>> _list = map.getData();
 
-			if (null == list) {
+			if (null == _list) {
 				return;
 			}
 
-			int j = list.size();
+			int j = _list.size();
 
 			if (0 == j) {
 				return;
@@ -366,9 +366,9 @@ public class Group extends BasePlugin {
 			resp.setMethod(3008);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<User> receiver = list.get(i);
+				Receiver<User> _receiver = _list.get(i);
 
-				User _u = receiver.getData();
+				User _u = _receiver.getData();
 
 				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
 				_ub.setId(_u.getId());
@@ -378,9 +378,9 @@ public class Group extends BasePlugin {
 				resp.setData(_ub.build().toByteString());
 
 				rec.setData(resp);
-				rec.setReceiver(receiver.getChannel_id());
+				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 						rec.build().toByteArray());
 			}
 
