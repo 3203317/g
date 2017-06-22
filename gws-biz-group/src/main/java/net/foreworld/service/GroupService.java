@@ -43,6 +43,6 @@ public interface GroupService extends IService {
 	 * @param group_id
 	 * @return
 	 */
-	ResultMap<List<Receiver<User>>> view(String server_id, String channel_id, String group_id);
+	ResultMap<List<Receiver<User>>> visit(String server_id, String channel_id, String group_id);
 
 }

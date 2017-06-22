@@ -307,7 +307,7 @@ public class Group extends BasePlugin {
 	}
 
 	@JmsListener(destination = "qq3203317.3007")
-	public void view(BytesMessage msg) {
+	public void visit(BytesMessage msg) {
 
 		try {
 
@@ -327,7 +327,7 @@ public class Group extends BasePlugin {
 
 			String _group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
 
-			ResultMap<List<Receiver<User>>> map = groupService.view(sender.getServerId(), sender.getChannelId(),
+			ResultMap<List<Receiver<User>>> map = groupService.visit(sender.getServerId(), sender.getChannelId(),
 					_group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
