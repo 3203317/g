@@ -107,7 +107,7 @@ public class Channel {
 
 		ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 		resp.setVersion(protocol_version);
-		resp.setMethod(3004);
+		resp.setMethod(0);
 		resp.setTimestamp(System.currentTimeMillis());
 
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();

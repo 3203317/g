@@ -96,7 +96,7 @@ public class Group extends BasePlugin {
 				return;
 			}
 
-			// 给相关人员每人发送一条进入群组消息
+			// 给相关人员发送一条进入群组消息
 
 			List<Receiver<User>> list = map.getData();
 
