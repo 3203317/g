@@ -56,38 +56,38 @@ public class Chat extends BasePlugin {
 
 			RequestProtobuf req = sender.getData();
 
-			ChatProtobuf chat = ChatProtobuf.parseFrom(req.getData());
+			ChatProtobuf cp = ChatProtobuf.parseFrom(req.getData());
 
 			ResultMap<Receiver<ChatMsg>> map = chatService.send(sender.getServerId(), sender.getChannelId(),
-					chat.getReceiver(), chat.getComment());
+					cp.getReceiver(), cp.getComment());
 
 			if (!map.getSuccess()) {
 				return;
 			}
 
 			// 一对一发送
-			Receiver<ChatMsg> receiver = map.getData();
-			ChatMsg cm = receiver.getData();
+			Receiver<ChatMsg> _receiver = map.getData();
+			ChatMsg _cm = _receiver.getData();
 
-			ChatProtobuf.Builder _cb = ChatProtobuf.newBuilder();
-			_cb.setId(cm.getId());
-			_cb.setTimestamp(cm.getCreate_time());
-			_cb.setComment(cm.getComment());
-			_cb.setSender(cm.getSender());
-			_cb.setReceiver(cm.getReceiver());
+			ChatProtobuf.Builder _cpb = ChatProtobuf.newBuilder();
+			_cpb.setId(_cm.getId());
+			_cpb.setTimestamp(_cm.getCreate_time());
+			_cpb.setComment(_cm.getComment());
+			_cpb.setSender(_cm.getSender());
+			_cpb.setReceiver(_cm.getReceiver());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(2002);
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
-			resp.setData(_cb.build().toByteString());
+			resp.setData(_cpb.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setData(resp);
-			rec.setReceiver(receiver.getChannel_id());
+			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 					rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {

@@ -91,7 +91,7 @@ public class Channel {
 			return;
 		}
 
-		// 给相关成员每人发送一条退出消息
+		// 给相关人员发送一条退出消息
 
 		List<Receiver<User>> list = map.getData();
 
