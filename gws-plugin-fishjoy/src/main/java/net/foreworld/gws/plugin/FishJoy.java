@@ -117,13 +117,13 @@ public class FishJoy extends BasePlugin {
 				Bullet _b = receiver.getData();
 
 				FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf.newBuilder();
-				_fbpb.setAngle(_b.getAngle());
-				_fbpb.setLevel(_b.getLevel());
-				_fbpb.setX(_b.getX());
-				_fbpb.setY(_b.getY());
-				_fbpb.setTimestamp(_b.getCreate_time());
-				_fbpb.setSpeed(_b.getSpeed());
-				_fbpb.setSender(_b.getSender());
+				// _fbpb.setAngle(_b.getAngle());
+				// _fbpb.setLevel(_b.getLevel());
+				// _fbpb.setX(_b.getX());
+				// _fbpb.setY(_b.getY());
+				// _fbpb.setTimestamp(_b.getCreate_time());
+				// _fbpb.setSpeed(_b.getSpeed());
+				// _fbpb.setSender(_b.getSender());
 
 				resp.setData(_fbpb.build().toByteString());
 
