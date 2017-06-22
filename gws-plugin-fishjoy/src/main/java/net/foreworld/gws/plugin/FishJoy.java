@@ -97,13 +97,13 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			List<Receiver<Bullet>> list = map.getData();
+			List<Receiver<Bullet>> _list = map.getData();
 
-			if (null == list) {
+			if (null == _list) {
 				return;
 			}
 
-			int j = list.size();
+			int j = _list.size();
 
 			if (0 == j) {
 				return;
@@ -112,9 +112,9 @@ public class FishJoy extends BasePlugin {
 			resp.setMethod(1002);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<Bullet> receiver = list.get(i);
+				Receiver<Bullet> _receiver = _list.get(i);
 
-				Bullet _b = receiver.getData();
+				Bullet _b = _receiver.getData();
 
 				FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf.newBuilder();
 				// _fbpb.setAngle(_b.getAngle());
@@ -128,9 +128,9 @@ public class FishJoy extends BasePlugin {
 				resp.setData(_fbpb.build().toByteString());
 
 				rec.setData(resp);
-				rec.setReceiver(receiver.getChannel_id());
+				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 						rec.build().toByteArray());
 			}
 

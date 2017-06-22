@@ -93,13 +93,13 @@ public class Channel {
 
 		// 给相关人员发送一条退出消息
 
-		List<Receiver<User>> list = map.getData();
+		List<Receiver<User>> _list = map.getData();
 
-		if (null == list) {
+		if (null == _list) {
 			return;
 		}
 
-		int j = list.size();
+		int j = _list.size();
 
 		if (0 == j) {
 			return;
@@ -113,21 +113,21 @@ public class Channel {
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		for (int i = 0; i < j; i++) {
-			Receiver<User> receiver = list.get(i);
+			Receiver<User> _receiver = _list.get(i);
 
-			User _u = receiver.getData();
+			User _u = _receiver.getData();
 
-			UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-			_ub.setId(_u.getId());
-			_ub.setUserName(_u.getUser_name());
-			_ub.setNickname(_u.getNickname());
+			UserProtobuf.Builder _upb = UserProtobuf.newBuilder();
+			_upb.setId(_u.getId());
+			_upb.setUserName(_u.getUser_name());
+			_upb.setNickname(_u.getNickname());
 
-			resp.setData(_ub.build().toByteString());
+			resp.setData(_upb.build().toByteString());
 
 			rec.setData(resp);
-			rec.setReceiver(receiver.getChannel_id());
+			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + receiver.getServer_id(),
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 					rec.build().toByteArray());
 		}
 	}
