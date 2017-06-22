@@ -35,4 +35,14 @@ public interface GroupService extends IService {
 
 	ResultMap<List<Receiver<User>>> quit(String server_id, String channel_id);
 
+	/**
+	 * 观看指定群
+	 * 
+	 * @param server_id
+	 * @param channel_id
+	 * @param group_id
+	 * @return
+	 */
+	ResultMap<List<Receiver<User>>> view(String server_id, String channel_id, String group_id);
+
 }

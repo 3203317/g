@@ -45,4 +45,12 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		return map;
 	}
 
+	@Override
+	public ResultMap<List<Receiver<User>>> view(String server_id, String channel_id, String group_id) {
+
+		ResultMap<List<Receiver<User>>> map = new ResultMap<List<Receiver<User>>>();
+		map.setSuccess(true);
+		return map;
+	}
+
 }
