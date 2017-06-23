@@ -495,11 +495,11 @@ proto.gws.FishjoyFishLocusProtobuf.prototype.toObject = function(opt_includeInst
  */
 proto.gws.FishjoyFishLocusProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
-    timestamp: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    x: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
-    y: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
-    angle: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
-    fish: (f = msg.getFish()) && proto.gws.FishjoyFishProtobuf.toObject(includeInstance, f)
+    fish: (f = msg.getFish()) && proto.gws.FishjoyFishProtobuf.toObject(includeInstance, f),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    x: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
+    y: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
+    angle: +jspb.Message.getFieldWithDefault(msg, 5, 0.0)
   };
 
   if (includeInstance) {
@@ -537,25 +537,25 @@ proto.gws.FishjoyFishLocusProtobuf.deserializeBinaryFromReader = function(msg, r
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setTimestamp(value);
-      break;
-    case 2:
-      var value = /** @type {number} */ (reader.readFloat());
-      msg.setX(value);
-      break;
-    case 3:
-      var value = /** @type {number} */ (reader.readFloat());
-      msg.setY(value);
-      break;
-    case 4:
-      var value = /** @type {number} */ (reader.readFloat());
-      msg.setAngle(value);
-      break;
-    case 5:
       var value = new proto.gws.FishjoyFishProtobuf;
       reader.readMessage(value,proto.gws.FishjoyFishProtobuf.deserializeBinaryFromReader);
       msg.setFish(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setTimestamp(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setX(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setY(value);
+      break;
+    case 5:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setAngle(value);
       break;
     default:
       reader.skipField();
@@ -595,118 +595,58 @@ proto.gws.FishjoyFishLocusProtobuf.prototype.serializeBinary = function() {
  */
 proto.gws.FishjoyFishLocusProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
+  f = this.getFish();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.gws.FishjoyFishProtobuf.serializeBinaryToWriter
+    );
+  }
   f = this.getTimestamp();
   if (f !== 0) {
     writer.writeUint64(
-      1,
+      2,
       f
     );
   }
   f = this.getX();
   if (f !== 0.0) {
     writer.writeFloat(
-      2,
+      3,
       f
     );
   }
   f = this.getY();
   if (f !== 0.0) {
     writer.writeFloat(
-      3,
+      4,
       f
     );
   }
   f = this.getAngle();
   if (f !== 0.0) {
     writer.writeFloat(
-      4,
+      5,
       f
     );
   }
-  f = this.getFish();
-  if (f != null) {
-    writer.writeMessage(
-      5,
-      f,
-      proto.gws.FishjoyFishProtobuf.serializeBinaryToWriter
-    );
-  }
 };
 
 
 /**
- * optional uint64 timestamp = 1;
- * @return {number}
- */
-proto.gws.FishjoyFishLocusProtobuf.prototype.getTimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
-};
-
-
-/** @param {number} value */
-proto.gws.FishjoyFishLocusProtobuf.prototype.setTimestamp = function(value) {
-  jspb.Message.setField(this, 1, value);
-};
-
-
-/**
- * optional float x = 2;
- * @return {number}
- */
-proto.gws.FishjoyFishLocusProtobuf.prototype.getX = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 2, 0.0));
-};
-
-
-/** @param {number} value */
-proto.gws.FishjoyFishLocusProtobuf.prototype.setX = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * optional float y = 3;
- * @return {number}
- */
-proto.gws.FishjoyFishLocusProtobuf.prototype.getY = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 3, 0.0));
-};
-
-
-/** @param {number} value */
-proto.gws.FishjoyFishLocusProtobuf.prototype.setY = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional float angle = 4;
- * @return {number}
- */
-proto.gws.FishjoyFishLocusProtobuf.prototype.getAngle = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 4, 0.0));
-};
-
-
-/** @param {number} value */
-proto.gws.FishjoyFishLocusProtobuf.prototype.setAngle = function(value) {
-  jspb.Message.setField(this, 4, value);
-};
-
-
-/**
- * optional FishjoyFishProtobuf fish = 5;
+ * optional FishjoyFishProtobuf fish = 1;
  * @return {?proto.gws.FishjoyFishProtobuf}
  */
 proto.gws.FishjoyFishLocusProtobuf.prototype.getFish = function() {
   return /** @type{?proto.gws.FishjoyFishProtobuf} */ (
-    jspb.Message.getWrapperField(this, proto.gws.FishjoyFishProtobuf, 5));
+    jspb.Message.getWrapperField(this, proto.gws.FishjoyFishProtobuf, 1));
 };
 
 
 /** @param {?proto.gws.FishjoyFishProtobuf|undefined} value */
 proto.gws.FishjoyFishLocusProtobuf.prototype.setFish = function(value) {
-  jspb.Message.setWrapperField(this, 5, value);
+  jspb.Message.setWrapperField(this, 1, value);
 };
 
 
@@ -720,7 +660,67 @@ proto.gws.FishjoyFishLocusProtobuf.prototype.clearFish = function() {
  * @return {!boolean}
  */
 proto.gws.FishjoyFishLocusProtobuf.prototype.hasFish = function() {
-  return jspb.Message.getField(this, 5) != null;
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional uint64 timestamp = 2;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setTimestamp = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional float x = 3;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getX = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 3, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setX = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional float y = 4;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getY = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 4, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setY = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional float angle = 5;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getAngle = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 5, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setAngle = function(value) {
+  jspb.Message.setField(this, 5, value);
 };
 
 

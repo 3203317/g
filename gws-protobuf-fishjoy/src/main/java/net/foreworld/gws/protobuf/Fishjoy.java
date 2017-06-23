@@ -1347,37 +1347,37 @@ public final class Fishjoy {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional uint64 timestamp = 1;</code>
+     * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
+     */
+    boolean hasFish();
+    /**
+     * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
+     */
+    net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf getFish();
+    /**
+     * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
+     */
+    net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder getFishOrBuilder();
+
+    /**
+     * <code>optional uint64 timestamp = 2;</code>
      */
     long getTimestamp();
 
     /**
-     * <code>optional float x = 2;</code>
+     * <code>optional float x = 3;</code>
      */
     float getX();
 
     /**
-     * <code>optional float y = 3;</code>
+     * <code>optional float y = 4;</code>
      */
     float getY();
 
     /**
-     * <code>optional float angle = 4;</code>
+     * <code>optional float angle = 5;</code>
      */
     float getAngle();
-
-    /**
-     * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
-     */
-    boolean hasFish();
-    /**
-     * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
-     */
-    net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf getFish();
-    /**
-     * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
-     */
-    net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder getFishOrBuilder();
   }
   /**
    * Protobuf type {@code gws.FishjoyFishLocusProtobuf}
@@ -1422,27 +1422,7 @@ public final class Fishjoy {
               }
               break;
             }
-            case 8: {
-
-              timestamp_ = input.readUInt64();
-              break;
-            }
-            case 21: {
-
-              x_ = input.readFloat();
-              break;
-            }
-            case 29: {
-
-              y_ = input.readFloat();
-              break;
-            }
-            case 37: {
-
-              angle_ = input.readFloat();
-              break;
-            }
-            case 42: {
+            case 10: {
               net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf.Builder subBuilder = null;
               if (fish_ != null) {
                 subBuilder = fish_.toBuilder();
@@ -1453,6 +1433,26 @@ public final class Fishjoy {
                 fish_ = subBuilder.buildPartial();
               }
 
+              break;
+            }
+            case 16: {
+
+              timestamp_ = input.readUInt64();
+              break;
+            }
+            case 29: {
+
+              x_ = input.readFloat();
+              break;
+            }
+            case 37: {
+
+              y_ = input.readFloat();
+              break;
+            }
+            case 45: {
+
+              angle_ = input.readFloat();
               break;
             }
           }
@@ -1478,61 +1478,61 @@ public final class Fishjoy {
               net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf.class, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf.Builder.class);
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 1;
-    private long timestamp_;
-    /**
-     * <code>optional uint64 timestamp = 1;</code>
-     */
-    public long getTimestamp() {
-      return timestamp_;
-    }
-
-    public static final int X_FIELD_NUMBER = 2;
-    private float x_;
-    /**
-     * <code>optional float x = 2;</code>
-     */
-    public float getX() {
-      return x_;
-    }
-
-    public static final int Y_FIELD_NUMBER = 3;
-    private float y_;
-    /**
-     * <code>optional float y = 3;</code>
-     */
-    public float getY() {
-      return y_;
-    }
-
-    public static final int ANGLE_FIELD_NUMBER = 4;
-    private float angle_;
-    /**
-     * <code>optional float angle = 4;</code>
-     */
-    public float getAngle() {
-      return angle_;
-    }
-
-    public static final int FISH_FIELD_NUMBER = 5;
+    public static final int FISH_FIELD_NUMBER = 1;
     private net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf fish_;
     /**
-     * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+     * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
      */
     public boolean hasFish() {
       return fish_ != null;
     }
     /**
-     * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+     * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
      */
     public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf getFish() {
       return fish_ == null ? net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf.getDefaultInstance() : fish_;
     }
     /**
-     * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+     * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
      */
     public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder getFishOrBuilder() {
       return getFish();
+    }
+
+    public static final int TIMESTAMP_FIELD_NUMBER = 2;
+    private long timestamp_;
+    /**
+     * <code>optional uint64 timestamp = 2;</code>
+     */
+    public long getTimestamp() {
+      return timestamp_;
+    }
+
+    public static final int X_FIELD_NUMBER = 3;
+    private float x_;
+    /**
+     * <code>optional float x = 3;</code>
+     */
+    public float getX() {
+      return x_;
+    }
+
+    public static final int Y_FIELD_NUMBER = 4;
+    private float y_;
+    /**
+     * <code>optional float y = 4;</code>
+     */
+    public float getY() {
+      return y_;
+    }
+
+    public static final int ANGLE_FIELD_NUMBER = 5;
+    private float angle_;
+    /**
+     * <code>optional float angle = 5;</code>
+     */
+    public float getAngle() {
+      return angle_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1547,20 +1547,20 @@ public final class Fishjoy {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (fish_ != null) {
+        output.writeMessage(1, getFish());
+      }
       if (timestamp_ != 0L) {
-        output.writeUInt64(1, timestamp_);
+        output.writeUInt64(2, timestamp_);
       }
       if (x_ != 0F) {
-        output.writeFloat(2, x_);
+        output.writeFloat(3, x_);
       }
       if (y_ != 0F) {
-        output.writeFloat(3, y_);
+        output.writeFloat(4, y_);
       }
       if (angle_ != 0F) {
-        output.writeFloat(4, angle_);
-      }
-      if (fish_ != null) {
-        output.writeMessage(5, getFish());
+        output.writeFloat(5, angle_);
       }
     }
 
@@ -1569,25 +1569,25 @@ public final class Fishjoy {
       if (size != -1) return size;
 
       size = 0;
+      if (fish_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getFish());
+      }
       if (timestamp_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(1, timestamp_);
+          .computeUInt64Size(2, timestamp_);
       }
       if (x_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(2, x_);
+          .computeFloatSize(3, x_);
       }
       if (y_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, y_);
+          .computeFloatSize(4, y_);
       }
       if (angle_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, angle_);
-      }
-      if (fish_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, getFish());
+          .computeFloatSize(5, angle_);
       }
       memoizedSize = size;
       return size;
@@ -1605,6 +1605,11 @@ public final class Fishjoy {
       net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf other = (net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf) obj;
 
       boolean result = true;
+      result = result && (hasFish() == other.hasFish());
+      if (hasFish()) {
+        result = result && getFish()
+            .equals(other.getFish());
+      }
       result = result && (getTimestamp()
           == other.getTimestamp());
       result = result && (
@@ -1619,11 +1624,6 @@ public final class Fishjoy {
           java.lang.Float.floatToIntBits(getAngle())
           == java.lang.Float.floatToIntBits(
               other.getAngle()));
-      result = result && (hasFish() == other.hasFish());
-      if (hasFish()) {
-        result = result && getFish()
-            .equals(other.getFish());
-      }
       return result;
     }
 
@@ -1634,6 +1634,10 @@ public final class Fishjoy {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasFish()) {
+        hash = (37 * hash) + FISH_FIELD_NUMBER;
+        hash = (53 * hash) + getFish().hashCode();
+      }
       hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
       hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
           getTimestamp());
@@ -1646,10 +1650,6 @@ public final class Fishjoy {
       hash = (37 * hash) + ANGLE_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getAngle());
-      if (hasFish()) {
-        hash = (37 * hash) + FISH_FIELD_NUMBER;
-        hash = (53 * hash) + getFish().hashCode();
-      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1768,6 +1768,12 @@ public final class Fishjoy {
       }
       public Builder clear() {
         super.clear();
+        if (fishBuilder_ == null) {
+          fish_ = null;
+        } else {
+          fish_ = null;
+          fishBuilder_ = null;
+        }
         timestamp_ = 0L;
 
         x_ = 0F;
@@ -1776,12 +1782,6 @@ public final class Fishjoy {
 
         angle_ = 0F;
 
-        if (fishBuilder_ == null) {
-          fish_ = null;
-        } else {
-          fish_ = null;
-          fishBuilder_ = null;
-        }
         return this;
       }
 
@@ -1804,15 +1804,15 @@ public final class Fishjoy {
 
       public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf buildPartial() {
         net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf result = new net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf(this);
-        result.timestamp_ = timestamp_;
-        result.x_ = x_;
-        result.y_ = y_;
-        result.angle_ = angle_;
         if (fishBuilder_ == null) {
           result.fish_ = fish_;
         } else {
           result.fish_ = fishBuilder_.build();
         }
+        result.timestamp_ = timestamp_;
+        result.x_ = x_;
+        result.y_ = y_;
+        result.angle_ = angle_;
         onBuilt();
         return result;
       }
@@ -1854,6 +1854,9 @@ public final class Fishjoy {
 
       public Builder mergeFrom(net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf other) {
         if (other == net.foreworld.gws.protobuf.Fishjoy.FishjoyFishLocusProtobuf.getDefaultInstance()) return this;
+        if (other.hasFish()) {
+          mergeFish(other.getFish());
+        }
         if (other.getTimestamp() != 0L) {
           setTimestamp(other.getTimestamp());
         }
@@ -1865,9 +1868,6 @@ public final class Fishjoy {
         }
         if (other.getAngle() != 0F) {
           setAngle(other.getAngle());
-        }
-        if (other.hasFish()) {
-          mergeFish(other.getFish());
         }
         onChanged();
         return this;
@@ -1895,121 +1895,17 @@ public final class Fishjoy {
         return this;
       }
 
-      private long timestamp_ ;
-      /**
-       * <code>optional uint64 timestamp = 1;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-      /**
-       * <code>optional uint64 timestamp = 1;</code>
-       */
-      public Builder setTimestamp(long value) {
-        
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional uint64 timestamp = 1;</code>
-       */
-      public Builder clearTimestamp() {
-        
-        timestamp_ = 0L;
-        onChanged();
-        return this;
-      }
-
-      private float x_ ;
-      /**
-       * <code>optional float x = 2;</code>
-       */
-      public float getX() {
-        return x_;
-      }
-      /**
-       * <code>optional float x = 2;</code>
-       */
-      public Builder setX(float value) {
-        
-        x_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float x = 2;</code>
-       */
-      public Builder clearX() {
-        
-        x_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private float y_ ;
-      /**
-       * <code>optional float y = 3;</code>
-       */
-      public float getY() {
-        return y_;
-      }
-      /**
-       * <code>optional float y = 3;</code>
-       */
-      public Builder setY(float value) {
-        
-        y_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float y = 3;</code>
-       */
-      public Builder clearY() {
-        
-        y_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private float angle_ ;
-      /**
-       * <code>optional float angle = 4;</code>
-       */
-      public float getAngle() {
-        return angle_;
-      }
-      /**
-       * <code>optional float angle = 4;</code>
-       */
-      public Builder setAngle(float value) {
-        
-        angle_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float angle = 4;</code>
-       */
-      public Builder clearAngle() {
-        
-        angle_ = 0F;
-        onChanged();
-        return this;
-      }
-
       private net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf fish_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder> fishBuilder_;
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public boolean hasFish() {
         return fishBuilder_ != null || fish_ != null;
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf getFish() {
         if (fishBuilder_ == null) {
@@ -2019,7 +1915,7 @@ public final class Fishjoy {
         }
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public Builder setFish(net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf value) {
         if (fishBuilder_ == null) {
@@ -2035,7 +1931,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public Builder setFish(
           net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf.Builder builderForValue) {
@@ -2049,7 +1945,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public Builder mergeFish(net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf value) {
         if (fishBuilder_ == null) {
@@ -2067,7 +1963,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public Builder clearFish() {
         if (fishBuilder_ == null) {
@@ -2081,7 +1977,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf.Builder getFishBuilder() {
         
@@ -2089,7 +1985,7 @@ public final class Fishjoy {
         return getFishFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder getFishOrBuilder() {
         if (fishBuilder_ != null) {
@@ -2100,7 +1996,7 @@ public final class Fishjoy {
         }
       }
       /**
-       * <code>optional .gws.FishjoyFishProtobuf fish = 5;</code>
+       * <code>optional .gws.FishjoyFishProtobuf fish = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder> 
@@ -2114,6 +2010,110 @@ public final class Fishjoy {
           fish_ = null;
         }
         return fishBuilder_;
+      }
+
+      private long timestamp_ ;
+      /**
+       * <code>optional uint64 timestamp = 2;</code>
+       */
+      public long getTimestamp() {
+        return timestamp_;
+      }
+      /**
+       * <code>optional uint64 timestamp = 2;</code>
+       */
+      public Builder setTimestamp(long value) {
+        
+        timestamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint64 timestamp = 2;</code>
+       */
+      public Builder clearTimestamp() {
+        
+        timestamp_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private float x_ ;
+      /**
+       * <code>optional float x = 3;</code>
+       */
+      public float getX() {
+        return x_;
+      }
+      /**
+       * <code>optional float x = 3;</code>
+       */
+      public Builder setX(float value) {
+        
+        x_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float x = 3;</code>
+       */
+      public Builder clearX() {
+        
+        x_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float y_ ;
+      /**
+       * <code>optional float y = 4;</code>
+       */
+      public float getY() {
+        return y_;
+      }
+      /**
+       * <code>optional float y = 4;</code>
+       */
+      public Builder setY(float value) {
+        
+        y_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float y = 4;</code>
+       */
+      public Builder clearY() {
+        
+        y_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float angle_ ;
+      /**
+       * <code>optional float angle = 5;</code>
+       */
+      public float getAngle() {
+        return angle_;
+      }
+      /**
+       * <code>optional float angle = 5;</code>
+       */
+      public Builder setAngle(float value) {
+        
+        angle_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float angle = 5;</code>
+       */
+      public Builder clearAngle() {
+        
+        angle_ = 0F;
+        onChanged();
+        return this;
       }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
@@ -2193,9 +2193,9 @@ public final class Fishjoy {
       "\r\n\005level\030\002 \001(\r\022\016\n\006sender\030\003 \001(\t\022\t\n\001x\030\004 \001(" +
       "\002\022\t\n\001y\030\005 \001(\002\022\r\n\005speed\030\006 \001(\r\"!\n\023FishjoyFi" +
       "shProtobuf\022\n\n\002id\030\001 \001(\t\"z\n\030FishjoyFishLoc" +
-      "usProtobuf\022\021\n\ttimestamp\030\001 \001(\004\022\t\n\001x\030\002 \001(\002" +
-      "\022\t\n\001y\030\003 \001(\002\022\r\n\005angle\030\004 \001(\002\022&\n\004fish\030\005 \001(\013" +
-      "2\030.gws.FishjoyFishProtobufB%\n\032net.forewo" +
+      "usProtobuf\022&\n\004fish\030\001 \001(\0132\030.gws.FishjoyFi" +
+      "shProtobuf\022\021\n\ttimestamp\030\002 \001(\004\022\t\n\001x\030\003 \001(\002" +
+      "\022\t\n\001y\030\004 \001(\002\022\r\n\005angle\030\005 \001(\002B%\n\032net.forewo" +
       "rld.gws.protobufB\007Fishjoyb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
@@ -2227,7 +2227,7 @@ public final class Fishjoy {
     internal_static_gws_FishjoyFishLocusProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyFishLocusProtobuf_descriptor,
-        new java.lang.String[] { "Timestamp", "X", "Y", "Angle", "Fish", });
+        new java.lang.String[] { "Fish", "Timestamp", "X", "Y", "Angle", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
