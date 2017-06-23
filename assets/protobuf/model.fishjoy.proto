@@ -8,9 +8,20 @@ option java_outer_classname = "Fishjoy";
 message FishjoyBulletProtobuf {
   uint64 timestamp = 1;
   uint32 level = 2;
-  float angle = 3;
-  string sender = 4;
-  float x = 5;
-  float y = 6;
-  uint32 speed = 7;
+  string sender = 3;
+  float x = 4;
+  float y = 5;
+  uint32 speed = 6;
+}
+
+message FishjoyFishProtobuf {
+  string id = 1;
+}
+
+message FishjoyFishLocusProtobuf {
+  uint64 timestamp = 1;
+  float x = 2;
+  float y = 3;
+  float angle = 4;
+  FishjoyFishProtobuf fish = 5;
 }

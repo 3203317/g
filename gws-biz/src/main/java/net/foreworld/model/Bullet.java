@@ -13,8 +13,6 @@ public class Bullet implements Serializable {
 
 	private Integer level;
 
-	private Float angle;
-
 	private Long create_time;
 	private String sender;
 
@@ -68,14 +66,6 @@ public class Bullet implements Serializable {
 
 	public void setLevel(Integer level) {
 		this.level = level;
-	}
-
-	public Float getAngle() {
-		return angle;
-	}
-
-	public void setAngle(Float angle) {
-		this.angle = angle;
 	}
 
 }

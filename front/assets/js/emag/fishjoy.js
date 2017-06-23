@@ -7,6 +7,8 @@
 
 
 goog.provide('proto.gws.FishjoyBulletProtobuf');
+goog.provide('proto.gws.FishjoyFishLocusProtobuf');
+goog.provide('proto.gws.FishjoyFishProtobuf');
 
 goog.require('jspb.Message');
 goog.require('jspb.BinaryReader');
@@ -60,11 +62,10 @@ proto.gws.FishjoyBulletProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     timestamp: jspb.Message.getFieldWithDefault(msg, 1, 0),
     level: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    angle: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
-    sender: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    x: +jspb.Message.getFieldWithDefault(msg, 5, 0.0),
-    y: +jspb.Message.getFieldWithDefault(msg, 6, 0.0),
-    speed: jspb.Message.getFieldWithDefault(msg, 7, 0)
+    sender: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    x: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
+    y: +jspb.Message.getFieldWithDefault(msg, 5, 0.0),
+    speed: jspb.Message.getFieldWithDefault(msg, 6, 0)
   };
 
   if (includeInstance) {
@@ -110,22 +111,18 @@ proto.gws.FishjoyBulletProtobuf.deserializeBinaryFromReader = function(msg, read
       msg.setLevel(value);
       break;
     case 3:
-      var value = /** @type {number} */ (reader.readFloat());
-      msg.setAngle(value);
-      break;
-    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setSender(value);
       break;
-    case 5:
+    case 4:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setX(value);
       break;
-    case 6:
+    case 5:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setY(value);
       break;
-    case 7:
+    case 6:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setSpeed(value);
       break;
@@ -181,38 +178,31 @@ proto.gws.FishjoyBulletProtobuf.prototype.serializeBinaryToWriter = function (wr
       f
     );
   }
-  f = this.getAngle();
-  if (f !== 0.0) {
-    writer.writeFloat(
-      3,
-      f
-    );
-  }
   f = this.getSender();
   if (f.length > 0) {
     writer.writeString(
-      4,
+      3,
       f
     );
   }
   f = this.getX();
   if (f !== 0.0) {
     writer.writeFloat(
-      5,
+      4,
       f
     );
   }
   f = this.getY();
   if (f !== 0.0) {
     writer.writeFloat(
-      6,
+      5,
       f
     );
   }
   f = this.getSpeed();
   if (f !== 0) {
     writer.writeUint32(
-      7,
+      6,
       f
     );
   }
@@ -250,77 +240,487 @@ proto.gws.FishjoyBulletProtobuf.prototype.setLevel = function(value) {
 
 
 /**
- * optional float angle = 3;
- * @return {number}
- */
-proto.gws.FishjoyBulletProtobuf.prototype.getAngle = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 3, 0.0));
-};
-
-
-/** @param {number} value */
-proto.gws.FishjoyBulletProtobuf.prototype.setAngle = function(value) {
-  jspb.Message.setField(this, 3, value);
-};
-
-
-/**
- * optional string sender = 4;
+ * optional string sender = 3;
  * @return {string}
  */
 proto.gws.FishjoyBulletProtobuf.prototype.getSender = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
 proto.gws.FishjoyBulletProtobuf.prototype.setSender = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional float x = 5;
+ * optional float x = 4;
  * @return {number}
  */
 proto.gws.FishjoyBulletProtobuf.prototype.getX = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 5, 0.0));
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 4, 0.0));
 };
 
 
 /** @param {number} value */
 proto.gws.FishjoyBulletProtobuf.prototype.setX = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional float y = 6;
+ * optional float y = 5;
  * @return {number}
  */
 proto.gws.FishjoyBulletProtobuf.prototype.getY = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 6, 0.0));
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 5, 0.0));
 };
 
 
 /** @param {number} value */
 proto.gws.FishjoyBulletProtobuf.prototype.setY = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 
 /**
- * optional uint32 speed = 7;
+ * optional uint32 speed = 6;
  * @return {number}
  */
 proto.gws.FishjoyBulletProtobuf.prototype.getSpeed = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
 };
 
 
 /** @param {number} value */
 proto.gws.FishjoyBulletProtobuf.prototype.setSpeed = function(value) {
-  jspb.Message.setField(this, 7, value);
+  jspb.Message.setField(this, 6, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.gws.FishjoyFishProtobuf = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.gws.FishjoyFishProtobuf, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.gws.FishjoyFishProtobuf.displayName = 'proto.gws.FishjoyFishProtobuf';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.gws.FishjoyFishProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.FishjoyFishProtobuf.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.gws.FishjoyFishProtobuf} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.gws.FishjoyFishProtobuf.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    id: jspb.Message.getFieldWithDefault(msg, 1, "")
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.gws.FishjoyFishProtobuf}
+ */
+proto.gws.FishjoyFishProtobuf.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.gws.FishjoyFishProtobuf;
+  return proto.gws.FishjoyFishProtobuf.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.gws.FishjoyFishProtobuf} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.gws.FishjoyFishProtobuf}
+ */
+proto.gws.FishjoyFishProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.gws.FishjoyFishProtobuf} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.gws.FishjoyFishProtobuf.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.gws.FishjoyFishProtobuf.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.gws.FishjoyFishProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional string id = 1;
+ * @return {string}
+ */
+proto.gws.FishjoyFishProtobuf.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
+};
+
+
+/** @param {string} value */
+proto.gws.FishjoyFishProtobuf.prototype.setId = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.gws.FishjoyFishLocusProtobuf = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.gws.FishjoyFishLocusProtobuf, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.gws.FishjoyFishLocusProtobuf.displayName = 'proto.gws.FishjoyFishLocusProtobuf';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.FishjoyFishLocusProtobuf.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.gws.FishjoyFishLocusProtobuf} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.gws.FishjoyFishLocusProtobuf.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    timestamp: jspb.Message.getFieldWithDefault(msg, 1, 0),
+    x: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
+    y: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
+    angle: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
+    fish: (f = msg.getFish()) && proto.gws.FishjoyFishProtobuf.toObject(includeInstance, f)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.gws.FishjoyFishLocusProtobuf}
+ */
+proto.gws.FishjoyFishLocusProtobuf.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.gws.FishjoyFishLocusProtobuf;
+  return proto.gws.FishjoyFishLocusProtobuf.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.gws.FishjoyFishLocusProtobuf} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.gws.FishjoyFishLocusProtobuf}
+ */
+proto.gws.FishjoyFishLocusProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setTimestamp(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setX(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setY(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setAngle(value);
+      break;
+    case 5:
+      var value = new proto.gws.FishjoyFishProtobuf;
+      reader.readMessage(value,proto.gws.FishjoyFishProtobuf.deserializeBinaryFromReader);
+      msg.setFish(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.gws.FishjoyFishLocusProtobuf} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.gws.FishjoyFishLocusProtobuf.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getTimestamp();
+  if (f !== 0) {
+    writer.writeUint64(
+      1,
+      f
+    );
+  }
+  f = this.getX();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      2,
+      f
+    );
+  }
+  f = this.getY();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      3,
+      f
+    );
+  }
+  f = this.getAngle();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      4,
+      f
+    );
+  }
+  f = this.getFish();
+  if (f != null) {
+    writer.writeMessage(
+      5,
+      f,
+      proto.gws.FishjoyFishProtobuf.serializeBinaryToWriter
+    );
+  }
+};
+
+
+/**
+ * optional uint64 timestamp = 1;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setTimestamp = function(value) {
+  jspb.Message.setField(this, 1, value);
+};
+
+
+/**
+ * optional float x = 2;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getX = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 2, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setX = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional float y = 3;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getY = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 3, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setY = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional float angle = 4;
+ * @return {number}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getAngle = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 4, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setAngle = function(value) {
+  jspb.Message.setField(this, 4, value);
+};
+
+
+/**
+ * optional FishjoyFishProtobuf fish = 5;
+ * @return {?proto.gws.FishjoyFishProtobuf}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.getFish = function() {
+  return /** @type{?proto.gws.FishjoyFishProtobuf} */ (
+    jspb.Message.getWrapperField(this, proto.gws.FishjoyFishProtobuf, 5));
+};
+
+
+/** @param {?proto.gws.FishjoyFishProtobuf|undefined} value */
+proto.gws.FishjoyFishLocusProtobuf.prototype.setFish = function(value) {
+  jspb.Message.setWrapperField(this, 5, value);
+};
+
+
+proto.gws.FishjoyFishLocusProtobuf.prototype.clearFish = function() {
+  this.setFish(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.gws.FishjoyFishLocusProtobuf.prototype.hasFish = function() {
+  return jspb.Message.getField(this, 5) != null;
 };
 
 

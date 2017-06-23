@@ -69,7 +69,6 @@ public class FishJoy extends BasePlugin {
 			FishjoyBulletProtobuf fbp = FishjoyBulletProtobuf.parseFrom(req.getData());
 
 			Bullet bullet = new Bullet();
-			bullet.setAngle(fbp.getAngle());
 			bullet.setLevel(fbp.getLevel());
 			bullet.setSpeed(fbp.getSpeed());
 			bullet.setX(fbp.getX());
