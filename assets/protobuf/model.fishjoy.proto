@@ -16,12 +16,20 @@ message FishjoyBulletProtobuf {
 
 message FishjoyFishProtobuf {
   string id = 1;
+  uint32 type = 2;
 }
 
-message FishjoyFishLocusProtobuf {
+message FishjoyFishCoordinateProtobuf {
   FishjoyFishProtobuf fish = 1;
   uint64 timestamp = 2;
   float x = 3;
   float y = 4;
   float angle = 5;
+}
+
+message FishjoyFishDeadProtobuf {
+  FishjoyFishProtobuf fish = 1;
+  FishjoyBulletProtobuf bullet = 2;
+  uint64 timestamp = 3;
+  uint32 score = 4;
 }
