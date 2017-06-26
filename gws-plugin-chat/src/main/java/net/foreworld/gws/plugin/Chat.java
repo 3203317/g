@@ -15,11 +15,11 @@ import org.springframework.stereotype.Component;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
+import net.foreworld.gws.protobuf.Common.DataProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.Common.SenderProtobuf;
-import net.foreworld.model.ChatMsg;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.ChatService;
@@ -58,7 +58,7 @@ public class Chat extends BasePlugin {
 
 			ChatProtobuf cp = ChatProtobuf.parseFrom(req.getData());
 
-			ResultMap<Receiver<ChatMsg>> map = chatService.send(sender.getServerId(), sender.getChannelId(),
+			ResultMap<Receiver<String>> map = chatService.send(sender.getServerId(), sender.getChannelId(),
 					cp.getReceiver(), cp.getComment());
 
 			if (!map.getSuccess()) {
@@ -66,22 +66,17 @@ public class Chat extends BasePlugin {
 			}
 
 			// 一对一发送
-			Receiver<ChatMsg> _receiver = map.getData();
-			ChatMsg _cm = _receiver.getData();
+			Receiver<String> _receiver = map.getData();
 
-			ChatProtobuf.Builder _cpb = ChatProtobuf.newBuilder();
-			_cpb.setId(_cm.getId());
-			_cpb.setTimestamp(_cm.getCreate_time());
-			_cpb.setComment(_cm.getComment());
-			_cpb.setSender(_cm.getSender());
-			_cpb.setReceiver(_cm.getReceiver());
+			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+			_dpb.setBody(_receiver.getData());
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(2002);
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
-			resp.setData(_cpb.build().toByteString());
+			resp.setData(_dpb.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setData(resp);

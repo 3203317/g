@@ -1,6 +1,5 @@
 package net.foreworld.service;
 
-import net.foreworld.model.ChatMsg;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 
@@ -19,6 +18,6 @@ public interface ChatService extends IService {
 	 * @param comment
 	 * @return
 	 */
-	ResultMap<Receiver<ChatMsg>> send(String server_id, String channel_id, String receiver, String comment);
+	ResultMap<Receiver<String>> send(String server_id, String channel_id, String receiver, String comment);
 
 }

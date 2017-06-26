@@ -1,18 +1,15 @@
 package net.foreworld.gws.client.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
+
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.User;
 import net.foreworld.gws.protobuf.User.UserLoginProtobuf;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -23,8 +20,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 @Sharable
 public class LoginHandler extends ChannelInboundHandlerAdapter {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
@@ -57,12 +53,5 @@ public class LoginHandler extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		ResponseProtobuf req = (ResponseProtobuf) msg;
 		logger.info(req.getSeqId() + "");
-
-		try {
-			User.UserProtobuf user = User.UserProtobuf.parseFrom(req.getData());
-			logger.info(user.getId() + ":" + user.getUserName());
-		} catch (InvalidProtocolBufferException e) {
-			logger.error("InvalidProtocolBufferException", e);
-		}
 	}
 }

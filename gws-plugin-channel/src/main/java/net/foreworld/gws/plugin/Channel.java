@@ -14,6 +14,7 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import net.foreworld.gws.protobuf.Common.DataProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.model.Receiver;
@@ -113,7 +114,9 @@ public class Channel {
 		for (int i = 0; i < j; i++) {
 			Receiver<String> _receiver = _list.get(i);
 
-			resp.setData(null);
+			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+			_dpb.setBody(_receiver.getData());
+			resp.setData(_dpb.build().toByteString());
 
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
