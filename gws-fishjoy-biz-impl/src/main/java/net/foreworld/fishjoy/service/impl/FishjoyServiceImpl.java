@@ -3,6 +3,7 @@ package net.foreworld.fishjoy.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.foreworld.fishjoy.model.Bullet;
 import net.foreworld.fishjoy.service.FishjoyService;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
@@ -24,18 +25,17 @@ public class FishjoyServiceImpl extends BaseService implements FishjoyService {
 			.getLogger(FishjoyServiceImpl.class);
 
 	@Override
-	public ResultMap<List<Receiver<String>>> shot(String server_id,
-			String channel_id, String bullet) {
+	public ResultMap<List<Receiver<Bullet>>> shot(String server_id,
+			String channel_id, Bullet bullet) {
 
-		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		ResultMap<List<Receiver<Bullet>>> map = new ResultMap<List<Receiver<Bullet>>>();
 		map.setSuccess(false);
 
-		Receiver<String> rec = new Receiver<String>();
+		Receiver<Bullet> rec = new Receiver<Bullet>();
 		rec.setServer_id(server_id);
 		rec.setChannel_id(channel_id);
-		rec.setData(bullet);
 
-		List<Receiver<String>> list = new ArrayList<Receiver<String>>();
+		List<Receiver<Bullet>> list = new ArrayList<Receiver<Bullet>>();
 		list.add(rec);
 
 		map.setData(list);

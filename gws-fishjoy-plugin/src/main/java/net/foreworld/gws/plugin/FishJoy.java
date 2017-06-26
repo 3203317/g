@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
+import net.foreworld.fishjoy.model.Bullet;
 import net.foreworld.fishjoy.service.FishjoyService;
 import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
@@ -68,14 +69,14 @@ public class FishJoy extends BasePlugin {
 			FishjoyBulletProtobuf fbp = FishjoyBulletProtobuf.parseFrom(req
 					.getData());
 
-			// Bullet bullet = new Bullet();
-			// bullet.setLevel(fbp.getLevel());
-			// bullet.setSpeed(fbp.getSpeed());
-			// bullet.setX(fbp.getX());
-			// bullet.setY(fbp.getY());
+			Bullet bullet = new Bullet();
+			bullet.setLevel(fbp.getLevel());
+			bullet.setSpeed(fbp.getSpeed());
+			bullet.setX(fbp.getX());
+			bullet.setY(fbp.getY());
 
-			ResultMap<List<Receiver<String>>> map = fishjoyService.shot(
-					sender.getServerId(), sender.getChannelId(), "bullet");
+			ResultMap<List<Receiver<Bullet>>> map = fishjoyService.shot(
+					sender.getServerId(), sender.getChannelId(), bullet);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -96,7 +97,7 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			List<Receiver<String>> _list = map.getData();
+			List<Receiver<Bullet>> _list = map.getData();
 
 			if (null == _list) {
 				return;
@@ -111,19 +112,19 @@ public class FishJoy extends BasePlugin {
 			resp.setMethod(1002);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<String> _receiver = _list.get(i);
+				Receiver<Bullet> _receiver = _list.get(i);
 
-				// Bullet _b = _receiver.getData();
+				 Bullet _b = _receiver.getData();
 
 				FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf
 						.newBuilder();
-				// _fbpb.setAngle(_b.getAngle());
-				// _fbpb.setLevel(_b.getLevel());
-				// _fbpb.setX(_b.getX());
-				// _fbpb.setY(_b.getY());
-				// _fbpb.setTimestamp(_b.getCreate_time());
-				// _fbpb.setSpeed(_b.getSpeed());
-				// _fbpb.setSender(_b.getSender());
+//				 _fbpb.setAngle(_b.getAngle());
+				 _fbpb.setLevel(_b.getLevel());
+				 _fbpb.setX(_b.getX());
+				 _fbpb.setY(_b.getY());
+//				 _fbpb.setTimestamp(_b.getCreate_time());
+				 _fbpb.setSpeed(_b.getSpeed());
+				 _fbpb.setSender(_b.getSender());
 
 				resp.setData(_fbpb.build().toByteString());
 

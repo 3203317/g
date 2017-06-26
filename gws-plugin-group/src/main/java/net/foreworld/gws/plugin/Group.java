@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
+import net.foreworld.gws.protobuf.Common.DataProtobuf;
 import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
@@ -111,10 +112,14 @@ public class Group extends BasePlugin {
 
 			resp.setMethod(3002);
 
+			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+
 			for (int i = 0; i < j; i++) {
 				Receiver<String> _receiver = _list.get(i);
 
-				resp.setData(null);
+				_dpb.setBody(_receiver.getData());
+
+				resp.setData(_dpb.build().toByteString());
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
@@ -190,10 +195,14 @@ public class Group extends BasePlugin {
 
 			resp.setMethod(3004);
 
+			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+
 			for (int i = 0; i < j; i++) {
 				Receiver<String> _receiver = _list.get(i);
 
-				resp.setData(null);
+				_dpb.setBody(_receiver.getData());
+
+				resp.setData(_dpb.build().toByteString());
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
@@ -272,19 +281,14 @@ public class Group extends BasePlugin {
 		// 给相关人员发送一条退出群组消息
 		resp.setMethod(3006);
 
+		DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+
 		for (int i = 0; i < j; i++) {
 			Receiver<String> _receiver = _list.get(i);
 
-			// User _u = _receiver.getData();
-			//
-			// UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-			// _ub.setId(_u.getId());
-			// _ub.setUserName(_u.getUser_name());
-			// _ub.setNickname(_u.getNickname());
-			//
-			// resp.setData(_ub.build().toByteString());
+			_dpb.setBody(_receiver.getData());
 
-			resp.setData(null);
+			resp.setData(_dpb.build().toByteString());
 
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
@@ -356,10 +360,14 @@ public class Group extends BasePlugin {
 
 			resp.setMethod(3008);
 
+			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+
 			for (int i = 0; i < j; i++) {
 				Receiver<String> _receiver = _list.get(i);
 
-				resp.setData(null);
+				_dpb.setBody(_receiver.getData());
+
+				resp.setData(_dpb.build().toByteString());
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
