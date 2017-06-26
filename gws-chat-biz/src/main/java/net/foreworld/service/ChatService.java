@@ -12,7 +12,7 @@ public interface ChatService extends IService {
 
 	/**
 	 * 1v1
-	 * 
+	 *
 	 * @param server_id
 	 * @param channel_id
 	 * @param receiver
