@@ -41,3 +41,7 @@ message ErrorProtobuf {
 message PrimaryKeyProtobuf {
   string id = 1;
 }
+
+message DataProtobuf {
+  string body = 1;
+}
