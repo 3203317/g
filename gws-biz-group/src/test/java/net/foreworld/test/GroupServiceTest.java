@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.User;
 import net.foreworld.service.GroupService;
 
 /**
@@ -28,7 +27,7 @@ public class GroupServiceTest extends BasicTest {
 
 	@Test
 	public void test_findByRole() {
-		ResultMap<List<Receiver<User>>> map = groupService.search("server_id", "channel_id", "group_type");
+		ResultMap<List<Receiver<String>>> map = groupService.search("server_id", "channel_id", "group_type");
 		Assert.assertTrue(map.getMsg(), map.getSuccess());
 	}
 

@@ -12,7 +12,6 @@ import net.foreworld.gws.util.Constants;
 import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.User;
 import net.foreworld.service.UserService;
 import redis.clients.jedis.Jedis;
 
@@ -30,9 +29,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 	private String sha_user_logout;
 
 	@Override
-	public ResultMap<List<Receiver<User>>> logout(String server_id, String channel_id) {
+	public ResultMap<List<Receiver<String>>> logout(String server_id, String channel_id) {
 
-		ResultMap<List<Receiver<User>>> map = new ResultMap<List<Receiver<User>>>();
+		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
 		map.setSuccess(false);
 
 		Jedis j = RedisUtil.getDefault().getJedis();

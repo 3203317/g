@@ -16,10 +16,8 @@ import org.springframework.stereotype.Component;
 
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.User.UserProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.User;
 import net.foreworld.service.UserService;
 
 /**
@@ -84,7 +82,7 @@ public class Channel {
 	private void quit(String server_id, String channel_id) {
 
 		// 执行业务层用户退出操作
-		ResultMap<List<Receiver<User>>> map = userService.logout(server_id, channel_id);
+		ResultMap<List<Receiver<String>>> map = userService.logout(server_id, channel_id);
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -93,7 +91,7 @@ public class Channel {
 
 		// 给相关人员发送一条退出消息
 
-		List<Receiver<User>> _list = map.getData();
+		List<Receiver<String>> _list = map.getData();
 
 		if (null == _list) {
 			return;
@@ -113,16 +111,9 @@ public class Channel {
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		for (int i = 0; i < j; i++) {
-			Receiver<User> _receiver = _list.get(i);
+			Receiver<String> _receiver = _list.get(i);
 
-			User _u = _receiver.getData();
-
-			UserProtobuf.Builder _upb = UserProtobuf.newBuilder();
-			_upb.setId(_u.getId());
-			_upb.setUserName(_u.getUser_name());
-			_upb.setNickname(_u.getNickname());
-
-			resp.setData(_upb.build().toByteString());
+			resp.setData(null);
 
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());

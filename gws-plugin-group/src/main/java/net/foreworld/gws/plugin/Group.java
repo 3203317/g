@@ -23,10 +23,8 @@ import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupEntryProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
-import net.foreworld.gws.protobuf.User.UserProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.User;
 import net.foreworld.service.GroupService;
 import net.foreworld.util.StringUtil;
 
@@ -74,7 +72,7 @@ public class Group extends BasePlugin {
 
 			String group_type = StringUtil.isEmpty(GroupSearchProtobuf.parseFrom(req.getData()).getGroupType());
 
-			ResultMap<List<Receiver<User>>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
+			ResultMap<List<Receiver<String>>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
 					group_type);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
@@ -98,7 +96,7 @@ public class Group extends BasePlugin {
 
 			// 给相关人员发送一条进入群组消息
 
-			List<Receiver<User>> _list = map.getData();
+			List<Receiver<String>> _list = map.getData();
 
 			if (null == _list) {
 				return;
@@ -113,16 +111,9 @@ public class Group extends BasePlugin {
 			resp.setMethod(3002);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<User> _receiver = _list.get(i);
+				Receiver<String> _receiver = _list.get(i);
 
-				User _u = _receiver.getData();
-
-				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-				_ub.setId(_u.getId());
-				_ub.setUserName(_u.getUser_name());
-				_ub.setNickname(_u.getNickname());
-
-				resp.setData(_ub.build().toByteString());
+				resp.setData(null);
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
@@ -159,7 +150,7 @@ public class Group extends BasePlugin {
 
 			String group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
 
-			ResultMap<List<Receiver<User>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
+			ResultMap<List<Receiver<String>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
 					group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
@@ -183,7 +174,7 @@ public class Group extends BasePlugin {
 
 			// 给相关人员发送一条进入群组消息
 
-			List<Receiver<User>> _list = map.getData();
+			List<Receiver<String>> _list = map.getData();
 
 			if (null == _list) {
 				return;
@@ -198,16 +189,9 @@ public class Group extends BasePlugin {
 			resp.setMethod(3004);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<User> _receiver = _list.get(i);
+				Receiver<String> _receiver = _list.get(i);
 
-				User _u = _receiver.getData();
-
-				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-				_ub.setId(_u.getId());
-				_ub.setUserName(_u.getUser_name());
-				_ub.setNickname(_u.getNickname());
-
-				resp.setData(_ub.build().toByteString());
+				resp.setData(null);
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
@@ -249,7 +233,7 @@ public class Group extends BasePlugin {
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		// 执行业务层用户退出群组操作
-		ResultMap<List<Receiver<User>>> map = groupService.quit(sender.getServerId(), sender.getChannelId());
+		ResultMap<List<Receiver<String>>> map = groupService.quit(sender.getServerId(), sender.getChannelId());
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -269,7 +253,7 @@ public class Group extends BasePlugin {
 			return false;
 		}
 
-		List<Receiver<User>> _list = map.getData();
+		List<Receiver<String>> _list = map.getData();
 
 		if (null == _list) {
 			return true;
@@ -285,16 +269,18 @@ public class Group extends BasePlugin {
 		resp.setMethod(3006);
 
 		for (int i = 0; i < j; i++) {
-			Receiver<User> _receiver = _list.get(i);
+			Receiver<String> _receiver = _list.get(i);
 
-			User _u = _receiver.getData();
+			// User _u = _receiver.getData();
+			//
+			// UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
+			// _ub.setId(_u.getId());
+			// _ub.setUserName(_u.getUser_name());
+			// _ub.setNickname(_u.getNickname());
+			//
+			// resp.setData(_ub.build().toByteString());
 
-			UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-			_ub.setId(_u.getId());
-			_ub.setUserName(_u.getUser_name());
-			_ub.setNickname(_u.getNickname());
-
-			resp.setData(_ub.build().toByteString());
+			resp.setData(null);
 
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
@@ -327,7 +313,7 @@ public class Group extends BasePlugin {
 
 			String group_id = StringUtil.isEmpty(GroupEntryProtobuf.parseFrom(req.getData()).getGroupId());
 
-			ResultMap<List<Receiver<User>>> map = groupService.visit(sender.getServerId(), sender.getChannelId(),
+			ResultMap<List<Receiver<String>>> map = groupService.visit(sender.getServerId(), sender.getChannelId(),
 					group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
@@ -351,7 +337,7 @@ public class Group extends BasePlugin {
 
 			// 给相关人员发送一条进入群组消息
 
-			List<Receiver<User>> _list = map.getData();
+			List<Receiver<String>> _list = map.getData();
 
 			if (null == _list) {
 				return;
@@ -366,16 +352,9 @@ public class Group extends BasePlugin {
 			resp.setMethod(3008);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<User> _receiver = _list.get(i);
+				Receiver<String> _receiver = _list.get(i);
 
-				User _u = _receiver.getData();
-
-				UserProtobuf.Builder _ub = UserProtobuf.newBuilder();
-				_ub.setId(_u.getId());
-				_ub.setUserName(_u.getUser_name());
-				_ub.setNickname(_u.getNickname());
-
-				resp.setData(_ub.build().toByteString());
+				resp.setData(null);
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
