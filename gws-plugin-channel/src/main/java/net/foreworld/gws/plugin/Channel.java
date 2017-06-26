@@ -113,11 +113,13 @@ public class Channel {
 
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
+		DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+
 		for (int i = 0; i < j; i++) {
 			Receiver<String> _receiver = _list.get(i);
 
-			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
 			_dpb.setBody(_receiver.getData());
+
 			resp.setData(_dpb.build().toByteString());
 
 			rec.setData(resp);
