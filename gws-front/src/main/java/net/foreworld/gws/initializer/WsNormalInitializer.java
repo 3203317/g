@@ -1,9 +1,5 @@
 package net.foreworld.gws.initializer;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -15,8 +11,13 @@ import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketSe
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
+
+import javax.annotation.Resource;
+
 import net.foreworld.gws.codec.JSONCodec;
 import net.foreworld.gws.handler.EchoHandler;
+
+import org.springframework.stereotype.Component;
 
 /**
  *

@@ -34,7 +34,8 @@ public class HttpClientUtil {
 
 	private static final String UTF_8 = "UTF-8";
 
-	private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(HttpClientUtil.class);
 
 	private static void init() {
 		if (poolMgr != null)
@@ -68,12 +69,14 @@ public class HttpClientUtil {
 		return getResult(buildHttpPost(url, params));
 	}
 
-	public static <T> T httpGetRequest(String url, final ResponseHandler<? extends T> responseHandler) {
+	public static <T> T httpGetRequest(String url,
+			final ResponseHandler<? extends T> responseHandler) {
 		HttpGet httpGet = new HttpGet(url);
 		return getResult(httpGet, responseHandler);
 	}
 
-	public static <T> T httpPostRequest(String url, final ResponseHandler<? extends T> responseHandler) {
+	public static <T> T httpPostRequest(String url,
+			final ResponseHandler<? extends T> responseHandler) {
 		HttpPost httpPost = new HttpPost(url);
 		return getResult(httpPost, responseHandler);
 	}
@@ -114,15 +117,18 @@ public class HttpClientUtil {
 		return httpPost;
 	}
 
-	private static ArrayList<NameValuePair> covertParams(Map<String, Object> params) {
+	private static ArrayList<NameValuePair> covertParams(
+			Map<String, Object> params) {
 		ArrayList<NameValuePair> pairs = new ArrayList<NameValuePair>();
 		for (Map.Entry<String, Object> param : params.entrySet()) {
-			pairs.add(new BasicNameValuePair(param.getKey(), String.valueOf(param.getValue())));
+			pairs.add(new BasicNameValuePair(param.getKey(), String
+					.valueOf(param.getValue())));
 		}
 		return pairs;
 	}
 
-	private static <T> T getResult(HttpRequestBase request, final ResponseHandler<? extends T> responseHandler) {
+	private static <T> T getResult(HttpRequestBase request,
+			final ResponseHandler<? extends T> responseHandler) {
 		CloseableHttpClient httpClient = getHttpClient();
 		try {
 			return httpClient.execute(request, responseHandler);

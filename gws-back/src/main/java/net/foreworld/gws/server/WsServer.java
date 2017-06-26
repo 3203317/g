@@ -1,10 +1,10 @@
 package net.foreworld.gws.server;
 
+import net.foreworld.util.Server;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-
-import net.foreworld.util.Server;
 
 /**
  *
@@ -14,7 +14,8 @@ import net.foreworld.util.Server;
 @Component
 public class WsServer extends Server {
 
-	private static final Logger logger = LoggerFactory.getLogger(WsServer.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(WsServer.class);
 
 	@Override
 	public void start() {

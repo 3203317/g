@@ -1,12 +1,5 @@
 package net.foreworld.gws.initializer;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -19,6 +12,11 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
+
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+
 import net.foreworld.gws.codec.BinaryBuildEncode;
 import net.foreworld.gws.codec.BinaryDecode;
 import net.foreworld.gws.handler.BlacklistHandler;
@@ -30,6 +28,9 @@ import net.foreworld.gws.handler.TimeHandler;
 import net.foreworld.gws.handler.TimeVersionHandler;
 import net.foreworld.gws.handler.TimeoutHandler;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -85,7 +86,8 @@ public class WsInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(exceptionHandler);
 		pipe.addLast(blacklistHandler);
 
-		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime, allIdleTime, TimeUnit.SECONDS));
+		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime,
+				allIdleTime, TimeUnit.SECONDS));
 		pipe.addLast(timeoutHandler);
 
 		pipe.addLast(new HttpServerCodec());

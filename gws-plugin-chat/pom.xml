@@ -140,7 +140,12 @@
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-biz-chat</artifactId>
+			<artifactId>gws-fishjoy-biz-impl</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-chat-biz-impl</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 	</dependencies>

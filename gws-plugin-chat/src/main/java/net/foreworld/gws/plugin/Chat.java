@@ -4,16 +4,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
 import net.foreworld.gws.protobuf.Common.DataProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
@@ -23,6 +13,16 @@ import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.ChatService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -58,7 +58,8 @@ public class Chat extends BasePlugin {
 
 			ChatProtobuf cp = ChatProtobuf.parseFrom(req.getData());
 
-			ResultMap<Receiver<String>> map = chatService.send(sender.getServerId(), sender.getChannelId(),
+			ResultMap<Receiver<String>> map = chatService.send(
+					sender.getServerId(), sender.getChannelId(),
 					cp.getReceiver(), cp.getComment());
 
 			if (!map.getSuccess()) {
@@ -82,8 +83,8 @@ public class Chat extends BasePlugin {
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+					+ _receiver.getServer_id(), rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);

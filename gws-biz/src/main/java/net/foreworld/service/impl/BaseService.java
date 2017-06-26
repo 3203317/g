@@ -3,7 +3,7 @@ package net.foreworld.service.impl;
 import net.foreworld.service.IService;
 
 /**
- * 
+ *
  * @author huangxin
  *
  * @param <T>

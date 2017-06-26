@@ -114,11 +114,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>net.foreworld</groupId>
-			<artifactId>fore-util</artifactId>
-			<version>1.10.2</version>
-		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

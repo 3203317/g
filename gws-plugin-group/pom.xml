@@ -135,11 +135,6 @@
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-biz-group</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.foreworld</groupId>
 			<artifactId>gws-plugin</artifactId>
 			<version>1.0.1</version>
 		</dependency>
@@ -147,6 +142,11 @@
 			<groupId>net.foreworld</groupId>
 			<artifactId>gws-protobuf-user</artifactId>
 			<version>2.0.13</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-group-biz</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 

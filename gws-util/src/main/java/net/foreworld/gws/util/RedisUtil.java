@@ -19,7 +19,8 @@ import redis.clients.jedis.JedisPoolConfig;
 @Component
 public final class RedisUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(RedisUtil.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(RedisUtil.class);
 
 	private static int MAXIDLE;
 

@@ -1,17 +1,17 @@
 package net.foreworld.gws.util;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.ChannelGroupFuture;
 import io.netty.channel.group.ChannelMatcher;
 import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.util.concurrent.GlobalEventExecutor;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -20,7 +20,8 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  */
 public final class ChannelUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(ChannelUtil.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ChannelUtil.class);
 
 	// 定义一个静态私有变量(不初始化，不使用final关键字，使用volatile保证了多线程访问时instance变量的可见性，避免了instance初始化时其他变量属性还没赋值完时，被另外线程调用)
 	private static volatile ChannelUtil instance;
@@ -30,7 +31,8 @@ public final class ChannelUtil {
 
 	private Map<String, Channel> map = new ConcurrentHashMap<String, Channel>();
 
-	private ChannelGroup all = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
+	private ChannelGroup all = new DefaultChannelGroup(
+			GlobalEventExecutor.INSTANCE);
 
 	/**
 	 * 定义一个共有的静态方法，返回该类型实例

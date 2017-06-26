@@ -1,13 +1,5 @@
 package net.foreworld.gws.client;
 
-import javax.annotation.Resource;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.stereotype.Component;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -23,9 +15,18 @@ import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+
+import javax.annotation.Resource;
+
 import net.foreworld.gws.client.handler.LoginHandler;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.util.Client;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -36,7 +37,8 @@ import net.foreworld.util.Client;
 @Component
 public class TcpClient extends Client {
 
-	private static final Logger logger = LoggerFactory.getLogger(TcpClient.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(TcpClient.class);
 
 	@Value("${server.port:1234}")
 	private int port;
@@ -75,7 +77,8 @@ public class TcpClient extends Client {
 				ChannelPipeline pipe = ch.pipeline();
 
 				pipe.addLast(new ProtobufVarint32FrameDecoder());
-				pipe.addLast(new ProtobufDecoder(ResponseProtobuf.getDefaultInstance()));
+				pipe.addLast(new ProtobufDecoder(ResponseProtobuf
+						.getDefaultInstance()));
 				pipe.addLast(new ProtobufVarint32LengthFieldPrepender());
 				pipe.addLast(new ProtobufEncoder());
 

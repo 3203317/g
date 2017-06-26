@@ -135,13 +135,18 @@
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-biz-fishjoy</artifactId>
+			<artifactId>gws-protobuf-fishjoy</artifactId>
+			<version>2.0.13</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-fishjoy-biz</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-protobuf-fishjoy</artifactId>
-			<version>2.0.13</version>
+			<artifactId>gws-biz</artifactId>
+			<version>1.0.1</version>
 		</dependency>
 	</dependencies>
 

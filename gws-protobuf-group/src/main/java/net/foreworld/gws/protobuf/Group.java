@@ -4,1586 +4,1688 @@
 package net.foreworld.gws.protobuf;
 
 public final class Group {
-  private Group() {}
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistryLite registry) {
-  }
-
-  public static void registerAllExtensions(
-      com.google.protobuf.ExtensionRegistry registry) {
-    registerAllExtensions(
-        (com.google.protobuf.ExtensionRegistryLite) registry);
-  }
-  public interface GroupProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.GroupProtobuf)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string id = 1;</code>
-     */
-    java.lang.String getId();
-    /**
-     * <code>optional string id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getIdBytes();
-  }
-  /**
-   * Protobuf type {@code gws.GroupProtobuf}
-   */
-  public  static final class GroupProtobuf extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.GroupProtobuf)
-      GroupProtobufOrBuilder {
-    // Use GroupProtobuf.newBuilder() to construct.
-    private GroupProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GroupProtobuf() {
-      id_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private GroupProtobuf(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              id_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              net.foreworld.gws.protobuf.Group.GroupProtobuf.class, net.foreworld.gws.protobuf.Group.GroupProtobuf.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object id_;
-    /**
-     * <code>optional string id = 1;</code>
-     */
-    public java.lang.String getId() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        id_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getIdBytes() {
-      java.lang.Object ref = id_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        id_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof net.foreworld.gws.protobuf.Group.GroupProtobuf)) {
-        return super.equals(obj);
-      }
-      net.foreworld.gws.protobuf.Group.GroupProtobuf other = (net.foreworld.gws.protobuf.Group.GroupProtobuf) obj;
-
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(net.foreworld.gws.protobuf.Group.GroupProtobuf prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code gws.GroupProtobuf}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.GroupProtobuf)
-        net.foreworld.gws.protobuf.Group.GroupProtobufOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                net.foreworld.gws.protobuf.Group.GroupProtobuf.class, net.foreworld.gws.protobuf.Group.GroupProtobuf.Builder.class);
-      }
-
-      // Construct using net.foreworld.gws.protobuf.Group.GroupProtobuf.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        id_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_descriptor;
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupProtobuf getDefaultInstanceForType() {
-        return net.foreworld.gws.protobuf.Group.GroupProtobuf.getDefaultInstance();
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupProtobuf build() {
-        net.foreworld.gws.protobuf.Group.GroupProtobuf result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupProtobuf buildPartial() {
-        net.foreworld.gws.protobuf.Group.GroupProtobuf result = new net.foreworld.gws.protobuf.Group.GroupProtobuf(this);
-        result.id_ = id_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof net.foreworld.gws.protobuf.Group.GroupProtobuf) {
-          return mergeFrom((net.foreworld.gws.protobuf.Group.GroupProtobuf)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(net.foreworld.gws.protobuf.Group.GroupProtobuf other) {
-        if (other == net.foreworld.gws.protobuf.Group.GroupProtobuf.getDefaultInstance()) return this;
-        if (!other.getId().isEmpty()) {
-          id_ = other.id_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        net.foreworld.gws.protobuf.Group.GroupProtobuf parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (net.foreworld.gws.protobuf.Group.GroupProtobuf) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object id_ = "";
-      /**
-       * <code>optional string id = 1;</code>
-       */
-      public java.lang.String getId() {
-        java.lang.Object ref = id_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          id_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getIdBytes() {
-        java.lang.Object ref = id_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          id_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string id = 1;</code>
-       */
-      public Builder setId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string id = 1;</code>
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string id = 1;</code>
-       */
-      public Builder setIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:gws.GroupProtobuf)
-    }
-
-    // @@protoc_insertion_point(class_scope:gws.GroupProtobuf)
-    private static final net.foreworld.gws.protobuf.Group.GroupProtobuf DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Group.GroupProtobuf();
-    }
-
-    public static net.foreworld.gws.protobuf.Group.GroupProtobuf getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GroupProtobuf>
-        PARSER = new com.google.protobuf.AbstractParser<GroupProtobuf>() {
-      public GroupProtobuf parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GroupProtobuf(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GroupProtobuf> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GroupProtobuf> getParserForType() {
-      return PARSER;
-    }
-
-    public net.foreworld.gws.protobuf.Group.GroupProtobuf getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface GroupSearchProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.GroupSearchProtobuf)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string group_type = 1;</code>
-     */
-    java.lang.String getGroupType();
-    /**
-     * <code>optional string group_type = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getGroupTypeBytes();
-  }
-  /**
-   * Protobuf type {@code gws.GroupSearchProtobuf}
-   */
-  public  static final class GroupSearchProtobuf extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.GroupSearchProtobuf)
-      GroupSearchProtobufOrBuilder {
-    // Use GroupSearchProtobuf.newBuilder() to construct.
-    private GroupSearchProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GroupSearchProtobuf() {
-      groupType_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private GroupSearchProtobuf(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              groupType_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.class, net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.Builder.class);
-    }
-
-    public static final int GROUP_TYPE_FIELD_NUMBER = 1;
-    private volatile java.lang.Object groupType_;
-    /**
-     * <code>optional string group_type = 1;</code>
-     */
-    public java.lang.String getGroupType() {
-      java.lang.Object ref = groupType_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        groupType_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string group_type = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getGroupTypeBytes() {
-      java.lang.Object ref = groupType_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        groupType_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getGroupTypeBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, groupType_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getGroupTypeBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, groupType_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof net.foreworld.gws.protobuf.Group.GroupSearchProtobuf)) {
-        return super.equals(obj);
-      }
-      net.foreworld.gws.protobuf.Group.GroupSearchProtobuf other = (net.foreworld.gws.protobuf.Group.GroupSearchProtobuf) obj;
-
-      boolean result = true;
-      result = result && getGroupType()
-          .equals(other.getGroupType());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + GROUP_TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getGroupType().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(net.foreworld.gws.protobuf.Group.GroupSearchProtobuf prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code gws.GroupSearchProtobuf}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.GroupSearchProtobuf)
-        net.foreworld.gws.protobuf.Group.GroupSearchProtobufOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.class, net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.Builder.class);
-      }
-
-      // Construct using net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        groupType_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_descriptor;
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf getDefaultInstanceForType() {
-        return net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.getDefaultInstance();
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf build() {
-        net.foreworld.gws.protobuf.Group.GroupSearchProtobuf result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf buildPartial() {
-        net.foreworld.gws.protobuf.Group.GroupSearchProtobuf result = new net.foreworld.gws.protobuf.Group.GroupSearchProtobuf(this);
-        result.groupType_ = groupType_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof net.foreworld.gws.protobuf.Group.GroupSearchProtobuf) {
-          return mergeFrom((net.foreworld.gws.protobuf.Group.GroupSearchProtobuf)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(net.foreworld.gws.protobuf.Group.GroupSearchProtobuf other) {
-        if (other == net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.getDefaultInstance()) return this;
-        if (!other.getGroupType().isEmpty()) {
-          groupType_ = other.groupType_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (net.foreworld.gws.protobuf.Group.GroupSearchProtobuf) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object groupType_ = "";
-      /**
-       * <code>optional string group_type = 1;</code>
-       */
-      public java.lang.String getGroupType() {
-        java.lang.Object ref = groupType_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          groupType_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string group_type = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getGroupTypeBytes() {
-        java.lang.Object ref = groupType_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          groupType_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string group_type = 1;</code>
-       */
-      public Builder setGroupType(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        groupType_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string group_type = 1;</code>
-       */
-      public Builder clearGroupType() {
-        
-        groupType_ = getDefaultInstance().getGroupType();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string group_type = 1;</code>
-       */
-      public Builder setGroupTypeBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        groupType_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:gws.GroupSearchProtobuf)
-    }
-
-    // @@protoc_insertion_point(class_scope:gws.GroupSearchProtobuf)
-    private static final net.foreworld.gws.protobuf.Group.GroupSearchProtobuf DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Group.GroupSearchProtobuf();
-    }
-
-    public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GroupSearchProtobuf>
-        PARSER = new com.google.protobuf.AbstractParser<GroupSearchProtobuf>() {
-      public GroupSearchProtobuf parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GroupSearchProtobuf(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GroupSearchProtobuf> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GroupSearchProtobuf> getParserForType() {
-      return PARSER;
-    }
-
-    public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface GroupEntryProtobufOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:gws.GroupEntryProtobuf)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional string group_id = 1;</code>
-     */
-    java.lang.String getGroupId();
-    /**
-     * <code>optional string group_id = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getGroupIdBytes();
-  }
-  /**
-   * Protobuf type {@code gws.GroupEntryProtobuf}
-   */
-  public  static final class GroupEntryProtobuf extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:gws.GroupEntryProtobuf)
-      GroupEntryProtobufOrBuilder {
-    // Use GroupEntryProtobuf.newBuilder() to construct.
-    private GroupEntryProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private GroupEntryProtobuf() {
-      groupId_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private GroupEntryProtobuf(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              groupId_ = s;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.class, net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.Builder.class);
-    }
-
-    public static final int GROUP_ID_FIELD_NUMBER = 1;
-    private volatile java.lang.Object groupId_;
-    /**
-     * <code>optional string group_id = 1;</code>
-     */
-    public java.lang.String getGroupId() {
-      java.lang.Object ref = groupId_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        groupId_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string group_id = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getGroupIdBytes() {
-      java.lang.Object ref = groupId_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        groupId_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getGroupIdBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, groupId_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getGroupIdBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, groupId_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof net.foreworld.gws.protobuf.Group.GroupEntryProtobuf)) {
-        return super.equals(obj);
-      }
-      net.foreworld.gws.protobuf.Group.GroupEntryProtobuf other = (net.foreworld.gws.protobuf.Group.GroupEntryProtobuf) obj;
-
-      boolean result = true;
-      result = result && getGroupId()
-          .equals(other.getGroupId());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + GROUP_ID_FIELD_NUMBER;
-      hash = (53 * hash) + getGroupId().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(net.foreworld.gws.protobuf.Group.GroupEntryProtobuf prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code gws.GroupEntryProtobuf}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:gws.GroupEntryProtobuf)
-        net.foreworld.gws.protobuf.Group.GroupEntryProtobufOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.class, net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.Builder.class);
-      }
-
-      // Construct using net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        groupId_ = "";
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_descriptor;
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf getDefaultInstanceForType() {
-        return net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.getDefaultInstance();
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf build() {
-        net.foreworld.gws.protobuf.Group.GroupEntryProtobuf result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf buildPartial() {
-        net.foreworld.gws.protobuf.Group.GroupEntryProtobuf result = new net.foreworld.gws.protobuf.Group.GroupEntryProtobuf(this);
-        result.groupId_ = groupId_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof net.foreworld.gws.protobuf.Group.GroupEntryProtobuf) {
-          return mergeFrom((net.foreworld.gws.protobuf.Group.GroupEntryProtobuf)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(net.foreworld.gws.protobuf.Group.GroupEntryProtobuf other) {
-        if (other == net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.getDefaultInstance()) return this;
-        if (!other.getGroupId().isEmpty()) {
-          groupId_ = other.groupId_;
-          onChanged();
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (net.foreworld.gws.protobuf.Group.GroupEntryProtobuf) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object groupId_ = "";
-      /**
-       * <code>optional string group_id = 1;</code>
-       */
-      public java.lang.String getGroupId() {
-        java.lang.Object ref = groupId_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          groupId_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string group_id = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getGroupIdBytes() {
-        java.lang.Object ref = groupId_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          groupId_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string group_id = 1;</code>
-       */
-      public Builder setGroupId(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        groupId_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string group_id = 1;</code>
-       */
-      public Builder clearGroupId() {
-        
-        groupId_ = getDefaultInstance().getGroupId();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string group_id = 1;</code>
-       */
-      public Builder setGroupIdBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        groupId_ = value;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:gws.GroupEntryProtobuf)
-    }
-
-    // @@protoc_insertion_point(class_scope:gws.GroupEntryProtobuf)
-    private static final net.foreworld.gws.protobuf.Group.GroupEntryProtobuf DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Group.GroupEntryProtobuf();
-    }
-
-    public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<GroupEntryProtobuf>
-        PARSER = new com.google.protobuf.AbstractParser<GroupEntryProtobuf>() {
-      public GroupEntryProtobuf parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new GroupEntryProtobuf(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<GroupEntryProtobuf> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<GroupEntryProtobuf> getParserForType() {
-      return PARSER;
-    }
-
-    public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_GroupProtobuf_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_GroupProtobuf_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_GroupSearchProtobuf_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_GroupSearchProtobuf_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_gws_GroupEntryProtobuf_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_gws_GroupEntryProtobuf_fieldAccessorTable;
-
-  public static com.google.protobuf.Descriptors.FileDescriptor
-      getDescriptor() {
-    return descriptor;
-  }
-  private static  com.google.protobuf.Descriptors.FileDescriptor
-      descriptor;
-  static {
-    java.lang.String[] descriptorData = {
-      "\n\032protobuf/model.group.proto\022\003gws\"\033\n\rGro" +
-      "upProtobuf\022\n\n\002id\030\001 \001(\t\")\n\023GroupSearchPro" +
-      "tobuf\022\022\n\ngroup_type\030\001 \001(\t\"&\n\022GroupEntryP" +
-      "rotobuf\022\020\n\010group_id\030\001 \001(\tB#\n\032net.forewor" +
-      "ld.gws.protobufB\005Groupb\006proto3"
-    };
-    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
-        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
-          public com.google.protobuf.ExtensionRegistry assignDescriptors(
-              com.google.protobuf.Descriptors.FileDescriptor root) {
-            descriptor = root;
-            return null;
-          }
-        };
-    com.google.protobuf.Descriptors.FileDescriptor
-      .internalBuildGeneratedFileFrom(descriptorData,
-        new com.google.protobuf.Descriptors.FileDescriptor[] {
-        }, assigner);
-    internal_static_gws_GroupProtobuf_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_gws_GroupProtobuf_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_GroupProtobuf_descriptor,
-        new java.lang.String[] { "Id", });
-    internal_static_gws_GroupSearchProtobuf_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_gws_GroupSearchProtobuf_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_GroupSearchProtobuf_descriptor,
-        new java.lang.String[] { "GroupType", });
-    internal_static_gws_GroupEntryProtobuf_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_gws_GroupEntryProtobuf_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_gws_GroupEntryProtobuf_descriptor,
-        new java.lang.String[] { "GroupId", });
-  }
-
-  // @@protoc_insertion_point(outer_class_scope)
+	private Group() {
+	}
+
+	public static void registerAllExtensions(
+			com.google.protobuf.ExtensionRegistryLite registry) {
+	}
+
+	public static void registerAllExtensions(
+			com.google.protobuf.ExtensionRegistry registry) {
+		registerAllExtensions((com.google.protobuf.ExtensionRegistryLite) registry);
+	}
+
+	public interface GroupProtobufOrBuilder extends
+	// @@protoc_insertion_point(interface_extends:gws.GroupProtobuf)
+			com.google.protobuf.MessageOrBuilder {
+
+		/**
+		 * <code>optional string id = 1;</code>
+		 */
+		java.lang.String getId();
+
+		/**
+		 * <code>optional string id = 1;</code>
+		 */
+		com.google.protobuf.ByteString getIdBytes();
+	}
+
+	/**
+	 * Protobuf type {@code gws.GroupProtobuf}
+	 */
+	public static final class GroupProtobuf extends
+			com.google.protobuf.GeneratedMessageV3 implements
+	// @@protoc_insertion_point(message_implements:gws.GroupProtobuf)
+			GroupProtobufOrBuilder {
+		// Use GroupProtobuf.newBuilder() to construct.
+		private GroupProtobuf(
+				com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+			super(builder);
+		}
+
+		private GroupProtobuf() {
+			id_ = "";
+		}
+
+		@java.lang.Override
+		public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
+			return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+		}
+
+		private GroupProtobuf(com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			this();
+			int mutable_bitField0_ = 0;
+			try {
+				boolean done = false;
+				while (!done) {
+					int tag = input.readTag();
+					switch (tag) {
+					case 0:
+						done = true;
+						break;
+					default: {
+						if (!input.skipField(tag)) {
+							done = true;
+						}
+						break;
+					}
+					case 10: {
+						java.lang.String s = input.readStringRequireUtf8();
+
+						id_ = s;
+						break;
+					}
+					}
+				}
+			} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+				throw e.setUnfinishedMessage(this);
+			} catch (java.io.IOException e) {
+				throw new com.google.protobuf.InvalidProtocolBufferException(e)
+						.setUnfinishedMessage(this);
+			} finally {
+				makeExtensionsImmutable();
+			}
+		}
+
+		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+			return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_descriptor;
+		}
+
+		protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
+			return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_fieldAccessorTable
+					.ensureFieldAccessorsInitialized(
+							net.foreworld.gws.protobuf.Group.GroupProtobuf.class,
+							net.foreworld.gws.protobuf.Group.GroupProtobuf.Builder.class);
+		}
+
+		public static final int ID_FIELD_NUMBER = 1;
+		private volatile java.lang.Object id_;
+
+		/**
+		 * <code>optional string id = 1;</code>
+		 */
+		public java.lang.String getId() {
+			java.lang.Object ref = id_;
+			if (ref instanceof java.lang.String) {
+				return (java.lang.String) ref;
+			} else {
+				com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+				java.lang.String s = bs.toStringUtf8();
+				id_ = s;
+				return s;
+			}
+		}
+
+		/**
+		 * <code>optional string id = 1;</code>
+		 */
+		public com.google.protobuf.ByteString getIdBytes() {
+			java.lang.Object ref = id_;
+			if (ref instanceof java.lang.String) {
+				com.google.protobuf.ByteString b = com.google.protobuf.ByteString
+						.copyFromUtf8((java.lang.String) ref);
+				id_ = b;
+				return b;
+			} else {
+				return (com.google.protobuf.ByteString) ref;
+			}
+		}
+
+		private byte memoizedIsInitialized = -1;
+
+		public final boolean isInitialized() {
+			byte isInitialized = memoizedIsInitialized;
+			if (isInitialized == 1)
+				return true;
+			if (isInitialized == 0)
+				return false;
+
+			memoizedIsInitialized = 1;
+			return true;
+		}
+
+		public void writeTo(com.google.protobuf.CodedOutputStream output)
+				throws java.io.IOException {
+			if (!getIdBytes().isEmpty()) {
+				com.google.protobuf.GeneratedMessageV3.writeString(output, 1,
+						id_);
+			}
+		}
+
+		public int getSerializedSize() {
+			int size = memoizedSize;
+			if (size != -1)
+				return size;
+
+			size = 0;
+			if (!getIdBytes().isEmpty()) {
+				size += com.google.protobuf.GeneratedMessageV3
+						.computeStringSize(1, id_);
+			}
+			memoizedSize = size;
+			return size;
+		}
+
+		private static final long serialVersionUID = 0L;
+
+		@java.lang.Override
+		public boolean equals(final java.lang.Object obj) {
+			if (obj == this) {
+				return true;
+			}
+			if (!(obj instanceof net.foreworld.gws.protobuf.Group.GroupProtobuf)) {
+				return super.equals(obj);
+			}
+			net.foreworld.gws.protobuf.Group.GroupProtobuf other = (net.foreworld.gws.protobuf.Group.GroupProtobuf) obj;
+
+			boolean result = true;
+			result = result && getId().equals(other.getId());
+			return result;
+		}
+
+		@java.lang.Override
+		public int hashCode() {
+			if (memoizedHashCode != 0) {
+				return memoizedHashCode;
+			}
+			int hash = 41;
+			hash = (19 * hash) + getDescriptorForType().hashCode();
+			hash = (37 * hash) + ID_FIELD_NUMBER;
+			hash = (53 * hash) + getId().hashCode();
+			hash = (29 * hash) + unknownFields.hashCode();
+			memoizedHashCode = hash;
+			return hash;
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				com.google.protobuf.ByteString data)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				com.google.protobuf.ByteString data,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				byte[] data)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				byte[] data,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				java.io.InputStream input) throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				java.io.InputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseDelimitedFrom(
+				java.io.InputStream input) throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3
+					.parseDelimitedWithIOException(PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseDelimitedFrom(
+				java.io.InputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3
+					.parseDelimitedWithIOException(PARSER, input,
+							extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				com.google.protobuf.CodedInputStream input)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf parseFrom(
+				com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input, extensionRegistry);
+		}
+
+		public Builder newBuilderForType() {
+			return newBuilder();
+		}
+
+		public static Builder newBuilder() {
+			return DEFAULT_INSTANCE.toBuilder();
+		}
+
+		public static Builder newBuilder(
+				net.foreworld.gws.protobuf.Group.GroupProtobuf prototype) {
+			return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+		}
+
+		public Builder toBuilder() {
+			return this == DEFAULT_INSTANCE ? new Builder() : new Builder()
+					.mergeFrom(this);
+		}
+
+		@java.lang.Override
+		protected Builder newBuilderForType(
+				com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+			Builder builder = new Builder(parent);
+			return builder;
+		}
+
+		/**
+		 * Protobuf type {@code gws.GroupProtobuf}
+		 */
+		public static final class Builder extends
+				com.google.protobuf.GeneratedMessageV3.Builder<Builder>
+				implements
+				// @@protoc_insertion_point(builder_implements:gws.GroupProtobuf)
+				net.foreworld.gws.protobuf.Group.GroupProtobufOrBuilder {
+			public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_descriptor;
+			}
+
+			protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_fieldAccessorTable
+						.ensureFieldAccessorsInitialized(
+								net.foreworld.gws.protobuf.Group.GroupProtobuf.class,
+								net.foreworld.gws.protobuf.Group.GroupProtobuf.Builder.class);
+			}
+
+			// Construct using
+			// net.foreworld.gws.protobuf.Group.GroupProtobuf.newBuilder()
+			private Builder() {
+				maybeForceBuilderInitialization();
+			}
+
+			private Builder(
+					com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+				super(parent);
+				maybeForceBuilderInitialization();
+			}
+
+			private void maybeForceBuilderInitialization() {
+				if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
+				}
+			}
+
+			public Builder clear() {
+				super.clear();
+				id_ = "";
+
+				return this;
+			}
+
+			public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupProtobuf_descriptor;
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupProtobuf getDefaultInstanceForType() {
+				return net.foreworld.gws.protobuf.Group.GroupProtobuf
+						.getDefaultInstance();
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupProtobuf build() {
+				net.foreworld.gws.protobuf.Group.GroupProtobuf result = buildPartial();
+				if (!result.isInitialized()) {
+					throw newUninitializedMessageException(result);
+				}
+				return result;
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupProtobuf buildPartial() {
+				net.foreworld.gws.protobuf.Group.GroupProtobuf result = new net.foreworld.gws.protobuf.Group.GroupProtobuf(
+						this);
+				result.id_ = id_;
+				onBuilt();
+				return result;
+			}
+
+			public Builder clone() {
+				return (Builder) super.clone();
+			}
+
+			public Builder setField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					Object value) {
+				return (Builder) super.setField(field, value);
+			}
+
+			public Builder clearField(
+					com.google.protobuf.Descriptors.FieldDescriptor field) {
+				return (Builder) super.clearField(field);
+			}
+
+			public Builder clearOneof(
+					com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+				return (Builder) super.clearOneof(oneof);
+			}
+
+			public Builder setRepeatedField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					int index, Object value) {
+				return (Builder) super.setRepeatedField(field, index, value);
+			}
+
+			public Builder addRepeatedField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					Object value) {
+				return (Builder) super.addRepeatedField(field, value);
+			}
+
+			public Builder mergeFrom(com.google.protobuf.Message other) {
+				if (other instanceof net.foreworld.gws.protobuf.Group.GroupProtobuf) {
+					return mergeFrom((net.foreworld.gws.protobuf.Group.GroupProtobuf) other);
+				} else {
+					super.mergeFrom(other);
+					return this;
+				}
+			}
+
+			public Builder mergeFrom(
+					net.foreworld.gws.protobuf.Group.GroupProtobuf other) {
+				if (other == net.foreworld.gws.protobuf.Group.GroupProtobuf
+						.getDefaultInstance())
+					return this;
+				if (!other.getId().isEmpty()) {
+					id_ = other.id_;
+					onChanged();
+				}
+				onChanged();
+				return this;
+			}
+
+			public final boolean isInitialized() {
+				return true;
+			}
+
+			public Builder mergeFrom(
+					com.google.protobuf.CodedInputStream input,
+					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+					throws java.io.IOException {
+				net.foreworld.gws.protobuf.Group.GroupProtobuf parsedMessage = null;
+				try {
+					parsedMessage = PARSER.parsePartialFrom(input,
+							extensionRegistry);
+				} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+					parsedMessage = (net.foreworld.gws.protobuf.Group.GroupProtobuf) e
+							.getUnfinishedMessage();
+					throw e.unwrapIOException();
+				} finally {
+					if (parsedMessage != null) {
+						mergeFrom(parsedMessage);
+					}
+				}
+				return this;
+			}
+
+			private java.lang.Object id_ = "";
+
+			/**
+			 * <code>optional string id = 1;</code>
+			 */
+			public java.lang.String getId() {
+				java.lang.Object ref = id_;
+				if (!(ref instanceof java.lang.String)) {
+					com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+					java.lang.String s = bs.toStringUtf8();
+					id_ = s;
+					return s;
+				} else {
+					return (java.lang.String) ref;
+				}
+			}
+
+			/**
+			 * <code>optional string id = 1;</code>
+			 */
+			public com.google.protobuf.ByteString getIdBytes() {
+				java.lang.Object ref = id_;
+				if (ref instanceof String) {
+					com.google.protobuf.ByteString b = com.google.protobuf.ByteString
+							.copyFromUtf8((java.lang.String) ref);
+					id_ = b;
+					return b;
+				} else {
+					return (com.google.protobuf.ByteString) ref;
+				}
+			}
+
+			/**
+			 * <code>optional string id = 1;</code>
+			 */
+			public Builder setId(java.lang.String value) {
+				if (value == null) {
+					throw new NullPointerException();
+				}
+
+				id_ = value;
+				onChanged();
+				return this;
+			}
+
+			/**
+			 * <code>optional string id = 1;</code>
+			 */
+			public Builder clearId() {
+
+				id_ = getDefaultInstance().getId();
+				onChanged();
+				return this;
+			}
+
+			/**
+			 * <code>optional string id = 1;</code>
+			 */
+			public Builder setIdBytes(com.google.protobuf.ByteString value) {
+				if (value == null) {
+					throw new NullPointerException();
+				}
+				checkByteStringIsUtf8(value);
+
+				id_ = value;
+				onChanged();
+				return this;
+			}
+
+			public final Builder setUnknownFields(
+					final com.google.protobuf.UnknownFieldSet unknownFields) {
+				return this;
+			}
+
+			public final Builder mergeUnknownFields(
+					final com.google.protobuf.UnknownFieldSet unknownFields) {
+				return this;
+			}
+
+			// @@protoc_insertion_point(builder_scope:gws.GroupProtobuf)
+		}
+
+		// @@protoc_insertion_point(class_scope:gws.GroupProtobuf)
+		private static final net.foreworld.gws.protobuf.Group.GroupProtobuf DEFAULT_INSTANCE;
+		static {
+			DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Group.GroupProtobuf();
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupProtobuf getDefaultInstance() {
+			return DEFAULT_INSTANCE;
+		}
+
+		private static final com.google.protobuf.Parser<GroupProtobuf> PARSER = new com.google.protobuf.AbstractParser<GroupProtobuf>() {
+			public GroupProtobuf parsePartialFrom(
+					com.google.protobuf.CodedInputStream input,
+					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+					throws com.google.protobuf.InvalidProtocolBufferException {
+				return new GroupProtobuf(input, extensionRegistry);
+			}
+		};
+
+		public static com.google.protobuf.Parser<GroupProtobuf> parser() {
+			return PARSER;
+		}
+
+		@java.lang.Override
+		public com.google.protobuf.Parser<GroupProtobuf> getParserForType() {
+			return PARSER;
+		}
+
+		public net.foreworld.gws.protobuf.Group.GroupProtobuf getDefaultInstanceForType() {
+			return DEFAULT_INSTANCE;
+		}
+
+	}
+
+	public interface GroupSearchProtobufOrBuilder extends
+	// @@protoc_insertion_point(interface_extends:gws.GroupSearchProtobuf)
+			com.google.protobuf.MessageOrBuilder {
+
+		/**
+		 * <code>optional string group_type = 1;</code>
+		 */
+		java.lang.String getGroupType();
+
+		/**
+		 * <code>optional string group_type = 1;</code>
+		 */
+		com.google.protobuf.ByteString getGroupTypeBytes();
+	}
+
+	/**
+	 * Protobuf type {@code gws.GroupSearchProtobuf}
+	 */
+	public static final class GroupSearchProtobuf extends
+			com.google.protobuf.GeneratedMessageV3 implements
+	// @@protoc_insertion_point(message_implements:gws.GroupSearchProtobuf)
+			GroupSearchProtobufOrBuilder {
+		// Use GroupSearchProtobuf.newBuilder() to construct.
+		private GroupSearchProtobuf(
+				com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+			super(builder);
+		}
+
+		private GroupSearchProtobuf() {
+			groupType_ = "";
+		}
+
+		@java.lang.Override
+		public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
+			return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+		}
+
+		private GroupSearchProtobuf(com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			this();
+			int mutable_bitField0_ = 0;
+			try {
+				boolean done = false;
+				while (!done) {
+					int tag = input.readTag();
+					switch (tag) {
+					case 0:
+						done = true;
+						break;
+					default: {
+						if (!input.skipField(tag)) {
+							done = true;
+						}
+						break;
+					}
+					case 10: {
+						java.lang.String s = input.readStringRequireUtf8();
+
+						groupType_ = s;
+						break;
+					}
+					}
+				}
+			} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+				throw e.setUnfinishedMessage(this);
+			} catch (java.io.IOException e) {
+				throw new com.google.protobuf.InvalidProtocolBufferException(e)
+						.setUnfinishedMessage(this);
+			} finally {
+				makeExtensionsImmutable();
+			}
+		}
+
+		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+			return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_descriptor;
+		}
+
+		protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
+			return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_fieldAccessorTable
+					.ensureFieldAccessorsInitialized(
+							net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.class,
+							net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.Builder.class);
+		}
+
+		public static final int GROUP_TYPE_FIELD_NUMBER = 1;
+		private volatile java.lang.Object groupType_;
+
+		/**
+		 * <code>optional string group_type = 1;</code>
+		 */
+		public java.lang.String getGroupType() {
+			java.lang.Object ref = groupType_;
+			if (ref instanceof java.lang.String) {
+				return (java.lang.String) ref;
+			} else {
+				com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+				java.lang.String s = bs.toStringUtf8();
+				groupType_ = s;
+				return s;
+			}
+		}
+
+		/**
+		 * <code>optional string group_type = 1;</code>
+		 */
+		public com.google.protobuf.ByteString getGroupTypeBytes() {
+			java.lang.Object ref = groupType_;
+			if (ref instanceof java.lang.String) {
+				com.google.protobuf.ByteString b = com.google.protobuf.ByteString
+						.copyFromUtf8((java.lang.String) ref);
+				groupType_ = b;
+				return b;
+			} else {
+				return (com.google.protobuf.ByteString) ref;
+			}
+		}
+
+		private byte memoizedIsInitialized = -1;
+
+		public final boolean isInitialized() {
+			byte isInitialized = memoizedIsInitialized;
+			if (isInitialized == 1)
+				return true;
+			if (isInitialized == 0)
+				return false;
+
+			memoizedIsInitialized = 1;
+			return true;
+		}
+
+		public void writeTo(com.google.protobuf.CodedOutputStream output)
+				throws java.io.IOException {
+			if (!getGroupTypeBytes().isEmpty()) {
+				com.google.protobuf.GeneratedMessageV3.writeString(output, 1,
+						groupType_);
+			}
+		}
+
+		public int getSerializedSize() {
+			int size = memoizedSize;
+			if (size != -1)
+				return size;
+
+			size = 0;
+			if (!getGroupTypeBytes().isEmpty()) {
+				size += com.google.protobuf.GeneratedMessageV3
+						.computeStringSize(1, groupType_);
+			}
+			memoizedSize = size;
+			return size;
+		}
+
+		private static final long serialVersionUID = 0L;
+
+		@java.lang.Override
+		public boolean equals(final java.lang.Object obj) {
+			if (obj == this) {
+				return true;
+			}
+			if (!(obj instanceof net.foreworld.gws.protobuf.Group.GroupSearchProtobuf)) {
+				return super.equals(obj);
+			}
+			net.foreworld.gws.protobuf.Group.GroupSearchProtobuf other = (net.foreworld.gws.protobuf.Group.GroupSearchProtobuf) obj;
+
+			boolean result = true;
+			result = result && getGroupType().equals(other.getGroupType());
+			return result;
+		}
+
+		@java.lang.Override
+		public int hashCode() {
+			if (memoizedHashCode != 0) {
+				return memoizedHashCode;
+			}
+			int hash = 41;
+			hash = (19 * hash) + getDescriptorForType().hashCode();
+			hash = (37 * hash) + GROUP_TYPE_FIELD_NUMBER;
+			hash = (53 * hash) + getGroupType().hashCode();
+			hash = (29 * hash) + unknownFields.hashCode();
+			memoizedHashCode = hash;
+			return hash;
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				com.google.protobuf.ByteString data)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				com.google.protobuf.ByteString data,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				byte[] data)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				byte[] data,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				java.io.InputStream input) throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				java.io.InputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseDelimitedFrom(
+				java.io.InputStream input) throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3
+					.parseDelimitedWithIOException(PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseDelimitedFrom(
+				java.io.InputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3
+					.parseDelimitedWithIOException(PARSER, input,
+							extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				com.google.protobuf.CodedInputStream input)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parseFrom(
+				com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input, extensionRegistry);
+		}
+
+		public Builder newBuilderForType() {
+			return newBuilder();
+		}
+
+		public static Builder newBuilder() {
+			return DEFAULT_INSTANCE.toBuilder();
+		}
+
+		public static Builder newBuilder(
+				net.foreworld.gws.protobuf.Group.GroupSearchProtobuf prototype) {
+			return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+		}
+
+		public Builder toBuilder() {
+			return this == DEFAULT_INSTANCE ? new Builder() : new Builder()
+					.mergeFrom(this);
+		}
+
+		@java.lang.Override
+		protected Builder newBuilderForType(
+				com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+			Builder builder = new Builder(parent);
+			return builder;
+		}
+
+		/**
+		 * Protobuf type {@code gws.GroupSearchProtobuf}
+		 */
+		public static final class Builder extends
+				com.google.protobuf.GeneratedMessageV3.Builder<Builder>
+				implements
+				// @@protoc_insertion_point(builder_implements:gws.GroupSearchProtobuf)
+				net.foreworld.gws.protobuf.Group.GroupSearchProtobufOrBuilder {
+			public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_descriptor;
+			}
+
+			protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_fieldAccessorTable
+						.ensureFieldAccessorsInitialized(
+								net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.class,
+								net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.Builder.class);
+			}
+
+			// Construct using
+			// net.foreworld.gws.protobuf.Group.GroupSearchProtobuf.newBuilder()
+			private Builder() {
+				maybeForceBuilderInitialization();
+			}
+
+			private Builder(
+					com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+				super(parent);
+				maybeForceBuilderInitialization();
+			}
+
+			private void maybeForceBuilderInitialization() {
+				if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
+				}
+			}
+
+			public Builder clear() {
+				super.clear();
+				groupType_ = "";
+
+				return this;
+			}
+
+			public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupSearchProtobuf_descriptor;
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf getDefaultInstanceForType() {
+				return net.foreworld.gws.protobuf.Group.GroupSearchProtobuf
+						.getDefaultInstance();
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf build() {
+				net.foreworld.gws.protobuf.Group.GroupSearchProtobuf result = buildPartial();
+				if (!result.isInitialized()) {
+					throw newUninitializedMessageException(result);
+				}
+				return result;
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf buildPartial() {
+				net.foreworld.gws.protobuf.Group.GroupSearchProtobuf result = new net.foreworld.gws.protobuf.Group.GroupSearchProtobuf(
+						this);
+				result.groupType_ = groupType_;
+				onBuilt();
+				return result;
+			}
+
+			public Builder clone() {
+				return (Builder) super.clone();
+			}
+
+			public Builder setField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					Object value) {
+				return (Builder) super.setField(field, value);
+			}
+
+			public Builder clearField(
+					com.google.protobuf.Descriptors.FieldDescriptor field) {
+				return (Builder) super.clearField(field);
+			}
+
+			public Builder clearOneof(
+					com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+				return (Builder) super.clearOneof(oneof);
+			}
+
+			public Builder setRepeatedField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					int index, Object value) {
+				return (Builder) super.setRepeatedField(field, index, value);
+			}
+
+			public Builder addRepeatedField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					Object value) {
+				return (Builder) super.addRepeatedField(field, value);
+			}
+
+			public Builder mergeFrom(com.google.protobuf.Message other) {
+				if (other instanceof net.foreworld.gws.protobuf.Group.GroupSearchProtobuf) {
+					return mergeFrom((net.foreworld.gws.protobuf.Group.GroupSearchProtobuf) other);
+				} else {
+					super.mergeFrom(other);
+					return this;
+				}
+			}
+
+			public Builder mergeFrom(
+					net.foreworld.gws.protobuf.Group.GroupSearchProtobuf other) {
+				if (other == net.foreworld.gws.protobuf.Group.GroupSearchProtobuf
+						.getDefaultInstance())
+					return this;
+				if (!other.getGroupType().isEmpty()) {
+					groupType_ = other.groupType_;
+					onChanged();
+				}
+				onChanged();
+				return this;
+			}
+
+			public final boolean isInitialized() {
+				return true;
+			}
+
+			public Builder mergeFrom(
+					com.google.protobuf.CodedInputStream input,
+					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+					throws java.io.IOException {
+				net.foreworld.gws.protobuf.Group.GroupSearchProtobuf parsedMessage = null;
+				try {
+					parsedMessage = PARSER.parsePartialFrom(input,
+							extensionRegistry);
+				} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+					parsedMessage = (net.foreworld.gws.protobuf.Group.GroupSearchProtobuf) e
+							.getUnfinishedMessage();
+					throw e.unwrapIOException();
+				} finally {
+					if (parsedMessage != null) {
+						mergeFrom(parsedMessage);
+					}
+				}
+				return this;
+			}
+
+			private java.lang.Object groupType_ = "";
+
+			/**
+			 * <code>optional string group_type = 1;</code>
+			 */
+			public java.lang.String getGroupType() {
+				java.lang.Object ref = groupType_;
+				if (!(ref instanceof java.lang.String)) {
+					com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+					java.lang.String s = bs.toStringUtf8();
+					groupType_ = s;
+					return s;
+				} else {
+					return (java.lang.String) ref;
+				}
+			}
+
+			/**
+			 * <code>optional string group_type = 1;</code>
+			 */
+			public com.google.protobuf.ByteString getGroupTypeBytes() {
+				java.lang.Object ref = groupType_;
+				if (ref instanceof String) {
+					com.google.protobuf.ByteString b = com.google.protobuf.ByteString
+							.copyFromUtf8((java.lang.String) ref);
+					groupType_ = b;
+					return b;
+				} else {
+					return (com.google.protobuf.ByteString) ref;
+				}
+			}
+
+			/**
+			 * <code>optional string group_type = 1;</code>
+			 */
+			public Builder setGroupType(java.lang.String value) {
+				if (value == null) {
+					throw new NullPointerException();
+				}
+
+				groupType_ = value;
+				onChanged();
+				return this;
+			}
+
+			/**
+			 * <code>optional string group_type = 1;</code>
+			 */
+			public Builder clearGroupType() {
+
+				groupType_ = getDefaultInstance().getGroupType();
+				onChanged();
+				return this;
+			}
+
+			/**
+			 * <code>optional string group_type = 1;</code>
+			 */
+			public Builder setGroupTypeBytes(
+					com.google.protobuf.ByteString value) {
+				if (value == null) {
+					throw new NullPointerException();
+				}
+				checkByteStringIsUtf8(value);
+
+				groupType_ = value;
+				onChanged();
+				return this;
+			}
+
+			public final Builder setUnknownFields(
+					final com.google.protobuf.UnknownFieldSet unknownFields) {
+				return this;
+			}
+
+			public final Builder mergeUnknownFields(
+					final com.google.protobuf.UnknownFieldSet unknownFields) {
+				return this;
+			}
+
+			// @@protoc_insertion_point(builder_scope:gws.GroupSearchProtobuf)
+		}
+
+		// @@protoc_insertion_point(class_scope:gws.GroupSearchProtobuf)
+		private static final net.foreworld.gws.protobuf.Group.GroupSearchProtobuf DEFAULT_INSTANCE;
+		static {
+			DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Group.GroupSearchProtobuf();
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupSearchProtobuf getDefaultInstance() {
+			return DEFAULT_INSTANCE;
+		}
+
+		private static final com.google.protobuf.Parser<GroupSearchProtobuf> PARSER = new com.google.protobuf.AbstractParser<GroupSearchProtobuf>() {
+			public GroupSearchProtobuf parsePartialFrom(
+					com.google.protobuf.CodedInputStream input,
+					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+					throws com.google.protobuf.InvalidProtocolBufferException {
+				return new GroupSearchProtobuf(input, extensionRegistry);
+			}
+		};
+
+		public static com.google.protobuf.Parser<GroupSearchProtobuf> parser() {
+			return PARSER;
+		}
+
+		@java.lang.Override
+		public com.google.protobuf.Parser<GroupSearchProtobuf> getParserForType() {
+			return PARSER;
+		}
+
+		public net.foreworld.gws.protobuf.Group.GroupSearchProtobuf getDefaultInstanceForType() {
+			return DEFAULT_INSTANCE;
+		}
+
+	}
+
+	public interface GroupEntryProtobufOrBuilder extends
+	// @@protoc_insertion_point(interface_extends:gws.GroupEntryProtobuf)
+			com.google.protobuf.MessageOrBuilder {
+
+		/**
+		 * <code>optional string group_id = 1;</code>
+		 */
+		java.lang.String getGroupId();
+
+		/**
+		 * <code>optional string group_id = 1;</code>
+		 */
+		com.google.protobuf.ByteString getGroupIdBytes();
+	}
+
+	/**
+	 * Protobuf type {@code gws.GroupEntryProtobuf}
+	 */
+	public static final class GroupEntryProtobuf extends
+			com.google.protobuf.GeneratedMessageV3 implements
+	// @@protoc_insertion_point(message_implements:gws.GroupEntryProtobuf)
+			GroupEntryProtobufOrBuilder {
+		// Use GroupEntryProtobuf.newBuilder() to construct.
+		private GroupEntryProtobuf(
+				com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+			super(builder);
+		}
+
+		private GroupEntryProtobuf() {
+			groupId_ = "";
+		}
+
+		@java.lang.Override
+		public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
+			return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+		}
+
+		private GroupEntryProtobuf(com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			this();
+			int mutable_bitField0_ = 0;
+			try {
+				boolean done = false;
+				while (!done) {
+					int tag = input.readTag();
+					switch (tag) {
+					case 0:
+						done = true;
+						break;
+					default: {
+						if (!input.skipField(tag)) {
+							done = true;
+						}
+						break;
+					}
+					case 10: {
+						java.lang.String s = input.readStringRequireUtf8();
+
+						groupId_ = s;
+						break;
+					}
+					}
+				}
+			} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+				throw e.setUnfinishedMessage(this);
+			} catch (java.io.IOException e) {
+				throw new com.google.protobuf.InvalidProtocolBufferException(e)
+						.setUnfinishedMessage(this);
+			} finally {
+				makeExtensionsImmutable();
+			}
+		}
+
+		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+			return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_descriptor;
+		}
+
+		protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
+			return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_fieldAccessorTable
+					.ensureFieldAccessorsInitialized(
+							net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.class,
+							net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.Builder.class);
+		}
+
+		public static final int GROUP_ID_FIELD_NUMBER = 1;
+		private volatile java.lang.Object groupId_;
+
+		/**
+		 * <code>optional string group_id = 1;</code>
+		 */
+		public java.lang.String getGroupId() {
+			java.lang.Object ref = groupId_;
+			if (ref instanceof java.lang.String) {
+				return (java.lang.String) ref;
+			} else {
+				com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+				java.lang.String s = bs.toStringUtf8();
+				groupId_ = s;
+				return s;
+			}
+		}
+
+		/**
+		 * <code>optional string group_id = 1;</code>
+		 */
+		public com.google.protobuf.ByteString getGroupIdBytes() {
+			java.lang.Object ref = groupId_;
+			if (ref instanceof java.lang.String) {
+				com.google.protobuf.ByteString b = com.google.protobuf.ByteString
+						.copyFromUtf8((java.lang.String) ref);
+				groupId_ = b;
+				return b;
+			} else {
+				return (com.google.protobuf.ByteString) ref;
+			}
+		}
+
+		private byte memoizedIsInitialized = -1;
+
+		public final boolean isInitialized() {
+			byte isInitialized = memoizedIsInitialized;
+			if (isInitialized == 1)
+				return true;
+			if (isInitialized == 0)
+				return false;
+
+			memoizedIsInitialized = 1;
+			return true;
+		}
+
+		public void writeTo(com.google.protobuf.CodedOutputStream output)
+				throws java.io.IOException {
+			if (!getGroupIdBytes().isEmpty()) {
+				com.google.protobuf.GeneratedMessageV3.writeString(output, 1,
+						groupId_);
+			}
+		}
+
+		public int getSerializedSize() {
+			int size = memoizedSize;
+			if (size != -1)
+				return size;
+
+			size = 0;
+			if (!getGroupIdBytes().isEmpty()) {
+				size += com.google.protobuf.GeneratedMessageV3
+						.computeStringSize(1, groupId_);
+			}
+			memoizedSize = size;
+			return size;
+		}
+
+		private static final long serialVersionUID = 0L;
+
+		@java.lang.Override
+		public boolean equals(final java.lang.Object obj) {
+			if (obj == this) {
+				return true;
+			}
+			if (!(obj instanceof net.foreworld.gws.protobuf.Group.GroupEntryProtobuf)) {
+				return super.equals(obj);
+			}
+			net.foreworld.gws.protobuf.Group.GroupEntryProtobuf other = (net.foreworld.gws.protobuf.Group.GroupEntryProtobuf) obj;
+
+			boolean result = true;
+			result = result && getGroupId().equals(other.getGroupId());
+			return result;
+		}
+
+		@java.lang.Override
+		public int hashCode() {
+			if (memoizedHashCode != 0) {
+				return memoizedHashCode;
+			}
+			int hash = 41;
+			hash = (19 * hash) + getDescriptorForType().hashCode();
+			hash = (37 * hash) + GROUP_ID_FIELD_NUMBER;
+			hash = (53 * hash) + getGroupId().hashCode();
+			hash = (29 * hash) + unknownFields.hashCode();
+			memoizedHashCode = hash;
+			return hash;
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				com.google.protobuf.ByteString data)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				com.google.protobuf.ByteString data,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				byte[] data)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				byte[] data,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws com.google.protobuf.InvalidProtocolBufferException {
+			return PARSER.parseFrom(data, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				java.io.InputStream input) throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				java.io.InputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input, extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseDelimitedFrom(
+				java.io.InputStream input) throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3
+					.parseDelimitedWithIOException(PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseDelimitedFrom(
+				java.io.InputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3
+					.parseDelimitedWithIOException(PARSER, input,
+							extensionRegistry);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				com.google.protobuf.CodedInputStream input)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input);
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parseFrom(
+				com.google.protobuf.CodedInputStream input,
+				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+				throws java.io.IOException {
+			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
+					PARSER, input, extensionRegistry);
+		}
+
+		public Builder newBuilderForType() {
+			return newBuilder();
+		}
+
+		public static Builder newBuilder() {
+			return DEFAULT_INSTANCE.toBuilder();
+		}
+
+		public static Builder newBuilder(
+				net.foreworld.gws.protobuf.Group.GroupEntryProtobuf prototype) {
+			return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+		}
+
+		public Builder toBuilder() {
+			return this == DEFAULT_INSTANCE ? new Builder() : new Builder()
+					.mergeFrom(this);
+		}
+
+		@java.lang.Override
+		protected Builder newBuilderForType(
+				com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+			Builder builder = new Builder(parent);
+			return builder;
+		}
+
+		/**
+		 * Protobuf type {@code gws.GroupEntryProtobuf}
+		 */
+		public static final class Builder extends
+				com.google.protobuf.GeneratedMessageV3.Builder<Builder>
+				implements
+				// @@protoc_insertion_point(builder_implements:gws.GroupEntryProtobuf)
+				net.foreworld.gws.protobuf.Group.GroupEntryProtobufOrBuilder {
+			public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_descriptor;
+			}
+
+			protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_fieldAccessorTable
+						.ensureFieldAccessorsInitialized(
+								net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.class,
+								net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.Builder.class);
+			}
+
+			// Construct using
+			// net.foreworld.gws.protobuf.Group.GroupEntryProtobuf.newBuilder()
+			private Builder() {
+				maybeForceBuilderInitialization();
+			}
+
+			private Builder(
+					com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+				super(parent);
+				maybeForceBuilderInitialization();
+			}
+
+			private void maybeForceBuilderInitialization() {
+				if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
+				}
+			}
+
+			public Builder clear() {
+				super.clear();
+				groupId_ = "";
+
+				return this;
+			}
+
+			public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
+				return net.foreworld.gws.protobuf.Group.internal_static_gws_GroupEntryProtobuf_descriptor;
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf getDefaultInstanceForType() {
+				return net.foreworld.gws.protobuf.Group.GroupEntryProtobuf
+						.getDefaultInstance();
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf build() {
+				net.foreworld.gws.protobuf.Group.GroupEntryProtobuf result = buildPartial();
+				if (!result.isInitialized()) {
+					throw newUninitializedMessageException(result);
+				}
+				return result;
+			}
+
+			public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf buildPartial() {
+				net.foreworld.gws.protobuf.Group.GroupEntryProtobuf result = new net.foreworld.gws.protobuf.Group.GroupEntryProtobuf(
+						this);
+				result.groupId_ = groupId_;
+				onBuilt();
+				return result;
+			}
+
+			public Builder clone() {
+				return (Builder) super.clone();
+			}
+
+			public Builder setField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					Object value) {
+				return (Builder) super.setField(field, value);
+			}
+
+			public Builder clearField(
+					com.google.protobuf.Descriptors.FieldDescriptor field) {
+				return (Builder) super.clearField(field);
+			}
+
+			public Builder clearOneof(
+					com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+				return (Builder) super.clearOneof(oneof);
+			}
+
+			public Builder setRepeatedField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					int index, Object value) {
+				return (Builder) super.setRepeatedField(field, index, value);
+			}
+
+			public Builder addRepeatedField(
+					com.google.protobuf.Descriptors.FieldDescriptor field,
+					Object value) {
+				return (Builder) super.addRepeatedField(field, value);
+			}
+
+			public Builder mergeFrom(com.google.protobuf.Message other) {
+				if (other instanceof net.foreworld.gws.protobuf.Group.GroupEntryProtobuf) {
+					return mergeFrom((net.foreworld.gws.protobuf.Group.GroupEntryProtobuf) other);
+				} else {
+					super.mergeFrom(other);
+					return this;
+				}
+			}
+
+			public Builder mergeFrom(
+					net.foreworld.gws.protobuf.Group.GroupEntryProtobuf other) {
+				if (other == net.foreworld.gws.protobuf.Group.GroupEntryProtobuf
+						.getDefaultInstance())
+					return this;
+				if (!other.getGroupId().isEmpty()) {
+					groupId_ = other.groupId_;
+					onChanged();
+				}
+				onChanged();
+				return this;
+			}
+
+			public final boolean isInitialized() {
+				return true;
+			}
+
+			public Builder mergeFrom(
+					com.google.protobuf.CodedInputStream input,
+					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+					throws java.io.IOException {
+				net.foreworld.gws.protobuf.Group.GroupEntryProtobuf parsedMessage = null;
+				try {
+					parsedMessage = PARSER.parsePartialFrom(input,
+							extensionRegistry);
+				} catch (com.google.protobuf.InvalidProtocolBufferException e) {
+					parsedMessage = (net.foreworld.gws.protobuf.Group.GroupEntryProtobuf) e
+							.getUnfinishedMessage();
+					throw e.unwrapIOException();
+				} finally {
+					if (parsedMessage != null) {
+						mergeFrom(parsedMessage);
+					}
+				}
+				return this;
+			}
+
+			private java.lang.Object groupId_ = "";
+
+			/**
+			 * <code>optional string group_id = 1;</code>
+			 */
+			public java.lang.String getGroupId() {
+				java.lang.Object ref = groupId_;
+				if (!(ref instanceof java.lang.String)) {
+					com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+					java.lang.String s = bs.toStringUtf8();
+					groupId_ = s;
+					return s;
+				} else {
+					return (java.lang.String) ref;
+				}
+			}
+
+			/**
+			 * <code>optional string group_id = 1;</code>
+			 */
+			public com.google.protobuf.ByteString getGroupIdBytes() {
+				java.lang.Object ref = groupId_;
+				if (ref instanceof String) {
+					com.google.protobuf.ByteString b = com.google.protobuf.ByteString
+							.copyFromUtf8((java.lang.String) ref);
+					groupId_ = b;
+					return b;
+				} else {
+					return (com.google.protobuf.ByteString) ref;
+				}
+			}
+
+			/**
+			 * <code>optional string group_id = 1;</code>
+			 */
+			public Builder setGroupId(java.lang.String value) {
+				if (value == null) {
+					throw new NullPointerException();
+				}
+
+				groupId_ = value;
+				onChanged();
+				return this;
+			}
+
+			/**
+			 * <code>optional string group_id = 1;</code>
+			 */
+			public Builder clearGroupId() {
+
+				groupId_ = getDefaultInstance().getGroupId();
+				onChanged();
+				return this;
+			}
+
+			/**
+			 * <code>optional string group_id = 1;</code>
+			 */
+			public Builder setGroupIdBytes(com.google.protobuf.ByteString value) {
+				if (value == null) {
+					throw new NullPointerException();
+				}
+				checkByteStringIsUtf8(value);
+
+				groupId_ = value;
+				onChanged();
+				return this;
+			}
+
+			public final Builder setUnknownFields(
+					final com.google.protobuf.UnknownFieldSet unknownFields) {
+				return this;
+			}
+
+			public final Builder mergeUnknownFields(
+					final com.google.protobuf.UnknownFieldSet unknownFields) {
+				return this;
+			}
+
+			// @@protoc_insertion_point(builder_scope:gws.GroupEntryProtobuf)
+		}
+
+		// @@protoc_insertion_point(class_scope:gws.GroupEntryProtobuf)
+		private static final net.foreworld.gws.protobuf.Group.GroupEntryProtobuf DEFAULT_INSTANCE;
+		static {
+			DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.Group.GroupEntryProtobuf();
+		}
+
+		public static net.foreworld.gws.protobuf.Group.GroupEntryProtobuf getDefaultInstance() {
+			return DEFAULT_INSTANCE;
+		}
+
+		private static final com.google.protobuf.Parser<GroupEntryProtobuf> PARSER = new com.google.protobuf.AbstractParser<GroupEntryProtobuf>() {
+			public GroupEntryProtobuf parsePartialFrom(
+					com.google.protobuf.CodedInputStream input,
+					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+					throws com.google.protobuf.InvalidProtocolBufferException {
+				return new GroupEntryProtobuf(input, extensionRegistry);
+			}
+		};
+
+		public static com.google.protobuf.Parser<GroupEntryProtobuf> parser() {
+			return PARSER;
+		}
+
+		@java.lang.Override
+		public com.google.protobuf.Parser<GroupEntryProtobuf> getParserForType() {
+			return PARSER;
+		}
+
+		public net.foreworld.gws.protobuf.Group.GroupEntryProtobuf getDefaultInstanceForType() {
+			return DEFAULT_INSTANCE;
+		}
+
+	}
+
+	private static final com.google.protobuf.Descriptors.Descriptor internal_static_gws_GroupProtobuf_descriptor;
+	private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gws_GroupProtobuf_fieldAccessorTable;
+	private static final com.google.protobuf.Descriptors.Descriptor internal_static_gws_GroupSearchProtobuf_descriptor;
+	private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gws_GroupSearchProtobuf_fieldAccessorTable;
+	private static final com.google.protobuf.Descriptors.Descriptor internal_static_gws_GroupEntryProtobuf_descriptor;
+	private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gws_GroupEntryProtobuf_fieldAccessorTable;
+
+	public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
+		return descriptor;
+	}
+
+	private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
+	static {
+		java.lang.String[] descriptorData = { "\n\032protobuf/model.group.proto\022\003gws\"\033\n\rGro"
+				+ "upProtobuf\022\n\n\002id\030\001 \001(\t\")\n\023GroupSearchPro"
+				+ "tobuf\022\022\n\ngroup_type\030\001 \001(\t\"&\n\022GroupEntryP"
+				+ "rotobuf\022\020\n\010group_id\030\001 \001(\tB#\n\032net.forewor"
+				+ "ld.gws.protobufB\005Groupb\006proto3" };
+		com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner = new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
+			public com.google.protobuf.ExtensionRegistry assignDescriptors(
+					com.google.protobuf.Descriptors.FileDescriptor root) {
+				descriptor = root;
+				return null;
+			}
+		};
+		com.google.protobuf.Descriptors.FileDescriptor
+				.internalBuildGeneratedFileFrom(
+						descriptorData,
+						new com.google.protobuf.Descriptors.FileDescriptor[] {},
+						assigner);
+		internal_static_gws_GroupProtobuf_descriptor = getDescriptor()
+				.getMessageTypes().get(0);
+		internal_static_gws_GroupProtobuf_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+				internal_static_gws_GroupProtobuf_descriptor,
+				new java.lang.String[] { "Id", });
+		internal_static_gws_GroupSearchProtobuf_descriptor = getDescriptor()
+				.getMessageTypes().get(1);
+		internal_static_gws_GroupSearchProtobuf_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+				internal_static_gws_GroupSearchProtobuf_descriptor,
+				new java.lang.String[] { "GroupType", });
+		internal_static_gws_GroupEntryProtobuf_descriptor = getDescriptor()
+				.getMessageTypes().get(2);
+		internal_static_gws_GroupEntryProtobuf_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+				internal_static_gws_GroupEntryProtobuf_descriptor,
+				new java.lang.String[] { "GroupId", });
+	}
+
+	// @@protoc_insertion_point(outer_class_scope)
 }

@@ -1,9 +1,5 @@
 package net.foreworld.gws.initializer;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -11,9 +7,14 @@ import io.netty.handler.codec.protobuf.ProtobufDecoder;
 import io.netty.handler.codec.protobuf.ProtobufEncoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32FrameDecoder;
 import io.netty.handler.codec.protobuf.ProtobufVarint32LengthFieldPrepender;
+
+import javax.annotation.Resource;
+
 import net.foreworld.gws.codec.MsgCodec;
 import net.foreworld.gws.handler.EchoHandler;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+
+import org.springframework.stereotype.Component;
 
 /**
  *
