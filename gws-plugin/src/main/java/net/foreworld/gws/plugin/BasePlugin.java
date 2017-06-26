@@ -8,7 +8,7 @@ import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
- * 
+ *
  * @author huangxin
  *
  */

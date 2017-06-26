@@ -66,7 +66,7 @@ public class Chat extends BasePlugin {
 				return;
 			}
 
-			// 一对一发送
+			// 1v1 send
 			Receiver<String> _receiver = map.getData();
 
 			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();

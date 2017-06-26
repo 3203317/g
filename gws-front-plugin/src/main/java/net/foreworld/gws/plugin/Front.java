@@ -13,7 +13,7 @@ import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 /**
- * 
+ *
  * @author huangxin
  *
  */
