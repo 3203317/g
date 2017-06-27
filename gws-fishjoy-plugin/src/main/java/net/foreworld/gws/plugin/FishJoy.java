@@ -6,6 +6,16 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
+
 import net.foreworld.fishjoy.model.Bullet;
 import net.foreworld.fishjoy.service.FishjoyService;
 import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
@@ -16,16 +26,6 @@ import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -66,8 +66,7 @@ public class FishJoy extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			FishjoyBulletProtobuf fbp = FishjoyBulletProtobuf.parseFrom(req
-					.getData());
+			FishjoyBulletProtobuf fbp = FishjoyBulletProtobuf.parseFrom(req.getData());
 
 			Bullet bullet = new Bullet();
 			bullet.setLevel(fbp.getLevel());
@@ -75,8 +74,8 @@ public class FishJoy extends BasePlugin {
 			bullet.setX(fbp.getX());
 			bullet.setY(fbp.getY());
 
-			ResultMap<List<Receiver<Bullet>>> map = fishjoyService.shot(
-					sender.getServerId(), sender.getChannelId(), bullet);
+			ResultMap<List<Receiver<Bullet>>> map = fishjoyService.shot(sender.getServerId(), sender.getChannelId(),
+					bullet);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -92,8 +91,8 @@ public class FishJoy extends BasePlugin {
 				rec.setReceiver(sender.getChannelId());
 
 				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ sender.getServerId(), rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
+						rec.build().toByteArray());
 				return;
 			}
 
@@ -111,28 +110,26 @@ public class FishJoy extends BasePlugin {
 
 			resp.setMethod(1002);
 
+			FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf.newBuilder();
+
 			for (int i = 0; i < j; i++) {
 				Receiver<Bullet> _receiver = _list.get(i);
 
-				 Bullet _b = _receiver.getData();
+				Bullet _b = _receiver.getData();
 
-				FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf
-						.newBuilder();
-//				 _fbpb.setAngle(_b.getAngle());
-				 _fbpb.setLevel(_b.getLevel());
-				 _fbpb.setX(_b.getX());
-				 _fbpb.setY(_b.getY());
-//				 _fbpb.setTimestamp(_b.getCreate_time());
-				 _fbpb.setSpeed(_b.getSpeed());
-				 _fbpb.setSender(_b.getSender());
+				_fbpb.setLevel(_b.getLevel());
+				_fbpb.setX(_b.getX());
+				_fbpb.setY(_b.getY());
+				_fbpb.setSpeed(_b.getSpeed());
+				_fbpb.setSender(_b.getSender());
 
 				resp.setData(_fbpb.build().toByteString());
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-						+ _receiver.getServer_id(), rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
+						rec.build().toByteArray());
 			}
 
 		} catch (InvalidProtocolBufferException e) {
