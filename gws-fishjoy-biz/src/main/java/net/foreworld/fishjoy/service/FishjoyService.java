@@ -3,6 +3,7 @@ package net.foreworld.fishjoy.service;
 import java.util.List;
 
 import net.foreworld.fishjoy.model.Bullet;
+import net.foreworld.fishjoy.model.BulletBlast;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.IService;
@@ -22,5 +23,14 @@ public interface FishjoyService extends IService {
 	 * @return
 	 */
 	ResultMap<List<Receiver<Bullet>>> shot(String server_id, String channel_id, Bullet bullet);
+
+	/**
+	 * 
+	 * @param server_id
+	 * @param channel_id
+	 * @param bulletBlast
+	 * @return
+	 */
+	ResultMap<List<Receiver<BulletBlast>>> blast(String server_id, String channel_id, BulletBlast bulletBlast);
 
 }

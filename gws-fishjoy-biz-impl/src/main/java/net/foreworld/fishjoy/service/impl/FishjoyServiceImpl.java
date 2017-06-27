@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import net.foreworld.fishjoy.model.Bullet;
+import net.foreworld.fishjoy.model.BulletBlast;
 import net.foreworld.fishjoy.service.FishjoyService;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
@@ -40,6 +41,12 @@ public class FishjoyServiceImpl extends BaseService implements FishjoyService {
 		map.setData(list);
 		map.setSuccess(true);
 		return map;
+	}
+
+	@Override
+	public ResultMap<List<Receiver<BulletBlast>>> blast(String server_id, String channel_id, BulletBlast bulletBlast) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

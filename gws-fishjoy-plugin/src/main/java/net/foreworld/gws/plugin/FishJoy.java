@@ -23,6 +23,7 @@ import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.gws.protobuf.Common.SenderProtobuf;
+import net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletBlastProtobuf;
 import net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
@@ -50,7 +51,7 @@ public class FishJoy extends BasePlugin {
 
 	private static final Logger logger = LoggerFactory.getLogger(FishJoy.class);
 
-	@JmsListener(destination = "qq3203317.1001")
+	@JmsListener(destination = "qq3203317.5001")
 	public void shot(BytesMessage msg) {
 
 		try {
@@ -108,7 +109,7 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			resp.setMethod(1002);
+			resp.setMethod(5002);
 
 			FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf.newBuilder();
 
@@ -122,6 +123,90 @@ public class FishJoy extends BasePlugin {
 				_fbpb.setY(_b.getY());
 				_fbpb.setSpeed(_b.getSpeed());
 				_fbpb.setSender(_b.getSender());
+
+				resp.setData(_fbpb.build().toByteString());
+
+				rec.setData(resp);
+				rec.setReceiver(_receiver.getChannel_id());
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
+						rec.build().toByteArray());
+			}
+
+		} catch (InvalidProtocolBufferException e) {
+			logger.error("", e);
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
+	@JmsListener(destination = "qq3203317.5003")
+	public void blast(BytesMessage msg) {
+
+		try {
+
+			SenderProtobuf sender = read(msg);
+
+			RequestProtobuf req = sender.getData();
+
+			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
+			resp.setVersion(protocol_version);
+			resp.setSeqId(req.getSeqId());
+			resp.setTimestamp(System.currentTimeMillis());
+
+			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
+
+			FishjoyBulletBlastProtobuf fbp = FishjoyBulletBlastProtobuf.parseFrom(req.getData());
+
+			Bullet bullet = new Bullet();
+			bullet.setX(fbp.getX());
+			bullet.setY(fbp.getY());
+
+			ResultMap<List<Receiver<Bullet>>> map = fishjoyService.shot(sender.getServerId(), sender.getChannelId(),
+					bullet);
+			logger.info("{}:{}", map.getSuccess(), map.getMsg());
+
+			if (!map.getSuccess()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode(map.getCode());
+				err.setMsg(map.getMsg());
+
+				resp.setMethod(req.getMethod());
+				resp.setError(err);
+
+				rec.setData(resp);
+				rec.setReceiver(sender.getChannelId());
+
+				// 消息回传给自己
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
+						rec.build().toByteArray());
+				return;
+			}
+
+			List<Receiver<Bullet>> _list = map.getData();
+
+			if (null == _list) {
+				return;
+			}
+
+			int j = _list.size();
+
+			if (0 == j) {
+				return;
+			}
+
+			resp.setMethod(5004);
+
+			FishjoyBulletBlastProtobuf.Builder _fbpb = FishjoyBulletBlastProtobuf.newBuilder();
+
+			for (int i = 0; i < j; i++) {
+				Receiver<Bullet> _receiver = _list.get(i);
+
+				Bullet _b = _receiver.getData();
+
+				_fbpb.setX(_b.getX());
+				_fbpb.setY(_b.getY());
 
 				resp.setData(_fbpb.build().toByteString());
 
