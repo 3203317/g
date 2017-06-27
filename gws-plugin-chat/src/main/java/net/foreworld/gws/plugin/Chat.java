@@ -4,16 +4,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
-import net.foreworld.gws.protobuf.Common.DataProtobuf;
-import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.Common.SenderProtobuf;
-import net.foreworld.model.Receiver;
-import net.foreworld.model.ResultMap;
-import net.foreworld.service.ChatService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +13,16 @@ import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
+import net.foreworld.model.ChatMsg;
+import net.foreworld.model.Receiver;
+import net.foreworld.model.ResultMap;
+import net.foreworld.service.ChatService;
 
 /**
  *
@@ -58,33 +58,43 @@ public class Chat extends BasePlugin {
 
 			ChatProtobuf cp = ChatProtobuf.parseFrom(req.getData());
 
-			ResultMap<Receiver<String>> map = chatService.send(
-					sender.getServerId(), sender.getChannelId(),
-					cp.getReceiver(), cp.getComment());
+			ChatMsg chatMsg = new ChatMsg();
+			chatMsg.setReceiver(cp.getReceiver());
+			chatMsg.setMessage(cp.getMessage());
+			chatMsg.setExtend_data(cp.getExtendData());
+
+			ResultMap<Receiver<ChatMsg>> map = chatService.send(sender.getServerId(), sender.getChannelId(), chatMsg);
 
 			if (!map.getSuccess()) {
 				return;
 			}
 
 			// 1v1 send
-			Receiver<String> _receiver = map.getData();
+			Receiver<ChatMsg> _receiver = map.getData();
 
-			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
-			_dpb.setBody(_receiver.getData());
+			ChatMsg _chatMsg = _receiver.getData();
+
+			ChatProtobuf.Builder _cpb = ChatProtobuf.newBuilder();
+			_cpb.setReceiver(_chatMsg.getReceiver());
+			_cpb.setMessage(_chatMsg.getMessage());
+
+			if (null != _chatMsg.getExtend_data()) {
+				_cpb.setExtendData(_chatMsg.getExtend_data());
+			}
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
 			resp.setMethod(2002);
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
-			resp.setData(_dpb.build().toByteString());
+			resp.setData(_cpb.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-					+ _receiver.getServer_id(), rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
+					rec.build().toByteArray());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);

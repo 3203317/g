@@ -1,12 +1,13 @@
 package net.foreworld.service.impl;
 
-import net.foreworld.model.Receiver;
-import net.foreworld.model.ResultMap;
-import net.foreworld.service.ChatService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import net.foreworld.model.ChatMsg;
+import net.foreworld.model.Receiver;
+import net.foreworld.model.ResultMap;
+import net.foreworld.service.ChatService;
 
 /**
  *
@@ -16,20 +17,18 @@ import org.springframework.stereotype.Service;
 @Service("chatService")
 public class ChatServiceImpl extends BaseService implements ChatService {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ChatServiceImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ChatServiceImpl.class);
 
 	@Override
-	public ResultMap<Receiver<String>> send(String server_id,
-			String channel_id, String receiver, String comment) {
+	public ResultMap<Receiver<ChatMsg>> send(String server_id, String channel_id, ChatMsg chatMsg) {
 
-		ResultMap<Receiver<String>> map = new ResultMap<Receiver<String>>();
+		ResultMap<Receiver<ChatMsg>> map = new ResultMap<Receiver<ChatMsg>>();
 		map.setSuccess(false);
 
-		Receiver<String> rec = new Receiver<String>();
+		Receiver<ChatMsg> rec = new Receiver<ChatMsg>();
 		rec.setServer_id(server_id);
 		rec.setChannel_id(channel_id);
-		rec.setData(comment);
+		rec.setData(chatMsg);
 
 		map.setData(rec);
 		map.setSuccess(true);
