@@ -6,6 +6,7 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
+goog.provide('proto.gws.FishjoyBulletBlastProtobuf');
 goog.provide('proto.gws.FishjoyBulletProtobuf');
 goog.provide('proto.gws.FishjoyFishCoordinateProtobuf');
 goog.provide('proto.gws.FishjoyFishDeadProtobuf');
@@ -61,12 +62,13 @@ proto.gws.FishjoyBulletProtobuf.prototype.toObject = function(opt_includeInstanc
  */
 proto.gws.FishjoyBulletProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
-    timestamp: jspb.Message.getFieldWithDefault(msg, 1, 0),
-    level: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    sender: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    x: +jspb.Message.getFieldWithDefault(msg, 4, 0.0),
-    y: +jspb.Message.getFieldWithDefault(msg, 5, 0.0),
-    speed: jspb.Message.getFieldWithDefault(msg, 6, 0)
+    id: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    level: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    sender: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    x: +jspb.Message.getFieldWithDefault(msg, 5, 0.0),
+    y: +jspb.Message.getFieldWithDefault(msg, 6, 0.0),
+    speed: jspb.Message.getFieldWithDefault(msg, 7, 0)
   };
 
   if (includeInstance) {
@@ -104,26 +106,30 @@ proto.gws.FishjoyBulletProtobuf.deserializeBinaryFromReader = function(msg, read
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setId(value);
+      break;
+    case 2:
       var value = /** @type {number} */ (reader.readUint64());
       msg.setTimestamp(value);
       break;
-    case 2:
+    case 3:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setLevel(value);
       break;
-    case 3:
+    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setSender(value);
       break;
-    case 4:
+    case 5:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setX(value);
       break;
-    case 5:
+    case 6:
       var value = /** @type {number} */ (reader.readFloat());
       msg.setY(value);
       break;
-    case 6:
+    case 7:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setSpeed(value);
       break;
@@ -165,45 +171,52 @@ proto.gws.FishjoyBulletProtobuf.prototype.serializeBinary = function() {
  */
 proto.gws.FishjoyBulletProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
+  f = this.getId();
+  if (f.length > 0) {
+    writer.writeString(
+      1,
+      f
+    );
+  }
   f = this.getTimestamp();
   if (f !== 0) {
     writer.writeUint64(
-      1,
+      2,
       f
     );
   }
   f = this.getLevel();
   if (f !== 0) {
     writer.writeUint32(
-      2,
+      3,
       f
     );
   }
   f = this.getSender();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      4,
       f
     );
   }
   f = this.getX();
   if (f !== 0.0) {
     writer.writeFloat(
-      4,
+      5,
       f
     );
   }
   f = this.getY();
   if (f !== 0.0) {
     writer.writeFloat(
-      5,
+      6,
       f
     );
   }
   f = this.getSpeed();
   if (f !== 0) {
     writer.writeUint32(
-      6,
+      7,
       f
     );
   }
@@ -211,92 +224,355 @@ proto.gws.FishjoyBulletProtobuf.prototype.serializeBinaryToWriter = function (wr
 
 
 /**
- * optional uint64 timestamp = 1;
- * @return {number}
+ * optional string id = 1;
+ * @return {string}
  */
-proto.gws.FishjoyBulletProtobuf.prototype.getTimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 1, 0));
+proto.gws.FishjoyBulletProtobuf.prototype.getId = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
-/** @param {number} value */
-proto.gws.FishjoyBulletProtobuf.prototype.setTimestamp = function(value) {
+/** @param {string} value */
+proto.gws.FishjoyBulletProtobuf.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
 
 /**
- * optional uint32 level = 2;
+ * optional uint64 timestamp = 2;
  * @return {number}
  */
-proto.gws.FishjoyBulletProtobuf.prototype.getLevel = function() {
+proto.gws.FishjoyBulletProtobuf.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.gws.FishjoyBulletProtobuf.prototype.setLevel = function(value) {
+proto.gws.FishjoyBulletProtobuf.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional string sender = 3;
- * @return {string}
+ * optional uint32 level = 3;
+ * @return {number}
  */
-proto.gws.FishjoyBulletProtobuf.prototype.getSender = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+proto.gws.FishjoyBulletProtobuf.prototype.getLevel = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
 };
 
 
-/** @param {string} value */
-proto.gws.FishjoyBulletProtobuf.prototype.setSender = function(value) {
+/** @param {number} value */
+proto.gws.FishjoyBulletProtobuf.prototype.setLevel = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional float x = 4;
- * @return {number}
+ * optional string sender = 4;
+ * @return {string}
  */
-proto.gws.FishjoyBulletProtobuf.prototype.getX = function() {
-  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 4, 0.0));
+proto.gws.FishjoyBulletProtobuf.prototype.getSender = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {number} value */
-proto.gws.FishjoyBulletProtobuf.prototype.setX = function(value) {
+/** @param {string} value */
+proto.gws.FishjoyBulletProtobuf.prototype.setSender = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional float y = 5;
+ * optional float x = 5;
  * @return {number}
  */
-proto.gws.FishjoyBulletProtobuf.prototype.getY = function() {
+proto.gws.FishjoyBulletProtobuf.prototype.getX = function() {
   return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 5, 0.0));
 };
 
 
 /** @param {number} value */
-proto.gws.FishjoyBulletProtobuf.prototype.setY = function(value) {
+proto.gws.FishjoyBulletProtobuf.prototype.setX = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
 
 /**
- * optional uint32 speed = 6;
+ * optional float y = 6;
+ * @return {number}
+ */
+proto.gws.FishjoyBulletProtobuf.prototype.getY = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 6, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyBulletProtobuf.prototype.setY = function(value) {
+  jspb.Message.setField(this, 6, value);
+};
+
+
+/**
+ * optional uint32 speed = 7;
  * @return {number}
  */
 proto.gws.FishjoyBulletProtobuf.prototype.getSpeed = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 6, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 7, 0));
 };
 
 
 /** @param {number} value */
 proto.gws.FishjoyBulletProtobuf.prototype.setSpeed = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 7, value);
+};
+
+
+
+/**
+ * Generated by JsPbCodeGenerator.
+ * @param {Array=} opt_data Optional initial data array, typically from a
+ * server response, or constructed directly in Javascript. The array is used
+ * in place and becomes part of the constructed object. It is not cloned.
+ * If no data is provided, the constructed object will be empty, but still
+ * valid.
+ * @extends {jspb.Message}
+ * @constructor
+ */
+proto.gws.FishjoyBulletBlastProtobuf = function(opt_data) {
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
+};
+goog.inherits(proto.gws.FishjoyBulletBlastProtobuf, jspb.Message);
+if (goog.DEBUG && !COMPILED) {
+  proto.gws.FishjoyBulletBlastProtobuf.displayName = 'proto.gws.FishjoyBulletBlastProtobuf';
+}
+
+
+if (jspb.Message.GENERATE_TO_OBJECT) {
+/**
+ * Creates an object representation of this proto suitable for use in Soy templates.
+ * Field names that are reserved in JavaScript and will be renamed to pb_name.
+ * To access a reserved field use, foo.pb_<name>, eg, foo.pb_default.
+ * For the list of reserved names please see:
+ *     com.google.apps.jspb.JsClassTemplate.JS_RESERVED_WORDS.
+ * @param {boolean=} opt_includeInstance Whether to include the JSPB instance
+ *     for transitional soy proto support: http://goto/soy-param-migration
+ * @return {!Object}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.FishjoyBulletBlastProtobuf.toObject(opt_includeInstance, this);
+};
+
+
+/**
+ * Static version of the {@see toObject} method.
+ * @param {boolean|undefined} includeInstance Whether to include the JSPB
+ *     instance for transitional soy proto support:
+ *     http://goto/soy-param-migration
+ * @param {!proto.gws.FishjoyBulletBlastProtobuf} msg The msg instance to transform.
+ * @return {!Object}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.toObject = function(includeInstance, msg) {
+  var f, obj = {
+    bullet: (f = msg.getBullet()) && proto.gws.FishjoyBulletProtobuf.toObject(includeInstance, f),
+    timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    x: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
+    y: +jspb.Message.getFieldWithDefault(msg, 4, 0.0)
+  };
+
+  if (includeInstance) {
+    obj.$jspbMessageInstance = msg;
+  }
+  return obj;
+};
+}
+
+
+/**
+ * Deserializes binary data (in protobuf wire format).
+ * @param {jspb.ByteSource} bytes The bytes to deserialize.
+ * @return {!proto.gws.FishjoyBulletBlastProtobuf}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.deserializeBinary = function(bytes) {
+  var reader = new jspb.BinaryReader(bytes);
+  var msg = new proto.gws.FishjoyBulletBlastProtobuf;
+  return proto.gws.FishjoyBulletBlastProtobuf.deserializeBinaryFromReader(msg, reader);
+};
+
+
+/**
+ * Deserializes binary data (in protobuf wire format) from the
+ * given reader into the given message object.
+ * @param {!proto.gws.FishjoyBulletBlastProtobuf} msg The message object to deserialize into.
+ * @param {!jspb.BinaryReader} reader The BinaryReader to use.
+ * @return {!proto.gws.FishjoyBulletBlastProtobuf}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+  while (reader.nextField()) {
+    if (reader.isEndGroup()) {
+      break;
+    }
+    var field = reader.getFieldNumber();
+    switch (field) {
+    case 1:
+      var value = new proto.gws.FishjoyBulletProtobuf;
+      reader.readMessage(value,proto.gws.FishjoyBulletProtobuf.deserializeBinaryFromReader);
+      msg.setBullet(value);
+      break;
+    case 2:
+      var value = /** @type {number} */ (reader.readUint64());
+      msg.setTimestamp(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setX(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readFloat());
+      msg.setY(value);
+      break;
+    default:
+      reader.skipField();
+      break;
+    }
+  }
+  return msg;
+};
+
+
+/**
+ * Class method variant: serializes the given message to binary data
+ * (in protobuf wire format), writing to the given BinaryWriter.
+ * @param {!proto.gws.FishjoyBulletBlastProtobuf} message
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.gws.FishjoyBulletBlastProtobuf.serializeBinaryToWriter = function(message, writer) {
+  message.serializeBinaryToWriter(writer);
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format).
+ * @return {!Uint8Array}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.serializeBinary = function() {
+  var writer = new jspb.BinaryWriter();
+  this.serializeBinaryToWriter(writer);
+  return writer.getResultBuffer();
+};
+
+
+/**
+ * Serializes the message to binary data (in protobuf wire format),
+ * writing to the given BinaryWriter.
+ * @param {!jspb.BinaryWriter} writer
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+  var f = undefined;
+  f = this.getBullet();
+  if (f != null) {
+    writer.writeMessage(
+      1,
+      f,
+      proto.gws.FishjoyBulletProtobuf.serializeBinaryToWriter
+    );
+  }
+  f = this.getTimestamp();
+  if (f !== 0) {
+    writer.writeUint64(
+      2,
+      f
+    );
+  }
+  f = this.getX();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      3,
+      f
+    );
+  }
+  f = this.getY();
+  if (f !== 0.0) {
+    writer.writeFloat(
+      4,
+      f
+    );
+  }
+};
+
+
+/**
+ * optional FishjoyBulletProtobuf bullet = 1;
+ * @return {?proto.gws.FishjoyBulletProtobuf}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.getBullet = function() {
+  return /** @type{?proto.gws.FishjoyBulletProtobuf} */ (
+    jspb.Message.getWrapperField(this, proto.gws.FishjoyBulletProtobuf, 1));
+};
+
+
+/** @param {?proto.gws.FishjoyBulletProtobuf|undefined} value */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.setBullet = function(value) {
+  jspb.Message.setWrapperField(this, 1, value);
+};
+
+
+proto.gws.FishjoyBulletBlastProtobuf.prototype.clearBullet = function() {
+  this.setBullet(undefined);
+};
+
+
+/**
+ * Returns whether this field is set.
+ * @return {!boolean}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.hasBullet = function() {
+  return jspb.Message.getField(this, 1) != null;
+};
+
+
+/**
+ * optional uint64 timestamp = 2;
+ * @return {number}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.getTimestamp = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.setTimestamp = function(value) {
+  jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional float x = 3;
+ * @return {number}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.getX = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 3, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.setX = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional float y = 4;
+ * @return {number}
+ */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.getY = function() {
+  return /** @type {number} */ (+jspb.Message.getFieldWithDefault(this, 4, 0.0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.setY = function(value) {
+  jspb.Message.setField(this, 4, value);
 };
 
 
