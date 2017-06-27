@@ -131,17 +131,17 @@
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-user-biz</artifactId>
-			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.foreworld</groupId>
 			<artifactId>gws-biz</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-group-biz</artifactId>
+			<artifactId>gws-biz-group</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-biz-user</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 	</dependencies>

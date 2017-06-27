@@ -125,18 +125,8 @@
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
-			<artifactId>gws-protobuf-common</artifactId>
-			<version>2.0.13</version>
-		</dependency>
-		<dependency>
-			<groupId>net.foreworld</groupId>
 			<artifactId>gws-plugin</artifactId>
 			<version>1.0.1</version>
-		</dependency>
-		<dependency>
-			<groupId>net.foreworld</groupId>
-			<artifactId>gws-protobuf-fishjoy</artifactId>
-			<version>2.0.13</version>
 		</dependency>
 		<dependency>
 			<groupId>net.foreworld</groupId>
@@ -147,6 +137,16 @@
 			<groupId>net.foreworld</groupId>
 			<artifactId>gws-biz</artifactId>
 			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-protobuf</artifactId>
+			<version>2.0.13</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-fishjoy-protobuf</artifactId>
+			<version>2.0.13</version>
 		</dependency>
 	</dependencies>
 
