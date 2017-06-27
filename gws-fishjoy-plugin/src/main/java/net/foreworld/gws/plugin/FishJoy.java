@@ -161,7 +161,13 @@ public class FishJoy extends BasePlugin {
 
 			FishjoyBulletBlastProtobuf fbbp = FishjoyBulletBlastProtobuf.parseFrom(req.getData());
 
+			FishjoyBulletProtobuf fbp = fbbp.getBullet();
+
+			Bullet b = new Bullet();
+			b.setId(fbp.getId());
+
 			BulletBlast bb = new BulletBlast();
+			bb.setBullet(b);
 			bb.setX(fbbp.getX());
 			bb.setY(fbbp.getY());
 
@@ -201,6 +207,7 @@ public class FishJoy extends BasePlugin {
 
 			resp.setMethod(5004);
 
+			FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf.newBuilder();
 			FishjoyBulletBlastProtobuf.Builder _fbbpb = FishjoyBulletBlastProtobuf.newBuilder();
 
 			for (int i = 0; i < j; i++) {
@@ -208,6 +215,13 @@ public class FishJoy extends BasePlugin {
 
 				BulletBlast _bb = _receiver.getData();
 
+				Bullet _b = _bb.getBullet();
+
+				_fbpb.setId(_b.getId());
+				_fbpb.setLevel(_b.getLevel());
+				_fbpb.setSender(_b.getSender());
+
+				_fbbpb.setBullet(_fbpb);
 				_fbbpb.setX(_bb.getX());
 				_fbbpb.setY(_bb.getY());
 
