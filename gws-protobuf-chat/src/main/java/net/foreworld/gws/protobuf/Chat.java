@@ -54,14 +54,24 @@ public final class Chat {
         getReceiverBytes();
 
     /**
-     * <code>optional string comment = 5;</code>
+     * <code>optional string message = 5;</code>
      */
-    java.lang.String getComment();
+    java.lang.String getMessage();
     /**
-     * <code>optional string comment = 5;</code>
+     * <code>optional string message = 5;</code>
      */
     com.google.protobuf.ByteString
-        getCommentBytes();
+        getMessageBytes();
+
+    /**
+     * <code>optional string extend_data = 6;</code>
+     */
+    java.lang.String getExtendData();
+    /**
+     * <code>optional string extend_data = 6;</code>
+     */
+    com.google.protobuf.ByteString
+        getExtendDataBytes();
   }
   /**
    * Protobuf type {@code gws.ChatProtobuf}
@@ -79,7 +89,8 @@ public final class Chat {
       timestamp_ = 0L;
       sender_ = "";
       receiver_ = "";
-      comment_ = "";
+      message_ = "";
+      extendData_ = "";
     }
 
     @java.lang.Override
@@ -133,7 +144,13 @@ public final class Chat {
             case 42: {
               java.lang.String s = input.readStringRequireUtf8();
 
-              comment_ = s;
+              message_ = s;
+              break;
+            }
+            case 50: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              extendData_ = s;
               break;
             }
           }
@@ -270,34 +287,68 @@ public final class Chat {
       }
     }
 
-    public static final int COMMENT_FIELD_NUMBER = 5;
-    private volatile java.lang.Object comment_;
+    public static final int MESSAGE_FIELD_NUMBER = 5;
+    private volatile java.lang.Object message_;
     /**
-     * <code>optional string comment = 5;</code>
+     * <code>optional string message = 5;</code>
      */
-    public java.lang.String getComment() {
-      java.lang.Object ref = comment_;
+    public java.lang.String getMessage() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         return (java.lang.String) ref;
       } else {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        comment_ = s;
+        message_ = s;
         return s;
       }
     }
     /**
-     * <code>optional string comment = 5;</code>
+     * <code>optional string message = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getCommentBytes() {
-      java.lang.Object ref = comment_;
+        getMessageBytes() {
+      java.lang.Object ref = message_;
       if (ref instanceof java.lang.String) {
         com.google.protobuf.ByteString b = 
             com.google.protobuf.ByteString.copyFromUtf8(
                 (java.lang.String) ref);
-        comment_ = b;
+        message_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXTEND_DATA_FIELD_NUMBER = 6;
+    private volatile java.lang.Object extendData_;
+    /**
+     * <code>optional string extend_data = 6;</code>
+     */
+    public java.lang.String getExtendData() {
+      java.lang.Object ref = extendData_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extendData_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string extend_data = 6;</code>
+     */
+    public com.google.protobuf.ByteString
+        getExtendDataBytes() {
+      java.lang.Object ref = extendData_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extendData_ = b;
         return b;
       } else {
         return (com.google.protobuf.ByteString) ref;
@@ -328,8 +379,11 @@ public final class Chat {
       if (!getReceiverBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 4, receiver_);
       }
-      if (!getCommentBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, comment_);
+      if (!getMessageBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, message_);
+      }
+      if (!getExtendDataBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, extendData_);
       }
     }
 
@@ -351,8 +405,11 @@ public final class Chat {
       if (!getReceiverBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, receiver_);
       }
-      if (!getCommentBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, comment_);
+      if (!getMessageBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, message_);
+      }
+      if (!getExtendDataBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, extendData_);
       }
       memoizedSize = size;
       return size;
@@ -378,8 +435,10 @@ public final class Chat {
           .equals(other.getSender());
       result = result && getReceiver()
           .equals(other.getReceiver());
-      result = result && getComment()
-          .equals(other.getComment());
+      result = result && getMessage()
+          .equals(other.getMessage());
+      result = result && getExtendData()
+          .equals(other.getExtendData());
       return result;
     }
 
@@ -399,8 +458,10 @@ public final class Chat {
       hash = (53 * hash) + getSender().hashCode();
       hash = (37 * hash) + RECEIVER_FIELD_NUMBER;
       hash = (53 * hash) + getReceiver().hashCode();
-      hash = (37 * hash) + COMMENT_FIELD_NUMBER;
-      hash = (53 * hash) + getComment().hashCode();
+      hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
+      hash = (53 * hash) + getMessage().hashCode();
+      hash = (37 * hash) + EXTEND_DATA_FIELD_NUMBER;
+      hash = (53 * hash) + getExtendData().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -527,7 +588,9 @@ public final class Chat {
 
         receiver_ = "";
 
-        comment_ = "";
+        message_ = "";
+
+        extendData_ = "";
 
         return this;
       }
@@ -555,7 +618,8 @@ public final class Chat {
         result.timestamp_ = timestamp_;
         result.sender_ = sender_;
         result.receiver_ = receiver_;
-        result.comment_ = comment_;
+        result.message_ = message_;
+        result.extendData_ = extendData_;
         onBuilt();
         return result;
       }
@@ -612,8 +676,12 @@ public final class Chat {
           receiver_ = other.receiver_;
           onChanged();
         }
-        if (!other.getComment().isEmpty()) {
-          comment_ = other.comment_;
+        if (!other.getMessage().isEmpty()) {
+          message_ = other.message_;
+          onChanged();
+        }
+        if (!other.getExtendData().isEmpty()) {
+          extendData_ = other.extendData_;
           onChanged();
         }
         onChanged();
@@ -875,71 +943,140 @@ public final class Chat {
         return this;
       }
 
-      private java.lang.Object comment_ = "";
+      private java.lang.Object message_ = "";
       /**
-       * <code>optional string comment = 5;</code>
+       * <code>optional string message = 5;</code>
        */
-      public java.lang.String getComment() {
-        java.lang.Object ref = comment_;
+      public java.lang.String getMessage() {
+        java.lang.Object ref = message_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          comment_ = s;
+          message_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>optional string comment = 5;</code>
+       * <code>optional string message = 5;</code>
        */
       public com.google.protobuf.ByteString
-          getCommentBytes() {
-        java.lang.Object ref = comment_;
+          getMessageBytes() {
+        java.lang.Object ref = message_;
         if (ref instanceof String) {
           com.google.protobuf.ByteString b = 
               com.google.protobuf.ByteString.copyFromUtf8(
                   (java.lang.String) ref);
-          comment_ = b;
+          message_ = b;
           return b;
         } else {
           return (com.google.protobuf.ByteString) ref;
         }
       }
       /**
-       * <code>optional string comment = 5;</code>
+       * <code>optional string message = 5;</code>
        */
-      public Builder setComment(
+      public Builder setMessage(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
   
-        comment_ = value;
+        message_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional string comment = 5;</code>
+       * <code>optional string message = 5;</code>
        */
-      public Builder clearComment() {
+      public Builder clearMessage() {
         
-        comment_ = getDefaultInstance().getComment();
+        message_ = getDefaultInstance().getMessage();
         onChanged();
         return this;
       }
       /**
-       * <code>optional string comment = 5;</code>
+       * <code>optional string message = 5;</code>
        */
-      public Builder setCommentBytes(
+      public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
   checkByteStringIsUtf8(value);
         
-        comment_ = value;
+        message_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extendData_ = "";
+      /**
+       * <code>optional string extend_data = 6;</code>
+       */
+      public java.lang.String getExtendData() {
+        java.lang.Object ref = extendData_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extendData_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string extend_data = 6;</code>
+       */
+      public com.google.protobuf.ByteString
+          getExtendDataBytes() {
+        java.lang.Object ref = extendData_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extendData_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string extend_data = 6;</code>
+       */
+      public Builder setExtendData(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extendData_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string extend_data = 6;</code>
+       */
+      public Builder clearExtendData() {
+        
+        extendData_ = getDefaultInstance().getExtendData();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string extend_data = 6;</code>
+       */
+      public Builder setExtendDataBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extendData_ = value;
         onChanged();
         return this;
       }
@@ -1006,11 +1143,11 @@ public final class Chat {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\031protobuf/model.chat.proto\022\003gws\"`\n\014Chat" +
+      "\n\031protobuf/model.chat.proto\022\003gws\"u\n\014Chat" +
       "Protobuf\022\n\n\002id\030\001 \001(\t\022\021\n\ttimestamp\030\002 \001(\004\022" +
-      "\016\n\006sender\030\003 \001(\t\022\020\n\010receiver\030\004 \001(\t\022\017\n\007com" +
-      "ment\030\005 \001(\tB\"\n\032net.foreworld.gws.protobuf" +
-      "B\004Chatb\006proto3"
+      "\016\n\006sender\030\003 \001(\t\022\020\n\010receiver\030\004 \001(\t\022\017\n\007mes" +
+      "sage\030\005 \001(\t\022\023\n\013extend_data\030\006 \001(\tB\"\n\032net.f" +
+      "oreworld.gws.protobufB\004Chatb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1029,7 +1166,7 @@ public final class Chat {
     internal_static_gws_ChatProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_ChatProtobuf_descriptor,
-        new java.lang.String[] { "Id", "Timestamp", "Sender", "Receiver", "Comment", });
+        new java.lang.String[] { "Id", "Timestamp", "Sender", "Receiver", "Message", "ExtendData", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

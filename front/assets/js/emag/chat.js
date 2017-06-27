@@ -62,7 +62,8 @@ proto.gws.ChatProtobuf.toObject = function(includeInstance, msg) {
     timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
     sender: jspb.Message.getFieldWithDefault(msg, 3, ""),
     receiver: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    comment: jspb.Message.getFieldWithDefault(msg, 5, "")
+    message: jspb.Message.getFieldWithDefault(msg, 5, ""),
+    extendData: jspb.Message.getFieldWithDefault(msg, 6, "")
   };
 
   if (includeInstance) {
@@ -117,7 +118,11 @@ proto.gws.ChatProtobuf.deserializeBinaryFromReader = function(msg, reader) {
       break;
     case 5:
       var value = /** @type {string} */ (reader.readString());
-      msg.setComment(value);
+      msg.setMessage(value);
+      break;
+    case 6:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setExtendData(value);
       break;
     default:
       reader.skipField();
@@ -185,10 +190,17 @@ proto.gws.ChatProtobuf.prototype.serializeBinaryToWriter = function (writer) {
       f
     );
   }
-  f = this.getComment();
+  f = this.getMessage();
   if (f.length > 0) {
     writer.writeString(
       5,
+      f
+    );
+  }
+  f = this.getExtendData();
+  if (f.length > 0) {
+    writer.writeString(
+      6,
       f
     );
   }
@@ -256,17 +268,32 @@ proto.gws.ChatProtobuf.prototype.setReceiver = function(value) {
 
 
 /**
- * optional string comment = 5;
+ * optional string message = 5;
  * @return {string}
  */
-proto.gws.ChatProtobuf.prototype.getComment = function() {
+proto.gws.ChatProtobuf.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.ChatProtobuf.prototype.setComment = function(value) {
+proto.gws.ChatProtobuf.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 5, value);
+};
+
+
+/**
+ * optional string extend_data = 6;
+ * @return {string}
+ */
+proto.gws.ChatProtobuf.prototype.getExtendData = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+};
+
+
+/** @param {string} value */
+proto.gws.ChatProtobuf.prototype.setExtendData = function(value) {
+  jspb.Message.setField(this, 6, value);
 };
 
 

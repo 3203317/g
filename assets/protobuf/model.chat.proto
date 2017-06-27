@@ -10,6 +10,7 @@ message ChatProtobuf {
   uint64 timestamp = 2;
   string sender = 3;
   string receiver = 4;
-  string comment = 5;
+  string message = 5;
+  string extend_data = 6;
 }
 
