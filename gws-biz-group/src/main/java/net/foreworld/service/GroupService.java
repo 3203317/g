@@ -50,7 +50,7 @@ public interface GroupService extends IService {
 	ResultMap<SameData<String>> quit(String server_id, String channel_id, String group_id);
 
 	/**
-	 * 旁观者
+	 * 以旁观者身份加入某个群组
 	 * 
 	 * @param server_id
 	 * @param channel_id
@@ -58,15 +58,5 @@ public interface GroupService extends IService {
 	 * @return
 	 */
 	ResultMap<SameData<String>> visit(String server_id, String channel_id, String group_id);
-
-	/**
-	 * 参与者
-	 * 
-	 * @param server_id
-	 * @param channel_id
-	 * @param group_id
-	 * @return
-	 */
-	ResultMap<SameData<String>> participant(String server_id, String channel_id, String group_id);
 
 }

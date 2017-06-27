@@ -59,10 +59,4 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		return map;
 	}
 
-	@Override
-	public ResultMap<SameData<String>> participant(String server_id, String channel_id, String group_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
