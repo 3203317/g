@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
-import net.foreworld.gws.protobuf.Chat.ChatProtobuf;
+import net.foreworld.gws.protobuf.Chat.ChatMsgProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.RequestProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
@@ -56,12 +56,12 @@ public class Chat extends BasePlugin {
 
 			RequestProtobuf req = sender.getData();
 
-			ChatProtobuf cp = ChatProtobuf.parseFrom(req.getData());
+			ChatMsgProtobuf cmp = ChatMsgProtobuf.parseFrom(req.getData());
 
 			ChatMsg chatMsg = new ChatMsg();
-			chatMsg.setReceiver(cp.getReceiver());
-			chatMsg.setMessage(cp.getMessage());
-			chatMsg.setExtend_data(cp.getExtendData());
+			chatMsg.setReceiver(cmp.getReceiver());
+			chatMsg.setMessage(cmp.getMessage());
+			chatMsg.setExtend_data(cmp.getExtendData());
 
 			ResultMap<Receiver<ChatMsg>> map = chatService.send(sender.getServerId(), sender.getChannelId(), chatMsg);
 
@@ -74,14 +74,14 @@ public class Chat extends BasePlugin {
 
 			ChatMsg _chatMsg = _receiver.getData();
 
-			ChatProtobuf.Builder _cpb = ChatProtobuf.newBuilder();
-			_cpb.setId(_chatMsg.getId());
-			_cpb.setSender(_chatMsg.getSender());
-			_cpb.setReceiver(_chatMsg.getReceiver());
-			_cpb.setMessage(_chatMsg.getMessage());
+			ChatMsgProtobuf.Builder _cmpb = ChatMsgProtobuf.newBuilder();
+			_cmpb.setId(_chatMsg.getId());
+			_cmpb.setSender(_chatMsg.getSender());
+			_cmpb.setReceiver(_chatMsg.getReceiver());
+			_cmpb.setMessage(_chatMsg.getMessage());
 
 			if (null != _chatMsg.getExtend_data()) {
-				_cpb.setExtendData(_chatMsg.getExtend_data());
+				_cmpb.setExtendData(_chatMsg.getExtend_data());
 			}
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
@@ -89,7 +89,7 @@ public class Chat extends BasePlugin {
 			resp.setMethod(2002);
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
-			resp.setData(_cpb.build().toByteString());
+			resp.setData(_cmpb.build().toByteString());
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 			rec.setData(resp);
