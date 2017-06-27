@@ -3,9 +3,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.foreworld</groupId>
-	<artifactId>gws-group-biz</artifactId>
+	<artifactId>gws-biz-group</artifactId>
 	<version>1.0.1</version>
-	<name>gws :: group :: biz</name>
+	<name>gws :: biz :: group</name>
 	<url>http://www.foreworld.net/</url>
 
 	<properties>
