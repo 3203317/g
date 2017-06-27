@@ -26,6 +26,7 @@ import net.foreworld.gws.protobuf.Common.SenderProtobuf;
 import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
+import net.foreworld.model.SameData;
 import net.foreworld.service.GroupService;
 
 /**
@@ -72,7 +73,7 @@ public class Group extends BasePlugin {
 
 			String group_type = GroupSearchProtobuf.parseFrom(req.getData()).getGroupType();
 
-			ResultMap<List<Receiver<String>>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
+			ResultMap<SameData<String>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
 					group_type);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
@@ -96,7 +97,13 @@ public class Group extends BasePlugin {
 
 			// 给相关人员发送一条进入群组消息
 
-			List<Receiver<String>> _list = map.getData();
+			SameData<String> _data = map.getData();
+
+			if (null == _data) {
+				return;
+			}
+
+			List<Receiver<Void>> _list = _data.getReceivers();
 
 			if (null == _list) {
 				return;
@@ -111,15 +118,15 @@ public class Group extends BasePlugin {
 			resp.setMethod(3002);
 
 			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+			_dpb.setBody(_data.getData());
+
+			resp.setData(_dpb.build().toByteString());
+
+			rec.setData(resp);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<String> _receiver = _list.get(i);
+				Receiver<Void> _receiver = _list.get(i);
 
-				_dpb.setBody(_receiver.getData());
-
-				resp.setData(_dpb.build().toByteString());
-
-				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
@@ -241,7 +248,7 @@ public class Group extends BasePlugin {
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		// 执行业务层用户退出群组操作
-		ResultMap<List<Receiver<String>>> map = groupService.quit(sender.getServerId(), sender.getChannelId());
+		ResultMap<SameData<String>> map = groupService.quit(sender.getServerId(), sender.getChannelId());
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -261,7 +268,13 @@ public class Group extends BasePlugin {
 			return false;
 		}
 
-		List<Receiver<String>> _list = map.getData();
+		SameData<String> _data = map.getData();
+
+		if (null == _data) {
+			return true;
+		}
+
+		List<Receiver<Void>> _list = _data.getReceivers();
 
 		if (null == _list) {
 			return true;
@@ -277,15 +290,15 @@ public class Group extends BasePlugin {
 		resp.setMethod(3006);
 
 		DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+		_dpb.setBody(_data.getData());
+
+		resp.setData(_dpb.build().toByteString());
+
+		rec.setData(resp);
 
 		for (int i = 0; i < j; i++) {
-			Receiver<String> _receiver = _list.get(i);
+			Receiver<Void> _receiver = _list.get(i);
 
-			_dpb.setBody(_receiver.getData());
-
-			resp.setData(_dpb.build().toByteString());
-
-			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
 
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
