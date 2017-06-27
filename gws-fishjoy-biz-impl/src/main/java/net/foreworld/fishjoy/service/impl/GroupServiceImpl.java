@@ -1,12 +1,9 @@
 package net.foreworld.fishjoy.service.impl;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.SameData;
 import net.foreworld.service.GroupService;
@@ -31,9 +28,9 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 	}
 
 	@Override
-	public ResultMap<List<Receiver<String>>> entry(String server_id, String channel_id, String group_id) {
+	public ResultMap<SameData<String>> entry(String server_id, String channel_id, String group_id) {
 
-		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		ResultMap<SameData<String>> map = new ResultMap<SameData<String>>();
 		map.setSuccess(true);
 		return map;
 	}
@@ -47,23 +44,23 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 	}
 
 	@Override
-	public ResultMap<List<Receiver<String>>> visit(String server_id, String channel_id, String group_id) {
+	public ResultMap<SameData<String>> visit(String server_id, String channel_id, String group_id) {
 
-		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		ResultMap<SameData<String>> map = new ResultMap<SameData<String>>();
 		map.setSuccess(true);
 		return map;
 	}
 
 	@Override
-	public ResultMap<List<Receiver<String>>> quit(String server_id, String channel_id, String group_id) {
+	public ResultMap<SameData<String>> quit(String server_id, String channel_id, String group_id) {
 
-		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		ResultMap<SameData<String>> map = new ResultMap<SameData<String>>();
 		map.setSuccess(true);
 		return map;
 	}
 
 	@Override
-	public ResultMap<List<Receiver<String>>> participant(String server_id, String channel_id, String group_id) {
+	public ResultMap<SameData<String>> participant(String server_id, String channel_id, String group_id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -1,8 +1,5 @@
 package net.foreworld.service;
 
-import java.util.List;
-
-import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.SameData;
 
@@ -31,7 +28,7 @@ public interface GroupService extends IService {
 	 * @param group_id
 	 * @return
 	 */
-	ResultMap<List<Receiver<String>>> entry(String server_id, String channel_id, String group_id);
+	ResultMap<SameData<String>> entry(String server_id, String channel_id, String group_id);
 
 	/**
 	 * 退出所有群组
@@ -50,7 +47,7 @@ public interface GroupService extends IService {
 	 * @param group_id
 	 * @return
 	 */
-	ResultMap<List<Receiver<String>>> quit(String server_id, String channel_id, String group_id);
+	ResultMap<SameData<String>> quit(String server_id, String channel_id, String group_id);
 
 	/**
 	 * 旁观者
@@ -60,7 +57,7 @@ public interface GroupService extends IService {
 	 * @param group_id
 	 * @return
 	 */
-	ResultMap<List<Receiver<String>>> visit(String server_id, String channel_id, String group_id);
+	ResultMap<SameData<String>> visit(String server_id, String channel_id, String group_id);
 
 	/**
 	 * 参与者
@@ -70,6 +67,6 @@ public interface GroupService extends IService {
 	 * @param group_id
 	 * @return
 	 */
-	ResultMap<List<Receiver<String>>> participant(String server_id, String channel_id, String group_id);
+	ResultMap<SameData<String>> participant(String server_id, String channel_id, String group_id);
 
 }
