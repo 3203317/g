@@ -377,4 +377,86 @@ public class Group extends BasePlugin {
 		}
 	}
 
+	@JmsListener(destination = "qq3203317.3009")
+	public void participant(BytesMessage msg) {
+
+		try {
+
+			SenderProtobuf sender = read(msg);
+			if (!quit(sender)) {
+				return;
+			}
+
+			RequestProtobuf req = sender.getData();
+
+			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
+			resp.setVersion(protocol_version);
+			resp.setSeqId(req.getSeqId());
+			resp.setTimestamp(System.currentTimeMillis());
+
+			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
+
+			String group_id = PrimaryKeyProtobuf.parseFrom(req.getData()).getId();
+
+			ResultMap<List<Receiver<String>>> map = groupService.participant(sender.getServerId(),
+					sender.getChannelId(), group_id);
+			logger.info("{}:{}", map.getSuccess(), map.getMsg());
+
+			if (!map.getSuccess()) {
+
+				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
+				err.setCode(map.getCode());
+				err.setMsg(map.getMsg());
+
+				resp.setMethod(req.getMethod());
+				resp.setError(err);
+
+				rec.setData(resp);
+				rec.setReceiver(sender.getChannelId());
+
+				// 消息回传给自己
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
+						rec.build().toByteArray());
+				return;
+			}
+
+			// 给相关人员发送一条进入群组消息
+
+			List<Receiver<String>> _list = map.getData();
+
+			if (null == _list) {
+				return;
+			}
+
+			int j = _list.size();
+
+			if (0 == j) {
+				return;
+			}
+
+			resp.setMethod(3010);
+
+			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
+
+			for (int i = 0; i < j; i++) {
+				Receiver<String> _receiver = _list.get(i);
+
+				_dpb.setBody(_receiver.getData());
+
+				resp.setData(_dpb.build().toByteString());
+
+				rec.setData(resp);
+				rec.setReceiver(_receiver.getChannel_id());
+
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
+						rec.build().toByteArray());
+			}
+
+		} catch (InvalidProtocolBufferException e) {
+			logger.error("", e);
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
 }
