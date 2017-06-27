@@ -59,11 +59,10 @@ proto.gws.ChatMsgProtobuf.prototype.toObject = function(opt_includeInstance) {
 proto.gws.ChatMsgProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
-    sender: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    receiver: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    message: jspb.Message.getFieldWithDefault(msg, 5, ""),
-    extendData: jspb.Message.getFieldWithDefault(msg, 6, "")
+    sender: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    receiver: jspb.Message.getFieldWithDefault(msg, 3, ""),
+    message: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    extendData: jspb.Message.getFieldWithDefault(msg, 5, "")
   };
 
   if (includeInstance) {
@@ -105,22 +104,18 @@ proto.gws.ChatMsgProtobuf.deserializeBinaryFromReader = function(msg, reader) {
       msg.setId(value);
       break;
     case 2:
-      var value = /** @type {number} */ (reader.readUint64());
-      msg.setTimestamp(value);
-      break;
-    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setSender(value);
       break;
-    case 4:
+    case 3:
       var value = /** @type {string} */ (reader.readString());
       msg.setReceiver(value);
       break;
-    case 5:
+    case 4:
       var value = /** @type {string} */ (reader.readString());
       msg.setMessage(value);
       break;
-    case 6:
+    case 5:
       var value = /** @type {string} */ (reader.readString());
       msg.setExtendData(value);
       break;
@@ -169,38 +164,31 @@ proto.gws.ChatMsgProtobuf.prototype.serializeBinaryToWriter = function (writer) 
       f
     );
   }
-  f = this.getTimestamp();
-  if (f !== 0) {
-    writer.writeUint64(
-      2,
-      f
-    );
-  }
   f = this.getSender();
   if (f.length > 0) {
     writer.writeString(
-      3,
+      2,
       f
     );
   }
   f = this.getReceiver();
   if (f.length > 0) {
     writer.writeString(
-      4,
+      3,
       f
     );
   }
   f = this.getMessage();
   if (f.length > 0) {
     writer.writeString(
-      5,
+      4,
       f
     );
   }
   f = this.getExtendData();
   if (f.length > 0) {
     writer.writeString(
-      6,
+      5,
       f
     );
   }
@@ -223,77 +211,62 @@ proto.gws.ChatMsgProtobuf.prototype.setId = function(value) {
 
 
 /**
- * optional uint64 timestamp = 2;
- * @return {number}
- */
-proto.gws.ChatMsgProtobuf.prototype.getTimestamp = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
-};
-
-
-/** @param {number} value */
-proto.gws.ChatMsgProtobuf.prototype.setTimestamp = function(value) {
-  jspb.Message.setField(this, 2, value);
-};
-
-
-/**
- * optional string sender = 3;
+ * optional string sender = 2;
  * @return {string}
  */
 proto.gws.ChatMsgProtobuf.prototype.getSender = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
 
 /** @param {string} value */
 proto.gws.ChatMsgProtobuf.prototype.setSender = function(value) {
-  jspb.Message.setField(this, 3, value);
+  jspb.Message.setField(this, 2, value);
 };
 
 
 /**
- * optional string receiver = 4;
+ * optional string receiver = 3;
  * @return {string}
  */
 proto.gws.ChatMsgProtobuf.prototype.getReceiver = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
 proto.gws.ChatMsgProtobuf.prototype.setReceiver = function(value) {
-  jspb.Message.setField(this, 4, value);
+  jspb.Message.setField(this, 3, value);
 };
 
 
 /**
- * optional string message = 5;
+ * optional string message = 4;
  * @return {string}
  */
 proto.gws.ChatMsgProtobuf.prototype.getMessage = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /** @param {string} value */
 proto.gws.ChatMsgProtobuf.prototype.setMessage = function(value) {
-  jspb.Message.setField(this, 5, value);
+  jspb.Message.setField(this, 4, value);
 };
 
 
 /**
- * optional string extend_data = 6;
+ * optional string extend_data = 5;
  * @return {string}
  */
 proto.gws.ChatMsgProtobuf.prototype.getExtendData = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /** @param {string} value */
 proto.gws.ChatMsgProtobuf.prototype.setExtendData = function(value) {
-  jspb.Message.setField(this, 6, value);
+  jspb.Message.setField(this, 5, value);
 };
 
 

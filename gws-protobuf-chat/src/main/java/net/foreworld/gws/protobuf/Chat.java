@@ -29,46 +29,41 @@ public final class Chat {
         getIdBytes();
 
     /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    long getTimestamp();
-
-    /**
-     * <code>optional string sender = 3;</code>
+     * <code>optional string sender = 2;</code>
      */
     java.lang.String getSender();
     /**
-     * <code>optional string sender = 3;</code>
+     * <code>optional string sender = 2;</code>
      */
     com.google.protobuf.ByteString
         getSenderBytes();
 
     /**
-     * <code>optional string receiver = 4;</code>
+     * <code>optional string receiver = 3;</code>
      */
     java.lang.String getReceiver();
     /**
-     * <code>optional string receiver = 4;</code>
+     * <code>optional string receiver = 3;</code>
      */
     com.google.protobuf.ByteString
         getReceiverBytes();
 
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 4;</code>
      */
     java.lang.String getMessage();
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 4;</code>
      */
     com.google.protobuf.ByteString
         getMessageBytes();
 
     /**
-     * <code>optional string extend_data = 6;</code>
+     * <code>optional string extend_data = 5;</code>
      */
     java.lang.String getExtendData();
     /**
-     * <code>optional string extend_data = 6;</code>
+     * <code>optional string extend_data = 5;</code>
      */
     com.google.protobuf.ByteString
         getExtendDataBytes();
@@ -86,7 +81,6 @@ public final class Chat {
     }
     private ChatMsgProtobuf() {
       id_ = "";
-      timestamp_ = 0L;
       sender_ = "";
       receiver_ = "";
       message_ = "";
@@ -124,30 +118,25 @@ public final class Chat {
               id_ = s;
               break;
             }
-            case 16: {
-
-              timestamp_ = input.readUInt64();
-              break;
-            }
-            case 26: {
+            case 18: {
               java.lang.String s = input.readStringRequireUtf8();
 
               sender_ = s;
               break;
             }
-            case 34: {
+            case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
               receiver_ = s;
               break;
             }
-            case 42: {
+            case 34: {
               java.lang.String s = input.readStringRequireUtf8();
 
               message_ = s;
               break;
             }
-            case 50: {
+            case 42: {
               java.lang.String s = input.readStringRequireUtf8();
 
               extendData_ = s;
@@ -210,19 +199,10 @@ public final class Chat {
       }
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 2;
-    private long timestamp_;
-    /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    public long getTimestamp() {
-      return timestamp_;
-    }
-
-    public static final int SENDER_FIELD_NUMBER = 3;
+    public static final int SENDER_FIELD_NUMBER = 2;
     private volatile java.lang.Object sender_;
     /**
-     * <code>optional string sender = 3;</code>
+     * <code>optional string sender = 2;</code>
      */
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
@@ -237,7 +217,7 @@ public final class Chat {
       }
     }
     /**
-     * <code>optional string sender = 3;</code>
+     * <code>optional string sender = 2;</code>
      */
     public com.google.protobuf.ByteString
         getSenderBytes() {
@@ -253,10 +233,10 @@ public final class Chat {
       }
     }
 
-    public static final int RECEIVER_FIELD_NUMBER = 4;
+    public static final int RECEIVER_FIELD_NUMBER = 3;
     private volatile java.lang.Object receiver_;
     /**
-     * <code>optional string receiver = 4;</code>
+     * <code>optional string receiver = 3;</code>
      */
     public java.lang.String getReceiver() {
       java.lang.Object ref = receiver_;
@@ -271,7 +251,7 @@ public final class Chat {
       }
     }
     /**
-     * <code>optional string receiver = 4;</code>
+     * <code>optional string receiver = 3;</code>
      */
     public com.google.protobuf.ByteString
         getReceiverBytes() {
@@ -287,10 +267,10 @@ public final class Chat {
       }
     }
 
-    public static final int MESSAGE_FIELD_NUMBER = 5;
+    public static final int MESSAGE_FIELD_NUMBER = 4;
     private volatile java.lang.Object message_;
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 4;</code>
      */
     public java.lang.String getMessage() {
       java.lang.Object ref = message_;
@@ -305,7 +285,7 @@ public final class Chat {
       }
     }
     /**
-     * <code>optional string message = 5;</code>
+     * <code>optional string message = 4;</code>
      */
     public com.google.protobuf.ByteString
         getMessageBytes() {
@@ -321,10 +301,10 @@ public final class Chat {
       }
     }
 
-    public static final int EXTEND_DATA_FIELD_NUMBER = 6;
+    public static final int EXTEND_DATA_FIELD_NUMBER = 5;
     private volatile java.lang.Object extendData_;
     /**
-     * <code>optional string extend_data = 6;</code>
+     * <code>optional string extend_data = 5;</code>
      */
     public java.lang.String getExtendData() {
       java.lang.Object ref = extendData_;
@@ -339,7 +319,7 @@ public final class Chat {
       }
     }
     /**
-     * <code>optional string extend_data = 6;</code>
+     * <code>optional string extend_data = 5;</code>
      */
     public com.google.protobuf.ByteString
         getExtendDataBytes() {
@@ -370,20 +350,17 @@ public final class Chat {
       if (!getIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
-      if (timestamp_ != 0L) {
-        output.writeUInt64(2, timestamp_);
-      }
       if (!getSenderBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sender_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, sender_);
       }
       if (!getReceiverBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, receiver_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, receiver_);
       }
       if (!getMessageBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, message_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, message_);
       }
       if (!getExtendDataBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, extendData_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, extendData_);
       }
     }
 
@@ -395,21 +372,17 @@ public final class Chat {
       if (!getIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
-      if (timestamp_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, timestamp_);
-      }
       if (!getSenderBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sender_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, sender_);
       }
       if (!getReceiverBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, receiver_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, receiver_);
       }
       if (!getMessageBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, message_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, message_);
       }
       if (!getExtendDataBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, extendData_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, extendData_);
       }
       memoizedSize = size;
       return size;
@@ -429,8 +402,6 @@ public final class Chat {
       boolean result = true;
       result = result && getId()
           .equals(other.getId());
-      result = result && (getTimestamp()
-          == other.getTimestamp());
       result = result && getSender()
           .equals(other.getSender());
       result = result && getReceiver()
@@ -451,9 +422,6 @@ public final class Chat {
       hash = (19 * hash) + getDescriptorForType().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTimestamp());
       hash = (37 * hash) + SENDER_FIELD_NUMBER;
       hash = (53 * hash) + getSender().hashCode();
       hash = (37 * hash) + RECEIVER_FIELD_NUMBER;
@@ -582,8 +550,6 @@ public final class Chat {
         super.clear();
         id_ = "";
 
-        timestamp_ = 0L;
-
         sender_ = "";
 
         receiver_ = "";
@@ -615,7 +581,6 @@ public final class Chat {
       public net.foreworld.gws.protobuf.Chat.ChatMsgProtobuf buildPartial() {
         net.foreworld.gws.protobuf.Chat.ChatMsgProtobuf result = new net.foreworld.gws.protobuf.Chat.ChatMsgProtobuf(this);
         result.id_ = id_;
-        result.timestamp_ = timestamp_;
         result.sender_ = sender_;
         result.receiver_ = receiver_;
         result.message_ = message_;
@@ -664,9 +629,6 @@ public final class Chat {
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
-        }
-        if (other.getTimestamp() != 0L) {
-          setTimestamp(other.getTimestamp());
         }
         if (!other.getSender().isEmpty()) {
           sender_ = other.sender_;
@@ -779,35 +741,9 @@ public final class Chat {
         return this;
       }
 
-      private long timestamp_ ;
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder setTimestamp(long value) {
-        
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder clearTimestamp() {
-        
-        timestamp_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private java.lang.Object sender_ = "";
       /**
-       * <code>optional string sender = 3;</code>
+       * <code>optional string sender = 2;</code>
        */
       public java.lang.String getSender() {
         java.lang.Object ref = sender_;
@@ -822,7 +758,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string sender = 3;</code>
+       * <code>optional string sender = 2;</code>
        */
       public com.google.protobuf.ByteString
           getSenderBytes() {
@@ -838,7 +774,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string sender = 3;</code>
+       * <code>optional string sender = 2;</code>
        */
       public Builder setSender(
           java.lang.String value) {
@@ -851,7 +787,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string sender = 3;</code>
+       * <code>optional string sender = 2;</code>
        */
       public Builder clearSender() {
         
@@ -860,7 +796,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string sender = 3;</code>
+       * <code>optional string sender = 2;</code>
        */
       public Builder setSenderBytes(
           com.google.protobuf.ByteString value) {
@@ -876,7 +812,7 @@ public final class Chat {
 
       private java.lang.Object receiver_ = "";
       /**
-       * <code>optional string receiver = 4;</code>
+       * <code>optional string receiver = 3;</code>
        */
       public java.lang.String getReceiver() {
         java.lang.Object ref = receiver_;
@@ -891,7 +827,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string receiver = 4;</code>
+       * <code>optional string receiver = 3;</code>
        */
       public com.google.protobuf.ByteString
           getReceiverBytes() {
@@ -907,7 +843,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string receiver = 4;</code>
+       * <code>optional string receiver = 3;</code>
        */
       public Builder setReceiver(
           java.lang.String value) {
@@ -920,7 +856,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string receiver = 4;</code>
+       * <code>optional string receiver = 3;</code>
        */
       public Builder clearReceiver() {
         
@@ -929,7 +865,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string receiver = 4;</code>
+       * <code>optional string receiver = 3;</code>
        */
       public Builder setReceiverBytes(
           com.google.protobuf.ByteString value) {
@@ -945,7 +881,7 @@ public final class Chat {
 
       private java.lang.Object message_ = "";
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 4;</code>
        */
       public java.lang.String getMessage() {
         java.lang.Object ref = message_;
@@ -960,7 +896,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 4;</code>
        */
       public com.google.protobuf.ByteString
           getMessageBytes() {
@@ -976,7 +912,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 4;</code>
        */
       public Builder setMessage(
           java.lang.String value) {
@@ -989,7 +925,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 4;</code>
        */
       public Builder clearMessage() {
         
@@ -998,7 +934,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string message = 5;</code>
+       * <code>optional string message = 4;</code>
        */
       public Builder setMessageBytes(
           com.google.protobuf.ByteString value) {
@@ -1014,7 +950,7 @@ public final class Chat {
 
       private java.lang.Object extendData_ = "";
       /**
-       * <code>optional string extend_data = 6;</code>
+       * <code>optional string extend_data = 5;</code>
        */
       public java.lang.String getExtendData() {
         java.lang.Object ref = extendData_;
@@ -1029,7 +965,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string extend_data = 6;</code>
+       * <code>optional string extend_data = 5;</code>
        */
       public com.google.protobuf.ByteString
           getExtendDataBytes() {
@@ -1045,7 +981,7 @@ public final class Chat {
         }
       }
       /**
-       * <code>optional string extend_data = 6;</code>
+       * <code>optional string extend_data = 5;</code>
        */
       public Builder setExtendData(
           java.lang.String value) {
@@ -1058,7 +994,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string extend_data = 6;</code>
+       * <code>optional string extend_data = 5;</code>
        */
       public Builder clearExtendData() {
         
@@ -1067,7 +1003,7 @@ public final class Chat {
         return this;
       }
       /**
-       * <code>optional string extend_data = 6;</code>
+       * <code>optional string extend_data = 5;</code>
        */
       public Builder setExtendDataBytes(
           com.google.protobuf.ByteString value) {
@@ -1143,11 +1079,11 @@ public final class Chat {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\031protobuf/model.chat.proto\022\003gws\"x\n\017Chat" +
-      "MsgProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\ttimestamp\030\002 \001" +
-      "(\004\022\016\n\006sender\030\003 \001(\t\022\020\n\010receiver\030\004 \001(\t\022\017\n\007" +
-      "message\030\005 \001(\t\022\023\n\013extend_data\030\006 \001(\tB\"\n\032ne" +
-      "t.foreworld.gws.protobufB\004Chatb\006proto3"
+      "\n\031protobuf/model.chat.proto\022\003gws\"e\n\017Chat" +
+      "MsgProtobuf\022\n\n\002id\030\001 \001(\t\022\016\n\006sender\030\002 \001(\t\022" +
+      "\020\n\010receiver\030\003 \001(\t\022\017\n\007message\030\004 \001(\t\022\023\n\013ex" +
+      "tend_data\030\005 \001(\tB\"\n\032net.foreworld.gws.pro" +
+      "tobufB\004Chatb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1166,7 +1102,7 @@ public final class Chat {
     internal_static_gws_ChatMsgProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_ChatMsgProtobuf_descriptor,
-        new java.lang.String[] { "Id", "Timestamp", "Sender", "Receiver", "Message", "ExtendData", });
+        new java.lang.String[] { "Id", "Sender", "Receiver", "Message", "ExtendData", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

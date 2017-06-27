@@ -7,19 +7,17 @@ option java_outer_classname = "Fishjoy";
 
 message FishjoyBulletProtobuf {
   string id = 1;
-  uint64 timestamp = 2;
-  uint32 level = 3;
-  string sender = 4;
-  float x = 5;
-  float y = 6;
-  uint32 speed = 7;
+  uint32 level = 2;
+  string sender = 3;
+  float x = 4;
+  float y = 5;
+  uint32 speed = 6;
 }
 
 message FishjoyBulletBlastProtobuf {
   FishjoyBulletProtobuf bullet = 1;
-  uint64 timestamp = 2;
-  float x = 3;
-  float y = 4;
+  float x = 2;
+  float y = 3;
 }
 
 message FishjoyFishProtobuf {
@@ -29,15 +27,13 @@ message FishjoyFishProtobuf {
 
 message FishjoyFishCoordinateProtobuf {
   FishjoyFishProtobuf fish = 1;
-  uint64 timestamp = 2;
-  float x = 3;
-  float y = 4;
-  float angle = 5;
+  float x = 2;
+  float y = 3;
+  float angle = 4;
 }
 
 message FishjoyFishDeadProtobuf {
   FishjoyFishProtobuf fish = 1;
   FishjoyBulletProtobuf bullet = 2;
-  uint64 timestamp = 3;
-  uint32 score = 4;
+  uint32 score = 3;
 }

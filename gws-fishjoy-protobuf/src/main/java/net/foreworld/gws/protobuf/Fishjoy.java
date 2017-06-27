@@ -29,37 +29,32 @@ public final class Fishjoy {
         getIdBytes();
 
     /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    long getTimestamp();
-
-    /**
-     * <code>optional uint32 level = 3;</code>
+     * <code>optional uint32 level = 2;</code>
      */
     int getLevel();
 
     /**
-     * <code>optional string sender = 4;</code>
+     * <code>optional string sender = 3;</code>
      */
     java.lang.String getSender();
     /**
-     * <code>optional string sender = 4;</code>
+     * <code>optional string sender = 3;</code>
      */
     com.google.protobuf.ByteString
         getSenderBytes();
 
     /**
-     * <code>optional float x = 5;</code>
+     * <code>optional float x = 4;</code>
      */
     float getX();
 
     /**
-     * <code>optional float y = 6;</code>
+     * <code>optional float y = 5;</code>
      */
     float getY();
 
     /**
-     * <code>optional uint32 speed = 7;</code>
+     * <code>optional uint32 speed = 6;</code>
      */
     int getSpeed();
   }
@@ -76,7 +71,6 @@ public final class Fishjoy {
     }
     private FishjoyBulletProtobuf() {
       id_ = "";
-      timestamp_ = 0L;
       level_ = 0;
       sender_ = "";
       x_ = 0F;
@@ -117,31 +111,26 @@ public final class Fishjoy {
             }
             case 16: {
 
-              timestamp_ = input.readUInt64();
-              break;
-            }
-            case 24: {
-
               level_ = input.readUInt32();
               break;
             }
-            case 34: {
+            case 26: {
               java.lang.String s = input.readStringRequireUtf8();
 
               sender_ = s;
               break;
             }
-            case 45: {
+            case 37: {
 
               x_ = input.readFloat();
               break;
             }
-            case 53: {
+            case 45: {
 
               y_ = input.readFloat();
               break;
             }
-            case 56: {
+            case 48: {
 
               speed_ = input.readUInt32();
               break;
@@ -203,28 +192,19 @@ public final class Fishjoy {
       }
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 2;
-    private long timestamp_;
-    /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    public long getTimestamp() {
-      return timestamp_;
-    }
-
-    public static final int LEVEL_FIELD_NUMBER = 3;
+    public static final int LEVEL_FIELD_NUMBER = 2;
     private int level_;
     /**
-     * <code>optional uint32 level = 3;</code>
+     * <code>optional uint32 level = 2;</code>
      */
     public int getLevel() {
       return level_;
     }
 
-    public static final int SENDER_FIELD_NUMBER = 4;
+    public static final int SENDER_FIELD_NUMBER = 3;
     private volatile java.lang.Object sender_;
     /**
-     * <code>optional string sender = 4;</code>
+     * <code>optional string sender = 3;</code>
      */
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
@@ -239,7 +219,7 @@ public final class Fishjoy {
       }
     }
     /**
-     * <code>optional string sender = 4;</code>
+     * <code>optional string sender = 3;</code>
      */
     public com.google.protobuf.ByteString
         getSenderBytes() {
@@ -255,28 +235,28 @@ public final class Fishjoy {
       }
     }
 
-    public static final int X_FIELD_NUMBER = 5;
+    public static final int X_FIELD_NUMBER = 4;
     private float x_;
     /**
-     * <code>optional float x = 5;</code>
+     * <code>optional float x = 4;</code>
      */
     public float getX() {
       return x_;
     }
 
-    public static final int Y_FIELD_NUMBER = 6;
+    public static final int Y_FIELD_NUMBER = 5;
     private float y_;
     /**
-     * <code>optional float y = 6;</code>
+     * <code>optional float y = 5;</code>
      */
     public float getY() {
       return y_;
     }
 
-    public static final int SPEED_FIELD_NUMBER = 7;
+    public static final int SPEED_FIELD_NUMBER = 6;
     private int speed_;
     /**
-     * <code>optional uint32 speed = 7;</code>
+     * <code>optional uint32 speed = 6;</code>
      */
     public int getSpeed() {
       return speed_;
@@ -297,23 +277,20 @@ public final class Fishjoy {
       if (!getIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
-      if (timestamp_ != 0L) {
-        output.writeUInt64(2, timestamp_);
-      }
       if (level_ != 0) {
-        output.writeUInt32(3, level_);
+        output.writeUInt32(2, level_);
       }
       if (!getSenderBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, sender_);
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sender_);
       }
       if (x_ != 0F) {
-        output.writeFloat(5, x_);
+        output.writeFloat(4, x_);
       }
       if (y_ != 0F) {
-        output.writeFloat(6, y_);
+        output.writeFloat(5, y_);
       }
       if (speed_ != 0) {
-        output.writeUInt32(7, speed_);
+        output.writeUInt32(6, speed_);
       }
     }
 
@@ -325,28 +302,24 @@ public final class Fishjoy {
       if (!getIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
-      if (timestamp_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, timestamp_);
-      }
       if (level_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(3, level_);
+          .computeUInt32Size(2, level_);
       }
       if (!getSenderBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, sender_);
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sender_);
       }
       if (x_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(5, x_);
+          .computeFloatSize(4, x_);
       }
       if (y_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(6, y_);
+          .computeFloatSize(5, y_);
       }
       if (speed_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(7, speed_);
+          .computeUInt32Size(6, speed_);
       }
       memoizedSize = size;
       return size;
@@ -366,8 +339,6 @@ public final class Fishjoy {
       boolean result = true;
       result = result && getId()
           .equals(other.getId());
-      result = result && (getTimestamp()
-          == other.getTimestamp());
       result = result && (getLevel()
           == other.getLevel());
       result = result && getSender()
@@ -394,9 +365,6 @@ public final class Fishjoy {
       hash = (19 * hash) + getDescriptorForType().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTimestamp());
       hash = (37 * hash) + LEVEL_FIELD_NUMBER;
       hash = (53 * hash) + getLevel();
       hash = (37 * hash) + SENDER_FIELD_NUMBER;
@@ -529,8 +497,6 @@ public final class Fishjoy {
         super.clear();
         id_ = "";
 
-        timestamp_ = 0L;
-
         level_ = 0;
 
         sender_ = "";
@@ -564,7 +530,6 @@ public final class Fishjoy {
       public net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf buildPartial() {
         net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf result = new net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf(this);
         result.id_ = id_;
-        result.timestamp_ = timestamp_;
         result.level_ = level_;
         result.sender_ = sender_;
         result.x_ = x_;
@@ -614,9 +579,6 @@ public final class Fishjoy {
         if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
-        }
-        if (other.getTimestamp() != 0L) {
-          setTimestamp(other.getTimestamp());
         }
         if (other.getLevel() != 0) {
           setLevel(other.getLevel());
@@ -729,41 +691,15 @@ public final class Fishjoy {
         return this;
       }
 
-      private long timestamp_ ;
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder setTimestamp(long value) {
-        
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder clearTimestamp() {
-        
-        timestamp_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private int level_ ;
       /**
-       * <code>optional uint32 level = 3;</code>
+       * <code>optional uint32 level = 2;</code>
        */
       public int getLevel() {
         return level_;
       }
       /**
-       * <code>optional uint32 level = 3;</code>
+       * <code>optional uint32 level = 2;</code>
        */
       public Builder setLevel(int value) {
         
@@ -772,7 +708,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional uint32 level = 3;</code>
+       * <code>optional uint32 level = 2;</code>
        */
       public Builder clearLevel() {
         
@@ -783,7 +719,7 @@ public final class Fishjoy {
 
       private java.lang.Object sender_ = "";
       /**
-       * <code>optional string sender = 4;</code>
+       * <code>optional string sender = 3;</code>
        */
       public java.lang.String getSender() {
         java.lang.Object ref = sender_;
@@ -798,7 +734,7 @@ public final class Fishjoy {
         }
       }
       /**
-       * <code>optional string sender = 4;</code>
+       * <code>optional string sender = 3;</code>
        */
       public com.google.protobuf.ByteString
           getSenderBytes() {
@@ -814,7 +750,7 @@ public final class Fishjoy {
         }
       }
       /**
-       * <code>optional string sender = 4;</code>
+       * <code>optional string sender = 3;</code>
        */
       public Builder setSender(
           java.lang.String value) {
@@ -827,7 +763,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional string sender = 4;</code>
+       * <code>optional string sender = 3;</code>
        */
       public Builder clearSender() {
         
@@ -836,7 +772,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional string sender = 4;</code>
+       * <code>optional string sender = 3;</code>
        */
       public Builder setSenderBytes(
           com.google.protobuf.ByteString value) {
@@ -852,13 +788,13 @@ public final class Fishjoy {
 
       private float x_ ;
       /**
-       * <code>optional float x = 5;</code>
+       * <code>optional float x = 4;</code>
        */
       public float getX() {
         return x_;
       }
       /**
-       * <code>optional float x = 5;</code>
+       * <code>optional float x = 4;</code>
        */
       public Builder setX(float value) {
         
@@ -867,7 +803,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional float x = 5;</code>
+       * <code>optional float x = 4;</code>
        */
       public Builder clearX() {
         
@@ -878,13 +814,13 @@ public final class Fishjoy {
 
       private float y_ ;
       /**
-       * <code>optional float y = 6;</code>
+       * <code>optional float y = 5;</code>
        */
       public float getY() {
         return y_;
       }
       /**
-       * <code>optional float y = 6;</code>
+       * <code>optional float y = 5;</code>
        */
       public Builder setY(float value) {
         
@@ -893,7 +829,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional float y = 6;</code>
+       * <code>optional float y = 5;</code>
        */
       public Builder clearY() {
         
@@ -904,13 +840,13 @@ public final class Fishjoy {
 
       private int speed_ ;
       /**
-       * <code>optional uint32 speed = 7;</code>
+       * <code>optional uint32 speed = 6;</code>
        */
       public int getSpeed() {
         return speed_;
       }
       /**
-       * <code>optional uint32 speed = 7;</code>
+       * <code>optional uint32 speed = 6;</code>
        */
       public Builder setSpeed(int value) {
         
@@ -919,7 +855,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional uint32 speed = 7;</code>
+       * <code>optional uint32 speed = 6;</code>
        */
       public Builder clearSpeed() {
         
@@ -994,17 +930,12 @@ public final class Fishjoy {
     net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder getBulletOrBuilder();
 
     /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    long getTimestamp();
-
-    /**
-     * <code>optional float x = 3;</code>
+     * <code>optional float x = 2;</code>
      */
     float getX();
 
     /**
-     * <code>optional float y = 4;</code>
+     * <code>optional float y = 3;</code>
      */
     float getY();
   }
@@ -1020,7 +951,6 @@ public final class Fishjoy {
       super(builder);
     }
     private FishjoyBulletBlastProtobuf() {
-      timestamp_ = 0L;
       x_ = 0F;
       y_ = 0F;
     }
@@ -1063,17 +993,12 @@ public final class Fishjoy {
 
               break;
             }
-            case 16: {
-
-              timestamp_ = input.readUInt64();
-              break;
-            }
-            case 29: {
+            case 21: {
 
               x_ = input.readFloat();
               break;
             }
-            case 37: {
+            case 29: {
 
               y_ = input.readFloat();
               break;
@@ -1122,28 +1047,19 @@ public final class Fishjoy {
       return getBullet();
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 2;
-    private long timestamp_;
-    /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    public long getTimestamp() {
-      return timestamp_;
-    }
-
-    public static final int X_FIELD_NUMBER = 3;
+    public static final int X_FIELD_NUMBER = 2;
     private float x_;
     /**
-     * <code>optional float x = 3;</code>
+     * <code>optional float x = 2;</code>
      */
     public float getX() {
       return x_;
     }
 
-    public static final int Y_FIELD_NUMBER = 4;
+    public static final int Y_FIELD_NUMBER = 3;
     private float y_;
     /**
-     * <code>optional float y = 4;</code>
+     * <code>optional float y = 3;</code>
      */
     public float getY() {
       return y_;
@@ -1164,14 +1080,11 @@ public final class Fishjoy {
       if (bullet_ != null) {
         output.writeMessage(1, getBullet());
       }
-      if (timestamp_ != 0L) {
-        output.writeUInt64(2, timestamp_);
-      }
       if (x_ != 0F) {
-        output.writeFloat(3, x_);
+        output.writeFloat(2, x_);
       }
       if (y_ != 0F) {
-        output.writeFloat(4, y_);
+        output.writeFloat(3, y_);
       }
     }
 
@@ -1184,17 +1097,13 @@ public final class Fishjoy {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getBullet());
       }
-      if (timestamp_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, timestamp_);
-      }
       if (x_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, x_);
+          .computeFloatSize(2, x_);
       }
       if (y_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, y_);
+          .computeFloatSize(3, y_);
       }
       memoizedSize = size;
       return size;
@@ -1217,8 +1126,6 @@ public final class Fishjoy {
         result = result && getBullet()
             .equals(other.getBullet());
       }
-      result = result && (getTimestamp()
-          == other.getTimestamp());
       result = result && (
           java.lang.Float.floatToIntBits(getX())
           == java.lang.Float.floatToIntBits(
@@ -1241,9 +1148,6 @@ public final class Fishjoy {
         hash = (37 * hash) + BULLET_FIELD_NUMBER;
         hash = (53 * hash) + getBullet().hashCode();
       }
-      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTimestamp());
       hash = (37 * hash) + X_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getX());
@@ -1374,8 +1278,6 @@ public final class Fishjoy {
           bullet_ = null;
           bulletBuilder_ = null;
         }
-        timestamp_ = 0L;
-
         x_ = 0F;
 
         y_ = 0F;
@@ -1407,7 +1309,6 @@ public final class Fishjoy {
         } else {
           result.bullet_ = bulletBuilder_.build();
         }
-        result.timestamp_ = timestamp_;
         result.x_ = x_;
         result.y_ = y_;
         onBuilt();
@@ -1453,9 +1354,6 @@ public final class Fishjoy {
         if (other == net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletBlastProtobuf.getDefaultInstance()) return this;
         if (other.hasBullet()) {
           mergeBullet(other.getBullet());
-        }
-        if (other.getTimestamp() != 0L) {
-          setTimestamp(other.getTimestamp());
         }
         if (other.getX() != 0F) {
           setX(other.getX());
@@ -1606,41 +1504,15 @@ public final class Fishjoy {
         return bulletBuilder_;
       }
 
-      private long timestamp_ ;
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder setTimestamp(long value) {
-        
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder clearTimestamp() {
-        
-        timestamp_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private float x_ ;
       /**
-       * <code>optional float x = 3;</code>
+       * <code>optional float x = 2;</code>
        */
       public float getX() {
         return x_;
       }
       /**
-       * <code>optional float x = 3;</code>
+       * <code>optional float x = 2;</code>
        */
       public Builder setX(float value) {
         
@@ -1649,7 +1521,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional float x = 3;</code>
+       * <code>optional float x = 2;</code>
        */
       public Builder clearX() {
         
@@ -1660,13 +1532,13 @@ public final class Fishjoy {
 
       private float y_ ;
       /**
-       * <code>optional float y = 4;</code>
+       * <code>optional float y = 3;</code>
        */
       public float getY() {
         return y_;
       }
       /**
-       * <code>optional float y = 4;</code>
+       * <code>optional float y = 3;</code>
        */
       public Builder setY(float value) {
         
@@ -1675,7 +1547,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional float y = 4;</code>
+       * <code>optional float y = 3;</code>
        */
       public Builder clearY() {
         
@@ -2316,22 +2188,17 @@ public final class Fishjoy {
     net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder getFishOrBuilder();
 
     /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    long getTimestamp();
-
-    /**
-     * <code>optional float x = 3;</code>
+     * <code>optional float x = 2;</code>
      */
     float getX();
 
     /**
-     * <code>optional float y = 4;</code>
+     * <code>optional float y = 3;</code>
      */
     float getY();
 
     /**
-     * <code>optional float angle = 5;</code>
+     * <code>optional float angle = 4;</code>
      */
     float getAngle();
   }
@@ -2347,7 +2214,6 @@ public final class Fishjoy {
       super(builder);
     }
     private FishjoyFishCoordinateProtobuf() {
-      timestamp_ = 0L;
       x_ = 0F;
       y_ = 0F;
       angle_ = 0F;
@@ -2391,22 +2257,17 @@ public final class Fishjoy {
 
               break;
             }
-            case 16: {
-
-              timestamp_ = input.readUInt64();
-              break;
-            }
-            case 29: {
+            case 21: {
 
               x_ = input.readFloat();
               break;
             }
-            case 37: {
+            case 29: {
 
               y_ = input.readFloat();
               break;
             }
-            case 45: {
+            case 37: {
 
               angle_ = input.readFloat();
               break;
@@ -2455,37 +2316,28 @@ public final class Fishjoy {
       return getFish();
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 2;
-    private long timestamp_;
-    /**
-     * <code>optional uint64 timestamp = 2;</code>
-     */
-    public long getTimestamp() {
-      return timestamp_;
-    }
-
-    public static final int X_FIELD_NUMBER = 3;
+    public static final int X_FIELD_NUMBER = 2;
     private float x_;
     /**
-     * <code>optional float x = 3;</code>
+     * <code>optional float x = 2;</code>
      */
     public float getX() {
       return x_;
     }
 
-    public static final int Y_FIELD_NUMBER = 4;
+    public static final int Y_FIELD_NUMBER = 3;
     private float y_;
     /**
-     * <code>optional float y = 4;</code>
+     * <code>optional float y = 3;</code>
      */
     public float getY() {
       return y_;
     }
 
-    public static final int ANGLE_FIELD_NUMBER = 5;
+    public static final int ANGLE_FIELD_NUMBER = 4;
     private float angle_;
     /**
-     * <code>optional float angle = 5;</code>
+     * <code>optional float angle = 4;</code>
      */
     public float getAngle() {
       return angle_;
@@ -2506,17 +2358,14 @@ public final class Fishjoy {
       if (fish_ != null) {
         output.writeMessage(1, getFish());
       }
-      if (timestamp_ != 0L) {
-        output.writeUInt64(2, timestamp_);
-      }
       if (x_ != 0F) {
-        output.writeFloat(3, x_);
+        output.writeFloat(2, x_);
       }
       if (y_ != 0F) {
-        output.writeFloat(4, y_);
+        output.writeFloat(3, y_);
       }
       if (angle_ != 0F) {
-        output.writeFloat(5, angle_);
+        output.writeFloat(4, angle_);
       }
     }
 
@@ -2529,21 +2378,17 @@ public final class Fishjoy {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getFish());
       }
-      if (timestamp_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(2, timestamp_);
-      }
       if (x_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, x_);
+          .computeFloatSize(2, x_);
       }
       if (y_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, y_);
+          .computeFloatSize(3, y_);
       }
       if (angle_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(5, angle_);
+          .computeFloatSize(4, angle_);
       }
       memoizedSize = size;
       return size;
@@ -2566,8 +2411,6 @@ public final class Fishjoy {
         result = result && getFish()
             .equals(other.getFish());
       }
-      result = result && (getTimestamp()
-          == other.getTimestamp());
       result = result && (
           java.lang.Float.floatToIntBits(getX())
           == java.lang.Float.floatToIntBits(
@@ -2594,9 +2437,6 @@ public final class Fishjoy {
         hash = (37 * hash) + FISH_FIELD_NUMBER;
         hash = (53 * hash) + getFish().hashCode();
       }
-      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTimestamp());
       hash = (37 * hash) + X_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getX());
@@ -2730,8 +2570,6 @@ public final class Fishjoy {
           fish_ = null;
           fishBuilder_ = null;
         }
-        timestamp_ = 0L;
-
         x_ = 0F;
 
         y_ = 0F;
@@ -2765,7 +2603,6 @@ public final class Fishjoy {
         } else {
           result.fish_ = fishBuilder_.build();
         }
-        result.timestamp_ = timestamp_;
         result.x_ = x_;
         result.y_ = y_;
         result.angle_ = angle_;
@@ -2812,9 +2649,6 @@ public final class Fishjoy {
         if (other == net.foreworld.gws.protobuf.Fishjoy.FishjoyFishCoordinateProtobuf.getDefaultInstance()) return this;
         if (other.hasFish()) {
           mergeFish(other.getFish());
-        }
-        if (other.getTimestamp() != 0L) {
-          setTimestamp(other.getTimestamp());
         }
         if (other.getX() != 0F) {
           setX(other.getX());
@@ -2968,41 +2802,15 @@ public final class Fishjoy {
         return fishBuilder_;
       }
 
-      private long timestamp_ ;
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder setTimestamp(long value) {
-        
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional uint64 timestamp = 2;</code>
-       */
-      public Builder clearTimestamp() {
-        
-        timestamp_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private float x_ ;
       /**
-       * <code>optional float x = 3;</code>
+       * <code>optional float x = 2;</code>
        */
       public float getX() {
         return x_;
       }
       /**
-       * <code>optional float x = 3;</code>
+       * <code>optional float x = 2;</code>
        */
       public Builder setX(float value) {
         
@@ -3011,7 +2819,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional float x = 3;</code>
+       * <code>optional float x = 2;</code>
        */
       public Builder clearX() {
         
@@ -3022,13 +2830,13 @@ public final class Fishjoy {
 
       private float y_ ;
       /**
-       * <code>optional float y = 4;</code>
+       * <code>optional float y = 3;</code>
        */
       public float getY() {
         return y_;
       }
       /**
-       * <code>optional float y = 4;</code>
+       * <code>optional float y = 3;</code>
        */
       public Builder setY(float value) {
         
@@ -3037,7 +2845,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional float y = 4;</code>
+       * <code>optional float y = 3;</code>
        */
       public Builder clearY() {
         
@@ -3048,13 +2856,13 @@ public final class Fishjoy {
 
       private float angle_ ;
       /**
-       * <code>optional float angle = 5;</code>
+       * <code>optional float angle = 4;</code>
        */
       public float getAngle() {
         return angle_;
       }
       /**
-       * <code>optional float angle = 5;</code>
+       * <code>optional float angle = 4;</code>
        */
       public Builder setAngle(float value) {
         
@@ -3063,7 +2871,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional float angle = 5;</code>
+       * <code>optional float angle = 4;</code>
        */
       public Builder clearAngle() {
         
@@ -3151,12 +2959,7 @@ public final class Fishjoy {
     net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder getBulletOrBuilder();
 
     /**
-     * <code>optional uint64 timestamp = 3;</code>
-     */
-    long getTimestamp();
-
-    /**
-     * <code>optional uint32 score = 4;</code>
+     * <code>optional uint32 score = 3;</code>
      */
     int getScore();
   }
@@ -3172,7 +2975,6 @@ public final class Fishjoy {
       super(builder);
     }
     private FishjoyFishDeadProtobuf() {
-      timestamp_ = 0L;
       score_ = 0;
     }
 
@@ -3228,11 +3030,6 @@ public final class Fishjoy {
               break;
             }
             case 24: {
-
-              timestamp_ = input.readUInt64();
-              break;
-            }
-            case 32: {
 
               score_ = input.readUInt32();
               break;
@@ -3302,19 +3099,10 @@ public final class Fishjoy {
       return getBullet();
     }
 
-    public static final int TIMESTAMP_FIELD_NUMBER = 3;
-    private long timestamp_;
-    /**
-     * <code>optional uint64 timestamp = 3;</code>
-     */
-    public long getTimestamp() {
-      return timestamp_;
-    }
-
-    public static final int SCORE_FIELD_NUMBER = 4;
+    public static final int SCORE_FIELD_NUMBER = 3;
     private int score_;
     /**
-     * <code>optional uint32 score = 4;</code>
+     * <code>optional uint32 score = 3;</code>
      */
     public int getScore() {
       return score_;
@@ -3338,11 +3126,8 @@ public final class Fishjoy {
       if (bullet_ != null) {
         output.writeMessage(2, getBullet());
       }
-      if (timestamp_ != 0L) {
-        output.writeUInt64(3, timestamp_);
-      }
       if (score_ != 0) {
-        output.writeUInt32(4, score_);
+        output.writeUInt32(3, score_);
       }
     }
 
@@ -3359,13 +3144,9 @@ public final class Fishjoy {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, getBullet());
       }
-      if (timestamp_ != 0L) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeUInt64Size(3, timestamp_);
-      }
       if (score_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(4, score_);
+          .computeUInt32Size(3, score_);
       }
       memoizedSize = size;
       return size;
@@ -3393,8 +3174,6 @@ public final class Fishjoy {
         result = result && getBullet()
             .equals(other.getBullet());
       }
-      result = result && (getTimestamp()
-          == other.getTimestamp());
       result = result && (getScore()
           == other.getScore());
       return result;
@@ -3415,9 +3194,6 @@ public final class Fishjoy {
         hash = (37 * hash) + BULLET_FIELD_NUMBER;
         hash = (53 * hash) + getBullet().hashCode();
       }
-      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
-          getTimestamp());
       hash = (37 * hash) + SCORE_FIELD_NUMBER;
       hash = (53 * hash) + getScore();
       hash = (29 * hash) + unknownFields.hashCode();
@@ -3550,8 +3326,6 @@ public final class Fishjoy {
           bullet_ = null;
           bulletBuilder_ = null;
         }
-        timestamp_ = 0L;
-
         score_ = 0;
 
         return this;
@@ -3586,7 +3360,6 @@ public final class Fishjoy {
         } else {
           result.bullet_ = bulletBuilder_.build();
         }
-        result.timestamp_ = timestamp_;
         result.score_ = score_;
         onBuilt();
         return result;
@@ -3634,9 +3407,6 @@ public final class Fishjoy {
         }
         if (other.hasBullet()) {
           mergeBullet(other.getBullet());
-        }
-        if (other.getTimestamp() != 0L) {
-          setTimestamp(other.getTimestamp());
         }
         if (other.getScore() != 0) {
           setScore(other.getScore());
@@ -3901,41 +3671,15 @@ public final class Fishjoy {
         return bulletBuilder_;
       }
 
-      private long timestamp_ ;
-      /**
-       * <code>optional uint64 timestamp = 3;</code>
-       */
-      public long getTimestamp() {
-        return timestamp_;
-      }
-      /**
-       * <code>optional uint64 timestamp = 3;</code>
-       */
-      public Builder setTimestamp(long value) {
-        
-        timestamp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional uint64 timestamp = 3;</code>
-       */
-      public Builder clearTimestamp() {
-        
-        timestamp_ = 0L;
-        onChanged();
-        return this;
-      }
-
       private int score_ ;
       /**
-       * <code>optional uint32 score = 4;</code>
+       * <code>optional uint32 score = 3;</code>
        */
       public int getScore() {
         return score_;
       }
       /**
-       * <code>optional uint32 score = 4;</code>
+       * <code>optional uint32 score = 3;</code>
        */
       public Builder setScore(int value) {
         
@@ -3944,7 +3688,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional uint32 score = 4;</code>
+       * <code>optional uint32 score = 3;</code>
        */
       public Builder clearScore() {
         
@@ -4035,23 +3779,21 @@ public final class Fishjoy {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\034protobuf/model.fishjoy.proto\022\003gws\"z\n\025F" +
-      "ishjoyBulletProtobuf\022\n\n\002id\030\001 \001(\t\022\021\n\ttime" +
-      "stamp\030\002 \001(\004\022\r\n\005level\030\003 \001(\r\022\016\n\006sender\030\004 \001" +
-      "(\t\022\t\n\001x\030\005 \001(\002\022\t\n\001y\030\006 \001(\002\022\r\n\005speed\030\007 \001(\r\"" +
-      "q\n\032FishjoyBulletBlastProtobuf\022*\n\006bullet\030" +
-      "\001 \001(\0132\032.gws.FishjoyBulletProtobuf\022\021\n\ttim" +
-      "estamp\030\002 \001(\004\022\t\n\001x\030\003 \001(\002\022\t\n\001y\030\004 \001(\002\"/\n\023Fi" +
-      "shjoyFishProtobuf\022\n\n\002id\030\001 \001(\t\022\014\n\004type\030\002 " +
-      "\001(\r\"\177\n\035FishjoyFishCoordinateProtobuf\022&\n\004" +
-      "fish\030\001 \001(\0132\030.gws.FishjoyFishProtobuf\022\021\n\t",
-      "timestamp\030\002 \001(\004\022\t\n\001x\030\003 \001(\002\022\t\n\001y\030\004 \001(\002\022\r\n" +
-      "\005angle\030\005 \001(\002\"\217\001\n\027FishjoyFishDeadProtobuf" +
-      "\022&\n\004fish\030\001 \001(\0132\030.gws.FishjoyFishProtobuf" +
-      "\022*\n\006bullet\030\002 \001(\0132\032.gws.FishjoyBulletProt" +
-      "obuf\022\021\n\ttimestamp\030\003 \001(\004\022\r\n\005score\030\004 \001(\rB%" +
-      "\n\032net.foreworld.gws.protobufB\007Fishjoyb\006p" +
-      "roto3"
+      "\n\034protobuf/model.fishjoy.proto\022\003gws\"g\n\025F" +
+      "ishjoyBulletProtobuf\022\n\n\002id\030\001 \001(\t\022\r\n\005leve" +
+      "l\030\002 \001(\r\022\016\n\006sender\030\003 \001(\t\022\t\n\001x\030\004 \001(\002\022\t\n\001y\030" +
+      "\005 \001(\002\022\r\n\005speed\030\006 \001(\r\"^\n\032FishjoyBulletBla" +
+      "stProtobuf\022*\n\006bullet\030\001 \001(\0132\032.gws.Fishjoy" +
+      "BulletProtobuf\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\"/\n\023" +
+      "FishjoyFishProtobuf\022\n\n\002id\030\001 \001(\t\022\014\n\004type\030" +
+      "\002 \001(\r\"l\n\035FishjoyFishCoordinateProtobuf\022&" +
+      "\n\004fish\030\001 \001(\0132\030.gws.FishjoyFishProtobuf\022\t" +
+      "\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\r\n\005angle\030\004 \001(\002\"|\n\027F",
+      "ishjoyFishDeadProtobuf\022&\n\004fish\030\001 \001(\0132\030.g" +
+      "ws.FishjoyFishProtobuf\022*\n\006bullet\030\002 \001(\0132\032" +
+      ".gws.FishjoyBulletProtobuf\022\r\n\005score\030\003 \001(" +
+      "\rB%\n\032net.foreworld.gws.protobufB\007Fishjoy" +
+      "b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4070,13 +3812,13 @@ public final class Fishjoy {
     internal_static_gws_FishjoyBulletProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyBulletProtobuf_descriptor,
-        new java.lang.String[] { "Id", "Timestamp", "Level", "Sender", "X", "Y", "Speed", });
+        new java.lang.String[] { "Id", "Level", "Sender", "X", "Y", "Speed", });
     internal_static_gws_FishjoyBulletBlastProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_gws_FishjoyBulletBlastProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyBulletBlastProtobuf_descriptor,
-        new java.lang.String[] { "Bullet", "Timestamp", "X", "Y", });
+        new java.lang.String[] { "Bullet", "X", "Y", });
     internal_static_gws_FishjoyFishProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_gws_FishjoyFishProtobuf_fieldAccessorTable = new
@@ -4088,13 +3830,13 @@ public final class Fishjoy {
     internal_static_gws_FishjoyFishCoordinateProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyFishCoordinateProtobuf_descriptor,
-        new java.lang.String[] { "Fish", "Timestamp", "X", "Y", "Angle", });
+        new java.lang.String[] { "Fish", "X", "Y", "Angle", });
     internal_static_gws_FishjoyFishDeadProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_gws_FishjoyFishDeadProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyFishDeadProtobuf_descriptor,
-        new java.lang.String[] { "Fish", "Bullet", "Timestamp", "Score", });
+        new java.lang.String[] { "Fish", "Bullet", "Score", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
