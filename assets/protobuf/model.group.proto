@@ -7,12 +7,10 @@ option java_outer_classname = "Group";
 
 message GroupProtobuf {
   string id = 1;
+  string group_name = 2;
+  string group_type = 3;
 }
 
 message GroupSearchProtobuf {
   string group_type = 1;
-}
-
-message GroupEntryProtobuf {
-  string group_id = 1;
 }

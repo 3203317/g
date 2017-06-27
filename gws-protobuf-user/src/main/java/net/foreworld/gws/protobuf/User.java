@@ -4,1689 +4,1586 @@
 package net.foreworld.gws.protobuf;
 
 public final class User {
-	private User() {
-	}
-
-	public static void registerAllExtensions(
-			com.google.protobuf.ExtensionRegistryLite registry) {
-	}
-
-	public static void registerAllExtensions(
-			com.google.protobuf.ExtensionRegistry registry) {
-		registerAllExtensions((com.google.protobuf.ExtensionRegistryLite) registry);
-	}
-
-	public interface UserLoginProtobufOrBuilder extends
-	// @@protoc_insertion_point(interface_extends:gws.UserLoginProtobuf)
-			com.google.protobuf.MessageOrBuilder {
-
-		/**
-		 * <code>optional string code = 1;</code>
-		 */
-		java.lang.String getCode();
-
-		/**
-		 * <code>optional string code = 1;</code>
-		 */
-		com.google.protobuf.ByteString getCodeBytes();
-	}
-
-	/**
-	 * Protobuf type {@code gws.UserLoginProtobuf}
-	 */
-	public static final class UserLoginProtobuf extends
-			com.google.protobuf.GeneratedMessageV3 implements
-	// @@protoc_insertion_point(message_implements:gws.UserLoginProtobuf)
-			UserLoginProtobufOrBuilder {
-		// Use UserLoginProtobuf.newBuilder() to construct.
-		private UserLoginProtobuf(
-				com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-			super(builder);
-		}
-
-		private UserLoginProtobuf() {
-			code_ = "";
-		}
-
-		@java.lang.Override
-		public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
-			return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-		}
-
-		private UserLoginProtobuf(com.google.protobuf.CodedInputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			this();
-			int mutable_bitField0_ = 0;
-			try {
-				boolean done = false;
-				while (!done) {
-					int tag = input.readTag();
-					switch (tag) {
-					case 0:
-						done = true;
-						break;
-					default: {
-						if (!input.skipField(tag)) {
-							done = true;
-						}
-						break;
-					}
-					case 10: {
-						java.lang.String s = input.readStringRequireUtf8();
-
-						code_ = s;
-						break;
-					}
-					}
-				}
-			} catch (com.google.protobuf.InvalidProtocolBufferException e) {
-				throw e.setUnfinishedMessage(this);
-			} catch (java.io.IOException e) {
-				throw new com.google.protobuf.InvalidProtocolBufferException(e)
-						.setUnfinishedMessage(this);
-			} finally {
-				makeExtensionsImmutable();
-			}
-		}
-
-		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-			return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
-		}
-
-		protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-			return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_fieldAccessorTable
-					.ensureFieldAccessorsInitialized(
-							net.foreworld.gws.protobuf.User.UserLoginProtobuf.class,
-							net.foreworld.gws.protobuf.User.UserLoginProtobuf.Builder.class);
-		}
-
-		public static final int CODE_FIELD_NUMBER = 1;
-		private volatile java.lang.Object code_;
-
-		/**
-		 * <code>optional string code = 1;</code>
-		 */
-		public java.lang.String getCode() {
-			java.lang.Object ref = code_;
-			if (ref instanceof java.lang.String) {
-				return (java.lang.String) ref;
-			} else {
-				com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-				java.lang.String s = bs.toStringUtf8();
-				code_ = s;
-				return s;
-			}
-		}
-
-		/**
-		 * <code>optional string code = 1;</code>
-		 */
-		public com.google.protobuf.ByteString getCodeBytes() {
-			java.lang.Object ref = code_;
-			if (ref instanceof java.lang.String) {
-				com.google.protobuf.ByteString b = com.google.protobuf.ByteString
-						.copyFromUtf8((java.lang.String) ref);
-				code_ = b;
-				return b;
-			} else {
-				return (com.google.protobuf.ByteString) ref;
-			}
-		}
-
-		private byte memoizedIsInitialized = -1;
-
-		public final boolean isInitialized() {
-			byte isInitialized = memoizedIsInitialized;
-			if (isInitialized == 1)
-				return true;
-			if (isInitialized == 0)
-				return false;
-
-			memoizedIsInitialized = 1;
-			return true;
-		}
-
-		public void writeTo(com.google.protobuf.CodedOutputStream output)
-				throws java.io.IOException {
-			if (!getCodeBytes().isEmpty()) {
-				com.google.protobuf.GeneratedMessageV3.writeString(output, 1,
-						code_);
-			}
-		}
-
-		public int getSerializedSize() {
-			int size = memoizedSize;
-			if (size != -1)
-				return size;
-
-			size = 0;
-			if (!getCodeBytes().isEmpty()) {
-				size += com.google.protobuf.GeneratedMessageV3
-						.computeStringSize(1, code_);
-			}
-			memoizedSize = size;
-			return size;
-		}
-
-		private static final long serialVersionUID = 0L;
-
-		@java.lang.Override
-		public boolean equals(final java.lang.Object obj) {
-			if (obj == this) {
-				return true;
-			}
-			if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLoginProtobuf)) {
-				return super.equals(obj);
-			}
-			net.foreworld.gws.protobuf.User.UserLoginProtobuf other = (net.foreworld.gws.protobuf.User.UserLoginProtobuf) obj;
-
-			boolean result = true;
-			result = result && getCode().equals(other.getCode());
-			return result;
-		}
-
-		@java.lang.Override
-		public int hashCode() {
-			if (memoizedHashCode != 0) {
-				return memoizedHashCode;
-			}
-			int hash = 41;
-			hash = (19 * hash) + getDescriptorForType().hashCode();
-			hash = (37 * hash) + CODE_FIELD_NUMBER;
-			hash = (53 * hash) + getCode().hashCode();
-			hash = (29 * hash) + unknownFields.hashCode();
-			memoizedHashCode = hash;
-			return hash;
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				com.google.protobuf.ByteString data)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				com.google.protobuf.ByteString data,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				byte[] data)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				byte[] data,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				java.io.InputStream input) throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				java.io.InputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseDelimitedFrom(
-				java.io.InputStream input) throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3
-					.parseDelimitedWithIOException(PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseDelimitedFrom(
-				java.io.InputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3
-					.parseDelimitedWithIOException(PARSER, input,
-							extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				com.google.protobuf.CodedInputStream input)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
-				com.google.protobuf.CodedInputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input, extensionRegistry);
-		}
-
-		public Builder newBuilderForType() {
-			return newBuilder();
-		}
-
-		public static Builder newBuilder() {
-			return DEFAULT_INSTANCE.toBuilder();
-		}
-
-		public static Builder newBuilder(
-				net.foreworld.gws.protobuf.User.UserLoginProtobuf prototype) {
-			return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-		}
-
-		public Builder toBuilder() {
-			return this == DEFAULT_INSTANCE ? new Builder() : new Builder()
-					.mergeFrom(this);
-		}
-
-		@java.lang.Override
-		protected Builder newBuilderForType(
-				com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-			Builder builder = new Builder(parent);
-			return builder;
-		}
-
-		/**
-		 * Protobuf type {@code gws.UserLoginProtobuf}
-		 */
-		public static final class Builder extends
-				com.google.protobuf.GeneratedMessageV3.Builder<Builder>
-				implements
-				// @@protoc_insertion_point(builder_implements:gws.UserLoginProtobuf)
-				net.foreworld.gws.protobuf.User.UserLoginProtobufOrBuilder {
-			public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
-			}
-
-			protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_fieldAccessorTable
-						.ensureFieldAccessorsInitialized(
-								net.foreworld.gws.protobuf.User.UserLoginProtobuf.class,
-								net.foreworld.gws.protobuf.User.UserLoginProtobuf.Builder.class);
-			}
-
-			// Construct using
-			// net.foreworld.gws.protobuf.User.UserLoginProtobuf.newBuilder()
-			private Builder() {
-				maybeForceBuilderInitialization();
-			}
-
-			private Builder(
-					com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-				super(parent);
-				maybeForceBuilderInitialization();
-			}
-
-			private void maybeForceBuilderInitialization() {
-				if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
-				}
-			}
-
-			public Builder clear() {
-				super.clear();
-				code_ = "";
-
-				return this;
-			}
-
-			public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstanceForType() {
-				return net.foreworld.gws.protobuf.User.UserLoginProtobuf
-						.getDefaultInstance();
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLoginProtobuf build() {
-				net.foreworld.gws.protobuf.User.UserLoginProtobuf result = buildPartial();
-				if (!result.isInitialized()) {
-					throw newUninitializedMessageException(result);
-				}
-				return result;
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLoginProtobuf buildPartial() {
-				net.foreworld.gws.protobuf.User.UserLoginProtobuf result = new net.foreworld.gws.protobuf.User.UserLoginProtobuf(
-						this);
-				result.code_ = code_;
-				onBuilt();
-				return result;
-			}
-
-			public Builder clone() {
-				return (Builder) super.clone();
-			}
-
-			public Builder setField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					Object value) {
-				return (Builder) super.setField(field, value);
-			}
-
-			public Builder clearField(
-					com.google.protobuf.Descriptors.FieldDescriptor field) {
-				return (Builder) super.clearField(field);
-			}
-
-			public Builder clearOneof(
-					com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-				return (Builder) super.clearOneof(oneof);
-			}
-
-			public Builder setRepeatedField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					int index, Object value) {
-				return (Builder) super.setRepeatedField(field, index, value);
-			}
-
-			public Builder addRepeatedField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					Object value) {
-				return (Builder) super.addRepeatedField(field, value);
-			}
-
-			public Builder mergeFrom(com.google.protobuf.Message other) {
-				if (other instanceof net.foreworld.gws.protobuf.User.UserLoginProtobuf) {
-					return mergeFrom((net.foreworld.gws.protobuf.User.UserLoginProtobuf) other);
-				} else {
-					super.mergeFrom(other);
-					return this;
-				}
-			}
-
-			public Builder mergeFrom(
-					net.foreworld.gws.protobuf.User.UserLoginProtobuf other) {
-				if (other == net.foreworld.gws.protobuf.User.UserLoginProtobuf
-						.getDefaultInstance())
-					return this;
-				if (!other.getCode().isEmpty()) {
-					code_ = other.code_;
-					onChanged();
-				}
-				onChanged();
-				return this;
-			}
-
-			public final boolean isInitialized() {
-				return true;
-			}
-
-			public Builder mergeFrom(
-					com.google.protobuf.CodedInputStream input,
-					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-					throws java.io.IOException {
-				net.foreworld.gws.protobuf.User.UserLoginProtobuf parsedMessage = null;
-				try {
-					parsedMessage = PARSER.parsePartialFrom(input,
-							extensionRegistry);
-				} catch (com.google.protobuf.InvalidProtocolBufferException e) {
-					parsedMessage = (net.foreworld.gws.protobuf.User.UserLoginProtobuf) e
-							.getUnfinishedMessage();
-					throw e.unwrapIOException();
-				} finally {
-					if (parsedMessage != null) {
-						mergeFrom(parsedMessage);
-					}
-				}
-				return this;
-			}
-
-			private java.lang.Object code_ = "";
-
-			/**
-			 * <code>optional string code = 1;</code>
-			 */
-			public java.lang.String getCode() {
-				java.lang.Object ref = code_;
-				if (!(ref instanceof java.lang.String)) {
-					com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-					java.lang.String s = bs.toStringUtf8();
-					code_ = s;
-					return s;
-				} else {
-					return (java.lang.String) ref;
-				}
-			}
-
-			/**
-			 * <code>optional string code = 1;</code>
-			 */
-			public com.google.protobuf.ByteString getCodeBytes() {
-				java.lang.Object ref = code_;
-				if (ref instanceof String) {
-					com.google.protobuf.ByteString b = com.google.protobuf.ByteString
-							.copyFromUtf8((java.lang.String) ref);
-					code_ = b;
-					return b;
-				} else {
-					return (com.google.protobuf.ByteString) ref;
-				}
-			}
-
-			/**
-			 * <code>optional string code = 1;</code>
-			 */
-			public Builder setCode(java.lang.String value) {
-				if (value == null) {
-					throw new NullPointerException();
-				}
-
-				code_ = value;
-				onChanged();
-				return this;
-			}
-
-			/**
-			 * <code>optional string code = 1;</code>
-			 */
-			public Builder clearCode() {
-
-				code_ = getDefaultInstance().getCode();
-				onChanged();
-				return this;
-			}
-
-			/**
-			 * <code>optional string code = 1;</code>
-			 */
-			public Builder setCodeBytes(com.google.protobuf.ByteString value) {
-				if (value == null) {
-					throw new NullPointerException();
-				}
-				checkByteStringIsUtf8(value);
-
-				code_ = value;
-				onChanged();
-				return this;
-			}
-
-			public final Builder setUnknownFields(
-					final com.google.protobuf.UnknownFieldSet unknownFields) {
-				return this;
-			}
-
-			public final Builder mergeUnknownFields(
-					final com.google.protobuf.UnknownFieldSet unknownFields) {
-				return this;
-			}
-
-			// @@protoc_insertion_point(builder_scope:gws.UserLoginProtobuf)
-		}
-
-		// @@protoc_insertion_point(class_scope:gws.UserLoginProtobuf)
-		private static final net.foreworld.gws.protobuf.User.UserLoginProtobuf DEFAULT_INSTANCE;
-		static {
-			DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLoginProtobuf();
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstance() {
-			return DEFAULT_INSTANCE;
-		}
-
-		private static final com.google.protobuf.Parser<UserLoginProtobuf> PARSER = new com.google.protobuf.AbstractParser<UserLoginProtobuf>() {
-			public UserLoginProtobuf parsePartialFrom(
-					com.google.protobuf.CodedInputStream input,
-					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-					throws com.google.protobuf.InvalidProtocolBufferException {
-				return new UserLoginProtobuf(input, extensionRegistry);
-			}
-		};
-
-		public static com.google.protobuf.Parser<UserLoginProtobuf> parser() {
-			return PARSER;
-		}
-
-		@java.lang.Override
-		public com.google.protobuf.Parser<UserLoginProtobuf> getParserForType() {
-			return PARSER;
-		}
-
-		public net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstanceForType() {
-			return DEFAULT_INSTANCE;
-		}
-
-	}
-
-	public interface UserLoginResultProtobufOrBuilder extends
-	// @@protoc_insertion_point(interface_extends:gws.UserLoginResultProtobuf)
-			com.google.protobuf.MessageOrBuilder {
-
-		/**
-		 * <code>optional string token = 1;</code>
-		 */
-		java.lang.String getToken();
-
-		/**
-		 * <code>optional string token = 1;</code>
-		 */
-		com.google.protobuf.ByteString getTokenBytes();
-	}
-
-	/**
-	 * Protobuf type {@code gws.UserLoginResultProtobuf}
-	 */
-	public static final class UserLoginResultProtobuf extends
-			com.google.protobuf.GeneratedMessageV3 implements
-	// @@protoc_insertion_point(message_implements:gws.UserLoginResultProtobuf)
-			UserLoginResultProtobufOrBuilder {
-		// Use UserLoginResultProtobuf.newBuilder() to construct.
-		private UserLoginResultProtobuf(
-				com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-			super(builder);
-		}
-
-		private UserLoginResultProtobuf() {
-			token_ = "";
-		}
-
-		@java.lang.Override
-		public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
-			return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-		}
-
-		private UserLoginResultProtobuf(
-				com.google.protobuf.CodedInputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			this();
-			int mutable_bitField0_ = 0;
-			try {
-				boolean done = false;
-				while (!done) {
-					int tag = input.readTag();
-					switch (tag) {
-					case 0:
-						done = true;
-						break;
-					default: {
-						if (!input.skipField(tag)) {
-							done = true;
-						}
-						break;
-					}
-					case 10: {
-						java.lang.String s = input.readStringRequireUtf8();
-
-						token_ = s;
-						break;
-					}
-					}
-				}
-			} catch (com.google.protobuf.InvalidProtocolBufferException e) {
-				throw e.setUnfinishedMessage(this);
-			} catch (java.io.IOException e) {
-				throw new com.google.protobuf.InvalidProtocolBufferException(e)
-						.setUnfinishedMessage(this);
-			} finally {
-				makeExtensionsImmutable();
-			}
-		}
-
-		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-			return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
-		}
-
-		protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-			return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable
-					.ensureFieldAccessorsInitialized(
-							net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.class,
-							net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.Builder.class);
-		}
-
-		public static final int TOKEN_FIELD_NUMBER = 1;
-		private volatile java.lang.Object token_;
-
-		/**
-		 * <code>optional string token = 1;</code>
-		 */
-		public java.lang.String getToken() {
-			java.lang.Object ref = token_;
-			if (ref instanceof java.lang.String) {
-				return (java.lang.String) ref;
-			} else {
-				com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-				java.lang.String s = bs.toStringUtf8();
-				token_ = s;
-				return s;
-			}
-		}
-
-		/**
-		 * <code>optional string token = 1;</code>
-		 */
-		public com.google.protobuf.ByteString getTokenBytes() {
-			java.lang.Object ref = token_;
-			if (ref instanceof java.lang.String) {
-				com.google.protobuf.ByteString b = com.google.protobuf.ByteString
-						.copyFromUtf8((java.lang.String) ref);
-				token_ = b;
-				return b;
-			} else {
-				return (com.google.protobuf.ByteString) ref;
-			}
-		}
-
-		private byte memoizedIsInitialized = -1;
-
-		public final boolean isInitialized() {
-			byte isInitialized = memoizedIsInitialized;
-			if (isInitialized == 1)
-				return true;
-			if (isInitialized == 0)
-				return false;
-
-			memoizedIsInitialized = 1;
-			return true;
-		}
-
-		public void writeTo(com.google.protobuf.CodedOutputStream output)
-				throws java.io.IOException {
-			if (!getTokenBytes().isEmpty()) {
-				com.google.protobuf.GeneratedMessageV3.writeString(output, 1,
-						token_);
-			}
-		}
-
-		public int getSerializedSize() {
-			int size = memoizedSize;
-			if (size != -1)
-				return size;
-
-			size = 0;
-			if (!getTokenBytes().isEmpty()) {
-				size += com.google.protobuf.GeneratedMessageV3
-						.computeStringSize(1, token_);
-			}
-			memoizedSize = size;
-			return size;
-		}
-
-		private static final long serialVersionUID = 0L;
-
-		@java.lang.Override
-		public boolean equals(final java.lang.Object obj) {
-			if (obj == this) {
-				return true;
-			}
-			if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLoginResultProtobuf)) {
-				return super.equals(obj);
-			}
-			net.foreworld.gws.protobuf.User.UserLoginResultProtobuf other = (net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) obj;
-
-			boolean result = true;
-			result = result && getToken().equals(other.getToken());
-			return result;
-		}
-
-		@java.lang.Override
-		public int hashCode() {
-			if (memoizedHashCode != 0) {
-				return memoizedHashCode;
-			}
-			int hash = 41;
-			hash = (19 * hash) + getDescriptorForType().hashCode();
-			hash = (37 * hash) + TOKEN_FIELD_NUMBER;
-			hash = (53 * hash) + getToken().hashCode();
-			hash = (29 * hash) + unknownFields.hashCode();
-			memoizedHashCode = hash;
-			return hash;
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				com.google.protobuf.ByteString data)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				com.google.protobuf.ByteString data,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				byte[] data)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				byte[] data,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				java.io.InputStream input) throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				java.io.InputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseDelimitedFrom(
-				java.io.InputStream input) throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3
-					.parseDelimitedWithIOException(PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseDelimitedFrom(
-				java.io.InputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3
-					.parseDelimitedWithIOException(PARSER, input,
-							extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				com.google.protobuf.CodedInputStream input)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
-				com.google.protobuf.CodedInputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input, extensionRegistry);
-		}
-
-		public Builder newBuilderForType() {
-			return newBuilder();
-		}
-
-		public static Builder newBuilder() {
-			return DEFAULT_INSTANCE.toBuilder();
-		}
-
-		public static Builder newBuilder(
-				net.foreworld.gws.protobuf.User.UserLoginResultProtobuf prototype) {
-			return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-		}
-
-		public Builder toBuilder() {
-			return this == DEFAULT_INSTANCE ? new Builder() : new Builder()
-					.mergeFrom(this);
-		}
-
-		@java.lang.Override
-		protected Builder newBuilderForType(
-				com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-			Builder builder = new Builder(parent);
-			return builder;
-		}
-
-		/**
-		 * Protobuf type {@code gws.UserLoginResultProtobuf}
-		 */
-		public static final class Builder extends
-				com.google.protobuf.GeneratedMessageV3.Builder<Builder>
-				implements
-				// @@protoc_insertion_point(builder_implements:gws.UserLoginResultProtobuf)
-				net.foreworld.gws.protobuf.User.UserLoginResultProtobufOrBuilder {
-			public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
-			}
-
-			protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable
-						.ensureFieldAccessorsInitialized(
-								net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.class,
-								net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.Builder.class);
-			}
-
-			// Construct using
-			// net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.newBuilder()
-			private Builder() {
-				maybeForceBuilderInitialization();
-			}
-
-			private Builder(
-					com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-				super(parent);
-				maybeForceBuilderInitialization();
-			}
-
-			private void maybeForceBuilderInitialization() {
-				if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
-				}
-			}
-
-			public Builder clear() {
-				super.clear();
-				token_ = "";
-
-				return this;
-			}
-
-			public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstanceForType() {
-				return net.foreworld.gws.protobuf.User.UserLoginResultProtobuf
-						.getDefaultInstance();
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf build() {
-				net.foreworld.gws.protobuf.User.UserLoginResultProtobuf result = buildPartial();
-				if (!result.isInitialized()) {
-					throw newUninitializedMessageException(result);
-				}
-				return result;
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf buildPartial() {
-				net.foreworld.gws.protobuf.User.UserLoginResultProtobuf result = new net.foreworld.gws.protobuf.User.UserLoginResultProtobuf(
-						this);
-				result.token_ = token_;
-				onBuilt();
-				return result;
-			}
-
-			public Builder clone() {
-				return (Builder) super.clone();
-			}
-
-			public Builder setField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					Object value) {
-				return (Builder) super.setField(field, value);
-			}
-
-			public Builder clearField(
-					com.google.protobuf.Descriptors.FieldDescriptor field) {
-				return (Builder) super.clearField(field);
-			}
-
-			public Builder clearOneof(
-					com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-				return (Builder) super.clearOneof(oneof);
-			}
-
-			public Builder setRepeatedField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					int index, Object value) {
-				return (Builder) super.setRepeatedField(field, index, value);
-			}
-
-			public Builder addRepeatedField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					Object value) {
-				return (Builder) super.addRepeatedField(field, value);
-			}
-
-			public Builder mergeFrom(com.google.protobuf.Message other) {
-				if (other instanceof net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) {
-					return mergeFrom((net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) other);
-				} else {
-					super.mergeFrom(other);
-					return this;
-				}
-			}
-
-			public Builder mergeFrom(
-					net.foreworld.gws.protobuf.User.UserLoginResultProtobuf other) {
-				if (other == net.foreworld.gws.protobuf.User.UserLoginResultProtobuf
-						.getDefaultInstance())
-					return this;
-				if (!other.getToken().isEmpty()) {
-					token_ = other.token_;
-					onChanged();
-				}
-				onChanged();
-				return this;
-			}
-
-			public final boolean isInitialized() {
-				return true;
-			}
-
-			public Builder mergeFrom(
-					com.google.protobuf.CodedInputStream input,
-					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-					throws java.io.IOException {
-				net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parsedMessage = null;
-				try {
-					parsedMessage = PARSER.parsePartialFrom(input,
-							extensionRegistry);
-				} catch (com.google.protobuf.InvalidProtocolBufferException e) {
-					parsedMessage = (net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) e
-							.getUnfinishedMessage();
-					throw e.unwrapIOException();
-				} finally {
-					if (parsedMessage != null) {
-						mergeFrom(parsedMessage);
-					}
-				}
-				return this;
-			}
-
-			private java.lang.Object token_ = "";
-
-			/**
-			 * <code>optional string token = 1;</code>
-			 */
-			public java.lang.String getToken() {
-				java.lang.Object ref = token_;
-				if (!(ref instanceof java.lang.String)) {
-					com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-					java.lang.String s = bs.toStringUtf8();
-					token_ = s;
-					return s;
-				} else {
-					return (java.lang.String) ref;
-				}
-			}
-
-			/**
-			 * <code>optional string token = 1;</code>
-			 */
-			public com.google.protobuf.ByteString getTokenBytes() {
-				java.lang.Object ref = token_;
-				if (ref instanceof String) {
-					com.google.protobuf.ByteString b = com.google.protobuf.ByteString
-							.copyFromUtf8((java.lang.String) ref);
-					token_ = b;
-					return b;
-				} else {
-					return (com.google.protobuf.ByteString) ref;
-				}
-			}
-
-			/**
-			 * <code>optional string token = 1;</code>
-			 */
-			public Builder setToken(java.lang.String value) {
-				if (value == null) {
-					throw new NullPointerException();
-				}
-
-				token_ = value;
-				onChanged();
-				return this;
-			}
-
-			/**
-			 * <code>optional string token = 1;</code>
-			 */
-			public Builder clearToken() {
-
-				token_ = getDefaultInstance().getToken();
-				onChanged();
-				return this;
-			}
-
-			/**
-			 * <code>optional string token = 1;</code>
-			 */
-			public Builder setTokenBytes(com.google.protobuf.ByteString value) {
-				if (value == null) {
-					throw new NullPointerException();
-				}
-				checkByteStringIsUtf8(value);
-
-				token_ = value;
-				onChanged();
-				return this;
-			}
-
-			public final Builder setUnknownFields(
-					final com.google.protobuf.UnknownFieldSet unknownFields) {
-				return this;
-			}
-
-			public final Builder mergeUnknownFields(
-					final com.google.protobuf.UnknownFieldSet unknownFields) {
-				return this;
-			}
-
-			// @@protoc_insertion_point(builder_scope:gws.UserLoginResultProtobuf)
-		}
-
-		// @@protoc_insertion_point(class_scope:gws.UserLoginResultProtobuf)
-		private static final net.foreworld.gws.protobuf.User.UserLoginResultProtobuf DEFAULT_INSTANCE;
-		static {
-			DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLoginResultProtobuf();
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstance() {
-			return DEFAULT_INSTANCE;
-		}
-
-		private static final com.google.protobuf.Parser<UserLoginResultProtobuf> PARSER = new com.google.protobuf.AbstractParser<UserLoginResultProtobuf>() {
-			public UserLoginResultProtobuf parsePartialFrom(
-					com.google.protobuf.CodedInputStream input,
-					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-					throws com.google.protobuf.InvalidProtocolBufferException {
-				return new UserLoginResultProtobuf(input, extensionRegistry);
-			}
-		};
-
-		public static com.google.protobuf.Parser<UserLoginResultProtobuf> parser() {
-			return PARSER;
-		}
-
-		@java.lang.Override
-		public com.google.protobuf.Parser<UserLoginResultProtobuf> getParserForType() {
-			return PARSER;
-		}
-
-		public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstanceForType() {
-			return DEFAULT_INSTANCE;
-		}
-
-	}
-
-	public interface UserLogoutResultProtobufOrBuilder extends
-	// @@protoc_insertion_point(interface_extends:gws.UserLogoutResultProtobuf)
-			com.google.protobuf.MessageOrBuilder {
-
-		/**
-		 * <code>optional string reason = 1;</code>
-		 */
-		java.lang.String getReason();
-
-		/**
-		 * <code>optional string reason = 1;</code>
-		 */
-		com.google.protobuf.ByteString getReasonBytes();
-	}
-
-	/**
-	 * Protobuf type {@code gws.UserLogoutResultProtobuf}
-	 */
-	public static final class UserLogoutResultProtobuf extends
-			com.google.protobuf.GeneratedMessageV3 implements
-	// @@protoc_insertion_point(message_implements:gws.UserLogoutResultProtobuf)
-			UserLogoutResultProtobufOrBuilder {
-		// Use UserLogoutResultProtobuf.newBuilder() to construct.
-		private UserLogoutResultProtobuf(
-				com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-			super(builder);
-		}
-
-		private UserLogoutResultProtobuf() {
-			reason_ = "";
-		}
-
-		@java.lang.Override
-		public final com.google.protobuf.UnknownFieldSet getUnknownFields() {
-			return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-		}
-
-		private UserLogoutResultProtobuf(
-				com.google.protobuf.CodedInputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			this();
-			int mutable_bitField0_ = 0;
-			try {
-				boolean done = false;
-				while (!done) {
-					int tag = input.readTag();
-					switch (tag) {
-					case 0:
-						done = true;
-						break;
-					default: {
-						if (!input.skipField(tag)) {
-							done = true;
-						}
-						break;
-					}
-					case 10: {
-						java.lang.String s = input.readStringRequireUtf8();
-
-						reason_ = s;
-						break;
-					}
-					}
-				}
-			} catch (com.google.protobuf.InvalidProtocolBufferException e) {
-				throw e.setUnfinishedMessage(this);
-			} catch (java.io.IOException e) {
-				throw new com.google.protobuf.InvalidProtocolBufferException(e)
-						.setUnfinishedMessage(this);
-			} finally {
-				makeExtensionsImmutable();
-			}
-		}
-
-		public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-			return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
-		}
-
-		protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-			return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable
-					.ensureFieldAccessorsInitialized(
-							net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.class,
-							net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.Builder.class);
-		}
-
-		public static final int REASON_FIELD_NUMBER = 1;
-		private volatile java.lang.Object reason_;
-
-		/**
-		 * <code>optional string reason = 1;</code>
-		 */
-		public java.lang.String getReason() {
-			java.lang.Object ref = reason_;
-			if (ref instanceof java.lang.String) {
-				return (java.lang.String) ref;
-			} else {
-				com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-				java.lang.String s = bs.toStringUtf8();
-				reason_ = s;
-				return s;
-			}
-		}
-
-		/**
-		 * <code>optional string reason = 1;</code>
-		 */
-		public com.google.protobuf.ByteString getReasonBytes() {
-			java.lang.Object ref = reason_;
-			if (ref instanceof java.lang.String) {
-				com.google.protobuf.ByteString b = com.google.protobuf.ByteString
-						.copyFromUtf8((java.lang.String) ref);
-				reason_ = b;
-				return b;
-			} else {
-				return (com.google.protobuf.ByteString) ref;
-			}
-		}
-
-		private byte memoizedIsInitialized = -1;
-
-		public final boolean isInitialized() {
-			byte isInitialized = memoizedIsInitialized;
-			if (isInitialized == 1)
-				return true;
-			if (isInitialized == 0)
-				return false;
-
-			memoizedIsInitialized = 1;
-			return true;
-		}
-
-		public void writeTo(com.google.protobuf.CodedOutputStream output)
-				throws java.io.IOException {
-			if (!getReasonBytes().isEmpty()) {
-				com.google.protobuf.GeneratedMessageV3.writeString(output, 1,
-						reason_);
-			}
-		}
-
-		public int getSerializedSize() {
-			int size = memoizedSize;
-			if (size != -1)
-				return size;
-
-			size = 0;
-			if (!getReasonBytes().isEmpty()) {
-				size += com.google.protobuf.GeneratedMessageV3
-						.computeStringSize(1, reason_);
-			}
-			memoizedSize = size;
-			return size;
-		}
-
-		private static final long serialVersionUID = 0L;
-
-		@java.lang.Override
-		public boolean equals(final java.lang.Object obj) {
-			if (obj == this) {
-				return true;
-			}
-			if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf)) {
-				return super.equals(obj);
-			}
-			net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf other = (net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) obj;
-
-			boolean result = true;
-			result = result && getReason().equals(other.getReason());
-			return result;
-		}
-
-		@java.lang.Override
-		public int hashCode() {
-			if (memoizedHashCode != 0) {
-				return memoizedHashCode;
-			}
-			int hash = 41;
-			hash = (19 * hash) + getDescriptorForType().hashCode();
-			hash = (37 * hash) + REASON_FIELD_NUMBER;
-			hash = (53 * hash) + getReason().hashCode();
-			hash = (29 * hash) + unknownFields.hashCode();
-			memoizedHashCode = hash;
-			return hash;
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				com.google.protobuf.ByteString data)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				com.google.protobuf.ByteString data,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				byte[] data)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				byte[] data,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws com.google.protobuf.InvalidProtocolBufferException {
-			return PARSER.parseFrom(data, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				java.io.InputStream input) throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				java.io.InputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input, extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseDelimitedFrom(
-				java.io.InputStream input) throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3
-					.parseDelimitedWithIOException(PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseDelimitedFrom(
-				java.io.InputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3
-					.parseDelimitedWithIOException(PARSER, input,
-							extensionRegistry);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				com.google.protobuf.CodedInputStream input)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input);
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
-				com.google.protobuf.CodedInputStream input,
-				com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-				throws java.io.IOException {
-			return com.google.protobuf.GeneratedMessageV3.parseWithIOException(
-					PARSER, input, extensionRegistry);
-		}
-
-		public Builder newBuilderForType() {
-			return newBuilder();
-		}
-
-		public static Builder newBuilder() {
-			return DEFAULT_INSTANCE.toBuilder();
-		}
-
-		public static Builder newBuilder(
-				net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf prototype) {
-			return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-		}
-
-		public Builder toBuilder() {
-			return this == DEFAULT_INSTANCE ? new Builder() : new Builder()
-					.mergeFrom(this);
-		}
-
-		@java.lang.Override
-		protected Builder newBuilderForType(
-				com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-			Builder builder = new Builder(parent);
-			return builder;
-		}
-
-		/**
-		 * Protobuf type {@code gws.UserLogoutResultProtobuf}
-		 */
-		public static final class Builder extends
-				com.google.protobuf.GeneratedMessageV3.Builder<Builder>
-				implements
-				// @@protoc_insertion_point(builder_implements:gws.UserLogoutResultProtobuf)
-				net.foreworld.gws.protobuf.User.UserLogoutResultProtobufOrBuilder {
-			public static final com.google.protobuf.Descriptors.Descriptor getDescriptor() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
-			}
-
-			protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internalGetFieldAccessorTable() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable
-						.ensureFieldAccessorsInitialized(
-								net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.class,
-								net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.Builder.class);
-			}
-
-			// Construct using
-			// net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.newBuilder()
-			private Builder() {
-				maybeForceBuilderInitialization();
-			}
-
-			private Builder(
-					com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-				super(parent);
-				maybeForceBuilderInitialization();
-			}
-
-			private void maybeForceBuilderInitialization() {
-				if (com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders) {
-				}
-			}
-
-			public Builder clear() {
-				super.clear();
-				reason_ = "";
-
-				return this;
-			}
-
-			public com.google.protobuf.Descriptors.Descriptor getDescriptorForType() {
-				return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstanceForType() {
-				return net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf
-						.getDefaultInstance();
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf build() {
-				net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf result = buildPartial();
-				if (!result.isInitialized()) {
-					throw newUninitializedMessageException(result);
-				}
-				return result;
-			}
-
-			public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf buildPartial() {
-				net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf result = new net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf(
-						this);
-				result.reason_ = reason_;
-				onBuilt();
-				return result;
-			}
-
-			public Builder clone() {
-				return (Builder) super.clone();
-			}
-
-			public Builder setField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					Object value) {
-				return (Builder) super.setField(field, value);
-			}
-
-			public Builder clearField(
-					com.google.protobuf.Descriptors.FieldDescriptor field) {
-				return (Builder) super.clearField(field);
-			}
-
-			public Builder clearOneof(
-					com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-				return (Builder) super.clearOneof(oneof);
-			}
-
-			public Builder setRepeatedField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					int index, Object value) {
-				return (Builder) super.setRepeatedField(field, index, value);
-			}
-
-			public Builder addRepeatedField(
-					com.google.protobuf.Descriptors.FieldDescriptor field,
-					Object value) {
-				return (Builder) super.addRepeatedField(field, value);
-			}
-
-			public Builder mergeFrom(com.google.protobuf.Message other) {
-				if (other instanceof net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) {
-					return mergeFrom((net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) other);
-				} else {
-					super.mergeFrom(other);
-					return this;
-				}
-			}
-
-			public Builder mergeFrom(
-					net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf other) {
-				if (other == net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf
-						.getDefaultInstance())
-					return this;
-				if (!other.getReason().isEmpty()) {
-					reason_ = other.reason_;
-					onChanged();
-				}
-				onChanged();
-				return this;
-			}
-
-			public final boolean isInitialized() {
-				return true;
-			}
-
-			public Builder mergeFrom(
-					com.google.protobuf.CodedInputStream input,
-					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-					throws java.io.IOException {
-				net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parsedMessage = null;
-				try {
-					parsedMessage = PARSER.parsePartialFrom(input,
-							extensionRegistry);
-				} catch (com.google.protobuf.InvalidProtocolBufferException e) {
-					parsedMessage = (net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) e
-							.getUnfinishedMessage();
-					throw e.unwrapIOException();
-				} finally {
-					if (parsedMessage != null) {
-						mergeFrom(parsedMessage);
-					}
-				}
-				return this;
-			}
-
-			private java.lang.Object reason_ = "";
-
-			/**
-			 * <code>optional string reason = 1;</code>
-			 */
-			public java.lang.String getReason() {
-				java.lang.Object ref = reason_;
-				if (!(ref instanceof java.lang.String)) {
-					com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
-					java.lang.String s = bs.toStringUtf8();
-					reason_ = s;
-					return s;
-				} else {
-					return (java.lang.String) ref;
-				}
-			}
-
-			/**
-			 * <code>optional string reason = 1;</code>
-			 */
-			public com.google.protobuf.ByteString getReasonBytes() {
-				java.lang.Object ref = reason_;
-				if (ref instanceof String) {
-					com.google.protobuf.ByteString b = com.google.protobuf.ByteString
-							.copyFromUtf8((java.lang.String) ref);
-					reason_ = b;
-					return b;
-				} else {
-					return (com.google.protobuf.ByteString) ref;
-				}
-			}
-
-			/**
-			 * <code>optional string reason = 1;</code>
-			 */
-			public Builder setReason(java.lang.String value) {
-				if (value == null) {
-					throw new NullPointerException();
-				}
-
-				reason_ = value;
-				onChanged();
-				return this;
-			}
-
-			/**
-			 * <code>optional string reason = 1;</code>
-			 */
-			public Builder clearReason() {
-
-				reason_ = getDefaultInstance().getReason();
-				onChanged();
-				return this;
-			}
-
-			/**
-			 * <code>optional string reason = 1;</code>
-			 */
-			public Builder setReasonBytes(com.google.protobuf.ByteString value) {
-				if (value == null) {
-					throw new NullPointerException();
-				}
-				checkByteStringIsUtf8(value);
-
-				reason_ = value;
-				onChanged();
-				return this;
-			}
-
-			public final Builder setUnknownFields(
-					final com.google.protobuf.UnknownFieldSet unknownFields) {
-				return this;
-			}
-
-			public final Builder mergeUnknownFields(
-					final com.google.protobuf.UnknownFieldSet unknownFields) {
-				return this;
-			}
-
-			// @@protoc_insertion_point(builder_scope:gws.UserLogoutResultProtobuf)
-		}
-
-		// @@protoc_insertion_point(class_scope:gws.UserLogoutResultProtobuf)
-		private static final net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf DEFAULT_INSTANCE;
-		static {
-			DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf();
-		}
-
-		public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstance() {
-			return DEFAULT_INSTANCE;
-		}
-
-		private static final com.google.protobuf.Parser<UserLogoutResultProtobuf> PARSER = new com.google.protobuf.AbstractParser<UserLogoutResultProtobuf>() {
-			public UserLogoutResultProtobuf parsePartialFrom(
-					com.google.protobuf.CodedInputStream input,
-					com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-					throws com.google.protobuf.InvalidProtocolBufferException {
-				return new UserLogoutResultProtobuf(input, extensionRegistry);
-			}
-		};
-
-		public static com.google.protobuf.Parser<UserLogoutResultProtobuf> parser() {
-			return PARSER;
-		}
-
-		@java.lang.Override
-		public com.google.protobuf.Parser<UserLogoutResultProtobuf> getParserForType() {
-			return PARSER;
-		}
-
-		public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstanceForType() {
-			return DEFAULT_INSTANCE;
-		}
-
-	}
-
-	private static final com.google.protobuf.Descriptors.Descriptor internal_static_gws_UserLoginProtobuf_descriptor;
-	private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gws_UserLoginProtobuf_fieldAccessorTable;
-	private static final com.google.protobuf.Descriptors.Descriptor internal_static_gws_UserLoginResultProtobuf_descriptor;
-	private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable;
-	private static final com.google.protobuf.Descriptors.Descriptor internal_static_gws_UserLogoutResultProtobuf_descriptor;
-	private static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable;
-
-	public static com.google.protobuf.Descriptors.FileDescriptor getDescriptor() {
-		return descriptor;
-	}
-
-	private static com.google.protobuf.Descriptors.FileDescriptor descriptor;
-	static {
-		java.lang.String[] descriptorData = { "\n\031protobuf/model.user.proto\022\003gws\"!\n\021User"
-				+ "LoginProtobuf\022\014\n\004code\030\001 \001(\t\"(\n\027UserLogin"
-				+ "ResultProtobuf\022\r\n\005token\030\001 \001(\t\"*\n\030UserLog"
-				+ "outResultProtobuf\022\016\n\006reason\030\001 \001(\tB\"\n\032net"
-				+ ".foreworld.gws.protobufB\004Userb\006proto3" };
-		com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner = new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
-			public com.google.protobuf.ExtensionRegistry assignDescriptors(
-					com.google.protobuf.Descriptors.FileDescriptor root) {
-				descriptor = root;
-				return null;
-			}
-		};
-		com.google.protobuf.Descriptors.FileDescriptor
-				.internalBuildGeneratedFileFrom(
-						descriptorData,
-						new com.google.protobuf.Descriptors.FileDescriptor[] {},
-						assigner);
-		internal_static_gws_UserLoginProtobuf_descriptor = getDescriptor()
-				.getMessageTypes().get(0);
-		internal_static_gws_UserLoginProtobuf_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-				internal_static_gws_UserLoginProtobuf_descriptor,
-				new java.lang.String[] { "Code", });
-		internal_static_gws_UserLoginResultProtobuf_descriptor = getDescriptor()
-				.getMessageTypes().get(1);
-		internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-				internal_static_gws_UserLoginResultProtobuf_descriptor,
-				new java.lang.String[] { "Token", });
-		internal_static_gws_UserLogoutResultProtobuf_descriptor = getDescriptor()
-				.getMessageTypes().get(2);
-		internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable = new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-				internal_static_gws_UserLogoutResultProtobuf_descriptor,
-				new java.lang.String[] { "Reason", });
-	}
-
-	// @@protoc_insertion_point(outer_class_scope)
+  private User() {}
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistryLite registry) {
+  }
+
+  public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
+  }
+  public interface UserLoginProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.UserLoginProtobuf)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    java.lang.String getCode();
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getCodeBytes();
+  }
+  /**
+   * Protobuf type {@code gws.UserLoginProtobuf}
+   */
+  public  static final class UserLoginProtobuf extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:gws.UserLoginProtobuf)
+      UserLoginProtobufOrBuilder {
+    // Use UserLoginProtobuf.newBuilder() to construct.
+    private UserLoginProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UserLoginProtobuf() {
+      code_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private UserLoginProtobuf(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              code_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              net.foreworld.gws.protobuf.User.UserLoginProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginProtobuf.Builder.class);
+    }
+
+    public static final int CODE_FIELD_NUMBER = 1;
+    private volatile java.lang.Object code_;
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    public java.lang.String getCode() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        code_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string code = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getCodeBytes() {
+      java.lang.Object ref = code_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        code_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getCodeBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, code_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getCodeBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, code_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLoginProtobuf)) {
+        return super.equals(obj);
+      }
+      net.foreworld.gws.protobuf.User.UserLoginProtobuf other = (net.foreworld.gws.protobuf.User.UserLoginProtobuf) obj;
+
+      boolean result = true;
+      result = result && getCode()
+          .equals(other.getCode());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + CODE_FIELD_NUMBER;
+      hash = (53 * hash) + getCode().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(net.foreworld.gws.protobuf.User.UserLoginProtobuf prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code gws.UserLoginProtobuf}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:gws.UserLoginProtobuf)
+        net.foreworld.gws.protobuf.User.UserLoginProtobufOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                net.foreworld.gws.protobuf.User.UserLoginProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginProtobuf.Builder.class);
+      }
+
+      // Construct using net.foreworld.gws.protobuf.User.UserLoginProtobuf.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        code_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginProtobuf_descriptor;
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.User.UserLoginProtobuf.getDefaultInstance();
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLoginProtobuf build() {
+        net.foreworld.gws.protobuf.User.UserLoginProtobuf result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLoginProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.User.UserLoginProtobuf result = new net.foreworld.gws.protobuf.User.UserLoginProtobuf(this);
+        result.code_ = code_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof net.foreworld.gws.protobuf.User.UserLoginProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.User.UserLoginProtobuf)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(net.foreworld.gws.protobuf.User.UserLoginProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.User.UserLoginProtobuf.getDefaultInstance()) return this;
+        if (!other.getCode().isEmpty()) {
+          code_ = other.code_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        net.foreworld.gws.protobuf.User.UserLoginProtobuf parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (net.foreworld.gws.protobuf.User.UserLoginProtobuf) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object code_ = "";
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public java.lang.String getCode() {
+        java.lang.Object ref = code_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          code_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getCodeBytes() {
+        java.lang.Object ref = code_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          code_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public Builder setCode(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        code_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public Builder clearCode() {
+        
+        code_ = getDefaultInstance().getCode();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string code = 1;</code>
+       */
+      public Builder setCodeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        code_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:gws.UserLoginProtobuf)
+    }
+
+    // @@protoc_insertion_point(class_scope:gws.UserLoginProtobuf)
+    private static final net.foreworld.gws.protobuf.User.UserLoginProtobuf DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLoginProtobuf();
+    }
+
+    public static net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UserLoginProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<UserLoginProtobuf>() {
+      public UserLoginProtobuf parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UserLoginProtobuf(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UserLoginProtobuf> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UserLoginProtobuf> getParserForType() {
+      return PARSER;
+    }
+
+    public net.foreworld.gws.protobuf.User.UserLoginProtobuf getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UserLoginResultProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.UserLoginResultProtobuf)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    java.lang.String getToken();
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getTokenBytes();
+  }
+  /**
+   * Protobuf type {@code gws.UserLoginResultProtobuf}
+   */
+  public  static final class UserLoginResultProtobuf extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:gws.UserLoginResultProtobuf)
+      UserLoginResultProtobufOrBuilder {
+    // Use UserLoginResultProtobuf.newBuilder() to construct.
+    private UserLoginResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UserLoginResultProtobuf() {
+      token_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private UserLoginResultProtobuf(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              token_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.Builder.class);
+    }
+
+    public static final int TOKEN_FIELD_NUMBER = 1;
+    private volatile java.lang.Object token_;
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public java.lang.String getToken() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        token_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string token = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTokenBytes() {
+      java.lang.Object ref = token_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        token_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getTokenBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, token_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getTokenBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, token_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLoginResultProtobuf)) {
+        return super.equals(obj);
+      }
+      net.foreworld.gws.protobuf.User.UserLoginResultProtobuf other = (net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) obj;
+
+      boolean result = true;
+      result = result && getToken()
+          .equals(other.getToken());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + TOKEN_FIELD_NUMBER;
+      hash = (53 * hash) + getToken().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(net.foreworld.gws.protobuf.User.UserLoginResultProtobuf prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code gws.UserLoginResultProtobuf}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:gws.UserLoginResultProtobuf)
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobufOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.Builder.class);
+      }
+
+      // Construct using net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        token_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLoginResultProtobuf_descriptor;
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.getDefaultInstance();
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf build() {
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobuf result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobuf result = new net.foreworld.gws.protobuf.User.UserLoginResultProtobuf(this);
+        result.token_ = token_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.User.UserLoginResultProtobuf)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(net.foreworld.gws.protobuf.User.UserLoginResultProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.User.UserLoginResultProtobuf.getDefaultInstance()) return this;
+        if (!other.getToken().isEmpty()) {
+          token_ = other.token_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        net.foreworld.gws.protobuf.User.UserLoginResultProtobuf parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (net.foreworld.gws.protobuf.User.UserLoginResultProtobuf) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object token_ = "";
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public java.lang.String getToken() {
+        java.lang.Object ref = token_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          token_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getTokenBytes() {
+        java.lang.Object ref = token_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          token_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder setToken(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        token_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder clearToken() {
+        
+        token_ = getDefaultInstance().getToken();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string token = 1;</code>
+       */
+      public Builder setTokenBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        token_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:gws.UserLoginResultProtobuf)
+    }
+
+    // @@protoc_insertion_point(class_scope:gws.UserLoginResultProtobuf)
+    private static final net.foreworld.gws.protobuf.User.UserLoginResultProtobuf DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLoginResultProtobuf();
+    }
+
+    public static net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UserLoginResultProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<UserLoginResultProtobuf>() {
+      public UserLoginResultProtobuf parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UserLoginResultProtobuf(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UserLoginResultProtobuf> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UserLoginResultProtobuf> getParserForType() {
+      return PARSER;
+    }
+
+    public net.foreworld.gws.protobuf.User.UserLoginResultProtobuf getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface UserLogoutResultProtobufOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:gws.UserLogoutResultProtobuf)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    java.lang.String getReason();
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getReasonBytes();
+  }
+  /**
+   * Protobuf type {@code gws.UserLogoutResultProtobuf}
+   */
+  public  static final class UserLogoutResultProtobuf extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:gws.UserLogoutResultProtobuf)
+      UserLogoutResultProtobufOrBuilder {
+    // Use UserLogoutResultProtobuf.newBuilder() to construct.
+    private UserLogoutResultProtobuf(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private UserLogoutResultProtobuf() {
+      reason_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private UserLogoutResultProtobuf(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              reason_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.Builder.class);
+    }
+
+    public static final int REASON_FIELD_NUMBER = 1;
+    private volatile java.lang.Object reason_;
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    public java.lang.String getReason() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        reason_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string reason = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getReasonBytes() {
+      java.lang.Object ref = reason_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        reason_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getReasonBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, reason_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getReasonBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, reason_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf)) {
+        return super.equals(obj);
+      }
+      net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf other = (net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) obj;
+
+      boolean result = true;
+      result = result && getReason()
+          .equals(other.getReason());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + REASON_FIELD_NUMBER;
+      hash = (53 * hash) + getReason().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code gws.UserLogoutResultProtobuf}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:gws.UserLogoutResultProtobuf)
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobufOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.class, net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.Builder.class);
+      }
+
+      // Construct using net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        reason_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return net.foreworld.gws.protobuf.User.internal_static_gws_UserLogoutResultProtobuf_descriptor;
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstanceForType() {
+        return net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.getDefaultInstance();
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf build() {
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf buildPartial() {
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf result = new net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf(this);
+        result.reason_ = reason_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) {
+          return mergeFrom((net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf other) {
+        if (other == net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf.getDefaultInstance()) return this;
+        if (!other.getReason().isEmpty()) {
+          reason_ = other.reason_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object reason_ = "";
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public java.lang.String getReason() {
+        java.lang.Object ref = reason_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          reason_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getReasonBytes() {
+        java.lang.Object ref = reason_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          reason_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder setReason(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        reason_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder clearReason() {
+        
+        reason_ = getDefaultInstance().getReason();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string reason = 1;</code>
+       */
+      public Builder setReasonBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        reason_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:gws.UserLogoutResultProtobuf)
+    }
+
+    // @@protoc_insertion_point(class_scope:gws.UserLogoutResultProtobuf)
+    private static final net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf();
+    }
+
+    public static net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UserLogoutResultProtobuf>
+        PARSER = new com.google.protobuf.AbstractParser<UserLogoutResultProtobuf>() {
+      public UserLogoutResultProtobuf parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UserLogoutResultProtobuf(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UserLogoutResultProtobuf> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UserLogoutResultProtobuf> getParserForType() {
+      return PARSER;
+    }
+
+    public net.foreworld.gws.protobuf.User.UserLogoutResultProtobuf getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_gws_UserLoginProtobuf_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_gws_UserLoginProtobuf_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_gws_UserLoginResultProtobuf_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_gws_UserLogoutResultProtobuf_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable;
+
+  public static com.google.protobuf.Descriptors.FileDescriptor
+      getDescriptor() {
+    return descriptor;
+  }
+  private static  com.google.protobuf.Descriptors.FileDescriptor
+      descriptor;
+  static {
+    java.lang.String[] descriptorData = {
+      "\n\031protobuf/model.user.proto\022\003gws\"!\n\021User" +
+      "LoginProtobuf\022\014\n\004code\030\001 \001(\t\"(\n\027UserLogin" +
+      "ResultProtobuf\022\r\n\005token\030\001 \001(\t\"*\n\030UserLog" +
+      "outResultProtobuf\022\016\n\006reason\030\001 \001(\tB\"\n\032net" +
+      ".foreworld.gws.protobufB\004Userb\006proto3"
+    };
+    com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
+        new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
+          public com.google.protobuf.ExtensionRegistry assignDescriptors(
+              com.google.protobuf.Descriptors.FileDescriptor root) {
+            descriptor = root;
+            return null;
+          }
+        };
+    com.google.protobuf.Descriptors.FileDescriptor
+      .internalBuildGeneratedFileFrom(descriptorData,
+        new com.google.protobuf.Descriptors.FileDescriptor[] {
+        }, assigner);
+    internal_static_gws_UserLoginProtobuf_descriptor =
+      getDescriptor().getMessageTypes().get(0);
+    internal_static_gws_UserLoginProtobuf_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_gws_UserLoginProtobuf_descriptor,
+        new java.lang.String[] { "Code", });
+    internal_static_gws_UserLoginResultProtobuf_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_gws_UserLoginResultProtobuf_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_gws_UserLoginResultProtobuf_descriptor,
+        new java.lang.String[] { "Token", });
+    internal_static_gws_UserLogoutResultProtobuf_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_gws_UserLogoutResultProtobuf_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_gws_UserLogoutResultProtobuf_descriptor,
+        new java.lang.String[] { "Reason", });
+  }
+
+  // @@protoc_insertion_point(outer_class_scope)
 }

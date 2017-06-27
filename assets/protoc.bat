@@ -1,6 +1,6 @@
 del ..\front\assets\js\emag\*.js
 
-protoc.exe --java_out=..\gws-protobuf-common\src\main\java\ .\protobuf\common.proto
+protoc.exe --java_out=..\gws-protobuf\src\main\java\ .\protobuf\common.proto
 protoc.exe --js_out=library=..\front\assets\js\emag\common,binary:. .\protobuf\common.proto
 
 protoc.exe --java_out=..\gws-protobuf-user\src\main\java\ .\protobuf\model.user.proto
@@ -12,7 +12,7 @@ protoc.exe --js_out=library=..\front\assets\js\emag\chat,binary:. .\protobuf\mod
 protoc.exe --java_out=..\gws-protobuf-group\src\main\java\ .\protobuf\model.group.proto
 protoc.exe --js_out=library=..\front\assets\js\emag\group,binary:. .\protobuf\model.group.proto
 
-protoc.exe --java_out=..\gws-protobuf-fishjoy\src\main\java\ .\protobuf\model.fishjoy.proto
+protoc.exe --java_out=..\gws-fishjoy-protobuf\src\main\java\ .\protobuf\model.fishjoy.proto
 protoc.exe --js_out=library=..\front\assets\js\emag\fishjoy,binary:. .\protobuf\model.fishjoy.proto
 
 
