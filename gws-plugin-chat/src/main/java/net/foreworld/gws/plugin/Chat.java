@@ -75,6 +75,8 @@ public class Chat extends BasePlugin {
 			ChatMsg _chatMsg = _receiver.getData();
 
 			ChatProtobuf.Builder _cpb = ChatProtobuf.newBuilder();
+			_cpb.setId(_chatMsg.getId());
+			_cpb.setSender(_chatMsg.getSender());
 			_cpb.setReceiver(_chatMsg.getReceiver());
 			_cpb.setMessage(_chatMsg.getMessage());
 
