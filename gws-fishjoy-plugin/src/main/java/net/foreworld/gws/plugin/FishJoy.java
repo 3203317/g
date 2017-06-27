@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import net.foreworld.fishjoy.model.Bullet;
+import net.foreworld.fishjoy.model.BulletBlast;
 import net.foreworld.fishjoy.service.FishjoyService;
 import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
@@ -70,6 +71,7 @@ public class FishJoy extends BasePlugin {
 			FishjoyBulletProtobuf fbp = FishjoyBulletProtobuf.parseFrom(req.getData());
 
 			Bullet bullet = new Bullet();
+			bullet.setId(fbp.getId());
 			bullet.setLevel(fbp.getLevel());
 			bullet.setSpeed(fbp.getSpeed());
 			bullet.setX(fbp.getX());
@@ -118,6 +120,7 @@ public class FishJoy extends BasePlugin {
 
 				Bullet _b = _receiver.getData();
 
+				_fbpb.setId(_b.getId());
 				_fbpb.setLevel(_b.getLevel());
 				_fbpb.setX(_b.getX());
 				_fbpb.setY(_b.getY());
@@ -156,14 +159,14 @@ public class FishJoy extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			FishjoyBulletBlastProtobuf fbp = FishjoyBulletBlastProtobuf.parseFrom(req.getData());
+			FishjoyBulletBlastProtobuf fbbp = FishjoyBulletBlastProtobuf.parseFrom(req.getData());
 
-			Bullet bullet = new Bullet();
-			bullet.setX(fbp.getX());
-			bullet.setY(fbp.getY());
+			BulletBlast bb = new BulletBlast();
+			bb.setX(fbbp.getX());
+			bb.setY(fbbp.getY());
 
-			ResultMap<List<Receiver<Bullet>>> map = fishjoyService.shot(sender.getServerId(), sender.getChannelId(),
-					bullet);
+			ResultMap<List<Receiver<BulletBlast>>> map = fishjoyService.blast(sender.getServerId(),
+					sender.getChannelId(), bb);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -184,7 +187,7 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			List<Receiver<Bullet>> _list = map.getData();
+			List<Receiver<BulletBlast>> _list = map.getData();
 
 			if (null == _list) {
 				return;
@@ -198,17 +201,17 @@ public class FishJoy extends BasePlugin {
 
 			resp.setMethod(5004);
 
-			FishjoyBulletBlastProtobuf.Builder _fbpb = FishjoyBulletBlastProtobuf.newBuilder();
+			FishjoyBulletBlastProtobuf.Builder _fbbpb = FishjoyBulletBlastProtobuf.newBuilder();
 
 			for (int i = 0; i < j; i++) {
-				Receiver<Bullet> _receiver = _list.get(i);
+				Receiver<BulletBlast> _receiver = _list.get(i);
 
-				Bullet _b = _receiver.getData();
+				BulletBlast _bb = _receiver.getData();
 
-				_fbpb.setX(_b.getX());
-				_fbpb.setY(_b.getY());
+				_fbbpb.setX(_bb.getX());
+				_fbbpb.setY(_bb.getY());
 
-				resp.setData(_fbpb.build().toByteString());
+				resp.setData(_fbbpb.build().toByteString());
 
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());

@@ -11,11 +11,21 @@ public class Bullet implements Serializable {
 
 	private static final long serialVersionUID = -3978562827886194600L;
 
+	private String id;
+
 	private Integer level;
 	private String sender;
 	private Float x;
 	private Float y;
 	private Integer speed;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public Integer getLevel() {
 		return level;
