@@ -938,6 +938,30 @@ public final class Fishjoy {
      * <code>optional float y = 3;</code>
      */
     float getY();
+
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    java.util.List<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf> 
+        getFishDeadList();
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf getFishDead(int index);
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    int getFishDeadCount();
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    java.util.List<? extends net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder> 
+        getFishDeadOrBuilderList();
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder getFishDeadOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code gws.FishjoyBulletBlastProtobuf}
@@ -953,6 +977,7 @@ public final class Fishjoy {
     private FishjoyBulletBlastProtobuf() {
       x_ = 0F;
       y_ = 0F;
+      fishDead_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -1003,6 +1028,15 @@ public final class Fishjoy {
               y_ = input.readFloat();
               break;
             }
+            case 34: {
+              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+                fishDead_ = new java.util.ArrayList<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf>();
+                mutable_bitField0_ |= 0x00000008;
+              }
+              fishDead_.add(
+                  input.readMessage(net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.parser(), extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -1011,6 +1045,9 @@ public final class Fishjoy {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
+          fishDead_ = java.util.Collections.unmodifiableList(fishDead_);
+        }
         makeExtensionsImmutable();
       }
     }
@@ -1026,6 +1063,7 @@ public final class Fishjoy {
               net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletBlastProtobuf.class, net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletBlastProtobuf.Builder.class);
     }
 
+    private int bitField0_;
     public static final int BULLET_FIELD_NUMBER = 1;
     private net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf bullet_;
     /**
@@ -1065,6 +1103,41 @@ public final class Fishjoy {
       return y_;
     }
 
+    public static final int FISHDEAD_FIELD_NUMBER = 4;
+    private java.util.List<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf> fishDead_;
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    public java.util.List<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf> getFishDeadList() {
+      return fishDead_;
+    }
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    public java.util.List<? extends net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder> 
+        getFishDeadOrBuilderList() {
+      return fishDead_;
+    }
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    public int getFishDeadCount() {
+      return fishDead_.size();
+    }
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf getFishDead(int index) {
+      return fishDead_.get(index);
+    }
+    /**
+     * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+     */
+    public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder getFishDeadOrBuilder(
+        int index) {
+      return fishDead_.get(index);
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -1086,6 +1159,9 @@ public final class Fishjoy {
       if (y_ != 0F) {
         output.writeFloat(3, y_);
       }
+      for (int i = 0; i < fishDead_.size(); i++) {
+        output.writeMessage(4, fishDead_.get(i));
+      }
     }
 
     public int getSerializedSize() {
@@ -1104,6 +1180,10 @@ public final class Fishjoy {
       if (y_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(3, y_);
+      }
+      for (int i = 0; i < fishDead_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, fishDead_.get(i));
       }
       memoizedSize = size;
       return size;
@@ -1134,6 +1214,8 @@ public final class Fishjoy {
           java.lang.Float.floatToIntBits(getY())
           == java.lang.Float.floatToIntBits(
               other.getY()));
+      result = result && getFishDeadList()
+          .equals(other.getFishDeadList());
       return result;
     }
 
@@ -1154,6 +1236,10 @@ public final class Fishjoy {
       hash = (37 * hash) + Y_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getY());
+      if (getFishDeadCount() > 0) {
+        hash = (37 * hash) + FISHDEAD_FIELD_NUMBER;
+        hash = (53 * hash) + getFishDeadList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1268,6 +1354,7 @@ public final class Fishjoy {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getFishDeadFieldBuilder();
         }
       }
       public Builder clear() {
@@ -1282,6 +1369,12 @@ public final class Fishjoy {
 
         y_ = 0F;
 
+        if (fishDeadBuilder_ == null) {
+          fishDead_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+        } else {
+          fishDeadBuilder_.clear();
+        }
         return this;
       }
 
@@ -1304,6 +1397,8 @@ public final class Fishjoy {
 
       public net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletBlastProtobuf buildPartial() {
         net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletBlastProtobuf result = new net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletBlastProtobuf(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
         if (bulletBuilder_ == null) {
           result.bullet_ = bullet_;
         } else {
@@ -1311,6 +1406,16 @@ public final class Fishjoy {
         }
         result.x_ = x_;
         result.y_ = y_;
+        if (fishDeadBuilder_ == null) {
+          if (((bitField0_ & 0x00000008) == 0x00000008)) {
+            fishDead_ = java.util.Collections.unmodifiableList(fishDead_);
+            bitField0_ = (bitField0_ & ~0x00000008);
+          }
+          result.fishDead_ = fishDead_;
+        } else {
+          result.fishDead_ = fishDeadBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -1361,6 +1466,32 @@ public final class Fishjoy {
         if (other.getY() != 0F) {
           setY(other.getY());
         }
+        if (fishDeadBuilder_ == null) {
+          if (!other.fishDead_.isEmpty()) {
+            if (fishDead_.isEmpty()) {
+              fishDead_ = other.fishDead_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+            } else {
+              ensureFishDeadIsMutable();
+              fishDead_.addAll(other.fishDead_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.fishDead_.isEmpty()) {
+            if (fishDeadBuilder_.isEmpty()) {
+              fishDeadBuilder_.dispose();
+              fishDeadBuilder_ = null;
+              fishDead_ = other.fishDead_;
+              bitField0_ = (bitField0_ & ~0x00000008);
+              fishDeadBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getFishDeadFieldBuilder() : null;
+            } else {
+              fishDeadBuilder_.addAllMessages(other.fishDead_);
+            }
+          }
+        }
         onChanged();
         return this;
       }
@@ -1386,6 +1517,7 @@ public final class Fishjoy {
         }
         return this;
       }
+      private int bitField0_;
 
       private net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf bullet_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
@@ -1555,6 +1687,246 @@ public final class Fishjoy {
         onChanged();
         return this;
       }
+
+      private java.util.List<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf> fishDead_ =
+        java.util.Collections.emptyList();
+      private void ensureFishDeadIsMutable() {
+        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
+          fishDead_ = new java.util.ArrayList<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf>(fishDead_);
+          bitField0_ |= 0x00000008;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder> fishDeadBuilder_;
+
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public java.util.List<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf> getFishDeadList() {
+        if (fishDeadBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(fishDead_);
+        } else {
+          return fishDeadBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public int getFishDeadCount() {
+        if (fishDeadBuilder_ == null) {
+          return fishDead_.size();
+        } else {
+          return fishDeadBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf getFishDead(int index) {
+        if (fishDeadBuilder_ == null) {
+          return fishDead_.get(index);
+        } else {
+          return fishDeadBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder setFishDead(
+          int index, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf value) {
+        if (fishDeadBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFishDeadIsMutable();
+          fishDead_.set(index, value);
+          onChanged();
+        } else {
+          fishDeadBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder setFishDead(
+          int index, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder builderForValue) {
+        if (fishDeadBuilder_ == null) {
+          ensureFishDeadIsMutable();
+          fishDead_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          fishDeadBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder addFishDead(net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf value) {
+        if (fishDeadBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFishDeadIsMutable();
+          fishDead_.add(value);
+          onChanged();
+        } else {
+          fishDeadBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder addFishDead(
+          int index, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf value) {
+        if (fishDeadBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureFishDeadIsMutable();
+          fishDead_.add(index, value);
+          onChanged();
+        } else {
+          fishDeadBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder addFishDead(
+          net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder builderForValue) {
+        if (fishDeadBuilder_ == null) {
+          ensureFishDeadIsMutable();
+          fishDead_.add(builderForValue.build());
+          onChanged();
+        } else {
+          fishDeadBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder addFishDead(
+          int index, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder builderForValue) {
+        if (fishDeadBuilder_ == null) {
+          ensureFishDeadIsMutable();
+          fishDead_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          fishDeadBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder addAllFishDead(
+          java.lang.Iterable<? extends net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf> values) {
+        if (fishDeadBuilder_ == null) {
+          ensureFishDeadIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, fishDead_);
+          onChanged();
+        } else {
+          fishDeadBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder clearFishDead() {
+        if (fishDeadBuilder_ == null) {
+          fishDead_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000008);
+          onChanged();
+        } else {
+          fishDeadBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public Builder removeFishDead(int index) {
+        if (fishDeadBuilder_ == null) {
+          ensureFishDeadIsMutable();
+          fishDead_.remove(index);
+          onChanged();
+        } else {
+          fishDeadBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder getFishDeadBuilder(
+          int index) {
+        return getFishDeadFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder getFishDeadOrBuilder(
+          int index) {
+        if (fishDeadBuilder_ == null) {
+          return fishDead_.get(index);  } else {
+          return fishDeadBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public java.util.List<? extends net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder> 
+           getFishDeadOrBuilderList() {
+        if (fishDeadBuilder_ != null) {
+          return fishDeadBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(fishDead_);
+        }
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder addFishDeadBuilder() {
+        return getFishDeadFieldBuilder().addBuilder(
+            net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder addFishDeadBuilder(
+          int index) {
+        return getFishDeadFieldBuilder().addBuilder(
+            index, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .gws.FishjoyFishDeadProtobuf fishDead = 4;</code>
+       */
+      public java.util.List<net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder> 
+           getFishDeadBuilderList() {
+        return getFishDeadFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder> 
+          getFishDeadFieldBuilder() {
+        if (fishDeadBuilder_ == null) {
+          fishDeadBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobufOrBuilder>(
+                  fishDead_,
+                  ((bitField0_ & 0x00000008) == 0x00000008),
+                  getParentForChildren(),
+                  isClean());
+          fishDead_ = null;
+        }
+        return fishDeadBuilder_;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -1619,9 +1991,14 @@ public final class Fishjoy {
         getIdBytes();
 
     /**
-     * <code>optional uint32 type = 2;</code>
+     * <code>optional uint32 fish_type = 2;</code>
      */
-    int getType();
+    int getFishType();
+
+    /**
+     * <code>optional uint32 score = 3;</code>
+     */
+    int getScore();
   }
   /**
    * Protobuf type {@code gws.FishjoyFishProtobuf}
@@ -1636,7 +2013,8 @@ public final class Fishjoy {
     }
     private FishjoyFishProtobuf() {
       id_ = "";
-      type_ = 0;
+      fishType_ = 0;
+      score_ = 0;
     }
 
     @java.lang.Override
@@ -1672,7 +2050,12 @@ public final class Fishjoy {
             }
             case 16: {
 
-              type_ = input.readUInt32();
+              fishType_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+
+              score_ = input.readUInt32();
               break;
             }
           }
@@ -1732,13 +2115,22 @@ public final class Fishjoy {
       }
     }
 
-    public static final int TYPE_FIELD_NUMBER = 2;
-    private int type_;
+    public static final int FISH_TYPE_FIELD_NUMBER = 2;
+    private int fishType_;
     /**
-     * <code>optional uint32 type = 2;</code>
+     * <code>optional uint32 fish_type = 2;</code>
      */
-    public int getType() {
-      return type_;
+    public int getFishType() {
+      return fishType_;
+    }
+
+    public static final int SCORE_FIELD_NUMBER = 3;
+    private int score_;
+    /**
+     * <code>optional uint32 score = 3;</code>
+     */
+    public int getScore() {
+      return score_;
     }
 
     private byte memoizedIsInitialized = -1;
@@ -1756,8 +2148,11 @@ public final class Fishjoy {
       if (!getIdBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
-      if (type_ != 0) {
-        output.writeUInt32(2, type_);
+      if (fishType_ != 0) {
+        output.writeUInt32(2, fishType_);
+      }
+      if (score_ != 0) {
+        output.writeUInt32(3, score_);
       }
     }
 
@@ -1769,9 +2164,13 @@ public final class Fishjoy {
       if (!getIdBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
-      if (type_ != 0) {
+      if (fishType_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(2, type_);
+          .computeUInt32Size(2, fishType_);
+      }
+      if (score_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, score_);
       }
       memoizedSize = size;
       return size;
@@ -1791,8 +2190,10 @@ public final class Fishjoy {
       boolean result = true;
       result = result && getId()
           .equals(other.getId());
-      result = result && (getType()
-          == other.getType());
+      result = result && (getFishType()
+          == other.getFishType());
+      result = result && (getScore()
+          == other.getScore());
       return result;
     }
 
@@ -1805,8 +2206,10 @@ public final class Fishjoy {
       hash = (19 * hash) + getDescriptorForType().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
       hash = (53 * hash) + getId().hashCode();
-      hash = (37 * hash) + TYPE_FIELD_NUMBER;
-      hash = (53 * hash) + getType();
+      hash = (37 * hash) + FISH_TYPE_FIELD_NUMBER;
+      hash = (53 * hash) + getFishType();
+      hash = (37 * hash) + SCORE_FIELD_NUMBER;
+      hash = (53 * hash) + getScore();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1927,7 +2330,9 @@ public final class Fishjoy {
         super.clear();
         id_ = "";
 
-        type_ = 0;
+        fishType_ = 0;
+
+        score_ = 0;
 
         return this;
       }
@@ -1952,7 +2357,8 @@ public final class Fishjoy {
       public net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf buildPartial() {
         net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf result = new net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobuf(this);
         result.id_ = id_;
-        result.type_ = type_;
+        result.fishType_ = fishType_;
+        result.score_ = score_;
         onBuilt();
         return result;
       }
@@ -1998,8 +2404,11 @@ public final class Fishjoy {
           id_ = other.id_;
           onChanged();
         }
-        if (other.getType() != 0) {
-          setType(other.getType());
+        if (other.getFishType() != 0) {
+          setFishType(other.getFishType());
+        }
+        if (other.getScore() != 0) {
+          setScore(other.getScore());
         }
         onChanged();
         return this;
@@ -2096,28 +2505,54 @@ public final class Fishjoy {
         return this;
       }
 
-      private int type_ ;
+      private int fishType_ ;
       /**
-       * <code>optional uint32 type = 2;</code>
+       * <code>optional uint32 fish_type = 2;</code>
        */
-      public int getType() {
-        return type_;
+      public int getFishType() {
+        return fishType_;
       }
       /**
-       * <code>optional uint32 type = 2;</code>
+       * <code>optional uint32 fish_type = 2;</code>
        */
-      public Builder setType(int value) {
+      public Builder setFishType(int value) {
         
-        type_ = value;
+        fishType_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>optional uint32 type = 2;</code>
+       * <code>optional uint32 fish_type = 2;</code>
        */
-      public Builder clearType() {
+      public Builder clearFishType() {
         
-        type_ = 0;
+        fishType_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int score_ ;
+      /**
+       * <code>optional uint32 score = 3;</code>
+       */
+      public int getScore() {
+        return score_;
+      }
+      /**
+       * <code>optional uint32 score = 3;</code>
+       */
+      public Builder setScore(int value) {
+        
+        score_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 score = 3;</code>
+       */
+      public Builder clearScore() {
+        
+        score_ = 0;
         onChanged();
         return this;
       }
@@ -2946,20 +3381,7 @@ public final class Fishjoy {
     net.foreworld.gws.protobuf.Fishjoy.FishjoyFishProtobufOrBuilder getFishOrBuilder();
 
     /**
-     * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-     */
-    boolean hasBullet();
-    /**
-     * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-     */
-    net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf getBullet();
-    /**
-     * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-     */
-    net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder getBulletOrBuilder();
-
-    /**
-     * <code>optional uint32 score = 3;</code>
+     * <code>optional uint32 score = 2;</code>
      */
     int getScore();
   }
@@ -3016,20 +3438,7 @@ public final class Fishjoy {
 
               break;
             }
-            case 18: {
-              net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.Builder subBuilder = null;
-              if (bullet_ != null) {
-                subBuilder = bullet_.toBuilder();
-              }
-              bullet_ = input.readMessage(net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.parser(), extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(bullet_);
-                bullet_ = subBuilder.buildPartial();
-              }
-
-              break;
-            }
-            case 24: {
+            case 16: {
 
               score_ = input.readUInt32();
               break;
@@ -3078,31 +3487,10 @@ public final class Fishjoy {
       return getFish();
     }
 
-    public static final int BULLET_FIELD_NUMBER = 2;
-    private net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf bullet_;
-    /**
-     * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-     */
-    public boolean hasBullet() {
-      return bullet_ != null;
-    }
-    /**
-     * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-     */
-    public net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf getBullet() {
-      return bullet_ == null ? net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.getDefaultInstance() : bullet_;
-    }
-    /**
-     * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-     */
-    public net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder getBulletOrBuilder() {
-      return getBullet();
-    }
-
-    public static final int SCORE_FIELD_NUMBER = 3;
+    public static final int SCORE_FIELD_NUMBER = 2;
     private int score_;
     /**
-     * <code>optional uint32 score = 3;</code>
+     * <code>optional uint32 score = 2;</code>
      */
     public int getScore() {
       return score_;
@@ -3123,11 +3511,8 @@ public final class Fishjoy {
       if (fish_ != null) {
         output.writeMessage(1, getFish());
       }
-      if (bullet_ != null) {
-        output.writeMessage(2, getBullet());
-      }
       if (score_ != 0) {
-        output.writeUInt32(3, score_);
+        output.writeUInt32(2, score_);
       }
     }
 
@@ -3140,13 +3525,9 @@ public final class Fishjoy {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getFish());
       }
-      if (bullet_ != null) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getBullet());
-      }
       if (score_ != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeUInt32Size(3, score_);
+          .computeUInt32Size(2, score_);
       }
       memoizedSize = size;
       return size;
@@ -3169,11 +3550,6 @@ public final class Fishjoy {
         result = result && getFish()
             .equals(other.getFish());
       }
-      result = result && (hasBullet() == other.hasBullet());
-      if (hasBullet()) {
-        result = result && getBullet()
-            .equals(other.getBullet());
-      }
       result = result && (getScore()
           == other.getScore());
       return result;
@@ -3189,10 +3565,6 @@ public final class Fishjoy {
       if (hasFish()) {
         hash = (37 * hash) + FISH_FIELD_NUMBER;
         hash = (53 * hash) + getFish().hashCode();
-      }
-      if (hasBullet()) {
-        hash = (37 * hash) + BULLET_FIELD_NUMBER;
-        hash = (53 * hash) + getBullet().hashCode();
       }
       hash = (37 * hash) + SCORE_FIELD_NUMBER;
       hash = (53 * hash) + getScore();
@@ -3320,12 +3692,6 @@ public final class Fishjoy {
           fish_ = null;
           fishBuilder_ = null;
         }
-        if (bulletBuilder_ == null) {
-          bullet_ = null;
-        } else {
-          bullet_ = null;
-          bulletBuilder_ = null;
-        }
         score_ = 0;
 
         return this;
@@ -3354,11 +3720,6 @@ public final class Fishjoy {
           result.fish_ = fish_;
         } else {
           result.fish_ = fishBuilder_.build();
-        }
-        if (bulletBuilder_ == null) {
-          result.bullet_ = bullet_;
-        } else {
-          result.bullet_ = bulletBuilder_.build();
         }
         result.score_ = score_;
         onBuilt();
@@ -3404,9 +3765,6 @@ public final class Fishjoy {
         if (other == net.foreworld.gws.protobuf.Fishjoy.FishjoyFishDeadProtobuf.getDefaultInstance()) return this;
         if (other.hasFish()) {
           mergeFish(other.getFish());
-        }
-        if (other.hasBullet()) {
-          mergeBullet(other.getBullet());
         }
         if (other.getScore() != 0) {
           setScore(other.getScore());
@@ -3554,132 +3912,15 @@ public final class Fishjoy {
         return fishBuilder_;
       }
 
-      private net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf bullet_ = null;
-      private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder> bulletBuilder_;
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public boolean hasBullet() {
-        return bulletBuilder_ != null || bullet_ != null;
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf getBullet() {
-        if (bulletBuilder_ == null) {
-          return bullet_ == null ? net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.getDefaultInstance() : bullet_;
-        } else {
-          return bulletBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public Builder setBullet(net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf value) {
-        if (bulletBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          bullet_ = value;
-          onChanged();
-        } else {
-          bulletBuilder_.setMessage(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public Builder setBullet(
-          net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.Builder builderForValue) {
-        if (bulletBuilder_ == null) {
-          bullet_ = builderForValue.build();
-          onChanged();
-        } else {
-          bulletBuilder_.setMessage(builderForValue.build());
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public Builder mergeBullet(net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf value) {
-        if (bulletBuilder_ == null) {
-          if (bullet_ != null) {
-            bullet_ =
-              net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.newBuilder(bullet_).mergeFrom(value).buildPartial();
-          } else {
-            bullet_ = value;
-          }
-          onChanged();
-        } else {
-          bulletBuilder_.mergeFrom(value);
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public Builder clearBullet() {
-        if (bulletBuilder_ == null) {
-          bullet_ = null;
-          onChanged();
-        } else {
-          bullet_ = null;
-          bulletBuilder_ = null;
-        }
-
-        return this;
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.Builder getBulletBuilder() {
-        
-        onChanged();
-        return getBulletFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      public net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder getBulletOrBuilder() {
-        if (bulletBuilder_ != null) {
-          return bulletBuilder_.getMessageOrBuilder();
-        } else {
-          return bullet_ == null ?
-              net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.getDefaultInstance() : bullet_;
-        }
-      }
-      /**
-       * <code>optional .gws.FishjoyBulletProtobuf bullet = 2;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilderV3<
-          net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder> 
-          getBulletFieldBuilder() {
-        if (bulletBuilder_ == null) {
-          bulletBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf, net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobuf.Builder, net.foreworld.gws.protobuf.Fishjoy.FishjoyBulletProtobufOrBuilder>(
-                  getBullet(),
-                  getParentForChildren(),
-                  isClean());
-          bullet_ = null;
-        }
-        return bulletBuilder_;
-      }
-
       private int score_ ;
       /**
-       * <code>optional uint32 score = 3;</code>
+       * <code>optional uint32 score = 2;</code>
        */
       public int getScore() {
         return score_;
       }
       /**
-       * <code>optional uint32 score = 3;</code>
+       * <code>optional uint32 score = 2;</code>
        */
       public Builder setScore(int value) {
         
@@ -3688,7 +3929,7 @@ public final class Fishjoy {
         return this;
       }
       /**
-       * <code>optional uint32 score = 3;</code>
+       * <code>optional uint32 score = 2;</code>
        */
       public Builder clearScore() {
         
@@ -3782,18 +4023,18 @@ public final class Fishjoy {
       "\n\034protobuf/model.fishjoy.proto\022\003gws\"g\n\025F" +
       "ishjoyBulletProtobuf\022\n\n\002id\030\001 \001(\t\022\r\n\005leve" +
       "l\030\002 \001(\r\022\016\n\006sender\030\003 \001(\t\022\t\n\001x\030\004 \001(\002\022\t\n\001y\030" +
-      "\005 \001(\002\022\r\n\005speed\030\006 \001(\r\"^\n\032FishjoyBulletBla" +
-      "stProtobuf\022*\n\006bullet\030\001 \001(\0132\032.gws.Fishjoy" +
-      "BulletProtobuf\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\"/\n\023" +
-      "FishjoyFishProtobuf\022\n\n\002id\030\001 \001(\t\022\014\n\004type\030" +
-      "\002 \001(\r\"l\n\035FishjoyFishCoordinateProtobuf\022&" +
-      "\n\004fish\030\001 \001(\0132\030.gws.FishjoyFishProtobuf\022\t" +
-      "\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022\r\n\005angle\030\004 \001(\002\"|\n\027F",
-      "ishjoyFishDeadProtobuf\022&\n\004fish\030\001 \001(\0132\030.g" +
-      "ws.FishjoyFishProtobuf\022*\n\006bullet\030\002 \001(\0132\032" +
-      ".gws.FishjoyBulletProtobuf\022\r\n\005score\030\003 \001(" +
-      "\rB%\n\032net.foreworld.gws.protobufB\007Fishjoy" +
-      "b\006proto3"
+      "\005 \001(\002\022\r\n\005speed\030\006 \001(\r\"\216\001\n\032FishjoyBulletBl" +
+      "astProtobuf\022*\n\006bullet\030\001 \001(\0132\032.gws.Fishjo" +
+      "yBulletProtobuf\022\t\n\001x\030\002 \001(\002\022\t\n\001y\030\003 \001(\002\022.\n" +
+      "\010fishDead\030\004 \003(\0132\034.gws.FishjoyFishDeadPro" +
+      "tobuf\"C\n\023FishjoyFishProtobuf\022\n\n\002id\030\001 \001(\t" +
+      "\022\021\n\tfish_type\030\002 \001(\r\022\r\n\005score\030\003 \001(\r\"l\n\035Fi" +
+      "shjoyFishCoordinateProtobuf\022&\n\004fish\030\001 \001(",
+      "\0132\030.gws.FishjoyFishProtobuf\022\t\n\001x\030\002 \001(\002\022\t" +
+      "\n\001y\030\003 \001(\002\022\r\n\005angle\030\004 \001(\002\"P\n\027FishjoyFishD" +
+      "eadProtobuf\022&\n\004fish\030\001 \001(\0132\030.gws.FishjoyF" +
+      "ishProtobuf\022\r\n\005score\030\002 \001(\rB%\n\032net.forewo" +
+      "rld.gws.protobufB\007Fishjoyb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -3818,13 +4059,13 @@ public final class Fishjoy {
     internal_static_gws_FishjoyBulletBlastProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyBulletBlastProtobuf_descriptor,
-        new java.lang.String[] { "Bullet", "X", "Y", });
+        new java.lang.String[] { "Bullet", "X", "Y", "FishDead", });
     internal_static_gws_FishjoyFishProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_gws_FishjoyFishProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyFishProtobuf_descriptor,
-        new java.lang.String[] { "Id", "Type", });
+        new java.lang.String[] { "Id", "FishType", "Score", });
     internal_static_gws_FishjoyFishCoordinateProtobuf_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_gws_FishjoyFishCoordinateProtobuf_fieldAccessorTable = new
@@ -3836,7 +4077,7 @@ public final class Fishjoy {
     internal_static_gws_FishjoyFishDeadProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyFishDeadProtobuf_descriptor,
-        new java.lang.String[] { "Fish", "Bullet", "Score", });
+        new java.lang.String[] { "Fish", "Score", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

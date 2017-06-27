@@ -18,11 +18,13 @@ message FishjoyBulletBlastProtobuf {
   FishjoyBulletProtobuf bullet = 1;
   float x = 2;
   float y = 3;
+  repeated FishjoyFishDeadProtobuf fishDead = 4;
 }
 
 message FishjoyFishProtobuf {
   string id = 1;
-  uint32 type = 2;
+  uint32 fish_type = 2;
+  uint32 score = 3;
 }
 
 message FishjoyFishCoordinateProtobuf {
@@ -34,6 +36,5 @@ message FishjoyFishCoordinateProtobuf {
 
 message FishjoyFishDeadProtobuf {
   FishjoyFishProtobuf fish = 1;
-  FishjoyBulletProtobuf bullet = 2;
-  uint32 score = 3;
+  uint32 score = 2;
 }
