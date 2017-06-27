@@ -27,7 +27,6 @@ import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.GroupService;
-import net.foreworld.util.StringUtil;
 
 /**
  *
@@ -71,7 +70,7 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String group_type = StringUtil.isEmpty(GroupSearchProtobuf.parseFrom(req.getData()).getGroupType());
+			String group_type = GroupSearchProtobuf.parseFrom(req.getData()).getGroupType();
 
 			ResultMap<List<Receiver<String>>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
 					group_type);
@@ -153,7 +152,7 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String group_id = StringUtil.isEmpty(PrimaryKeyProtobuf.parseFrom(req.getData()).getId());
+			String group_id = PrimaryKeyProtobuf.parseFrom(req.getData()).getId();
 
 			ResultMap<List<Receiver<String>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
 					group_id);
@@ -315,7 +314,7 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String group_id = StringUtil.isEmpty(PrimaryKeyProtobuf.parseFrom(req.getData()).getId());
+			String group_id = PrimaryKeyProtobuf.parseFrom(req.getData()).getId();
 
 			ResultMap<List<Receiver<String>>> map = groupService.visit(sender.getServerId(), sender.getChannelId(),
 					group_id);

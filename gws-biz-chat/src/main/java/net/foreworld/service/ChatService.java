@@ -16,8 +16,7 @@ public interface ChatService extends IService {
 	 * 
 	 * @param server_id
 	 * @param channel_id
-	 * @param receiver
-	 * @param comment
+	 * @param chatMsg
 	 * @return
 	 */
 	ResultMap<Receiver<ChatMsg>> send(String server_id, String channel_id, ChatMsg chatMsg);

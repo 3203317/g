@@ -15,13 +15,12 @@ import net.foreworld.service.IService;
 public interface FishjoyService extends IService {
 
 	/**
-	 *
+	 * 
 	 * @param server_id
 	 * @param channel_id
 	 * @param bullet
 	 * @return
 	 */
-	ResultMap<List<Receiver<Bullet>>> shot(String server_id, String channel_id,
-			Bullet bullet);
+	ResultMap<List<Receiver<Bullet>>> shot(String server_id, String channel_id, Bullet bullet);
 
 }
