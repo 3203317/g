@@ -12,6 +12,7 @@ import net.foreworld.fishjoy.model.BulletBlast;
 import net.foreworld.fishjoy.service.FishjoyService;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
+import net.foreworld.model.SameData;
 import net.foreworld.service.impl.BaseService;
 
 /**
@@ -25,20 +26,23 @@ public class FishjoyServiceImpl extends BaseService implements FishjoyService {
 	private static final Logger logger = LoggerFactory.getLogger(FishjoyServiceImpl.class);
 
 	@Override
-	public ResultMap<List<Receiver<Bullet>>> shot(String server_id, String channel_id, Bullet bullet) {
+	public ResultMap<SameData<Bullet>> shot(String server_id, String channel_id, Bullet bullet) {
 
-		ResultMap<List<Receiver<Bullet>>> map = new ResultMap<List<Receiver<Bullet>>>();
+		ResultMap<SameData<Bullet>> map = new ResultMap<SameData<Bullet>>();
 		map.setSuccess(false);
 
-		Receiver<Bullet> rec = new Receiver<Bullet>();
+		SameData<Bullet> sd = new SameData<Bullet>();
+		sd.setData(bullet);
+
+		Receiver<Void> rec = new Receiver<Void>();
 		rec.setServer_id(server_id);
 		rec.setChannel_id(channel_id);
-		rec.setData(bullet);
 
-		List<Receiver<Bullet>> list = new ArrayList<Receiver<Bullet>>();
+		List<Receiver<Void>> list = new ArrayList<Receiver<Void>>();
 		list.add(rec);
 
-		map.setData(list);
+		sd.setReceivers(list);
+
 		map.setSuccess(true);
 		return map;
 	}
