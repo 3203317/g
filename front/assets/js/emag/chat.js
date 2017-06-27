@@ -6,7 +6,7 @@
 // GENERATED CODE -- DO NOT EDIT!
 
 
-goog.provide('proto.gws.ChatProtobuf');
+goog.provide('proto.gws.ChatMsgProtobuf');
 
 goog.require('jspb.Message');
 goog.require('jspb.BinaryReader');
@@ -23,12 +23,12 @@ goog.require('jspb.BinaryWriter');
  * @extends {jspb.Message}
  * @constructor
  */
-proto.gws.ChatProtobuf = function(opt_data) {
+proto.gws.ChatMsgProtobuf = function(opt_data) {
   jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
-goog.inherits(proto.gws.ChatProtobuf, jspb.Message);
+goog.inherits(proto.gws.ChatMsgProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
-  proto.gws.ChatProtobuf.displayName = 'proto.gws.ChatProtobuf';
+  proto.gws.ChatMsgProtobuf.displayName = 'proto.gws.ChatMsgProtobuf';
 }
 
 
@@ -43,8 +43,8 @@ if (jspb.Message.GENERATE_TO_OBJECT) {
  *     for transitional soy proto support: http://goto/soy-param-migration
  * @return {!Object}
  */
-proto.gws.ChatProtobuf.prototype.toObject = function(opt_includeInstance) {
-  return proto.gws.ChatProtobuf.toObject(opt_includeInstance, this);
+proto.gws.ChatMsgProtobuf.prototype.toObject = function(opt_includeInstance) {
+  return proto.gws.ChatMsgProtobuf.toObject(opt_includeInstance, this);
 };
 
 
@@ -53,10 +53,10 @@ proto.gws.ChatProtobuf.prototype.toObject = function(opt_includeInstance) {
  * @param {boolean|undefined} includeInstance Whether to include the JSPB
  *     instance for transitional soy proto support:
  *     http://goto/soy-param-migration
- * @param {!proto.gws.ChatProtobuf} msg The msg instance to transform.
+ * @param {!proto.gws.ChatMsgProtobuf} msg The msg instance to transform.
  * @return {!Object}
  */
-proto.gws.ChatProtobuf.toObject = function(includeInstance, msg) {
+proto.gws.ChatMsgProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     id: jspb.Message.getFieldWithDefault(msg, 1, ""),
     timestamp: jspb.Message.getFieldWithDefault(msg, 2, 0),
@@ -77,23 +77,23 @@ proto.gws.ChatProtobuf.toObject = function(includeInstance, msg) {
 /**
  * Deserializes binary data (in protobuf wire format).
  * @param {jspb.ByteSource} bytes The bytes to deserialize.
- * @return {!proto.gws.ChatProtobuf}
+ * @return {!proto.gws.ChatMsgProtobuf}
  */
-proto.gws.ChatProtobuf.deserializeBinary = function(bytes) {
+proto.gws.ChatMsgProtobuf.deserializeBinary = function(bytes) {
   var reader = new jspb.BinaryReader(bytes);
-  var msg = new proto.gws.ChatProtobuf;
-  return proto.gws.ChatProtobuf.deserializeBinaryFromReader(msg, reader);
+  var msg = new proto.gws.ChatMsgProtobuf;
+  return proto.gws.ChatMsgProtobuf.deserializeBinaryFromReader(msg, reader);
 };
 
 
 /**
  * Deserializes binary data (in protobuf wire format) from the
  * given reader into the given message object.
- * @param {!proto.gws.ChatProtobuf} msg The message object to deserialize into.
+ * @param {!proto.gws.ChatMsgProtobuf} msg The message object to deserialize into.
  * @param {!jspb.BinaryReader} reader The BinaryReader to use.
- * @return {!proto.gws.ChatProtobuf}
+ * @return {!proto.gws.ChatMsgProtobuf}
  */
-proto.gws.ChatProtobuf.deserializeBinaryFromReader = function(msg, reader) {
+proto.gws.ChatMsgProtobuf.deserializeBinaryFromReader = function(msg, reader) {
   while (reader.nextField()) {
     if (reader.isEndGroup()) {
       break;
@@ -136,10 +136,10 @@ proto.gws.ChatProtobuf.deserializeBinaryFromReader = function(msg, reader) {
 /**
  * Class method variant: serializes the given message to binary data
  * (in protobuf wire format), writing to the given BinaryWriter.
- * @param {!proto.gws.ChatProtobuf} message
+ * @param {!proto.gws.ChatMsgProtobuf} message
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.ChatProtobuf.serializeBinaryToWriter = function(message, writer) {
+proto.gws.ChatMsgProtobuf.serializeBinaryToWriter = function(message, writer) {
   message.serializeBinaryToWriter(writer);
 };
 
@@ -148,7 +148,7 @@ proto.gws.ChatProtobuf.serializeBinaryToWriter = function(message, writer) {
  * Serializes the message to binary data (in protobuf wire format).
  * @return {!Uint8Array}
  */
-proto.gws.ChatProtobuf.prototype.serializeBinary = function() {
+proto.gws.ChatMsgProtobuf.prototype.serializeBinary = function() {
   var writer = new jspb.BinaryWriter();
   this.serializeBinaryToWriter(writer);
   return writer.getResultBuffer();
@@ -160,7 +160,7 @@ proto.gws.ChatProtobuf.prototype.serializeBinary = function() {
  * writing to the given BinaryWriter.
  * @param {!jspb.BinaryWriter} writer
  */
-proto.gws.ChatProtobuf.prototype.serializeBinaryToWriter = function (writer) {
+proto.gws.ChatMsgProtobuf.prototype.serializeBinaryToWriter = function (writer) {
   var f = undefined;
   f = this.getId();
   if (f.length > 0) {
@@ -211,13 +211,13 @@ proto.gws.ChatProtobuf.prototype.serializeBinaryToWriter = function (writer) {
  * optional string id = 1;
  * @return {string}
  */
-proto.gws.ChatProtobuf.prototype.getId = function() {
+proto.gws.ChatMsgProtobuf.prototype.getId = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 1, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.ChatProtobuf.prototype.setId = function(value) {
+proto.gws.ChatMsgProtobuf.prototype.setId = function(value) {
   jspb.Message.setField(this, 1, value);
 };
 
@@ -226,13 +226,13 @@ proto.gws.ChatProtobuf.prototype.setId = function(value) {
  * optional uint64 timestamp = 2;
  * @return {number}
  */
-proto.gws.ChatProtobuf.prototype.getTimestamp = function() {
+proto.gws.ChatMsgProtobuf.prototype.getTimestamp = function() {
   return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 2, 0));
 };
 
 
 /** @param {number} value */
-proto.gws.ChatProtobuf.prototype.setTimestamp = function(value) {
+proto.gws.ChatMsgProtobuf.prototype.setTimestamp = function(value) {
   jspb.Message.setField(this, 2, value);
 };
 
@@ -241,13 +241,13 @@ proto.gws.ChatProtobuf.prototype.setTimestamp = function(value) {
  * optional string sender = 3;
  * @return {string}
  */
-proto.gws.ChatProtobuf.prototype.getSender = function() {
+proto.gws.ChatMsgProtobuf.prototype.getSender = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.ChatProtobuf.prototype.setSender = function(value) {
+proto.gws.ChatMsgProtobuf.prototype.setSender = function(value) {
   jspb.Message.setField(this, 3, value);
 };
 
@@ -256,13 +256,13 @@ proto.gws.ChatProtobuf.prototype.setSender = function(value) {
  * optional string receiver = 4;
  * @return {string}
  */
-proto.gws.ChatProtobuf.prototype.getReceiver = function() {
+proto.gws.ChatMsgProtobuf.prototype.getReceiver = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.ChatProtobuf.prototype.setReceiver = function(value) {
+proto.gws.ChatMsgProtobuf.prototype.setReceiver = function(value) {
   jspb.Message.setField(this, 4, value);
 };
 
@@ -271,13 +271,13 @@ proto.gws.ChatProtobuf.prototype.setReceiver = function(value) {
  * optional string message = 5;
  * @return {string}
  */
-proto.gws.ChatProtobuf.prototype.getMessage = function() {
+proto.gws.ChatMsgProtobuf.prototype.getMessage = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 5, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.ChatProtobuf.prototype.setMessage = function(value) {
+proto.gws.ChatMsgProtobuf.prototype.setMessage = function(value) {
   jspb.Message.setField(this, 5, value);
 };
 
@@ -286,13 +286,13 @@ proto.gws.ChatProtobuf.prototype.setMessage = function(value) {
  * optional string extend_data = 6;
  * @return {string}
  */
-proto.gws.ChatProtobuf.prototype.getExtendData = function() {
+proto.gws.ChatMsgProtobuf.prototype.getExtendData = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 6, ""));
 };
 
 
 /** @param {string} value */
-proto.gws.ChatProtobuf.prototype.setExtendData = function(value) {
+proto.gws.ChatMsgProtobuf.prototype.setExtendData = function(value) {
   jspb.Message.setField(this, 6, value);
 };
 

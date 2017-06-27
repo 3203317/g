@@ -5,7 +5,7 @@ package gws;
 option java_package = "net.foreworld.gws.protobuf";
 option java_outer_classname = "Chat";
 
-message ChatProtobuf {
+message ChatMsgProtobuf {
   string id = 1;
   uint64 timestamp = 2;
   string sender = 3;
