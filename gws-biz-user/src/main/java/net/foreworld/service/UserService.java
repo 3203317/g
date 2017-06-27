@@ -1,9 +1,7 @@
 package net.foreworld.service;
 
-import java.util.List;
-
-import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
+import net.foreworld.model.SameData;
 
 /**
  *
@@ -18,6 +16,6 @@ public interface UserService extends IService {
 	 * @param channel_id
 	 * @return
 	 */
-	ResultMap<List<Receiver<String>>> logout(String server_id, String channel_id);
+	ResultMap<SameData<String>> logout(String server_id, String channel_id);
 
 }
