@@ -148,6 +148,16 @@
 			<artifactId>gws-plugin-chat</artifactId>
 			<version>1.0.1</version>
 		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-fishjoy-biz-impl</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.foreworld</groupId>
+			<artifactId>gws-biz-chat-impl</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 	</dependencies>
 
 	<repositories>

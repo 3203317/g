@@ -28,6 +28,9 @@ public class ChatServiceImpl extends BaseService implements ChatService {
 		ResultMap<Receiver<ChatMsg>> map = new ResultMap<Receiver<ChatMsg>>();
 		map.setSuccess(false);
 
+		chatMsg.setId("id");
+		chatMsg.setSender("sender");
+
 		Receiver<ChatMsg> rec = new Receiver<ChatMsg>();
 		rec.setServer_id(server_id);
 		rec.setChannel_id(channel_id);

@@ -80,7 +80,10 @@ public class Chat extends BasePlugin {
 			_cmpb.setSender(_chatMsg.getSender());
 			_cmpb.setReceiver(_chatMsg.getReceiver());
 			_cmpb.setMessage(_chatMsg.getMessage());
-			_cmpb.setExtendData(_chatMsg.getExtend_data());
+
+			if (null != _chatMsg.getExtend_data()) {
+				_cmpb.setExtendData(_chatMsg.getExtend_data());
+			}
 
 			ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 			resp.setVersion(protocol_version);
