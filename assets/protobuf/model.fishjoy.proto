@@ -37,4 +37,6 @@ message FishjoyFishCoordinateProtobuf {
 message FishjoyFishDeadProtobuf {
   FishjoyFishProtobuf fish = 1;
   uint32 score = 2;
+  uint32 equip = 3;
+  uint32 equip_count = 4;
 }

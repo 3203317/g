@@ -1076,7 +1076,9 @@ proto.gws.FishjoyFishDeadProtobuf.prototype.toObject = function(opt_includeInsta
 proto.gws.FishjoyFishDeadProtobuf.toObject = function(includeInstance, msg) {
   var f, obj = {
     fish: (f = msg.getFish()) && proto.gws.FishjoyFishProtobuf.toObject(includeInstance, f),
-    score: jspb.Message.getFieldWithDefault(msg, 2, 0)
+    score: jspb.Message.getFieldWithDefault(msg, 2, 0),
+    equip: jspb.Message.getFieldWithDefault(msg, 3, 0),
+    equipCount: jspb.Message.getFieldWithDefault(msg, 4, 0)
   };
 
   if (includeInstance) {
@@ -1121,6 +1123,14 @@ proto.gws.FishjoyFishDeadProtobuf.deserializeBinaryFromReader = function(msg, re
     case 2:
       var value = /** @type {number} */ (reader.readUint32());
       msg.setScore(value);
+      break;
+    case 3:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setEquip(value);
+      break;
+    case 4:
+      var value = /** @type {number} */ (reader.readUint32());
+      msg.setEquipCount(value);
       break;
     default:
       reader.skipField();
@@ -1175,6 +1185,20 @@ proto.gws.FishjoyFishDeadProtobuf.prototype.serializeBinaryToWriter = function (
       f
     );
   }
+  f = this.getEquip();
+  if (f !== 0) {
+    writer.writeUint32(
+      3,
+      f
+    );
+  }
+  f = this.getEquipCount();
+  if (f !== 0) {
+    writer.writeUint32(
+      4,
+      f
+    );
+  }
 };
 
 
@@ -1220,6 +1244,36 @@ proto.gws.FishjoyFishDeadProtobuf.prototype.getScore = function() {
 /** @param {number} value */
 proto.gws.FishjoyFishDeadProtobuf.prototype.setScore = function(value) {
   jspb.Message.setField(this, 2, value);
+};
+
+
+/**
+ * optional uint32 equip = 3;
+ * @return {number}
+ */
+proto.gws.FishjoyFishDeadProtobuf.prototype.getEquip = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 3, 0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishDeadProtobuf.prototype.setEquip = function(value) {
+  jspb.Message.setField(this, 3, value);
+};
+
+
+/**
+ * optional uint32 equip_count = 4;
+ * @return {number}
+ */
+proto.gws.FishjoyFishDeadProtobuf.prototype.getEquipCount = function() {
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+};
+
+
+/** @param {number} value */
+proto.gws.FishjoyFishDeadProtobuf.prototype.setEquipCount = function(value) {
+  jspb.Message.setField(this, 4, value);
 };
 
 

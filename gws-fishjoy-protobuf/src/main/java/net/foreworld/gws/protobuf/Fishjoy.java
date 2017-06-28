@@ -3384,6 +3384,16 @@ public final class Fishjoy {
      * <code>optional uint32 score = 2;</code>
      */
     int getScore();
+
+    /**
+     * <code>optional uint32 equip = 3;</code>
+     */
+    int getEquip();
+
+    /**
+     * <code>optional uint32 equip_count = 4;</code>
+     */
+    int getEquipCount();
   }
   /**
    * Protobuf type {@code gws.FishjoyFishDeadProtobuf}
@@ -3398,6 +3408,8 @@ public final class Fishjoy {
     }
     private FishjoyFishDeadProtobuf() {
       score_ = 0;
+      equip_ = 0;
+      equipCount_ = 0;
     }
 
     @java.lang.Override
@@ -3441,6 +3453,16 @@ public final class Fishjoy {
             case 16: {
 
               score_ = input.readUInt32();
+              break;
+            }
+            case 24: {
+
+              equip_ = input.readUInt32();
+              break;
+            }
+            case 32: {
+
+              equipCount_ = input.readUInt32();
               break;
             }
           }
@@ -3496,6 +3518,24 @@ public final class Fishjoy {
       return score_;
     }
 
+    public static final int EQUIP_FIELD_NUMBER = 3;
+    private int equip_;
+    /**
+     * <code>optional uint32 equip = 3;</code>
+     */
+    public int getEquip() {
+      return equip_;
+    }
+
+    public static final int EQUIP_COUNT_FIELD_NUMBER = 4;
+    private int equipCount_;
+    /**
+     * <code>optional uint32 equip_count = 4;</code>
+     */
+    public int getEquipCount() {
+      return equipCount_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -3514,6 +3554,12 @@ public final class Fishjoy {
       if (score_ != 0) {
         output.writeUInt32(2, score_);
       }
+      if (equip_ != 0) {
+        output.writeUInt32(3, equip_);
+      }
+      if (equipCount_ != 0) {
+        output.writeUInt32(4, equipCount_);
+      }
     }
 
     public int getSerializedSize() {
@@ -3528,6 +3574,14 @@ public final class Fishjoy {
       if (score_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeUInt32Size(2, score_);
+      }
+      if (equip_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(3, equip_);
+      }
+      if (equipCount_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeUInt32Size(4, equipCount_);
       }
       memoizedSize = size;
       return size;
@@ -3552,6 +3606,10 @@ public final class Fishjoy {
       }
       result = result && (getScore()
           == other.getScore());
+      result = result && (getEquip()
+          == other.getEquip());
+      result = result && (getEquipCount()
+          == other.getEquipCount());
       return result;
     }
 
@@ -3568,6 +3626,10 @@ public final class Fishjoy {
       }
       hash = (37 * hash) + SCORE_FIELD_NUMBER;
       hash = (53 * hash) + getScore();
+      hash = (37 * hash) + EQUIP_FIELD_NUMBER;
+      hash = (53 * hash) + getEquip();
+      hash = (37 * hash) + EQUIP_COUNT_FIELD_NUMBER;
+      hash = (53 * hash) + getEquipCount();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3694,6 +3756,10 @@ public final class Fishjoy {
         }
         score_ = 0;
 
+        equip_ = 0;
+
+        equipCount_ = 0;
+
         return this;
       }
 
@@ -3722,6 +3788,8 @@ public final class Fishjoy {
           result.fish_ = fishBuilder_.build();
         }
         result.score_ = score_;
+        result.equip_ = equip_;
+        result.equipCount_ = equipCount_;
         onBuilt();
         return result;
       }
@@ -3768,6 +3836,12 @@ public final class Fishjoy {
         }
         if (other.getScore() != 0) {
           setScore(other.getScore());
+        }
+        if (other.getEquip() != 0) {
+          setEquip(other.getEquip());
+        }
+        if (other.getEquipCount() != 0) {
+          setEquipCount(other.getEquipCount());
         }
         onChanged();
         return this;
@@ -3937,6 +4011,58 @@ public final class Fishjoy {
         onChanged();
         return this;
       }
+
+      private int equip_ ;
+      /**
+       * <code>optional uint32 equip = 3;</code>
+       */
+      public int getEquip() {
+        return equip_;
+      }
+      /**
+       * <code>optional uint32 equip = 3;</code>
+       */
+      public Builder setEquip(int value) {
+        
+        equip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 equip = 3;</code>
+       */
+      public Builder clearEquip() {
+        
+        equip_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private int equipCount_ ;
+      /**
+       * <code>optional uint32 equip_count = 4;</code>
+       */
+      public int getEquipCount() {
+        return equipCount_;
+      }
+      /**
+       * <code>optional uint32 equip_count = 4;</code>
+       */
+      public Builder setEquipCount(int value) {
+        
+        equipCount_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional uint32 equip_count = 4;</code>
+       */
+      public Builder clearEquipCount() {
+        
+        equipCount_ = 0;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -4031,10 +4157,11 @@ public final class Fishjoy {
       "\022\021\n\tfish_type\030\002 \001(\r\022\r\n\005score\030\003 \001(\r\"l\n\035Fi" +
       "shjoyFishCoordinateProtobuf\022&\n\004fish\030\001 \001(",
       "\0132\030.gws.FishjoyFishProtobuf\022\t\n\001x\030\002 \001(\002\022\t" +
-      "\n\001y\030\003 \001(\002\022\r\n\005angle\030\004 \001(\002\"P\n\027FishjoyFishD" +
+      "\n\001y\030\003 \001(\002\022\r\n\005angle\030\004 \001(\002\"t\n\027FishjoyFishD" +
       "eadProtobuf\022&\n\004fish\030\001 \001(\0132\030.gws.FishjoyF" +
-      "ishProtobuf\022\r\n\005score\030\002 \001(\rB%\n\032net.forewo" +
-      "rld.gws.protobufB\007Fishjoyb\006proto3"
+      "ishProtobuf\022\r\n\005score\030\002 \001(\r\022\r\n\005equip\030\003 \001(" +
+      "\r\022\023\n\013equip_count\030\004 \001(\rB%\n\032net.foreworld." +
+      "gws.protobufB\007Fishjoyb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -4077,7 +4204,7 @@ public final class Fishjoy {
     internal_static_gws_FishjoyFishDeadProtobuf_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_gws_FishjoyFishDeadProtobuf_descriptor,
-        new java.lang.String[] { "Fish", "Score", });
+        new java.lang.String[] { "Fish", "Score", "Equip", "EquipCount", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
