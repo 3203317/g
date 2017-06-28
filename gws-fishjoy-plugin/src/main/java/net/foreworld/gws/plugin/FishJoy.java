@@ -101,7 +101,7 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			//
+			// 给一组人员发送相同的数据
 
 			SameData<Bullet> _data = map.getData();
 
@@ -121,26 +121,25 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			resp.setMethod(5002);
+			Bullet _b = _data.getData();
 
 			FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf
 					.newBuilder();
+			_fbpb.setId(_b.getId());
+			_fbpb.setLevel(_b.getLevel());
+			_fbpb.setX(_b.getX());
+			_fbpb.setY(_b.getY());
+			_fbpb.setSpeed(_b.getSpeed());
+			_fbpb.setSender(_b.getSender());
+
+			resp.setMethod(5002);
+			resp.setData(_fbpb.build().toByteString());
+
+			rec.setData(resp);
 
 			for (int i = 0; i < j; i++) {
-				Receiver<Bullet> _receiver = _list.get(i);
+				Receiver<Void> _receiver = _list.get(i);
 
-				Bullet _b = _receiver.getData();
-
-				_fbpb.setId(_b.getId());
-				_fbpb.setLevel(_b.getLevel());
-				_fbpb.setX(_b.getX());
-				_fbpb.setY(_b.getY());
-				_fbpb.setSpeed(_b.getSpeed());
-				_fbpb.setSender(_b.getSender());
-
-				resp.setData(_fbpb.build().toByteString());
-
-				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
@@ -205,7 +204,7 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			//
+			// 给一组人员发送相同的数据
 
 			SameData<BulletBlast> _data = map.getData();
 
@@ -225,31 +224,30 @@ public class FishJoy extends BasePlugin {
 				return;
 			}
 
-			resp.setMethod(5004);
+			BulletBlast _bb = _data.getData();
+
+			Bullet _b = _bb.getBullet();
 
 			FishjoyBulletProtobuf.Builder _fbpb = FishjoyBulletProtobuf
 					.newBuilder();
+			_fbpb.setId(_b.getId());
+			_fbpb.setLevel(_b.getLevel());
+			_fbpb.setSender(_b.getSender());
+
 			FishjoyBulletBlastProtobuf.Builder _fbbpb = FishjoyBulletBlastProtobuf
 					.newBuilder();
+			_fbbpb.setBullet(_fbpb);
+			_fbbpb.setX(_bb.getX());
+			_fbbpb.setY(_bb.getY());
+
+			resp.setMethod(5004);
+			resp.setData(_fbbpb.build().toByteString());
+
+			rec.setData(resp);
 
 			for (int i = 0; i < j; i++) {
 				Receiver<Void> _receiver = _list.get(i);
 
-				BulletBlast _bb = _receiver.getData();
-
-				Bullet _b = _bb.getBullet();
-
-				_fbpb.setId(_b.getId());
-				_fbpb.setLevel(_b.getLevel());
-				_fbpb.setSender(_b.getSender());
-
-				_fbbpb.setBullet(_fbpb);
-				_fbbpb.setX(_bb.getX());
-				_fbbpb.setY(_bb.getY());
-
-				resp.setData(_fbbpb.build().toByteString());
-
-				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
 
 				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
