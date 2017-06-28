@@ -129,8 +129,8 @@ public class FishJoy extends BasePlugin {
 			_fbpb.setSpeed(_b.getSpeed());
 			_fbpb.setSender(_b.getSender());
 
-			resp.setMethod(5002);
 			resp.setData(_fbpb.build().toByteString());
+			resp.setMethod(5002);
 
 			rec.setData(resp);
 
@@ -227,8 +227,8 @@ public class FishJoy extends BasePlugin {
 			_fbbpb.setY(_bb.getY());
 			_fbbpb.setResult(_bb.getResult());
 
-			resp.setMethod(5004);
 			resp.setData(_fbbpb.build().toByteString());
+			resp.setMethod(5004);
 
 			rec.setData(resp);
 
