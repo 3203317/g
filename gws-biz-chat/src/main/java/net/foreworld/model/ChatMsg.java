@@ -3,7 +3,7 @@ package net.foreworld.model;
 import java.io.Serializable;
 
 /**
- * 
+ *
  * @author huangxin
  *
  */
