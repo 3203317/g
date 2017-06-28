@@ -14,6 +14,25 @@ public class FishDead implements Serializable {
 	private Fish fish;
 	private Integer score;
 
+	private Integer equip;
+	private Integer equip_count;
+
+	public Integer getEquip() {
+		return equip;
+	}
+
+	public void setEquip(Integer equip) {
+		this.equip = equip;
+	}
+
+	public Integer getEquip_count() {
+		return equip_count;
+	}
+
+	public void setEquip_count(Integer equip_count) {
+		this.equip_count = equip_count;
+	}
+
 	public Fish getFish() {
 		return fish;
 	}

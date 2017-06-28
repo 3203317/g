@@ -1,7 +1,6 @@
 package net.foreworld.fishjoy.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 
@@ -17,14 +16,14 @@ public class BulletBlast implements Serializable {
 	private Float x;
 	private Float y;
 
-	private List<FishDead> fishDeads;
+	private String result;
 
-	public List<FishDead> getFishDeads() {
-		return fishDeads;
+	public String getResult() {
+		return result;
 	}
 
-	public void setFishDeads(List<FishDead> fishDeads) {
-		this.fishDeads = fishDeads;
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 	public Bullet getBullet() {
