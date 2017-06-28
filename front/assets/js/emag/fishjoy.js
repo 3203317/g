@@ -313,19 +313,12 @@ proto.gws.FishjoyBulletProtobuf.prototype.setSpeed = function(value) {
  * @constructor
  */
 proto.gws.FishjoyBulletBlastProtobuf = function(opt_data) {
-  jspb.Message.initialize(this, opt_data, 0, -1, proto.gws.FishjoyBulletBlastProtobuf.repeatedFields_, null);
+  jspb.Message.initialize(this, opt_data, 0, -1, null, null);
 };
 goog.inherits(proto.gws.FishjoyBulletBlastProtobuf, jspb.Message);
 if (goog.DEBUG && !COMPILED) {
   proto.gws.FishjoyBulletBlastProtobuf.displayName = 'proto.gws.FishjoyBulletBlastProtobuf';
 }
-/**
- * List of repeated fields within this message type.
- * @private {!Array<number>}
- * @const
- */
-proto.gws.FishjoyBulletBlastProtobuf.repeatedFields_ = [4];
-
 
 
 if (jspb.Message.GENERATE_TO_OBJECT) {
@@ -357,8 +350,7 @@ proto.gws.FishjoyBulletBlastProtobuf.toObject = function(includeInstance, msg) {
     bullet: (f = msg.getBullet()) && proto.gws.FishjoyBulletProtobuf.toObject(includeInstance, f),
     x: +jspb.Message.getFieldWithDefault(msg, 2, 0.0),
     y: +jspb.Message.getFieldWithDefault(msg, 3, 0.0),
-    fishdeadList: jspb.Message.toObjectList(msg.getFishdeadList(),
-    proto.gws.FishjoyFishDeadProtobuf.toObject, includeInstance)
+    result: jspb.Message.getFieldWithDefault(msg, 4, "")
   };
 
   if (includeInstance) {
@@ -409,9 +401,8 @@ proto.gws.FishjoyBulletBlastProtobuf.deserializeBinaryFromReader = function(msg,
       msg.setY(value);
       break;
     case 4:
-      var value = new proto.gws.FishjoyFishDeadProtobuf;
-      reader.readMessage(value,proto.gws.FishjoyFishDeadProtobuf.deserializeBinaryFromReader);
-      msg.addFishdead(value);
+      var value = /** @type {string} */ (reader.readString());
+      msg.setResult(value);
       break;
     default:
       reader.skipField();
@@ -473,12 +464,11 @@ proto.gws.FishjoyBulletBlastProtobuf.prototype.serializeBinaryToWriter = functio
       f
     );
   }
-  f = this.getFishdeadList();
+  f = this.getResult();
   if (f.length > 0) {
-    writer.writeRepeatedMessage(
+    writer.writeString(
       4,
-      f,
-      proto.gws.FishjoyFishDeadProtobuf.serializeBinaryToWriter
+      f
     );
   }
 };
@@ -545,35 +535,17 @@ proto.gws.FishjoyBulletBlastProtobuf.prototype.setY = function(value) {
 
 
 /**
- * repeated FishjoyFishDeadProtobuf fishDead = 4;
- * If you change this array by adding, removing or replacing elements, or if you
- * replace the array itself, then you must call the setter to update it.
- * @return {!Array.<!proto.gws.FishjoyFishDeadProtobuf>}
+ * optional string result = 4;
+ * @return {string}
  */
-proto.gws.FishjoyBulletBlastProtobuf.prototype.getFishdeadList = function() {
-  return /** @type{!Array.<!proto.gws.FishjoyFishDeadProtobuf>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.gws.FishjoyFishDeadProtobuf, 4));
+proto.gws.FishjoyBulletBlastProtobuf.prototype.getResult = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
 };
 
 
-/** @param {!Array.<!proto.gws.FishjoyFishDeadProtobuf>} value */
-proto.gws.FishjoyBulletBlastProtobuf.prototype.setFishdeadList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 4, value);
-};
-
-
-/**
- * @param {!proto.gws.FishjoyFishDeadProtobuf=} opt_value
- * @param {number=} opt_index
- * @return {!proto.gws.FishjoyFishDeadProtobuf}
- */
-proto.gws.FishjoyBulletBlastProtobuf.prototype.addFishdead = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 4, opt_value, proto.gws.FishjoyFishDeadProtobuf, opt_index);
-};
-
-
-proto.gws.FishjoyBulletBlastProtobuf.prototype.clearFishdeadList = function() {
-  this.setFishdeadList([]);
+/** @param {string} value */
+proto.gws.FishjoyBulletBlastProtobuf.prototype.setResult = function(value) {
+  jspb.Message.setField(this, 4, value);
 };
 
 
