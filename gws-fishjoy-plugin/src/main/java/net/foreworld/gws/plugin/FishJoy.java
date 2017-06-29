@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
+import javax.jms.TextMessage;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -145,6 +146,20 @@ public class FishJoy extends BasePlugin {
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
+	@JmsListener(destination = "${queue.group.entry}")
+	public void entryGroup(TextMessage msg) {
+
+		try {
+
+			String[] text = msg.getText().split("::");
+
+			logger.info("entryGroup: {}:{}:{}", text[0], text[1], text[2]);
+
 		} catch (JMSException e) {
 			logger.error("", e);
 		}

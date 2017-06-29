@@ -4,16 +4,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import net.foreworld.gws.protobuf.Chat.ChatMsgProtobuf;
-import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
-import net.foreworld.gws.protobuf.Common.SenderProtobuf;
-import net.foreworld.model.ChatMsg;
-import net.foreworld.model.Receiver;
-import net.foreworld.model.ResultMap;
-import net.foreworld.service.ChatService;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,6 +13,16 @@ import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import net.foreworld.gws.protobuf.Chat.ChatMsgProtobuf;
+import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
+import net.foreworld.gws.protobuf.Common.SenderProtobuf;
+import net.foreworld.model.ChatMsg;
+import net.foreworld.model.Receiver;
+import net.foreworld.model.ResultMap;
+import net.foreworld.service.ChatService;
 
 /**
  *
@@ -38,6 +38,9 @@ public class Chat extends BasePlugin {
 
 	@Value("${queue.back.send}")
 	private String queue_back_send;
+
+	@Value("${queue.group.entry}")
+	private String queue_group_entry;
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
@@ -63,8 +66,7 @@ public class Chat extends BasePlugin {
 			chatMsg.setMessage(cmp.getMessage());
 			chatMsg.setExtend_data(cmp.getExtendData());
 
-			ResultMap<Receiver<ChatMsg>> map = chatService.send(
-					sender.getServerId(), sender.getChannelId(), chatMsg);
+			ResultMap<Receiver<ChatMsg>> map = chatService.send(sender.getServerId(), sender.getChannelId(), chatMsg);
 
 			if (!map.getSuccess()) {
 				return;
@@ -96,8 +98,10 @@ public class Chat extends BasePlugin {
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "."
-					+ _receiver.getServer_id(), rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
+					rec.build().toByteArray());
+
+			jmsMessagingTemplate.convertAndSend(queue_group_entry, "a::b::c");
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
