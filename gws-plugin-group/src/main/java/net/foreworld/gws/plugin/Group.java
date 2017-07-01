@@ -67,6 +67,7 @@ public class Group extends BasePlugin {
 			resp.setVersion(protocol_version);
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
+			resp.setMethod(3002);
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
@@ -80,9 +81,11 @@ public class Group extends BasePlugin {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
 				err.setCode(map.getCode());
-				err.setMsg(map.getMsg());
 
-				resp.setMethod(req.getMethod());
+				if (null != map.getMsg()) {
+					err.setMsg(map.getMsg());
+				}
+
 				resp.setError(err);
 
 				rec.setData(resp);
@@ -107,8 +110,6 @@ public class Group extends BasePlugin {
 			if (0 == j) {
 				return;
 			}
-
-			resp.setMethod(3002);
 
 			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
 
@@ -149,6 +150,7 @@ public class Group extends BasePlugin {
 			resp.setVersion(protocol_version);
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
+			resp.setMethod(3004);
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
@@ -162,9 +164,11 @@ public class Group extends BasePlugin {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
 				err.setCode(map.getCode());
-				err.setMsg(map.getMsg());
 
-				resp.setMethod(req.getMethod());
+				if (null != map.getMsg()) {
+					err.setMsg(map.getMsg());
+				}
+
 				resp.setError(err);
 
 				rec.setData(resp);
@@ -189,8 +193,6 @@ public class Group extends BasePlugin {
 			if (0 == j) {
 				return;
 			}
-
-			resp.setMethod(3004);
 
 			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
 
@@ -249,7 +251,10 @@ public class Group extends BasePlugin {
 
 			ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
 			err.setCode(map.getCode());
-			err.setMsg(map.getMsg());
+
+			if (null != map.getMsg()) {
+				err.setMsg(map.getMsg());
+			}
 
 			resp.setError(err);
 
@@ -310,6 +315,7 @@ public class Group extends BasePlugin {
 			resp.setVersion(protocol_version);
 			resp.setSeqId(req.getSeqId());
 			resp.setTimestamp(System.currentTimeMillis());
+			resp.setMethod(3008);
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
@@ -323,9 +329,11 @@ public class Group extends BasePlugin {
 
 				ErrorProtobuf.Builder err = ErrorProtobuf.newBuilder();
 				err.setCode(map.getCode());
-				err.setMsg(map.getMsg());
 
-				resp.setMethod(req.getMethod());
+				if (null != map.getMsg()) {
+					err.setMsg(map.getMsg());
+				}
+
 				resp.setError(err);
 
 				rec.setData(resp);
@@ -350,8 +358,6 @@ public class Group extends BasePlugin {
 			if (0 == j) {
 				return;
 			}
-
-			resp.setMethod(3008);
 
 			DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
 

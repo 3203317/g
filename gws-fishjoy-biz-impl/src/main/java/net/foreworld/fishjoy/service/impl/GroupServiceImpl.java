@@ -10,6 +10,7 @@ import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.GroupService;
 import net.foreworld.service.impl.BaseService;
+import net.foreworld.util.StringUtil;
 
 /**
  *
@@ -23,26 +24,49 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 
 	@Override
 	public ResultMap<List<Receiver<String>>> search(String server_id, String channel_id, String group_type) {
-		// TODO Auto-generated method stub
-		return null;
+
+		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		map.setSuccess(false);
+
+		group_type = StringUtil.isEmpty(group_type);
+
+		if (null == group_type) {
+			map.setCode("invalid_group_type");
+			return map;
+		}
+
+		map.setSuccess(true);
+		return map;
 	}
 
 	@Override
 	public ResultMap<List<Receiver<String>>> entry(String server_id, String channel_id, String group_id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		map.setSuccess(false);
+
+		map.setSuccess(true);
+		return map;
 	}
 
 	@Override
 	public ResultMap<List<Receiver<String>>> quit(String server_id, String channel_id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		map.setSuccess(false);
+
+		map.setSuccess(true);
+		return map;
 	}
 
 	@Override
 	public ResultMap<List<Receiver<String>>> visit(String server_id, String channel_id, String group_id) {
-		// TODO Auto-generated method stub
-		return null;
+
+		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
+		map.setSuccess(false);
+
+		map.setSuccess(true);
+		return map;
 	}
 
 }
