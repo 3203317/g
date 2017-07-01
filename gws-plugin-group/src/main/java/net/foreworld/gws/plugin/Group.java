@@ -237,6 +237,7 @@ public class Group extends BasePlugin {
 		resp.setVersion(protocol_version);
 		resp.setSeqId(req.getSeqId());
 		resp.setTimestamp(System.currentTimeMillis());
+		resp.setMethod(3006);
 
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
@@ -250,7 +251,6 @@ public class Group extends BasePlugin {
 			err.setCode(map.getCode());
 			err.setMsg(map.getMsg());
 
-			resp.setMethod(req.getMethod());
 			resp.setError(err);
 
 			rec.setData(resp);
@@ -274,8 +274,6 @@ public class Group extends BasePlugin {
 		if (0 == j) {
 			return true;
 		}
-
-		resp.setMethod(3006);
 
 		DataProtobuf.Builder _dpb = DataProtobuf.newBuilder();
 
