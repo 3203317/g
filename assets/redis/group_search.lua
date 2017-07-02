@@ -43,13 +43,16 @@ local ran_group_pos = redis.call('RANDOMKEY');
 if (false == ran_group_pos) then return '40003'; end;
 
 
-redis.call('SET', ran_group_pos, user_id);
+local result = redis.call('SET', ran_group_pos, user_id);
+
+
+if false == result then return '40004'; end;
 
 
 redis.call('MOVE', ran_group_pos, 1 + database);
 
 
-return ran_group_pos;
+return result;
 
 
 
