@@ -1,5 +1,7 @@
 package net.foreworld.gws.amq;
 
+import io.netty.channel.Channel;
+
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
@@ -42,8 +44,10 @@ public class Consumer {
 				return;
 			}
 
-			ChannelUtil.getDefault().getChannel(rec.getReceiver())
-					.writeAndFlush(rec.getData());
+			Channel c = ChannelUtil.getDefault().getChannel(rec.getReceiver());
+
+			if (null != c)
+				c.writeAndFlush(rec.getData());
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
