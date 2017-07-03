@@ -153,9 +153,9 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 
 		switch (str) {
 		case "[]":
+		case "invalid_database":
 			map.setSuccess(true);
 			return map;
-		case "invalid_database":
 		case "invalid_channel":
 			map.setCode(str);
 			return map;
