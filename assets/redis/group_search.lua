@@ -3,7 +3,7 @@
 redis.replicate_commands();
 
 -- 
-local key1 = '::';
+local key0 = '::';
 
 local server_id = ARGV[1];
 local channel_id = ARGV[2];
@@ -14,7 +14,7 @@ local group_type = ARGV[4];
 
 redis.call('SELECT', 6);
 
-local user_id = redis.call('GET', server_id .. key1 .. channel_id);
+local user_id = redis.call('GET', server_id .. key0 .. channel_id);
 
 if (false == user_id) then return 'invalid_channel'; end;
 
@@ -23,11 +23,11 @@ if (false == user_id) then return 'invalid_channel'; end;
 redis.call('SELECT', 0);
 
 -- local db = redis.call('HMGET', 'fishjoy::group_type::1', 'db');
-local db = redis.call('HMGET', game_name .. key1 ..'group_type'.. key1 .. group_type, 'db')[1];
+local db = redis.call('HMGET', game_name .. key0 ..'group_type'.. key0 .. group_type, 'db')[1];
 
 if (false == db) then return 'invalid_database'; end;
 
-local total_players = redis.call('HMGET', game_name .. key1 ..'group_type'.. key1 .. group_type, 'total_players')[1];
+local total_players = redis.call('HMGET', game_name .. key0 ..'group_type'.. key0 .. group_type, 'total_players')[1];
 
 -- // 随机获取一个群组中的座位（空闲）并占用该座位，然后将该座位移动到另一个库
 
@@ -35,20 +35,18 @@ redis.call('SELECT', db);
 
 local ran_group_pos = redis.call('RANDOMKEY');
 
---if (false == ran_group_pos) then return 'non_idle_pos'; end;
-
+-- if (false == ran_group_pos) then return 'non_idle_pos'; end;
 
 if (false == ran_group_pos) then
 
+  -- 创建群组::座位
+
   for i = 1, tonumber(total_players) do
-    redis.call('SET', KEYS[1] .. key1 .. i, 'nil');
+    redis.call('SET', KEYS[1] .. key0 .. i, 'nil');
   end;
 
   ran_group_pos = redis.call('RANDOMKEY');
 end;
-
-
-
 
 redis.call('MOVE', ran_group_pos, 1 + db);
 

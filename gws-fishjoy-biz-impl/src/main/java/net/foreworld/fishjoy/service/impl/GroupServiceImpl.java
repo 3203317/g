@@ -154,22 +154,22 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		return map;
 	}
 
-	public static void main(String[] args) {
-
-		String str = "[2, a::b::h, a, b, c, d]";
-
-		String a = str.substring(1, str.length() - 1);
-
-		String[] b = a.split(",");
-
-		for (int i = 0, j = b.length; i < j; i++) {
-			String c = b[i].toString().trim();
-			String d = b[++i].toString().trim();
-			System.out.println(c + " " + d);
-		}
-
-		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
-
-	}
+	// public static void main(String[] args) {
+	//
+	// String str = "[2, a::b::h, a, b, c, d]";
+	//
+	// String a = str.substring(1, str.length() - 1);
+	//
+	// String[] b = a.split(",");
+	//
+	// for (int i = 0, j = b.length; i < j; i++) {
+	// String c = b[i].toString().trim();
+	// String d = b[++i].toString().trim();
+	// System.out.println(c + " " + d);
+	// }
+	//
+	// System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+	//
+	// }
 
 }
