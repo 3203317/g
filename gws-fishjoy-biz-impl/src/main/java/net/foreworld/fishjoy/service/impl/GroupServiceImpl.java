@@ -35,6 +35,9 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 	@Value("${sha.group.search}")
 	private String sha_group_search;
 
+	@Value("${sha.group.quit}")
+	private String sha_group_quit;
+
 	@Value("${app.name}")
 	private String app_name;
 
@@ -132,6 +135,56 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		ResultMap<List<Receiver<String>>> map = new ResultMap<List<Receiver<String>>>();
 		map.setSuccess(false);
 
+		Jedis j = RedisUtil.getDefault().getJedis();
+
+		if (null == j)
+			return map;
+
+		List<String> s = new ArrayList<String>();
+		s.add(UUID.randomUUID().toString().replaceAll("-", ""));
+
+		List<String> b = new ArrayList<String>();
+		b.add(server_id);
+		b.add(channel_id);
+
+		Object o = j.evalsha(sha_group_quit, s, b);
+		j.close();
+
+		String str = o.toString();
+
+		switch (str) {
+		case "[]":
+		case "invalid_database":
+			map.setSuccess(true);
+			return map;
+		case "invalid_channel":
+			map.setCode(str);
+			return map;
+		}
+
+		// list
+
+		List<Receiver<String>> list = new ArrayList<Receiver<String>>();
+
+		System.out.println(str);
+
+		String[] q = str.substring(1, str.length() - 1).split(",");
+
+		for (int m = 0, n = q.length; m < n; m++) {
+			// String k = q[m].toString().trim();
+			String l = q[++m].toString().trim();
+
+			String[] u = l.split("::");
+
+			Receiver<String> rec = new Receiver<String>();
+			rec.setServer_id(u[0]);
+			rec.setChannel_id(u[1]);
+			rec.setData(str);
+
+			list.add(rec);
+		}
+
+		map.setData(list);
 		map.setSuccess(true);
 		return map;
 	}
