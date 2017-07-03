@@ -48,13 +48,7 @@ if (false == ran_group_pos) then
   ran_group_pos = redis.call('RANDOMKEY');
 end;
 
-redis.call('MOVE', ran_group_pos, 1 + db);
-
--- // 切换到另一个库，绑定座位（忙）和用户ID
-
-redis.call('SELECT', 1 + db);
-
-redis.call('SET', ran_group_pos, user_id);
+redis.call('DEL', ran_group_pos);
 
 -- // 修改用户信息
 
@@ -66,7 +60,7 @@ redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id,
 
 -- // 向群组座位添加用户信息（服务器ID::通道ID::用户ID）
 
-redis.call('SELECT', 2 + db);
+redis.call('SELECT', 1 + db);
 
 redis.call('HMSET', group_id ..'::pos', group_pos_id, server_id ..'::'.. channel_id ..'::'.. user_id);
 
