@@ -2,8 +2,8 @@
 
 redis.replicate_commands();
 
--- ::
-local key1 = KEYS[1];
+-- 
+local key1 = '::';
 
 local server_id = ARGV[1];
 local channel_id = ARGV[2];
@@ -51,16 +51,14 @@ local group_id, group_pos_id = string.match(ran_group_pos, "(.*)%::(.*)");
 
 redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
 
--- // 获取当前群组成员（玩家和游客）
+-- // 向群组座位添加用户信息（服务器ID::通道ID::用户ID）
 
 redis.call('SELECT', 2 + db);
 
 redis.call('HMSET', group_id ..'::pos', group_pos_id, server_id ..'::'.. channel_id ..'::'.. user_id);
 
+-- // 获取当前群组成员（玩家和游客）
+
 local result = redis.call('HGETALL', group_id ..'::pos');
 
 return result;
-
-
-
-

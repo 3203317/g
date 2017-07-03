@@ -6,16 +6,6 @@ import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.stereotype.Component;
-
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import net.foreworld.gws.protobuf.Common.DataProtobuf;
 import net.foreworld.gws.protobuf.Common.ErrorProtobuf;
 import net.foreworld.gws.protobuf.Common.PrimaryKeyProtobuf;
@@ -27,6 +17,16 @@ import net.foreworld.gws.protobuf.Group.GroupSearchProtobuf;
 import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.service.GroupService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.stereotype.Component;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 /**
  *
@@ -71,10 +71,11 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String group_type = GroupSearchProtobuf.parseFrom(req.getData()).getGroupType();
+			String group_type = GroupSearchProtobuf.parseFrom(req.getData())
+					.getGroupType();
 
-			ResultMap<List<Receiver<String>>> map = groupService.search(sender.getServerId(), sender.getChannelId(),
-					group_type);
+			ResultMap<List<Receiver<String>>> map = groupService.search(
+					sender.getServerId(), sender.getChannelId(), group_type);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -92,8 +93,8 @@ public class Group extends BasePlugin {
 				rec.setReceiver(sender.getChannelId());
 
 				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
@@ -123,8 +124,8 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ _receiver.getServer_id(), rec.build().toByteArray());
 			}
 
 		} catch (InvalidProtocolBufferException e) {
@@ -154,10 +155,11 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String group_id = PrimaryKeyProtobuf.parseFrom(req.getData()).getId();
+			String group_id = PrimaryKeyProtobuf.parseFrom(req.getData())
+					.getId();
 
-			ResultMap<List<Receiver<String>>> map = groupService.entry(sender.getServerId(), sender.getChannelId(),
-					group_id);
+			ResultMap<List<Receiver<String>>> map = groupService.entry(
+					sender.getServerId(), sender.getChannelId(), group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -175,8 +177,8 @@ public class Group extends BasePlugin {
 				rec.setReceiver(sender.getChannelId());
 
 				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
@@ -206,8 +208,8 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ _receiver.getServer_id(), rec.build().toByteArray());
 			}
 
 		} catch (InvalidProtocolBufferException e) {
@@ -244,7 +246,8 @@ public class Group extends BasePlugin {
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		// 执行业务层用户退出群组操作
-		ResultMap<List<Receiver<String>>> map = groupService.quit(sender.getServerId(), sender.getChannelId());
+		ResultMap<List<Receiver<String>>> map = groupService.quit(
+				sender.getServerId(), sender.getChannelId());
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -261,8 +264,9 @@ public class Group extends BasePlugin {
 			rec.setData(resp);
 			rec.setReceiver(sender.getChannelId());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(
+					queue_back_send + "." + sender.getServerId(), rec.build()
+							.toByteArray());
 			return false;
 		}
 
@@ -292,8 +296,8 @@ public class Group extends BasePlugin {
 			rec.setData(resp);
 			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+					+ _receiver.getServer_id(), rec.build().toByteArray());
 		}
 
 		return true;
@@ -319,10 +323,11 @@ public class Group extends BasePlugin {
 
 			ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
-			String group_id = PrimaryKeyProtobuf.parseFrom(req.getData()).getId();
+			String group_id = PrimaryKeyProtobuf.parseFrom(req.getData())
+					.getId();
 
-			ResultMap<List<Receiver<String>>> map = groupService.visit(sender.getServerId(), sender.getChannelId(),
-					group_id);
+			ResultMap<List<Receiver<String>>> map = groupService.visit(
+					sender.getServerId(), sender.getChannelId(), group_id);
 			logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 			if (!map.getSuccess()) {
@@ -340,8 +345,8 @@ public class Group extends BasePlugin {
 				rec.setReceiver(sender.getChannelId());
 
 				// 消息回传给自己
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ sender.getServerId(), rec.build().toByteArray());
 				return;
 			}
 
@@ -371,8 +376,8 @@ public class Group extends BasePlugin {
 				rec.setData(resp);
 				rec.setReceiver(_receiver.getChannel_id());
 
-				jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
-						rec.build().toByteArray());
+				jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+						+ _receiver.getServer_id(), rec.build().toByteArray());
 			}
 
 		} catch (InvalidProtocolBufferException e) {
