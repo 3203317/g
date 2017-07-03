@@ -27,13 +27,28 @@ local db = redis.call('HMGET', game_name .. key1 ..'group_type'.. key1 .. group_
 
 if (false == db) then return 'invalid_database'; end;
 
+local total_players = redis.call('HMGET', game_name .. key1 ..'group_type'.. key1 .. group_type, 'total_players')[1];
+
 -- // 随机获取一个群组中的座位（空闲）并占用该座位，然后将该座位移动到另一个库
 
 redis.call('SELECT', db);
 
 local ran_group_pos = redis.call('RANDOMKEY');
 
-if (false == ran_group_pos) then return 'non_idle_pos'; end;
+--if (false == ran_group_pos) then return 'non_idle_pos'; end;
+
+
+if (false == ran_group_pos) then
+
+  for i = 1, tonumber(total_players) do
+    redis.call('SET', KEYS[1] .. key1 .. i, 'nil');
+  end;
+
+  ran_group_pos = redis.call('RANDOMKEY');
+end;
+
+
+
 
 redis.call('MOVE', ran_group_pos, 1 + db);
 
