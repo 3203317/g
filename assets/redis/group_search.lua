@@ -53,9 +53,13 @@ redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id)
 
 -- // 获取当前群组成员（玩家和游客）
 
-redis.call('SELECT', 1 + db);
+redis.call('SELECT', 2 + db);
 
-return 'OK';
+redis.call('HMSET', group_id ..'::pos', group_pos_id, server_id ..'::'.. channel_id ..'::'.. user_id);
+
+local result = redis.call('HGETALL', group_id ..'::pos');
+
+return result;
 
 
 
