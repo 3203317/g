@@ -2,6 +2,7 @@ package net.foreworld.fishjoy.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.model.Receiver;
@@ -60,6 +61,7 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 			return map;
 
 		List<String> s = new ArrayList<String>();
+		s.add(UUID.randomUUID().toString().replaceAll("-", ""));
 
 		List<String> b = new ArrayList<String>();
 		b.add(server_id);
@@ -165,6 +167,8 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 			String d = b[++i].toString().trim();
 			System.out.println(c + " " + d);
 		}
+
+		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
 
 	}
 
