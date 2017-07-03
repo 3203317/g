@@ -3,7 +3,7 @@
 redis.call('FLUSHALL');
 
 redis.call('SELECT', 0);
-redis.call('HMSET', 'fishjoy::group_type::1', 'total_players', '4', 'allow_view', 1, 'db', 21);
+redis.call('HMSET', 'fishjoy::group_type::1', 'total_players', '4', 'allow_view', 1, 'group_db', 21);
 
 -- redis.call('SELECT', 21);
 -- redis.call('SET', 'group_id::3', 'nil');

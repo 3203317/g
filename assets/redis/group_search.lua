@@ -10,7 +10,7 @@ local channel_id = ARGV[2];
 local game_name = ARGV[3]
 local group_type = ARGV[4];
 
--- // 根据服务器ID+通道ID获取用户ID
+-- 根据服务器ID+通道ID获取用户ID
 
 redis.call('SELECT', 6);
 
@@ -18,20 +18,20 @@ local user_id = redis.call('GET', server_id .. key0 .. channel_id);
 
 if (false == user_id) then return 'invalid_channel'; end;
 
--- // 根据群组类型获取对应的数据库
+-- 根据群组类型获取对应的数据库
 
 redis.call('SELECT', 0);
 
--- local db = redis.call('HMGET', 'fishjoy::group_type::1', 'db');
-local db = redis.call('HMGET', game_name .. key0 ..'group_type'.. key0 .. group_type, 'db')[1];
+-- local group_db = redis.call('HMGET', 'fishjoy::group_type::1', 'group_db');
+local group_db = redis.call('HMGET', game_name .. key0 ..'group_type'.. key0 .. group_type, 'group_db')[1];
 
-if (false == db) then return 'invalid_database'; end;
+if (false == group_db) then return 'invalid_database'; end;
 
 local total_players = redis.call('HMGET', game_name .. key0 ..'group_type'.. key0 .. group_type, 'total_players')[1];
 
--- // 随机获取一个群组中的座位（空闲）并占用该座位，然后将该座位移动到另一个库
+-- 随机获取一个群组中的座位（空闲）并占用该座位
 
-redis.call('SELECT', db);
+redis.call('SELECT', group_db);
 
 local ran_group_pos = redis.call('RANDOMKEY');
 
@@ -50,21 +50,21 @@ end;
 
 redis.call('DEL', ran_group_pos);
 
--- // 修改用户信息
+-- 修改用户信息
 
 redis.call('SELECT', 6);
 
-local group_id, group_pos_id = string.match(ran_group_pos, "(.*)%::(.*)");
+local group_id, group_pos_id = string.match(ran_group_pos, '(.*)%::(.*)');
 
-redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id, 'group_db', db);
+redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id, 'group_db', group_db);
 
--- // 向群组座位添加用户信息（服务器ID::通道ID::用户ID）
+-- 向群组座位添加用户信息（服务器ID::通道ID::用户ID）
 
-redis.call('SELECT', 1 + db);
+redis.call('SELECT', 1 + group_db);
 
-redis.call('HMSET', group_id ..'::pos', group_pos_id, server_id ..'::'.. channel_id ..'::'.. user_id);
+redis.call('HMSET', group_id ..'::pos', group_pos_id, server_id .. key0 .. channel_id .. key0 .. user_id);
 
--- // 获取当前群组成员（玩家和游客）
+-- 获取当前群组成员（玩家和游客）
 
 local result = redis.call('HGETALL', group_id ..'::pos');
 

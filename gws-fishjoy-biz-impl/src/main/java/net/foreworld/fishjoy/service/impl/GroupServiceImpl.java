@@ -141,7 +141,6 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 			return map;
 
 		List<String> s = new ArrayList<String>();
-		s.add(UUID.randomUUID().toString().replaceAll("-", ""));
 
 		List<String> b = new ArrayList<String>();
 		b.add(server_id);
@@ -154,9 +153,9 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 
 		switch (str) {
 		case "[]":
-		case "invalid_database":
 			map.setSuccess(true);
 			return map;
+		case "invalid_database":
 		case "invalid_channel":
 			map.setCode(str);
 			return map;
@@ -165,8 +164,6 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		// list
 
 		List<Receiver<String>> list = new ArrayList<Receiver<String>>();
-
-		System.out.println(str);
 
 		String[] q = str.substring(1, str.length() - 1).split(",");
 
