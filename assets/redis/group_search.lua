@@ -62,7 +62,7 @@ redis.call('SELECT', 6);
 
 local group_id, group_pos_id = string.match(ran_group_pos, "(.*)%::(.*)");
 
-redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
+redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id, 'group_db', db);
 
 -- // 向群组座位添加用户信息（服务器ID::通道ID::用户ID）
 
