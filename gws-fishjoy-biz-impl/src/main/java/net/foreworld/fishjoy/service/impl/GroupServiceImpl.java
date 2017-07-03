@@ -61,11 +61,41 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		b.add("fishjoy");
 		b.add(group_type);
 
-		Object o = j.evalsha("b37fdb5ba37121743a351c1e65e701ab709e32d8", s, b);
+		Object o = j.evalsha("cb55bd7e8dd96fcdcf518d02b236500e2c77ea45", s, b);
 		j.close();
 
 		System.out.println(o);
 
+		String str = o.toString();
+
+		switch (str) {
+		case "invalid_channel":
+		case "invalid_database":
+		case "non_idle_pos":
+			map.setCode(str);
+			return map;
+		}
+
+		//
+
+		List<Receiver<String>> list = new ArrayList<Receiver<String>>();
+
+		String[] q = str.substring(1, str.length() - 1).split(",");
+
+		for (int m = 0, n = q.length; m < n; m++) {
+			String k = q[m].toString().trim();
+			String l = q[++m].toString().trim();
+
+			String[] u = l.split("::");
+
+			Receiver<String> rec = new Receiver<String>();
+			rec.setServer_id(u[0]);
+			rec.setServer_id(u[1]);
+			rec.setData(l + "::" + k);
+			list.add(rec);
+		}
+
+		map.setData(list);
 		map.setSuccess(true);
 		return map;
 	}
@@ -115,6 +145,22 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 
 		map.setSuccess(true);
 		return map;
+	}
+
+	public static void main(String[] args) {
+
+		String str = "[2, a::b::h, a, b, c, d]";
+
+		String a = str.substring(1, str.length() - 1);
+
+		String[] b = a.split(",");
+
+		for (int i = 0, j = b.length; i < j; i++) {
+			String c = b[i].toString().trim();
+			String d = b[++i].toString().trim();
+			System.out.println(c + " " + d);
+		}
+
 	}
 
 }
