@@ -70,8 +70,6 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		Object o = j.evalsha(sha_group_search, s, b);
 		j.close();
 
-		System.out.println(o);
-
 		String str = o.toString();
 
 		switch (str) {
@@ -82,14 +80,14 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 			return map;
 		}
 
-		//
+		// list
 
 		List<Receiver<String>> list = new ArrayList<Receiver<String>>();
 
 		String[] q = str.substring(1, str.length() - 1).split(",");
 
 		for (int m = 0, n = q.length; m < n; m++) {
-			String k = q[m].toString().trim();
+			// String k = q[m].toString().trim();
 			String l = q[++m].toString().trim();
 
 			String[] u = l.split("::");
@@ -98,6 +96,7 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 			rec.setServer_id(u[0]);
 			rec.setChannel_id(u[1]);
 			rec.setData(str);
+
 			list.add(rec);
 		}
 
