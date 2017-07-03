@@ -31,6 +31,12 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 	@Value("${invalid.group.id}")
 	private String invalid_group_id;
 
+	@Value("${sha.group.search}")
+	private String sha_group_search;
+
+	@Value("${app.name}")
+	private String app_name;
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(GroupServiceImpl.class);
 
@@ -56,12 +62,12 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		List<String> s = new ArrayList<String>();
 
 		List<String> b = new ArrayList<String>();
-		b.add("a");
-		b.add("b");
-		b.add("fishjoy");
+		b.add(server_id);
+		b.add(channel_id);
+		b.add(app_name);
 		b.add(group_type);
 
-		Object o = j.evalsha("cb55bd7e8dd96fcdcf518d02b236500e2c77ea45", s, b);
+		Object o = j.evalsha(sha_group_search, s, b);
 		j.close();
 
 		System.out.println(o);
@@ -90,8 +96,8 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 
 			Receiver<String> rec = new Receiver<String>();
 			rec.setServer_id(u[0]);
-			rec.setServer_id(u[1]);
-			rec.setData(l + "::" + k);
+			rec.setChannel_id(u[1]);
+			rec.setData(str);
 			list.add(rec);
 		}
 

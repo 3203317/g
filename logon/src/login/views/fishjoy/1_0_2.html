@@ -72,7 +72,7 @@ $(function(){
 
     var req = new gws.RequestProtobuf();
     req.setVersion(102);
-    req.setMethod(3002);
+    req.setMethod(3003);
     req.setSeqid(parseInt(Math.random() * 1000));
     req.setTimestamp(new Date().getTime());
     req.setData(data.serializeBinary());
@@ -138,8 +138,11 @@ $(function(){
             })();
             break;
           }
-          case 3001:{
-            console.info('data is null');
+          case 3002:{
+            (function(){
+              var data = gws.DataProtobuf.deserializeBinary(result.getData());
+              console.log(data.getBody());
+            })();
             break;
           }
           case 1001:{
