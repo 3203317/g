@@ -38,8 +38,8 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 	@Value("${sha.group.quit}")
 	private String sha_group_quit;
 
-	@Value("${app.name}")
-	private String app_name;
+	@Value("${db.redis}")
+	private String db_redis;
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(GroupServiceImpl.class);
@@ -64,12 +64,12 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 			return map;
 
 		List<String> s = new ArrayList<String>();
+		s.add(db_redis);
 		s.add(UUID.randomUUID().toString().replaceAll("-", ""));
 
 		List<String> b = new ArrayList<String>();
 		b.add(server_id);
 		b.add(channel_id);
-		b.add(app_name);
 		b.add(group_type);
 
 		Object o = j.evalsha(sha_group_search, s, b);
@@ -141,6 +141,7 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 			return map;
 
 		List<String> s = new ArrayList<String>();
+		s.add(db_redis);
 
 		List<String> b = new ArrayList<String>();
 		b.add(server_id);

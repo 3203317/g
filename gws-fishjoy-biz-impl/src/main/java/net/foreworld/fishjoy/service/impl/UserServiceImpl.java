@@ -24,6 +24,9 @@ import redis.clients.jedis.Jedis;
 @Service("userService")
 public class UserServiceImpl extends BaseService implements UserService {
 
+	@Value("${db.redis}")
+	private String db_redis;
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(UserServiceImpl.class);
 
@@ -43,6 +46,7 @@ public class UserServiceImpl extends BaseService implements UserService {
 			return map;
 
 		List<String> s = new ArrayList<String>();
+		s.add(db_redis);
 
 		List<String> b = new ArrayList<String>();
 		b.add(server_id);
