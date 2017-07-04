@@ -12,8 +12,7 @@ if 1 ~= exist then return '401'; end;
 local client_id = redis.call('HGET', code, 'client_id');
 local user_id = redis.call('HGET', code, 'user_id');
 
-redis.call('DEL', client_id ..'::'.. user_id);
-redis.call('DEL', code);
+redis.call('DEL', code, client_id ..'::'.. user_id);
 
 -- 
 
