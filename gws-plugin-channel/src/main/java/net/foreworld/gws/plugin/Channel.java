@@ -6,14 +6,6 @@ import javax.annotation.Resource;
 import javax.jms.JMSException;
 import javax.jms.TextMessage;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.jms.annotation.JmsListener;
-import org.springframework.jms.core.JmsMessagingTemplate;
-import org.springframework.stereotype.Component;
-
 import net.foreworld.gws.protobuf.Common.DataProtobuf;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
@@ -21,6 +13,14 @@ import net.foreworld.model.Receiver;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.SameData;
 import net.foreworld.service.UserService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
+import org.springframework.stereotype.Component;
 
 /**
  *
@@ -61,7 +61,8 @@ public class Channel {
 			rec.setData(resp);
 			rec.setReceiver(text[1]);
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + text[0], rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(
+					queue_back_send + "." + text[0], rec.build().toByteArray());
 
 		} catch (JMSException e) {
 			logger.error("", e);
@@ -84,8 +85,9 @@ public class Channel {
 	private void quit(String server_id, String channel_id) {
 
 		// 执行业务层用户退出操作
-		ResultMap<SameData<String>> map = userService.logout(server_id, channel_id);
-		logger.info("{}:{}", map.getSuccess(), map.getMsg());
+		ResultMap<SameData<String>> map = userService.logout(server_id,
+				channel_id);
+		logger.info("{}:{}", map.getSuccess(), map.getCode());
 
 		if (!map.getSuccess()) {
 			return;
@@ -128,8 +130,8 @@ public class Channel {
 
 			rec.setReceiver(_receiver.getChannel_id());
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "."
+					+ _receiver.getServer_id(), rec.build().toByteArray());
 		}
 	}
 

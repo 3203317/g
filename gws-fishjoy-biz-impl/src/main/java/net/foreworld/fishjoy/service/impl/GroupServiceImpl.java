@@ -78,9 +78,9 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 		String str = o.toString();
 
 		switch (str) {
-		case "invalid_channel":
-		case "invalid_database":
-		case "non_idle_pos":
+		case "invalid_user_id":
+		case "invalid_group_type":
+		case "non_idle_group":
 			map.setCode(str);
 			return map;
 		}
@@ -154,10 +154,10 @@ public class GroupServiceImpl extends BaseService implements GroupService {
 
 		switch (str) {
 		case "[]":
-		case "invalid_database":
+		case "invalid_group_id":
 			map.setSuccess(true);
 			return map;
-		case "invalid_channel":
+		case "invalid_user_id":
 			map.setCode(str);
 			return map;
 		}
