@@ -1,45 +1,50 @@
 -- huangxin <3203317@qq.com>
 
-local key0 = '::';
+----
+local key_0 = '::';
+
+local db = KEYS[1];
 
 local server_id = ARGV[1];
 local channel_id = ARGV[2];
 
--- 根据服务器ID+通道ID获取用户ID
+----
 
-redis.call('SELECT', 6);
+redis.call('SELECT', db);
 
-local user_id = redis.call('GET', server_id .. key0 .. channel_id);
+local user_id = redis.call('GET', server_id .. key_0 .. channel_id);
 
 if (false == user_id) then return 'invalid_channel'; end;
 
-local group_db = redis.call('HMGET', user_id, 'group_db')[1];
-
-if (false == group_db) then return 'invalid_database'; end;
+--
 
 local group_id = redis.call('HMGET', user_id, 'group_id')[1];
+
+if (false == group_id) then return 'invalid_group'; end;
+
 local group_pos_id = redis.call('HMGET', user_id, 'group_pos_id')[1];
+local group_type = redis.call('HMGET', user_id, 'group_type')[1];
 
 redis.call('HDEL', user_id, 'group_id', 'group_pos_id', 'group_db');
 
 ----
 
-redis.call('SELECT', 1 + group_db);
+redis.call('SELECT', 2 + db);
 
-redis.call('HDEL', group_id ..'::pos', group_pos_id);
-
-----
-
-redis.call('SELECT', group_db);
-
-redis.call('SET', group_id .. key0 .. group_pos_id, 'nil');
+redis.call('HDEL', group_type .. key_0 .. group_id ..'::pos', group_pos_id);
 
 ----
 
-redis.call('SELECT', 1 + group_db);
+redis.call('SELECT', 1 + db);
 
--- 获取当前群组成员（玩家和游客）
+redis.call('SADD', group_type .. key_0 .. 'idle', group_id .. key_0 .. group_pos_id);
 
-local result = redis.call('HGETALL', group_id ..'::pos');
+----
+
+redis.call('SELECT', 2 + db);
+
+local result = redis.call('HGETALL', group_type .. key_0 .. group_id ..'::pos');
 
 return result;
+
+
