@@ -3,7 +3,6 @@
 redis.replicate_commands();
 
 ----
-local key_0 = '::';
 
 local db = KEYS[1];
 local group_uuid = KEYS[2];
@@ -16,29 +15,31 @@ local group_type = ARGV[3];
 
 redis.call('SELECT', db);
 
-local user_id = redis.call('GET', server_id .. key_0 .. channel_id);
+local user_id = redis.call('GET', server_id ..'::'.. channel_id);
 
-if (false == user_id) then return 'invalid_channel'; end;
+if (false == user_id) then return 'invalid_user_id'; end;
 
 ----
 
 redis.call('SELECT', 1 + db);
 
-local total_players = redis.call('GET', group_type .. key_0 .. 'total_players');
+local exist = redis.call('EXISTS', 'group::'.. group_type);
 
-if (false == total_players) then return 'invalid_group_type'; end;
+if (1 ~= exist) then return 'invalid_group_type'; end;
 
 --
 
-local idle_group = redis.call('SPOP', group_type .. key_0 .. 'idle');
+local idle_group = redis.call('SPOP', 'idle::'.. group_type);
 
 if (false == idle_group) then
 
-  for i = 1, tonumber(total_players) do
-    redis.call('SADD', group_type .. key_0 .. 'idle', group_uuid .. key_0 .. i);
+  local total_users = redis.call('HMGET', 'group::'.. group_type, 'total_users')[1];
+
+  for i = 1, tonumber(total_users) do
+    redis.call('SADD', 'idle::'.. group_type, group_uuid ..'::'.. i);
   end;
 
-  idle_group = redis.call('SPOP', group_type .. key_0 .. 'idle');
+  idle_group = redis.call('SPOP', 'idle::'.. group_type);
 
   if (false == idle_group) then return 'non_idle_group'; end;
 end;
@@ -49,7 +50,7 @@ local group_id, group_pos_id = string.match(idle_group, '(.*)%::(.*)');
 
 redis.call('SELECT', 2 + db);
 
-redis.call('HMSET', group_type .. key_0 .. group_id ..'::pos', group_pos_id, server_id .. key_0 .. channel_id .. key_0 .. user_id);
+redis.call('HMSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, server_id ..'::'.. channel_id ..'::'.. user_id);
 
 ----
 
@@ -61,7 +62,7 @@ redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id,
 
 redis.call('SELECT', 2 + db);
 
-local result = redis.call('HGETALL', group_type .. key_0 .. group_id ..'::pos');
+local result = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
 
 return result;
 
