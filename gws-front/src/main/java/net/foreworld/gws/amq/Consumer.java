@@ -1,9 +1,14 @@
 package net.foreworld.gws.amq;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+
+import java.net.SocketAddress;
 
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
+import javax.jms.TextMessage;
 
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.util.ChannelUtil;
@@ -51,6 +56,40 @@ public class Consumer {
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
+	@JmsListener(destination = "${queue.front.force}" + "." + "${server.id}")
+	public void front_force(TextMessage msg) {
+
+		try {
+
+			Channel c = ChannelUtil.getDefault().getChannel(msg.getText());
+
+			if (null == c)
+				return;
+
+			ChannelFuture future = c.close();
+
+			future.addListener(new ChannelFutureListener() {
+
+				@Override
+				public void operationComplete(ChannelFuture future)
+						throws Exception {
+					SocketAddress addr = c.remoteAddress();
+
+					if (future.isSuccess()) {
+						logger.info("ctx close: {}", addr);
+						return;
+					}
+
+					logger.info("ctx close failure: {}", addr);
+					c.close();
+				}
+			});
+
 		} catch (JMSException e) {
 			logger.error("", e);
 		}

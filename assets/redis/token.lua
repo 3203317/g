@@ -1,7 +1,7 @@
 
 -- huangxin <3203317@qq.com>
 
-redis.call('SELECT', 8);
+redis.call('SELECT', 1);
 
 local code = ARGV[1];
 
@@ -15,24 +15,33 @@ local user_id = redis.call('HGET', code, 'user_id');
 redis.call('DEL', client_id ..'::'.. user_id);
 redis.call('DEL', code);
 
+-- 
 
+local server_id = ARGV[2];
+local channel_id = ARGV[3];
+-- local seconds = ARGV[4];
 
+-- 
 
-redis.call('SELECT', 6);
+local result = 'OK';
 
-local channel_id = ARGV[2];
-local seconds = ARGV[3];
-local server_id = ARGV[4];
+local group_id = redis.call('HMGET', user_id, 'group_id')[1];
 
-redis.call('HMSET', user_id, 'client_id', client_id, KEYS[4], server_id, KEYS[2], channel_id, 'scope', '');
-redis.call('EXPIRE', user_id, seconds);
+if (group_id) then
+  local s = redis.call('HMGET', user_id, 'server_id')[1];
+  local b = redis.call('HMGET', user_id, 'channel_id')[1];
+  result = s ..'::'.. b;
+  redis.call('DEL', result);
+end;
+
+-- 
+
+redis.call('HMSET', user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '');
+-- redis.call('EXPIRE', user_id, seconds);
 
 local _key = server_id ..'::'.. channel_id;
 
 redis.call('SET', _key, user_id);
-redis.call('EXPIRE', _key, seconds);
+-- redis.call('EXPIRE', _key, seconds);
 
-
-
-
-return 'OK';
+return result;

@@ -56,6 +56,9 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 	@Value("${queue.channel.open}")
 	private String queue_channel_open;
 
+	@Value("${queue.front.force}")
+	private String queue_front_force;
+
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
@@ -131,15 +134,15 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 		List<String> s = new ArrayList<String>();
 		s.add("code");
+		s.add("server_id");
 		s.add("channel_id");
 		s.add("seconds");
-		s.add("server_id");
 
 		List<String> b = new ArrayList<String>();
 		b.add(code);
+		b.add(server_id);
 		b.add(channel_id);
 		b.add(String.valueOf(sha_token_expire));
-		b.add(server_id);
 
 		Jedis j = RedisUtil.getDefault().getJedis();
 
@@ -149,7 +152,21 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		Object o = j.evalsha(sha_token, s, b);
 		j.close();
 
-		return Constants.OK.equals(o);
+		String str = o.toString();
+
+		switch (str) {
+		case "401":
+			return false;
+		case Constants.OK:
+			return true;
+		}
+
+		String[] text = str.split("::");
+
+		jmsMessagingTemplate.convertAndSend(queue_front_force + "." + text[0],
+				text[1]);
+
+		return true;
 	}
 
 }

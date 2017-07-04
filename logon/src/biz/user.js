@@ -168,7 +168,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   exports.authorize = function(user_id, client_id, cb){
     var code = utils.replaceAll(uuid.v4(), '-', '');
 
-    redis.evalsha(sha1, numkeys, 'code', 'user_id', 'client_id', 'seconds', code, user_id, client_id, seconds, (err, code) => {
+    redis.evalsha(sha1, numkeys, 'code', 'client_id', 'user_id', 'seconds', code, client_id, user_id, seconds, (err, code) => {
       if(err) return cb(err);
       cb(null, code);
     });
