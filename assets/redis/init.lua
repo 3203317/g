@@ -32,24 +32,10 @@ redis.call('SET', 'baiyin' .. key_0 .. 'total_players', 5);
 redis.call('SET', 'huangjin' .. key_0 .. 'total_players', 6);
 
 
-redis.call('SADD', 'baiyin' .. key_0 .. 'idle', 'baiyin_1::1', 'baiyin_1::2', 'baiyin_1::3');
-redis.call('SADD', 'huangjin' .. key_0 .. 'idle', 'huangjin_1::1', 'huangjin_1::2', 'huangjin_1::3', 'huangjin_1::4');
+-- redis.call('SADD', 'baiyin' .. key_0 .. 'idle', 'baiyin_1::1', 'baiyin_1::2', 'baiyin_1::3');
+-- redis.call('SADD', 'huangjin' .. key_0 .. 'idle', 'huangjin_1::1', 'huangjin_1::2', 'huangjin_1::3', 'huangjin_1::4');
 
 ----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 return 'OK';

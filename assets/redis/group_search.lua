@@ -6,7 +6,7 @@ redis.replicate_commands();
 local key_0 = '::';
 
 local db = KEYS[1];
-local group_id = KEYS[2];
+local group_uuid = KEYS[2];
 
 local server_id = ARGV[1];
 local channel_id = ARGV[2];
@@ -35,7 +35,7 @@ local idle_group = redis.call('SPOP', group_type .. key_0 .. 'idle');
 if (false == idle_group) then
 
   for i = 1, tonumber(total_players) do
-    redis.call('SADD', group_type .. key_0 .. 'idle', group_id .. key_0 .. i);
+    redis.call('SADD', group_type .. key_0 .. 'idle', group_uuid .. key_0 .. i);
   end;
 
   idle_group = redis.call('SPOP', group_type .. key_0 .. 'idle');
