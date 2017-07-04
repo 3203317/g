@@ -25,7 +25,7 @@ redis.call('EXPIRE', _key, seconds);
   }
 }
 --]]
-redis.call('HMSET', code, KEYS[3], client_id, KEYS[2], user_id);
+redis.call('HMSET', code, KEYS[2], client_id, KEYS[3], user_id);
 redis.call('EXPIRE', code, seconds);
 
 return code;
