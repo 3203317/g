@@ -17,14 +17,14 @@ code = ARGV[1];
 redis.call('SET', _key, code);
 redis.call('EXPIRE', _key, seconds);
 
--- [[
+--[[
 {
   code: {
     client_id: '',
     user_id: ''
   }
 }
--- ]]
+--]]
 redis.call('HMSET', code, KEYS[3], client_id, KEYS[2], user_id);
 redis.call('EXPIRE', code, seconds);
 

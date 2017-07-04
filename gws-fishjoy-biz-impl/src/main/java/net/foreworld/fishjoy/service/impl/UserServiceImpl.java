@@ -3,17 +3,17 @@ package net.foreworld.fishjoy.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-import net.foreworld.gws.util.Constants;
 import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.model.ResultMap;
 import net.foreworld.model.SameData;
 import net.foreworld.service.UserService;
 import net.foreworld.service.impl.BaseService;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
 import redis.clients.jedis.Jedis;
 
 /**
@@ -24,13 +24,15 @@ import redis.clients.jedis.Jedis;
 @Service("userService")
 public class UserServiceImpl extends BaseService implements UserService {
 
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(UserServiceImpl.class);
 
-	@Value("${sha.user.logout}")
-	private String sha_user_logout;
+	@Value("${sha.channel.close}")
+	private String sha_channel_close;
 
 	@Override
-	public ResultMap<SameData<String>> logout(String server_id, String channel_id) {
+	public ResultMap<SameData<String>> logout(String server_id,
+			String channel_id) {
 
 		ResultMap<SameData<String>> map = new ResultMap<SameData<String>>();
 		map.setSuccess(false);
@@ -41,18 +43,20 @@ public class UserServiceImpl extends BaseService implements UserService {
 			return map;
 
 		List<String> s = new ArrayList<String>();
-		s.add("server_id");
-		s.add("channel_id");
 
 		List<String> b = new ArrayList<String>();
 		b.add(server_id);
 		b.add(channel_id);
 
-		Object o = j.evalsha(sha_user_logout, s, b);
+		Object o = j.evalsha(sha_channel_close, s, b);
 		j.close();
 
-		if (!Constants.OK.equals(o)) {
-			map.setMsg(o.toString());
+		String str = o.toString();
+
+		switch (str) {
+		case "invalid_user_id":
+		case "invalid_group_id":
+			map.setCode(str);
 			return map;
 		}
 
