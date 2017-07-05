@@ -39,9 +39,6 @@ public class Chat extends BasePlugin {
 	@Value("${queue.back.send}")
 	private String queue_back_send;
 
-	@Value("${queue.group.entry}")
-	private String queue_group_entry;
-
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
@@ -100,8 +97,6 @@ public class Chat extends BasePlugin {
 
 			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + _receiver.getServer_id(),
 					rec.build().toByteArray());
-
-			jmsMessagingTemplate.convertAndSend(queue_group_entry, "a::b::c");
 
 		} catch (InvalidProtocolBufferException e) {
 			logger.error("", e);

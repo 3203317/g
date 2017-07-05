@@ -16,6 +16,6 @@ public interface UserService extends IService {
 	 * @param channel_id
 	 * @return
 	 */
-	ResultMap<SameData<String>> logout(String server_id, String channel_id);
+	ResultMap<SameData<Void>> logout(String server_id, String channel_id);
 
 }
