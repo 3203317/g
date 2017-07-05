@@ -238,25 +238,29 @@ public class Group extends BasePlugin {
 		try {
 			String[] text = msg.getText().split("::");
 
+			quit(text[0], text[1], 0);
+
 		} catch (JMSException e) {
 			logger.error("", e);
 		}
 	}
 
 	private boolean quit(SenderProtobuf sender) {
+		return quit(sender.getServerId(), sender.getChannelId(), sender.getData().getSeqId());
+	}
 
-		RequestProtobuf req = sender.getData();
+	private boolean quit(String server_id, String channel_id, long seq_id) {
 
 		ResponseProtobuf.Builder resp = ResponseProtobuf.newBuilder();
 		resp.setVersion(protocol_version);
-		resp.setSeqId(req.getSeqId());
+		resp.setSeqId(seq_id);
 		resp.setTimestamp(System.currentTimeMillis());
 		resp.setMethod(3006);
 
 		ReceiverProtobuf.Builder rec = ReceiverProtobuf.newBuilder();
 
 		// 执行业务层用户退出群组操作
-		ResultMap<List<Receiver<String>>> map = groupService.quit(sender.getServerId(), sender.getChannelId());
+		ResultMap<List<Receiver<String>>> map = groupService.quit(server_id, channel_id);
 		logger.info("{}:{}", map.getSuccess(), map.getMsg());
 
 		if (!map.getSuccess()) {
@@ -271,10 +275,9 @@ public class Group extends BasePlugin {
 			resp.setError(err);
 
 			rec.setData(resp);
-			rec.setReceiver(sender.getChannelId());
+			rec.setReceiver(channel_id);
 
-			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + sender.getServerId(),
-					rec.build().toByteArray());
+			jmsMessagingTemplate.convertAndSend(queue_back_send + "." + server_id, rec.build().toByteArray());
 			return false;
 		}
 
