@@ -129,9 +129,9 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 		List<String> s = new ArrayList<String>();
 		s.add(db_redis);
-		s.add("server_id");
-		s.add("channel_id");
-		s.add("seconds");
+		s.add(Constants.SERVER_ID);
+		s.add(Constants.CHANNEL_ID);
+		// s.add("seconds");
 
 		List<String> b = new ArrayList<String>();
 		b.add(code);
@@ -150,7 +150,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		String str = o.toString();
 
 		switch (str) {
-		case "401":
+		case Constants.INVALID_CODE:
 			return false;
 		case Constants.OK:
 			return true;
