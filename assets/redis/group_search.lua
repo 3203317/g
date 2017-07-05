@@ -33,11 +33,13 @@ local idle_group = redis.call('SPOP', 'idle::'.. group_type);
 
 if (false == idle_group) then
 
-  local total_users = redis.call('HMGET', 'group::'.. group_type, 'total_users')[1];
+  local total_users = redis.call('HGET', 'group::'.. group_type, 'total_users');
 
   for i = 1, tonumber(total_users) do
     redis.call('SADD', 'idle::'.. group_type, group_uuid ..'::'.. i);
   end;
+
+  redis.call('HSET', 'prop::'.. group_uuid, 'type', group_type);
 
   idle_group = redis.call('SPOP', 'idle::'.. group_type);
 
@@ -56,7 +58,7 @@ redis.call('HMSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, server
 
 redis.call('SELECT', db);
 
-redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id, 'group_type', group_type);
+redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
 
 ----
 

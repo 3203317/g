@@ -17,12 +17,12 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 
 
-local group_id = redis.call('HMGET', user_id, 'group_id')[1];
+local group_id = redis.call('HGET', user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
 
-local group_pos_id = redis.call('HMGET', user_id, 'group_pos_id')[1];
-local group_type = redis.call('HMGET', user_id, 'group_type')[1];
+local group_pos_id = redis.call('HGET', user_id, 'group_pos_id');
+local group_type = redis.call('HGET', user_id, 'group_type');
 
 redis.call('HDEL', user_id, 'group_id', 'group_pos_id', 'group_type');
 
