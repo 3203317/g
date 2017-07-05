@@ -14,7 +14,7 @@ const biz = require('emag.biz');
 
 
 exports.indexUI = function(req, res, next){
-  res.render('fishjoy/1_0_2', {
+  res.render('fishjoy/1_0_3', {
     conf: conf,
     title: '捕鱼大厅 | '+ conf.corp.name,
     data: {}
