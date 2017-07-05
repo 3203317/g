@@ -1,13 +1,13 @@
 
 -- huangxin <3203317@qq.com>
 
-redis.call('SELECT', 1);
+redis.call('SELECT', KEYS[1]);
 
 local code = ARGV[1];
 
 local exist = redis.call('EXISTS', code);
 
-if 1 ~= exist then return '401'; end;
+if 1 ~= exist then return 'invalid_code'; end;
 
 local client_id = redis.call('HGET', code, 'client_id');
 local user_id = redis.call('HGET', code, 'user_id');
@@ -24,11 +24,10 @@ local channel_id = ARGV[3];
 
 local result = 'OK';
 
-local group_id = redis.call('HMGET', user_id, 'group_id')[1];
+local s = redis.call('HGET', user_id, 'server_id');
 
-if (group_id) then
-  local s = redis.call('HMGET', user_id, 'server_id')[1];
-  local b = redis.call('HMGET', user_id, 'channel_id')[1];
+if (s) then
+  local b = redis.call('HGET', user_id, 'channel_id');
   result = s ..'::'.. b;
   redis.call('DEL', result);
 end;
