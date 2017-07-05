@@ -1,24 +1,10 @@
 package net.foreworld.gws.handler;
 
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.SimpleChannelInboundHandler;
-
 import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
-
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.User.UserLoginProtobuf;
-import net.foreworld.gws.util.ChannelUtil;
-import net.foreworld.gws.util.Constants;
-import net.foreworld.gws.util.RedisUtil;
-import net.foreworld.util.StringUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +13,21 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import redis.clients.jedis.Jedis;
-
 import com.google.protobuf.InvalidProtocolBufferException;
+
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
+import net.foreworld.gws.protobuf.Common.RequestProtobuf;
+import net.foreworld.gws.protobuf.User.UserLoginProtobuf;
+import net.foreworld.gws.util.ChannelUtil;
+import net.foreworld.gws.util.Constants;
+import net.foreworld.gws.util.RedisUtil;
+import net.foreworld.util.StringUtil;
+import redis.clients.jedis.Jedis;
 
 /**
  *
@@ -41,8 +39,7 @@ import com.google.protobuf.InvalidProtocolBufferException;
 @Sharable
 public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(LoginHandler.class);
+	private static final Logger logger = LoggerFactory.getLogger(LoginHandler.class);
 
 	@Value("${sha.token}")
 	private String sha_token;
@@ -59,6 +56,9 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 	@Value("${queue.front.force}")
 	private String queue_front_force;
 
+	@Value("${db.redis}")
+	private String db_redis;
+
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
@@ -66,15 +66,12 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 	private UnRegChannelHandler unRegChannelHandler;
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx,
-			final RequestProtobuf msg) throws Exception {
-		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(),
-				msg.getSeqId(), msg.getTimestamp());
+	protected void channelRead0(ChannelHandlerContext ctx, final RequestProtobuf msg) throws Exception {
+		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(), msg.getSeqId(), msg.getTimestamp());
 
 		try {
 
-			UserLoginProtobuf login = UserLoginProtobuf
-					.parseFrom(msg.getData());
+			UserLoginProtobuf login = UserLoginProtobuf.parseFrom(msg.getData());
 			String code = login.getCode();
 
 			final Channel channel = ctx.channel();
@@ -86,8 +83,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 				ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
 
 				ChannelUtil.getDefault().putChannel(channel_id, channel);
-				jmsMessagingTemplate.convertAndSend(queue_channel_open,
-						server_id + "::" + channel_id);
+				jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
 				logger.info("channel amq open: {}:{}", server_id, channel_id);
 
 				ctx.flush();
@@ -103,8 +99,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		future.addListener(new ChannelFutureListener() {
 
 			@Override
-			public void operationComplete(ChannelFuture future)
-					throws Exception {
+			public void operationComplete(ChannelFuture future) throws Exception {
 				SocketAddress addr = ctx.channel().remoteAddress();
 
 				if (future.isSuccess()) {
@@ -133,7 +128,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 		}
 
 		List<String> s = new ArrayList<String>();
-		s.add("code");
+		s.add(db_redis);
 		s.add("server_id");
 		s.add("channel_id");
 		s.add("seconds");
@@ -163,8 +158,7 @@ public class LoginHandler extends SimpleChannelInboundHandler<RequestProtobuf> {
 
 		String[] text = str.split("::");
 
-		jmsMessagingTemplate.convertAndSend(queue_front_force + "." + text[0],
-				text[1]);
+		jmsMessagingTemplate.convertAndSend(queue_front_force + "." + text[0], text[1]);
 
 		return true;
 	}
