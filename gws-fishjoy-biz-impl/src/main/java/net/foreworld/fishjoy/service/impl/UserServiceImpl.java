@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import net.foreworld.gws.util.Constants;
 import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.SameData;
 import net.foreworld.service.UserService;
 import net.foreworld.service.impl.BaseService;
 import redis.clients.jedis.Jedis;
@@ -33,9 +32,9 @@ public class UserServiceImpl extends BaseService implements UserService {
 	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Override
-	public ResultMap<SameData<Void>> logout(String server_id, String channel_id) {
+	public ResultMap<Void> logout(String server_id, String channel_id) {
 
-		ResultMap<SameData<Void>> map = new ResultMap<SameData<Void>>();
+		ResultMap<Void> map = new ResultMap<Void>();
 		map.setSuccess(false);
 
 		Jedis j = RedisUtil.getDefault().getJedis();

@@ -232,7 +232,7 @@ public class Group extends BasePlugin {
 		}
 	}
 
-	@JmsListener(destination = "qq3203317.3009")
+	@JmsListener(destination = "${queue.group.quit}")
 	public void quit(TextMessage msg) {
 
 		try {

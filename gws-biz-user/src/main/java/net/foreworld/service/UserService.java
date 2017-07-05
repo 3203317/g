@@ -1,7 +1,6 @@
 package net.foreworld.service;
 
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.SameData;
 
 /**
  *
@@ -16,6 +15,6 @@ public interface UserService extends IService {
 	 * @param channel_id
 	 * @return
 	 */
-	ResultMap<SameData<Void>> logout(String server_id, String channel_id);
+	ResultMap<Void> logout(String server_id, String channel_id);
 
 }

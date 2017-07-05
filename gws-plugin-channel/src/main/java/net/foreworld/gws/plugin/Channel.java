@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import net.foreworld.gws.protobuf.Common.ReceiverProtobuf;
 import net.foreworld.gws.protobuf.Common.ResponseProtobuf;
 import net.foreworld.model.ResultMap;
-import net.foreworld.model.SameData;
 import net.foreworld.service.UserService;
 
 /**
@@ -32,6 +31,9 @@ public class Channel {
 
 	@Value("${queue.back.send}")
 	private String queue_back_send;
+
+	@Value("${queue.group.quit}")
+	private String queue_group_quit;
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
@@ -80,14 +82,14 @@ public class Channel {
 	private void quit(String server_id, String channel_id) {
 
 		// 执行业务层用户退出操作
-		ResultMap<SameData<Void>> map = userService.logout(server_id, channel_id);
+		ResultMap<Void> map = userService.logout(server_id, channel_id);
 		logger.info("{}:{}", map.getSuccess(), map.getCode());
 
 		if (!map.getSuccess()) {
 			return;
 		}
 
-		jmsMessagingTemplate.convertAndSend("qq3203317.3005", server_id + "::" + channel_id);
+		jmsMessagingTemplate.convertAndSend(queue_group_quit, server_id + "::" + channel_id);
 	}
 
 }
