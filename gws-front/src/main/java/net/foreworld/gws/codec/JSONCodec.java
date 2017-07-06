@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -27,7 +26,7 @@ import net.foreworld.gws.model.ProtocolModel;
  */
 @Component
 @Sharable
-public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, ProtocolModel> {
+public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, String> {
 
 	@Value("${msg.body.max:512}")
 	private int msg_body_max;
@@ -35,9 +34,8 @@ public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, Protoco
 	private static final Logger logger = LoggerFactory.getLogger(JSONCodec.class);
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, ProtocolModel msg, List<Object> out) throws Exception {
-		Gson gson = new Gson();
-		out.add(new TextWebSocketFrame(gson.toJson(msg)));
+	protected void encode(ChannelHandlerContext ctx, String msg, List<Object> out) throws Exception {
+		out.add(new TextWebSocketFrame(msg));
 	}
 
 	@Override
