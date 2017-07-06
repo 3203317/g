@@ -134,20 +134,54 @@ process.on('exit', () => {
 
   var err = function(error){
     console.error(error);
+
+    _unsubscribe();
   };
+
+  var _front_start;
+  var _front_stop;
+
+  var _channel_open;
+  var _channel_close;
+
+  var _2001;
+
+  var _3001;
+  var _3005;
 
   var cb = function(frame){
-    client.subscribe('/queue/front.start', on_front_start);
-    client.subscribe('/queue/front.stop', on_front_stop);
+    _front_start = client.subscribe('/queue/front.start', on_front_start);
+    _front_stop = client.subscribe('/queue/front.stop', on_front_stop);
 
-    client.subscribe('/queue/channel.open', on_channel_open);
-    client.subscribe('/queue/channel.close', on_channel_close);
+    _channel_open = client.subscribe('/queue/channel.open', on_channel_open);
+    _channel_close = client.subscribe('/queue/channel.close', on_channel_close);
 
-    client.subscribe('/queue/qq3203317.2001', on_2001);
+    _2001 = client.subscribe('/queue/qq3203317.2001', on_2001);
 
-    client.subscribe('/queue/qq3203317.3001', on_3001);
-    client.subscribe('/queue/qq3203317.3005', on_3005);
+    _3001 = client.subscribe('/queue/qq3203317.3001', on_3001);
+    _3005 = client.subscribe('/queue/qq3203317.3005', on_3005);
   };
+
+  function _unsubscribe(){
+    _front_start.unsubscribe();
+    _front_stop.unsubscribe();
+
+    _channel_open.unsubscribe();
+    _channel_close.unsubscribe();
+
+    _2001.unsubscribe();
+
+    _3001.unsubscribe();
+    _3005.unsubscribe();
+  }
+
+  process.on('uncaughtException', err => {
+    _unsubscribe();
+  });
+
+  process.on('exit', () => {
+    _unsubscribe();
+  });
 
   var headers = {
     login: activemq.user,
@@ -186,7 +220,11 @@ process.on('exit', () => {
   var on_channel_close = function(msg){
     if(!msg.body) return console.error('empty message');
 
-    console.log(msg.body);
+    var s = msg.body.split('::');
+
+    on_3005_quit(s[0], s[1], 0, function (err){
+      if(err) return console.error(err);
+    });
   };
 
   // 
