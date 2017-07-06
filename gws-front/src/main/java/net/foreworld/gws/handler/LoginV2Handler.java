@@ -40,8 +40,6 @@ import redis.clients.jedis.Jedis;
 @Sharable
 public class LoginV2Handler extends SimpleChannelInboundHandler<ProtocolModel> {
 
-	private static final Logger logger = LoggerFactory.getLogger(LoginV2Handler.class);
-
 	@Value("${sha.token}")
 	private String sha_token;
 
@@ -65,6 +63,8 @@ public class LoginV2Handler extends SimpleChannelInboundHandler<ProtocolModel> {
 
 	@Resource(name = "unRegChannelHandler")
 	private UnRegChannelHandler unRegChannelHandler;
+
+	private static final Logger logger = LoggerFactory.getLogger(LoginV2Handler.class);
 
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, final ProtocolModel msg) throws Exception {
