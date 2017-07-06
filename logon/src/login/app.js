@@ -125,6 +125,7 @@ process.on('exit', () => {
 
 
 (function(){
+  const biz = require('emag.biz');
 
   var Stomp = require('stompjs');
   var client = Stomp.overTCP('127.0.0.1', 12613);
@@ -141,6 +142,9 @@ process.on('exit', () => {
     client.subscribe('/queue/channel.close', on_channel_close);
 
     client.subscribe('/queue/qq3203317.2001', on_2001);
+
+    client.subscribe('/queue/qq3203317.3001', on_3001);
+    client.subscribe('/queue/qq3203317.3005', on_3005);
   };
 
   var headers = {
@@ -192,6 +196,36 @@ process.on('exit', () => {
     data.receiver = data.channelId;
 
     client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
+  };
+
+  // 
+
+  var on_3001 = function(msg){
+    if(!msg.body) return console.error('empty message');
+
+    var data = JSON.parse(msg.body);
+
+    if (!on_3005_quit(data.serverId, data.channelId, data.seqId)) {
+      return;
+    }
+
+    var group_type = JSON.parse(data.data).groupType;
+
+    biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
+      if(err) return console.error(err);
+      console.log(data);
+    });
+  };
+
+  var on_3005 = function(msg){
+    if(!msg.body) return console.error('empty message');
+
+    var data = JSON.parse(msg.body);
+    console.log(data);
+  };
+
+  var on_3005_quit = function(server_id, channel_id, seq_id){
+    return true;
   };
 
   // 

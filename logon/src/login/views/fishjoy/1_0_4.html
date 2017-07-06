@@ -33,7 +33,16 @@
 var socket = null;
 
 function searchGroup(group_type){
-
+  var p = {
+    version: 102,
+    method: 3001,
+    seqId: Math.random() * 1000,
+    timestamp: new Date().getTime(),
+    data: JSON.stringify({
+      groupType: group_type
+    })
+  };
+  socket.send(JSON.stringify(p));
 }
 
 $(function(){
