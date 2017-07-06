@@ -51,25 +51,15 @@ public class ConsumerV2 {
 			if (null == _receiver)
 				return;
 
-			joo = jo.get("data");
-
-			if (null == joo)
-				return;
-
-			String _data = StringUtil.isEmpty(joo.getAsString());
-
-			if (null == _data)
-				return;
-
 			if (Constants.ALL.equals(_receiver)) {
-				ChannelUtil.getDefault().broadcast(_data);
+				ChannelUtil.getDefault().broadcast(s);
 				return;
 			}
 
 			Channel c = ChannelUtil.getDefault().getChannel(_receiver);
 
 			if (null != c)
-				c.writeAndFlush(_data);
+				c.writeAndFlush(s);
 
 		} catch (JMSException e) {
 			logger.error("", e);
