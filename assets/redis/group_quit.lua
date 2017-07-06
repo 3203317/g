@@ -25,23 +25,21 @@ local group_pos_id = redis.call('HGET', 'prop::'.. user_id, 'group_pos_id');
 
 redis.call('HDEL', 'prop::'.. user_id, 'group_id', 'group_pos_id');
 
+-- 
+
+redis.call('SELECT', 1 + db);
+
 local group_type = redis.call('HGET', 'prop::'.. group_id, 'type');
 
 -- 
-
-redis.call('SELECT', 2 + db);
 
 redis.call('HDEL', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
 
 -- 
 
-redis.call('SELECT', 1 + db);
-
 redis.call('SADD', 'idle::'.. group_type, group_id ..'::'.. group_pos_id);
 
 -- 
-
-redis.call('SELECT', 2 + db);
 
 local result = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
 

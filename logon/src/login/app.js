@@ -214,7 +214,31 @@ process.on('exit', () => {
 
       var group_type = JSON.parse(data.data).groupType;
 
-      console.log(group_type)
+      biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
+        if(err) return console.error(err);
+
+        var result = {
+          version: 102,
+          method: 3002,
+          seqId: data.seqId,
+          timestamp: new Date().getTime(),
+          data: JSON.stringify({
+            groupType: group_type
+          })
+        };
+
+        for(var i=0, j=doc.length; i < j; i++){
+
+          var s = doc[++i];
+          var b = s.split('::');
+
+          result.receiver = b[1];
+          result.data = JSON.stringify(doc);
+
+          client.send('/queue/back.send.v2.'+ b[0], { priority: 9 }, JSON.stringify(result));
+        }
+
+      });
     });
   };
 

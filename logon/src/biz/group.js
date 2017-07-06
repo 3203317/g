@@ -20,9 +20,9 @@ const redis = require('./emag/redis');
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
-    redis.evalsha(sha1, numkeys, '1', utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, code) => {
+    redis.evalsha(sha1, numkeys, '1', utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, doc) => {
       if(err) return cb(err);
-      cb(null, code);
+      cb(null, doc);
     });
   };
 })();

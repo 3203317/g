@@ -50,8 +50,6 @@ local group_id, group_pos_id = string.match(idle_group, '(.*)%::(.*)');
 
 ----
 
-redis.call('SELECT', 2 + db);
-
 redis.call('HMSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, server_id ..'::'.. channel_id ..'::'.. user_id);
 
 ----
@@ -62,7 +60,7 @@ redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id, 'group_pos_id', gr
 
 ----
 
-redis.call('SELECT', 2 + db);
+redis.call('SELECT', 1 + db);
 
 local result = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
 
