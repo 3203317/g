@@ -222,9 +222,6 @@ process.on('exit', () => {
           method: 3002,
           seqId: data.seqId,
           timestamp: new Date().getTime(),
-          data: JSON.stringify({
-            groupType: group_type
-          })
         };
 
         for(var i=0, j=doc.length; i < j; i++){
@@ -265,7 +262,26 @@ process.on('exit', () => {
           return cb();
       }
 
-      console.log(doc);
+      cb();
+
+      var result = {
+        version: 102,
+        method: 3005,
+        seqId: seq_id,
+        timestamp: new Date().getTime(),
+      };
+
+      for(var i=0, j=doc.length; i < j; i++){
+
+        var s = doc[++i];
+        var b = s.split('::');
+
+        result.receiver = b[1];
+        result.data = JSON.stringify(doc);
+
+        client.send('/queue/back.send.v2.'+ b[0], { priority: 9 }, JSON.stringify(result));
+      }
+
     });
   };
 

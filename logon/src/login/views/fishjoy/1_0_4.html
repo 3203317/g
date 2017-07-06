@@ -73,8 +73,6 @@ $(function(){
       })
     };
     socket.send(JSON.stringify(p));
-
-    random();
   });
 
   (function(){
@@ -96,6 +94,7 @@ $(function(){
 
             (function(){
               console.log(data)
+              random();
             })();
 
             break;
