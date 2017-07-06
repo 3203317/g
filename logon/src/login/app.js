@@ -122,3 +122,76 @@ process.on('exit', () => {
 //   });
 
 // })();
+
+
+(function(){
+
+  var Stomp = require('stompjs');
+  var client = Stomp.overTCP('127.0.0.1', 12613);
+
+  var err = function(error){
+    console.error(error);
+  };
+
+  var cb = function(frame){
+    client.subscribe('/queue/front.start', on_front_start);
+    client.subscribe('/queue/front.stop', on_front_stop);
+
+    client.subscribe('/queue/channel.open', on_channel_open);
+    client.subscribe('/queue/channel.close', on_channel_close);
+
+    client.subscribe('/queue/qq3203317.2001', on_2001);
+  };
+
+  var headers = {
+    login: 'admin',
+    passcode: 'admin',
+  };
+
+  var on_front_start = function(msg){
+    if(!msg.body) return console.error('empty message');
+
+    console.log(msg.body);
+  };
+
+  var on_front_stop = function(msg){
+    if(!msg.body) return console.error('empty message');
+
+    console.log(msg.body);
+  };
+
+  // 
+
+  var on_channel_open = function(msg){
+    if(!msg.body) return console.error('empty message');
+
+    var s = msg.body.split('::');
+
+    var b = {
+      version: 102,
+      seqId: 1,
+      timestamp: new Date().getTime(),
+      receiver: s[1]
+    };
+
+    client.send('/queue/back.send.v2.'+ s[0], { priority: 9 }, JSON.stringify(b));
+  };
+
+  var on_channel_close = function(msg){
+    if(!msg.body) return console.error('empty message');
+
+    console.log(msg.body);
+  };
+
+  // 
+
+  var on_2001 = function(msg){
+    if(!msg.body) return console.error('empty message');
+
+    console.log(msg.body);
+  };
+
+  // 
+
+  client.connect(headers, cb, err);
+})();

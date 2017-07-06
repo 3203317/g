@@ -56,6 +56,8 @@ $(function(){
         var data = evt.data;
         var type = typeof data;
 
+        data = JSON.parse(data);
+
         console.log(data)
         console.log('++++')
       };
