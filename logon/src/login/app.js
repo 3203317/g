@@ -150,14 +150,12 @@ process.on('exit', () => {
 
   var on_front_start = function(msg){
     if(!msg.body) return console.error('empty message');
-
-    console.log(msg.body);
+    console.log('front amq start: %s', msg.body);
   };
 
   var on_front_stop = function(msg){
     if(!msg.body) return console.error('empty message');
-
-    console.log(msg.body);
+    console.log('front amq stop: %s', msg.body);
   };
 
   // 
