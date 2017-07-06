@@ -23,7 +23,7 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 redis.call('SELECT', 1 + db);
 
-local exist = redis.call('EXISTS', 'group::'.. group_type);
+local exist = redis.call('EXISTS', 'prop::'.. group_type);
 
 if (1 ~= exist) then return 'invalid_group_type'; end;
 
@@ -33,7 +33,7 @@ local idle_group = redis.call('SPOP', 'idle::'.. group_type);
 
 if (false == idle_group) then
 
-  local total_users = redis.call('HGET', 'group::'.. group_type, 'total_users');
+  local total_users = redis.call('HGET', 'prop::'.. group_type, 'total_users');
 
   for i = 1, tonumber(total_users) do
     redis.call('SADD', 'idle::'.. group_type, group_uuid ..'::'.. i);

@@ -15,15 +15,15 @@ local group_type = ARGV[3];
 
 redis.call('SELECT', db);
 
--- redis.call('SET', 'a::b', 'haha');
+redis.call('SET', 'a::b', 'haha');
 
 ----
 
 redis.call('SELECT', 1 + db);
 
-redis.call('HMSET', 'group::qingtong', 'total_users', 4);
-redis.call('HMSET', 'group::baiyin', 'total_users', 7, 'is_allow_visit', 1);
-redis.call('HMSET', 'group::huangjin', 'total_users', 6);
+redis.call('HMSET', 'prop::qingtong', 'total_users', 4);
+redis.call('HMSET', 'prop::baiyin', 'total_users', 7, 'is_allow_visit', 1);
+redis.call('HMSET', 'prop::huangjin', 'total_users', 6);
 
 
 
