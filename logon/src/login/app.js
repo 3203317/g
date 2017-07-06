@@ -186,7 +186,12 @@ process.on('exit', () => {
   var on_2001 = function(msg){
     if(!msg.body) return console.error('empty message');
 
-    console.log(msg.body);
+    var data = JSON.parse(msg.body);
+
+    data.method = 2002;
+    data.receiver = data.channelId;
+
+    client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
   };
 
   // 

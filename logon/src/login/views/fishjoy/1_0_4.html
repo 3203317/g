@@ -70,8 +70,22 @@ $(function(){
 
         data = JSON.parse(data);
 
-        console.log(data)
-        console.log('++++')
+        console.log('++++');
+
+        switch(data.method){
+          case 2002: {
+
+            (function(){
+              console.log(data)
+            })();
+
+            break;
+          }
+          default: {
+            console.log(data)
+            break;
+          }
+        }
       };
 
       // first
