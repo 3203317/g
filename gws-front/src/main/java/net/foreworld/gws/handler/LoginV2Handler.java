@@ -13,7 +13,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -21,8 +23,7 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import net.foreworld.gws.protobuf.Common.RequestProtobuf;
-import net.foreworld.gws.protobuf.User.UserLoginProtobuf;
+import net.foreworld.gws.model.ProtocolModel;
 import net.foreworld.gws.util.ChannelUtil;
 import net.foreworld.gws.util.Constants;
 import net.foreworld.gws.util.RedisUtil;
@@ -37,7 +38,7 @@ import redis.clients.jedis.Jedis;
 @PropertySource("classpath:redis.properties")
 @Component
 @Sharable
-public class LoginV2Handler extends SimpleChannelInboundHandler<RequestProtobuf> {
+public class LoginV2Handler extends SimpleChannelInboundHandler<ProtocolModel> {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginV2Handler.class);
 
@@ -66,32 +67,38 @@ public class LoginV2Handler extends SimpleChannelInboundHandler<RequestProtobuf>
 	private UnRegChannelHandler unRegChannelHandler;
 
 	@Override
-	protected void channelRead0(ChannelHandlerContext ctx, final RequestProtobuf msg) throws Exception {
+	protected void channelRead0(ChannelHandlerContext ctx, final ProtocolModel msg) throws Exception {
 		logger.info("{}:{}:{}:{}", msg.getVersion(), msg.getMethod(), msg.getSeqId(), msg.getTimestamp());
 
-		try {
+		String jsonStr = StringUtil.isJSON(msg.getData());
 
-			UserLoginProtobuf login = UserLoginProtobuf.parseFrom(msg.getData());
-			String code = login.getCode();
+		if (null != jsonStr) {
 
-			final Channel channel = ctx.channel();
+			JsonObject jo = new JsonParser().parse(jsonStr).getAsJsonObject();
 
-			final String channel_id = channel.id().asLongText();
+			JsonElement joo = jo.get("code");
 
-			if (verify(code, channel_id)) {
+			if (null != joo) {
 
-				ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
+				String code = joo.getAsString();
 
-				ChannelUtil.getDefault().putChannel(channel_id, channel);
-				jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
-				logger.info("channel amq open: {}:{}", server_id, channel_id);
+				final Channel channel = ctx.channel();
 
-				ctx.flush();
-				return;
+				final String channel_id = channel.id().asLongText();
+
+				if (verify(code, channel_id)) {
+
+					ctx.pipeline().replace(this, "unReg", unRegChannelHandler);
+
+					ChannelUtil.getDefault().putChannel(channel_id, channel);
+					jmsMessagingTemplate.convertAndSend(queue_channel_open, server_id + "::" + channel_id);
+					logger.info("channel amq open: {}:{}", server_id, channel_id);
+
+					ctx.flush();
+					return;
+				}
 			}
 
-		} catch (InvalidProtocolBufferException e) {
-			logger.error("", e);
 		}
 
 		ChannelFuture future = ctx.close();

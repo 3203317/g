@@ -24,4 +24,14 @@ public final class StringUtil {
 		String result = isEmpty(str);
 		return null == result ? defStr : result;
 	}
+
+	/**
+	 * json格式检测
+	 * 
+	 * @param str
+	 * @return
+	 */
+	public static String isJSON(String str) {
+		return str;
+	}
 }
