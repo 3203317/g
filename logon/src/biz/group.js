@@ -16,13 +16,13 @@ const redis = require('./emag/redis');
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'e618bc803b45bf488834490c5ec105aa44549a40';
+  const sha1 = 'a6909141d19ee6b0f66b5a1cb0caa4ec568823b2';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
-    redis.evalsha(sha1, numkeys, '1', utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, code) => {
+    redis.evalsha(sha1, numkeys, '1', utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, doc) => {
       if(err) return cb(err);
-      cb(null, code);
+      cb(null, doc);
     });
   };
 })();
