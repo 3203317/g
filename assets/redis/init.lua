@@ -15,7 +15,7 @@ local group_type = ARGV[3];
 
 redis.call('SELECT', db);
 
-redis.call('SET', 'a::b', 'haha');
+-- redis.call('SET', 'a::b', 'haha');
 
 ----
 

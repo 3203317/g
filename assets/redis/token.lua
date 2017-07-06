@@ -24,17 +24,17 @@ local channel_id = ARGV[3];
 
 local result = 'OK';
 
-local s = redis.call('HGET', user_id, 'server_id');
+local s = redis.call('HGET', 'prop::'.. user_id, 'server_id');
 
 if (s) then
-  local b = redis.call('HGET', user_id, 'channel_id');
+  local b = redis.call('HGET', 'prop::'.. user_id, 'channel_id');
   result = s ..'::'.. b;
   redis.call('DEL', result);
 end;
 
 -- 
 
-redis.call('HMSET', user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '');
+redis.call('HMSET', 'prop::'.. user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '');
 -- redis.call('EXPIRE', user_id, seconds);
 
 local _key = server_id ..'::'.. channel_id;

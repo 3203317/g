@@ -58,7 +58,7 @@ redis.call('HMSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, server
 
 redis.call('SELECT', db);
 
-redis.call('HMSET', user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
+redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
 
 ----
 
