@@ -127,8 +127,10 @@ process.on('exit', () => {
 (function(){
   const biz = require('emag.biz');
 
+  var activemq = conf.emag.activemq;
+
   var Stomp = require('stompjs');
-  var client = Stomp.overTCP('127.0.0.1', 12613);
+  var client = Stomp.overTCP(activemq.host, activemq.port);
 
   var err = function(error){
     console.error(error);
@@ -148,8 +150,8 @@ process.on('exit', () => {
   };
 
   var headers = {
-    login: 'admin',
-    passcode: 'admin',
+    login: activemq.user,
+    passcode: activemq.password,
   };
 
   // 
@@ -232,8 +234,11 @@ process.on('exit', () => {
     console.log(data);
   };
 
-  var on_3005_quit = function(server_id, channel_id, seq_id){
-    return true;
+  var on_3005_quit = function(server_id, channel_id, seq_id, cb){
+
+    biz.group.quit(server_id, channel_id, seq_id, function (err, doc){
+      if(err) return cb(err);
+    });
   };
 
   // 
