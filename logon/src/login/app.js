@@ -214,11 +214,7 @@ process.on('exit', () => {
 
       var group_type = JSON.parse(data.data).groupType;
 
-      biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
-        if(err) return console.error(err);
-
-        console.log(doc);
-      });
+      console.log(group_type)
     });
   };
 
@@ -226,7 +222,10 @@ process.on('exit', () => {
     if(!msg.body) return console.error('empty message');
 
     var data = JSON.parse(msg.body);
-    console.log(data);
+
+    on_3005_quit(data.serverId, data.channelId, 0, function (err){
+      if(err) return console.error(err);
+    });
   };
 
   var on_3005_quit = function(server_id, channel_id, seq_id, cb){
@@ -235,10 +234,11 @@ process.on('exit', () => {
       if(err) return cb(err);
 
       switch(doc){
-        case 'invalid_group_id':
-          break;
         case 'invalid_user_id':
-          break;
+          client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+          return cb(doc);
+        case 'invalid_group_id':
+          return cb();
       }
 
       console.log(doc);

@@ -1,7 +1,17 @@
 package net.foreworld.gws.amq;
 
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+
+import java.net.SocketAddress;
+
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
+
+import net.foreworld.gws.util.ChannelUtil;
+import net.foreworld.gws.util.Constants;
+import net.foreworld.util.StringUtil;
 
 import org.apache.commons.codec.Charsets;
 import org.slf4j.Logger;
@@ -14,11 +24,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import io.netty.channel.Channel;
-import net.foreworld.gws.util.ChannelUtil;
-import net.foreworld.gws.util.Constants;
-import net.foreworld.util.StringUtil;
-
 /**
  *
  * @author huangxin
@@ -28,7 +33,8 @@ import net.foreworld.util.StringUtil;
 @Component
 public class ConsumerV2 {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConsumerV2.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ConsumerV2.class);
 
 	@JmsListener(destination = "${queue.back.send.v2}" + "." + "${server.id}")
 	public void back_send(BytesMessage msg) {
@@ -60,6 +66,44 @@ public class ConsumerV2 {
 
 			if (null != c)
 				c.writeAndFlush(s);
+
+		} catch (JMSException e) {
+			logger.error("", e);
+		}
+	}
+
+	@JmsListener(destination = "${queue.front.force.v2}" + "." + "${server.id}")
+	public void front_force(BytesMessage msg) {
+
+		try {
+			byte[] data = new byte[(int) msg.getBodyLength()];
+			msg.readBytes(data);
+
+			String s = new String(data, Charsets.UTF_8);
+
+			Channel c = ChannelUtil.getDefault().getChannel(s);
+
+			if (null == c)
+				return;
+
+			ChannelFuture future = c.close();
+
+			future.addListener(new ChannelFutureListener() {
+
+				@Override
+				public void operationComplete(ChannelFuture future)
+						throws Exception {
+					SocketAddress addr = c.remoteAddress();
+
+					if (future.isSuccess()) {
+						logger.info("ctx close: {}", addr);
+						return;
+					}
+
+					logger.info("ctx close failure: {}", addr);
+					c.close();
+				}
+			});
 
 		} catch (JMSException e) {
 			logger.error("", e);
