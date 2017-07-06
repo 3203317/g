@@ -21,3 +21,16 @@ exports.search = function(server_id, channel_id, group_type, cb){
   console.log(arguments)
   cb(null, '681');
 };
+
+(() => {
+  const numkeys = 3;
+  const sha1 = 'e618bc803b45bf488834490c5ec105aa44549a40';
+
+  exports.search = function(server_id, channel_id, group_type, cb){
+
+    redis.evalsha(sha1, numkeys, '1', utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, code) => {
+      if(err) return cb(err);
+      cb(null, code);
+    });
+  };
+})();

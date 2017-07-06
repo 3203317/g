@@ -152,6 +152,8 @@ process.on('exit', () => {
     passcode: 'admin',
   };
 
+  // 
+
   var on_front_start = function(msg){
     if(!msg.body) return console.error('empty message');
     console.log('front amq start: %s', msg.body);
@@ -213,7 +215,13 @@ process.on('exit', () => {
 
     biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
       if(err) return console.error(err);
-      console.log(data);
+
+      var type = typeof doc;
+
+      if('string' === type){
+      }
+
+      console.log(typeof doc);
     });
   };
 
