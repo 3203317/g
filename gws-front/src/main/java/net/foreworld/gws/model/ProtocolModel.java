@@ -17,6 +17,25 @@ public class ProtocolModel implements Serializable {
 	private Long timestamp;
 	private String data;
 
+	private String serverId;
+	private String channelId;
+
+	public String getServerId() {
+		return serverId;
+	}
+
+	public void setServerId(String serverId) {
+		this.serverId = serverId;
+	}
+
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+
 	public Integer getVersion() {
 		return version;
 	}

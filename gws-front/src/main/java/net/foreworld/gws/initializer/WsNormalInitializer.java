@@ -1,5 +1,12 @@
 package net.foreworld.gws.initializer;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -12,20 +19,16 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-
 import net.foreworld.gws.codec.JSONCodec;
 import net.foreworld.gws.handler.BlacklistHandler;
 import net.foreworld.gws.handler.EchoHandler;
 import net.foreworld.gws.handler.ExceptionHandler;
+import net.foreworld.gws.handler.HeartbeatV2Handler;
+import net.foreworld.gws.handler.LoginV2Handler;
 import net.foreworld.gws.handler.ProtocolSafeV2Handler;
+import net.foreworld.gws.handler.TimeV2Handler;
+import net.foreworld.gws.handler.TimeVersionV2Handler;
 import net.foreworld.gws.handler.TimeoutHandler;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -62,6 +65,18 @@ public class WsNormalInitializer extends ChannelInitializer<NioSocketChannel> {
 	@Resource(name = "protocolSafeV2Handler")
 	private ProtocolSafeV2Handler protocolSafeV2Handler;
 
+	@Resource(name = "timeVersionV2Handler")
+	private TimeVersionV2Handler timeVersionV2Handler;
+
+	@Resource(name = "heartbeatV2Handler")
+	private HeartbeatV2Handler heartbeatV2Handler;
+
+	@Resource(name = "loginV2Handler")
+	private LoginV2Handler loginV2Handler;
+
+	@Resource(name = "timeV2Handler")
+	private TimeV2Handler timeV2Handler;
+
 	@Override
 	protected void initChannel(NioSocketChannel ch) throws Exception {
 		ChannelPipeline pipe = ch.pipeline();
@@ -71,8 +86,7 @@ public class WsNormalInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(exceptionHandler);
 		pipe.addLast(blacklistHandler);
 
-		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime,
-				allIdleTime, TimeUnit.SECONDS));
+		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime, allIdleTime, TimeUnit.SECONDS));
 		pipe.addLast(timeoutHandler);
 
 		pipe.addLast(new HttpServerCodec());
@@ -85,7 +99,13 @@ public class WsNormalInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(new WebSocketServerCompressionHandler());
 
 		pipe.addLast(jSONCodec);
-		pipe.addLast(echoHandler);
+
+		pipe.addLast(timeVersionV2Handler);
+		pipe.addLast(loginV2Handler);
+		pipe.addLast(heartbeatV2Handler);
+
+		// pipe.addLast(echoHandler);
+		pipe.addLast(timeV2Handler);
 	}
 
 }

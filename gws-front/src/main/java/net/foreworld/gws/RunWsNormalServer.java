@@ -2,14 +2,14 @@ package net.foreworld.gws;
 
 import javax.annotation.Resource;
 
-import net.foreworld.gws.server.WsNormalServer;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+
+import net.foreworld.gws.server.WsNormalServer;
 
 /**
  *
@@ -20,8 +20,7 @@ import org.springframework.context.annotation.ComponentScan;
 @ComponentScan("net.foreworld")
 public class RunWsNormalServer implements CommandLineRunner {
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(RunWsNormalServer.class);
+	private static final Logger logger = LoggerFactory.getLogger(RunWsNormalServer.class);
 
 	@Resource(name = "wsNormalServer")
 	private WsNormalServer wsNormalServer;
