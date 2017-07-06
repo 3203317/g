@@ -209,21 +209,16 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    if (!on_3005_quit(data.serverId, data.channelId, data.seqId)) {
-      return;
-    }
-
-    var group_type = JSON.parse(data.data).groupType;
-
-    biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
+    on_3005_quit(data.serverId, data.channelId, data.seqId, function (err){
       if(err) return console.error(err);
 
-      var type = typeof doc;
+      var group_type = JSON.parse(data.data).groupType;
 
-      if('string' === type){
-      }
+      biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
+        if(err) return console.error(err);
 
-      console.log(typeof doc);
+        console.log(doc);
+      });
     });
   };
 
@@ -236,8 +231,17 @@ process.on('exit', () => {
 
   var on_3005_quit = function(server_id, channel_id, seq_id, cb){
 
-    biz.group.quit(server_id, channel_id, seq_id, function (err, doc){
+    biz.group.quit(server_id, channel_id, function (err, doc){
       if(err) return cb(err);
+
+      switch(doc){
+        case 'invalid_group_id':
+          break;
+        case 'invalid_user_id':
+          break;
+      }
+
+      console.log(doc);
     });
   };
 

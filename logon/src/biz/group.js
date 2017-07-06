@@ -13,14 +13,6 @@ const utils = require('speedt-utils').utils;
 const mysql = require('./emag/mysql');
 const redis = require('./emag/redis');
 
-/**
- *
- * @return 可用的服务器
- */
-exports.search = function(server_id, channel_id, group_type, cb){
-  console.log(arguments)
-  cb(null, '681');
-};
 
 (() => {
   const numkeys = 3;
@@ -31,6 +23,19 @@ exports.search = function(server_id, channel_id, group_type, cb){
     redis.evalsha(sha1, numkeys, '1', utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, code) => {
       if(err) return cb(err);
       cb(null, code);
+    });
+  };
+})();
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '9d5d561268c625e642b7e7b8e3980e59ce232425';
+
+  exports.quit = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
     });
   };
 })();
