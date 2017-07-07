@@ -266,13 +266,15 @@ process.on('exit', () => {
 
         for(var i=0, j=doc.length; i < j; i++){
 
-          var s = doc[++i];
-          var b = s.split('::');
+          ++i
 
-          result.receiver = b[1];
+          var s = doc[++i];
+          var b = doc[++i];
+
+          result.receiver = b;
           result.data = JSON.stringify(doc);
 
-          client.send('/queue/back.send.v2.'+ b[0], { priority: 9 }, JSON.stringify(result));
+          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
         }
 
       });
@@ -313,13 +315,15 @@ process.on('exit', () => {
 
       for(var i=0, j=doc.length; i < j; i++){
 
-        var s = doc[++i];
-        var b = s.split('::');
+        ++i;
 
-        result.receiver = b[1];
+        var s = doc[++i];
+        var b = doc[++i];
+
+        result.receiver = b;
         result.data = JSON.stringify(doc);
 
-        client.send('/queue/back.send.v2.'+ b[0], { priority: 9 }, JSON.stringify(result));
+        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }
 
     });
