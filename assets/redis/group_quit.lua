@@ -33,9 +33,14 @@ local group_type = redis.call('HGET', 'prop::'.. group_id, 'type');
 
 -- 
 
-redis.call('HDEL', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
+local s = redis.call('HGET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
+local b = server_id ..'::'.. channel_id ..'::'.. user_id;
+
+if (s ~= b) then return 'OK'; end;
 
 -- 
+
+redis.call('HDEL', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
 
 redis.call('SADD', 'idle::'.. group_type, group_id ..'::'.. group_pos_id);
 
@@ -44,5 +49,6 @@ redis.call('SADD', 'idle::'.. group_type, group_id ..'::'.. group_pos_id);
 local result = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
 
 return result;
+
 
 
