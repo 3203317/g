@@ -234,6 +234,8 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
+    console.log('chat 1v1 send: %s\n', msg.body);
+
     data.method = 2002;
     data.receiver = data.channelId;
 

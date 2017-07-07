@@ -99,6 +99,16 @@ $(function(){
 
             break;
           }
+          case 3002: {
+
+            (function(){
+              data = JSON.parse(data.data);
+              console.log(data)
+              random();
+            })();
+
+            break;
+          }
           default: {
             console.log(data)
             break;
