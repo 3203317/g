@@ -74,9 +74,16 @@ local hash_val = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
 
 local result = {};
 
+redis.call('SELECT', db);
+
 for i = 2 , #hash_val, 2 do
   table.insert(result, hash_val[i - 1]);
-  table.insert(result, hash_val[i]);
+
+  local u = hash_val[i];
+  table.insert(result, u);
+
+  table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
+  table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
 end
 
 return result;
