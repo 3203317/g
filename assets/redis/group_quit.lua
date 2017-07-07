@@ -21,11 +21,13 @@ local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'OK'; end;
 
+-- 
+
 local group_pos_id = redis.call('HGET', 'prop::'.. user_id, 'group_pos_id');
 
 redis.call('HDEL', 'prop::'.. user_id, 'group_id', 'group_pos_id');
 
--- 
+-- 获取群组的类型
 
 redis.call('SELECT', 1 + db);
 
@@ -45,9 +47,13 @@ redis.call('SADD', 'idle::'.. group_type, group_id ..'::'.. group_pos_id);
 
 -- 
 
-local result = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
+local hash_val = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
+
+local result = {};
+
+for i = 2 , #hash_val, 2 do
+  table.insert(result, hash_val[i - 1]);
+  table.insert(result, hash_val[i]);
+end
 
 return result;
-
-
-
