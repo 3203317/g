@@ -71,7 +71,7 @@ server.listen(app.get('port'), () => {
 });
 
 process.on('uncaughtException', err => {
-  console.error(err);
+  console.error('[ERROR] %s', err);
 });
 
 process.on('exit', () => {
@@ -191,19 +191,19 @@ process.on('exit', () => {
   // 
 
   var on_front_start = function(msg){
-    if(!msg.body) return console.error('empty message');
-    console.log('front amq start: %s', msg.body);
+    if(!msg.body) return console.error('[ERROR] empty message');
+    console.info('[INFO] front amq start: %s', msg.body);
   };
 
   var on_front_stop = function(msg){
-    if(!msg.body) return console.error('empty message');
-    console.log('front amq stop: %s', msg.body);
+    if(!msg.body) return console.error('[ERROR] empty message');
+    console.info('front amq stop: %s', msg.body);
   };
 
   // 
 
   var on_channel_open = function(msg){
-    if(!msg.body) return console.error('empty message');
+    if(!msg.body) return console.error('[ERROR] empty message');
 
     var s = msg.body.split('::');
 
@@ -218,23 +218,23 @@ process.on('exit', () => {
   };
 
   var on_channel_close = function(msg){
-    if(!msg.body) return console.error('empty message');
+    if(!msg.body) return console.error('[ERROR] empty message');
 
     var s = msg.body.split('::');
 
     on_3005_quit(s[0], s[1], 0, function (err){
-      if(err) return console.error(err);
+      if(err) return console.error('[ERROR] %s', err);
     });
   };
 
   // 
 
   var on_2001 = function(msg){
-    if(!msg.body) return console.error('empty message');
+    if(!msg.body) return console.error('[ERROR] empty message');
 
     var data = JSON.parse(msg.body);
 
-    console.log('chat 1v1 send: %s\n', msg.body);
+    console.log('[INFO ] chat 1v1 send: %s', msg.body);
 
     data.method = 2002;
     data.receiver = data.channelId;
@@ -245,17 +245,17 @@ process.on('exit', () => {
   // 
 
   var on_3001 = function(msg){
-    if(!msg.body) return console.error('empty message');
+    if(!msg.body) return console.error('[ERROR] empty message');
 
     var data = JSON.parse(msg.body);
 
     on_3005_quit(data.serverId, data.channelId, data.seqId, function (err){
-      if(err) return console.error(err);
+      if(err) return console.error('[ERROR] %s', err);
 
       var group_type = JSON.parse(data.data).groupType;
 
       biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
-        if(err) return console.error(err);
+        if(err) return console.error('[ERROR] %s', err);
 
         var result = {
           version: 102,
@@ -280,12 +280,12 @@ process.on('exit', () => {
   };
 
   var on_3005 = function(msg){
-    if(!msg.body) return console.error('empty message');
+    if(!msg.body) return console.error('[ERROR] empty message');
 
     var data = JSON.parse(msg.body);
 
     on_3005_quit(data.serverId, data.channelId, 0, function (err){
-      if(err) return console.error(err);
+      if(err) return console.error('[ERROR] %s', err);
     });
   };
 
