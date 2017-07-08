@@ -57,15 +57,27 @@ public class ConsumerV2 {
 			if (null == _receiver)
 				return;
 
+			//
+
+			jo.remove("receiver");
+
+			if (null != jo.get("serverId"))
+				jo.remove("serverId");
+
+			if (null != jo.get("channelId"))
+				jo.remove("channelId");
+
+			//
+
 			if (Constants.ALL.equals(_receiver)) {
-				ChannelUtil.getDefault().broadcast(s);
+				ChannelUtil.getDefault().broadcast(jo.toString());
 				return;
 			}
 
 			Channel c = ChannelUtil.getDefault().getChannel(_receiver);
 
 			if (null != c)
-				c.writeAndFlush(s);
+				c.writeAndFlush(jo.toString());
 
 		} catch (JMSException e) {
 			logger.error("", e);
