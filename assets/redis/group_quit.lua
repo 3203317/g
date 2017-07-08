@@ -54,6 +54,7 @@ redis.call('SELECT', db);
 local arr = {};
 
 for i=2, #hash_val, 2 do
+  -- table.insert(result, hash_val[i - 1]);
   local u = hash_val[i];
 
   table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
