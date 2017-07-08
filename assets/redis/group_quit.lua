@@ -49,18 +49,21 @@ redis.call('SADD', 'idle::'.. group_type, group_id ..'::'.. group_pos_id);
 
 local hash_val = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
 
-local result = {};
-
 redis.call('SELECT', db);
 
-for i = 2 , #hash_val, 2 do
-  table.insert(result, hash_val[i - 1]);
+local arr = {};
 
+for i=2, #hash_val, 2 do
   local u = hash_val[i];
-  table.insert(result, u);
 
-  table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
-  table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
-end
+  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
+  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+end;
+
+local result = {};
+
+table.insert(result, arr);
+table.insert(result, hash_val);
 
 return result;
+

@@ -35,7 +35,7 @@ if (false == idle_group) then
 
   local total_users = redis.call('HGET', 'prop::'.. group_type, 'total_users');
 
-  for i = 1, tonumber(total_users) do
+  for i=1, tonumber(total_users) do
     redis.call('SADD', 'idle::'.. group_type, group_uuid ..'::'.. i);
   end;
 
@@ -70,16 +70,19 @@ redis.call('SELECT', db);
 
 redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
 
+local arr = {};
+
+for i=2, #hash_val, 2 do
+  local u = hash_val[i];
+
+  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
+  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+end;
+
 local result = {};
 
-for i = 2 , #hash_val, 2 do
-  table.insert(result, hash_val[i - 1]);
-
-  local u = hash_val[i];
-  table.insert(result, u);
-
-  table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
-  table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
-end
+table.insert(result, arr);
+table.insert(result, hash_val);
 
 return result;
+
