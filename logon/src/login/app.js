@@ -261,6 +261,14 @@ process.on('exit', () => {
       biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
         if(err) return console.error('[ERROR] %s', err);
 
+        switch(doc){
+          case 'invalid_user_id':
+          case 'invalid_group_type':
+            return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+          case 'non_idle_group':
+            return;
+        }
+
         var result = {
           version: 102,
           method: 3002,
