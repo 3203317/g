@@ -36,7 +36,7 @@ public class ConsumerV2 {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ConsumerV2.class);
 
-	@JmsListener(destination = "${queue.back.send.v2}" + "." + "${server.id}")
+	@JmsListener(destination = "${queue.back.send.v2}.${server.id}")
 	public void back_send(BytesMessage msg) {
 
 		try {
@@ -84,7 +84,7 @@ public class ConsumerV2 {
 		}
 	}
 
-	@JmsListener(destination = "${queue.front.force.v2}" + "." + "${server.id}")
+	@JmsListener(destination = "${queue.front.force.v2}.${server.id}")
 	public void front_force(BytesMessage msg) {
 
 		try {
