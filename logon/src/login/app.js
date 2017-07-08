@@ -192,12 +192,12 @@ process.on('exit', () => {
 
   var on_front_start = function(msg){
     if(!msg.body) return console.error('[ERROR] empty message');
-    console.info('[INFO] front amq start: %s', msg.body);
+    console.info('[INFO ] front amq start: %s', msg.body);
   };
 
   var on_front_stop = function(msg){
     if(!msg.body) return console.error('[ERROR] empty message');
-    console.info('front amq stop: %s', msg.body);
+    console.info('[INFO ] front amq stop: %s', msg.body);
   };
 
   // 
@@ -206,6 +206,8 @@ process.on('exit', () => {
     if(!msg.body) return console.error('[ERROR] empty message');
 
     var s = msg.body.split('::');
+
+    console.info('[INFO ] channel open: %j', s);
 
     var b = {
       version: 102,
@@ -222,6 +224,8 @@ process.on('exit', () => {
 
     var s = msg.body.split('::');
 
+    console.info('[INFO ] channel close: %j', s);
+
     on_3005_quit(s[0], s[1], 0, function (err){
       if(err) return console.error('[ERROR] %s', err);
     });
@@ -234,7 +238,7 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    console.log('[INFO ] chat 1v1 send: %s', msg.body);
+    console.log('[INFO ] chat 1v1 send: %j', data);
 
     data.method = 2002;
     data.receiver = data.channelId;
@@ -262,6 +266,7 @@ process.on('exit', () => {
           method: 3002,
           seqId: data.seqId,
           timestamp: new Date().getTime(),
+          data: JSON.stringify(doc)
         };
 
         for(var i=0, j=doc.length; i < j; i++){
@@ -269,10 +274,8 @@ process.on('exit', () => {
           ++i
 
           var s = doc[++i];
-          var b = doc[++i];
 
-          result.receiver = b;
-          result.data = JSON.stringify(doc);
+          result.receiver = doc[++i];
 
           client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
         }
@@ -300,7 +303,7 @@ process.on('exit', () => {
         case 'invalid_user_id':
           client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
           return cb(doc);
-        case 'invalid_group_id':
+        case 'OK':
           return cb();
       }
 
@@ -311,17 +314,16 @@ process.on('exit', () => {
         method: 3005,
         seqId: seq_id,
         timestamp: new Date().getTime(),
+        data: JSON.stringify(doc)
       };
 
-      for(var i=0, j=doc.length; i < j; i++){
+      for(var i=0, j=doc.length; i<j; i++){
 
         ++i;
 
         var s = doc[++i];
-        var b = doc[++i];
 
-        result.receiver = b;
-        result.data = JSON.stringify(doc);
+        result.receiver = doc[++i];
 
         client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }

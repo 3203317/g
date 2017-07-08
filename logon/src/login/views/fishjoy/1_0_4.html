@@ -88,13 +88,13 @@ $(function(){
         data = JSON.parse(data);
 
         console.log('++++');
+        random();
 
         switch(data.method){
           case 2002: {
 
             (function(){
               console.log(data)
-              random();
             })();
 
             break;
@@ -104,7 +104,6 @@ $(function(){
             (function(){
               data = JSON.parse(data.data);
               console.log(data)
-              random();
             })();
 
             break;

@@ -156,7 +156,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 (() => {
   const seconds = 5;  //令牌有效期 5s
   const numkeys = 4;
-  const sha1 = '8a2f4c1efa04007888857eaa59f6dc82a269dbf3';
+  const sha1 = '232eca1f1b0411d8be28f714c23cf2f2e52176e1';
 
   /**
    * 令牌授权
