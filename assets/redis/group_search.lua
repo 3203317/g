@@ -62,19 +62,15 @@ redis.call('HSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, user_id
 
 -- 
 
+local hash_val = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
+
+-- 
+
 redis.call('SELECT', db);
 
 redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
 
--- 
-
-redis.call('SELECT', 1 + db);
-
-local hash_val = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
-
 local result = {};
-
-redis.call('SELECT', db);
 
 for i = 2 , #hash_val, 2 do
   table.insert(result, hash_val[i - 1]);
