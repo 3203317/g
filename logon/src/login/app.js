@@ -274,16 +274,16 @@ process.on('exit', () => {
           method: 3002,
           seqId: data.seqId,
           timestamp: new Date().getTime(),
-          data: JSON.stringify(doc)
+          data: JSON.stringify(doc[1])
         };
 
-        for(var i=0, j=doc.length; i < j; i++){
+        var arr = doc[0];
 
-          ++i
+        for(let i=0, j=arr.length; i<j; i++){
 
-          var s = doc[++i];
+          var s = arr[i];
 
-          result.receiver = doc[++i];
+          result.receiver = arr[++i];
 
           client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
         }
@@ -319,19 +319,19 @@ process.on('exit', () => {
 
       var result = {
         version: 102,
-        method: 3005,
+        method: 3006,
         seqId: seq_id,
         timestamp: new Date().getTime(),
-        data: JSON.stringify(doc)
+        data: JSON.stringify(doc[1])
       };
 
-      for(var i=0, j=doc.length; i<j; i++){
+      var arr = doc[0];
 
-        ++i;
+      for(let i=0, j=arr.length; i<j; i++){
 
-        var s = doc[++i];
+        var s = arr[i];
 
-        result.receiver = doc[++i];
+        result.receiver = arr[++i];
 
         client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }
