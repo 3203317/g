@@ -29,7 +29,7 @@ redis.call('HMSET', 'prop::huangjin', 'total_players', 6, 'total_visitors', 0, '
 
 -- tuibing
 
-redis.call('SELECT', 2 + db);
+redis.call('SELECT', 3 + db);
 
 redis.call('HMSET', 'prop::huangjin', 'total_players', 4, 'total_visitors', 6, 'min_run', 4);
 

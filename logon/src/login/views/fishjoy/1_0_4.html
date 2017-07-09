@@ -12,6 +12,10 @@
     <input type='button' onclick='searchGroup("baiyin")' value='5人场'>
     <input type='button' onclick='searchGroup("huangjin")' value='快速场'><p></p>
 
+    观看群组：
+    <input type='text' id='group_id' />
+    <input type='button' id='visitGroup' value='visitGroup'><p></p>
+
     加入群组：
     <input type='text' id='group_id' />
     <input type='button' id='entryGroup' value='entryGroup'><p></p>
@@ -19,6 +23,7 @@
     <textarea rows='8' cols='50'></textarea>
     <textarea rows='8' cols='50'></textarea><p></p>
 
+    <input type='button' id='_5005_ready' value='_5005_ready'>
     <input type='button' id='shot' value='shot'><p></p>
 
     发送给：
@@ -41,6 +46,11 @@ $(function(){
 
 var socket = null;
 
+
+function visitGroup(group_id){
+  console.log(group_id)
+};
+
 function searchGroup(group_type){
   var p = {
     version: 102,
@@ -55,6 +65,17 @@ function searchGroup(group_type){
 }
 
 $(function(){
+
+  $('#_5005_ready').click(function(){
+
+    var p = {
+      version: 102,
+      method: 5005,
+      seqId: Math.random() * 1000,
+      timestamp: new Date().getTime()
+    };
+    socket.send(JSON.stringify(p));
+  });
 
   $('#entryGroup').click(function(){
 

@@ -149,6 +149,8 @@ process.on('exit', () => {
   var _3001;
   var _3005;
 
+  var _fishjoy_5001, _fishjoy_5003, _fishjoy_5005;
+
   var cb = function(frame){
     _front_start = client.subscribe('/queue/front.start', on_front_start);
     _front_stop = client.subscribe('/queue/front.stop', on_front_stop);
@@ -160,6 +162,10 @@ process.on('exit', () => {
 
     _3001 = client.subscribe('/queue/qq3203317.3001', on_3001);
     _3005 = client.subscribe('/queue/qq3203317.3005', on_3005);
+
+    _fishjoy_5001 = client.subscribe('/queue/qq3203317.5001', on_fishjoy_5001);
+    _fishjoy_5003 = client.subscribe('/queue/qq3203317.5003', on_fishjoy_5003);
+    _fishjoy_5005 = client.subscribe('/queue/qq3203317.5005', on_fishjoy_5005);
   };
 
   function _unsubscribe(){
@@ -173,6 +179,10 @@ process.on('exit', () => {
 
     _3001.unsubscribe();
     _3005.unsubscribe();
+
+    _fishjoy_5001.unsubscribe();
+    _fishjoy_5003.unsubscribe();
+    _fishjoy_5005.unsubscribe();
   }
 
   process.on('uncaughtException', err => {
@@ -337,6 +347,36 @@ process.on('exit', () => {
       }
 
     });
+  };
+
+  // 
+
+  /**
+   * shot
+   */
+  var on_fishjoy_5001 = function(msg){
+    if(!msg.body) return console.error('[ERROR] empty message');
+
+  };
+
+  /**
+   * blast
+   */
+  var on_fishjoy_5003 = function(msg){
+    if(!msg.body) return console.error('[ERROR] empty message');
+
+  };
+
+  /**
+   * ready
+   */
+  var on_fishjoy_5005 = function(msg){
+    if(!msg.body) return console.error('[ERROR] empty message');
+
+    var data = JSON.parse(msg.body);
+
+    console.log(data);
+
   };
 
   // 
