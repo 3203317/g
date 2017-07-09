@@ -23,12 +23,15 @@ redis.call('SELECT', 1 + db);
 
 -- min_run 最小运行
 
-redis.call('HMSET', 'prop::fishjoy:qingtong', 'total_players', 4, 'total_visitors', 0, 'min_run', 1);
-redis.call('HMSET', 'prop::fishjoy:baiyin', 'total_players', 7, 'total_visitors', 0, 'min_run', 1);
-redis.call('HMSET', 'prop::fishjoy:huangjin', 'total_players', 6, 'total_visitors', 0, 'min_run', 1);
+redis.call('HMSET', 'prop::qingtong', 'total_players', 4, 'total_visitors', 0, 'min_run', 1);
+redis.call('HMSET', 'prop::baiyin', 'total_players', 7, 'total_visitors', 0, 'min_run', 1);
+redis.call('HMSET', 'prop::huangjin', 'total_players', 6, 'total_visitors', 0, 'min_run', 1);
 
+-- tuibing
 
-redis.call('HMSET', 'prop::tuibing:huangjin', 'total_players', 4, 'total_visitors', 6, 'min_run', 4);
+redis.call('SELECT', 2 + db);
+
+redis.call('HMSET', 'prop::huangjin', 'total_players', 4, 'total_visitors', 6, 'min_run', 4);
 
 
 

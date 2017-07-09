@@ -16,7 +16,7 @@ const redis = require('./emag/redis');
 
 (() => {
   const numkeys = 3;
-  const sha1 = '58ddebed52c5a6535a87b693dc1ddc9269491a7b';
+  const sha1 = '1a87978a835dec9253ae6f5de4436b6c8d3755f3';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
