@@ -35,9 +35,13 @@ local group_type = redis.call('HGET', 'prop::'.. group_id, 'type');
 
 -- 
 
-local sb = redis.call('HGET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
+local s = redis.call('HGET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
 
-if (sb ~= user_id) then return 'OK'; end;
+if (false == s) then return 'OK'; end;
+
+local b, hand = string.match(s, '(.*)%::(.*)');
+
+if (b ~= user_id) then return 'OK'; end;
 
 -- 
 
@@ -55,7 +59,7 @@ local arr = {};
 
 for i=2, #hash_val, 2 do
   -- table.insert(result, hash_val[i - 1]);
-  local u = hash_val[i];
+  local u = string.match(hash_val[i], '(.*)%::(.*)');
 
   table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
   table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));

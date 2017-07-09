@@ -58,7 +58,7 @@ local group_id, group_pos_id = string.match(idle_group, '(.*)%::(.*)');
 
 -- 
 
-redis.call('HSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, user_id);
+redis.call('HSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, user_id ..'::0');
 
 -- 
 
