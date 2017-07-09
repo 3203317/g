@@ -7,7 +7,8 @@
 
 module.exports = {
   corp: {
-    name: 'foreworld.net'
+    name: 'foreworld.net',
+    id: '123456'
   },
   cookie: {
     key: 'login',

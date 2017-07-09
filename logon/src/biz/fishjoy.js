@@ -19,7 +19,7 @@ const redis = require('./emag/redis');
 
   exports.ready = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
+    redis.evalsha(sha1, numkeys, '1', '123456', server_id, channel_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
