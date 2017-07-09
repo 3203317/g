@@ -13,14 +13,15 @@ const utils = require('speedt-utils').utils;
 const mysql = require('./emag/mysql');
 const redis = require('./emag/redis');
 
-var createFishs = function(curr_fish_list, prop_fishType, prop_group){
-  // todo
+var createNewFishs = function(curr_fish_list, prop_fish_type, prop_group, cb){
+  var list = [];
+  cb(list);
 };
 
 (() => {
 
   function init(group_info, cb){
-    console.log('[INFO ] init thread');
+    console.log('[INFO ] init');
 
     var s = group_info.split('::');
 
@@ -30,19 +31,17 @@ var createFishs = function(curr_fish_list, prop_fishType, prop_group){
       capacity: s[2]
     };
 
-    var curr_fish_list = [];
+    var curr_fish_list = [/*{
+      id: 'uuid_1',
+      type: '鲨鱼',
+      weight: 20
+    },{
+      id: 'uuid_2',
+      type: '鳄鱼',
+      weight: 15
+    }*/];
 
-    // var curr_fish_list = [{
-    //   id: 'uuid_1',
-    //   type: '鲨鱼',
-    //   weight: 20
-    // },{
-    //   id: 'uuid_2',
-    //   type: '鳄鱼',
-    //   weight: 15
-    // }];
-
-    var prop_fishType = [{
+    var prop_fish_type = [{
       type: '鲨鱼',
       probability: 1,
       weight: 20
@@ -66,12 +65,16 @@ var createFishs = function(curr_fish_list, prop_fishType, prop_group){
         my_async_function(function(){
 
           console.log('async is done!');
+          console.log(prop_group)
+          console.log('----')
           console.log(timeout);
           console.log('----')
           console.log(clearTimeout(timeout));
+          console.log('----')
           schedule();
 
         });
+
       }, interval);
 
     }());
