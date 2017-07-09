@@ -33,9 +33,9 @@ local idle_group = redis.call('SPOP', 'idle::'.. group_type);
 
 if (false == idle_group) then
 
-  local total_users = redis.call('HGET', 'prop::'.. group_type, 'total_users');
+  local total_players = redis.call('HGET', 'prop::'.. group_type, 'total_players');
 
-  for i=1, tonumber(total_users) do
+  for i=1, tonumber(total_players) do
     redis.call('SADD', 'idle::'.. group_type, group_uuid ..'::'.. i);
   end;
 
