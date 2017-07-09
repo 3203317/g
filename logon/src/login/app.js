@@ -375,7 +375,31 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    console.log(data);
+    biz.fishjoy.ready(data.serverId, data.channelId, function (err, doc){
+      if(err) return console.error('[ERROR] %s', err);
+
+      if(!doc) return;
+
+      var result = {
+        version: 102,
+        method: 5006,
+        seqId: data.seqId,
+        timestamp: new Date().getTime(),
+        data: JSON.stringify(doc[1])
+      };
+
+      var arr = doc[0];
+
+      for(let i=0, j=arr.length; i<j; i++){
+
+        var s = arr[i];
+
+        result.receiver = arr[++i];
+
+        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+      }
+
+    });
 
   };
 
