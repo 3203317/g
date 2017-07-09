@@ -58,4 +58,6 @@ if (sb) then return 'back_running'; end;
 
 redis.call('HSET', 'prop::'.. group_id, 'back_id', back_id);
 
-return group_type ..'::'.. group_id;
+local capacity = redis.call('HGET', 'prop::'.. group_id, 'capacity');
+
+return group_type ..'::'.. group_id ..'::'.. capacity;

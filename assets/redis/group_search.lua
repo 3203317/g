@@ -41,7 +41,9 @@ if (false == idle_group) then
 
   -- 为新创建的群组设置群组类型
 
-  redis.call('HSET', 'prop::'.. group_uuid, 'type', group_type);
+  local capacity = redis.call('HGET', 'prop::'.. group_type, 'capacity');
+
+  redis.call('HMSET', 'prop::'.. group_uuid, 'type', group_type, 'capacity', capacity);
 
   -- 再次找一个空闲的群组
 

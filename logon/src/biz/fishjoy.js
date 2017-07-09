@@ -13,13 +13,73 @@ const utils = require('speedt-utils').utils;
 const mysql = require('./emag/mysql');
 const redis = require('./emag/redis');
 
+var createFishs = function(curr_fish_list, prop_fishType, prop_group){
+  // todo
+};
+
 (() => {
-  function init(group_id, cb){
+
+  function init(group_info, cb){
     console.log('[INFO ] init thread');
+
+    var s = group_info.split('::');
+
+    var prop_group = {
+      type: s[0],
+      id: s[1],
+      capacity: s[2]
+    };
+
+    var curr_fish_list = [];
+
+    // var curr_fish_list = [{
+    //   id: 'uuid_1',
+    //   type: '鲨鱼',
+    //   weight: 20
+    // },{
+    //   id: 'uuid_2',
+    //   type: '鳄鱼',
+    //   weight: 15
+    // }];
+
+    var prop_fishType = [{
+      type: '鲨鱼',
+      probability: 1,
+      weight: 20
+    }, {
+      type: '鳄鱼'
+      probability: 2,
+      weight: 15
+    }];
+
+    var interval = 300;
+
+    function my_async_function(a){
+      a();
+    }
+
+    var i = 0, max = 2000;
+
+    (function schedule(){
+      var timeout = setTimeout(function(){
+
+        my_async_function(function(){
+
+          console.log('async is done!');
+          console.log(timeout);
+          console.log('----')
+          console.log(clearTimeout(timeout));
+          schedule();
+
+        });
+      }, interval);
+
+    }());
+
   }
 
   const numkeys = 2;
-  const sha1 = '162b2a12a984dcd7c5c9261f6d94d7668f9d724c';
+  const sha1 = '54e0a084b5e6c4295c578ea6b8abaae0fd4f6698';
 
   exports.ready = function(server_id, channel_id, cb){
 
@@ -36,3 +96,5 @@ const redis = require('./emag/redis');
     });
   };
 })();
+
+
