@@ -58,4 +58,4 @@ if (sb) then return 'back_running'; end;
 
 redis.call('HSET', 'prop::'.. group_id, 'back_id', back_id);
 
-return 'back_init';
+return group_type ..'::'.. group_id;

@@ -375,8 +375,15 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    biz.fishjoy.ready(data.serverId, data.channelId, function (err, doc){
+    biz.fishjoy.ready(data.serverId, data.channelId, function (err, code, doc){
       if(err) return console.error('[ERROR] %s', err);
+
+      switch(code){
+        case 'invalid_user_id':
+          return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+        case 'invalid_group_id':
+        case 'invalid_group_pos_id': return;
+      }
 
       if(!doc) return;
 
