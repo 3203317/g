@@ -20,6 +20,10 @@ var createNewFishs = function(curr_fish_list, prop_fish_type, prop_group, cb){
 
 (() => {
 
+  function my_async_function(a){
+    a();
+  }
+
   function init(group_info, cb){
     console.log('[INFO ] init');
 
@@ -46,21 +50,19 @@ var createNewFishs = function(curr_fish_list, prop_fish_type, prop_group, cb){
       probability: 1,
       weight: 20
     }, {
-      type: '鳄鱼'
+      type: '鳄鱼',
       probability: 2,
       weight: 15
     }];
 
-    var interval = 300;
-
-    function my_async_function(a){
-      a();
-    }
+    var interval = 1300;
 
     var i = 0, max = 2000;
 
     (function schedule(){
       var timeout = setTimeout(function(){
+
+        clearTimeout(timeout);
 
         my_async_function(function(){
 
@@ -68,9 +70,6 @@ var createNewFishs = function(curr_fish_list, prop_fish_type, prop_group, cb){
           console.log(prop_group)
           console.log('----')
           console.log(timeout);
-          console.log('----')
-          console.log(clearTimeout(timeout));
-          console.log('----')
           schedule();
 
         });
@@ -82,7 +81,7 @@ var createNewFishs = function(curr_fish_list, prop_fish_type, prop_group, cb){
   }
 
   const numkeys = 2;
-  const sha1 = '54e0a084b5e6c4295c578ea6b8abaae0fd4f6698';
+  const sha1 = '45ed245f475c604374abccb8dac3b51ffe93af98';
 
   exports.ready = function(server_id, channel_id, cb){
 
