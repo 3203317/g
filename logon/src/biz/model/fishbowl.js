@@ -19,16 +19,10 @@ var Method = function(opts){
 
 var pro = Method.prototype;
 
-/**
- * 投放鱼
- */
 pro.push = function(){
   // todo
 };
 
-/**
- * 杀鱼
- */
 pro.kill = function(){
   // todo
 };
@@ -36,3 +30,7 @@ pro.kill = function(){
 pro.release = function(){
   // todo
 };
+
+pro.scene = function(){
+  // todo
+}

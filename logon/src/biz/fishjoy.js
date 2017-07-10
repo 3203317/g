@@ -47,12 +47,13 @@ const redis = require('./emag/redis');
     }];
 
     var opts = {
+      scene: scene,
       prop_group: prop_group,
       curr_fish_list: curr_fish_list,
       prop_fish_type: prop_fish_type
     };
 
-    fishbowlPool.get(opts, function (err, fishbowl){
+    fishbowlPool.create(opts, function (err, fishbowl){
       if(err) return cb(err);
 
       (function schedule(){
