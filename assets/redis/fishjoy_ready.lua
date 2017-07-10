@@ -52,7 +52,7 @@ redis.call('HSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, user_id
 
 local sb = redis.call('HGET', 'prop::'.. group_id, 'back_id');
 
-if (sb) then return sb; end;
+if (sb) then back_id = sb; end;
 
 -- 
 

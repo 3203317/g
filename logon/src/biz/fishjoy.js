@@ -80,7 +80,7 @@ const conf = require(path.join(cwd, 'settings'));
   const numkeys = 2;
   const sha1 = '45ed245f475c604374abccb8dac3b51ffe93af98';
 
-  exports.ready = function(server_id, channel_id, cb){
+  exports.ready = function(server_id, channel_id, cb1, cb2){
 
     redis.evalsha(sha1, numkeys, conf.emag.redis.selectDB, conf.id, server_id, channel_id, (err, doc) => {
       if(err) return cb(err);
@@ -89,11 +89,11 @@ const conf = require(path.join(cwd, 'settings'));
         case 'invalid_user_id':
         case 'invalid_group_id':
         case 'invalid_group_pos_id':
-          return cb(null, doc);
+          return cb1(null, doc);
       }
 
-      if(-1 == doc.indexOf('::')) return cb(null, doc);
-      init(doc, cb);
+      if(-1 == doc.indexOf('::')) return cb1(null, doc);
+      init(doc, cb2);
 
     });
   };
