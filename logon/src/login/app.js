@@ -97,11 +97,6 @@ process.on('exit', () => {
   var Stomp = require('stompjs');
   var client = Stomp.overTCP(activemq.host, activemq.port);
 
-  var onErr = function(err){
-    _unsubscribe();
-    console.error(':: %s', err);
-  };
-
   var onCb = function(frame){
     _front_start = client.subscribe('/queue/front.start', on_front_start);
     _front_stop = client.subscribe('/queue/front.stop', on_front_stop);
@@ -117,9 +112,9 @@ process.on('exit', () => {
     _5001_fishjoy_shot = client.subscribe('/queue/qq.5001', on_5001_fishjoy_shot);
     _5013_fishjoy_switch = client.subscribe('/queue/qq.5013', on_5013_fishjoy_switch);
 
-    _5003_fishjoy_blast = client.subscribe('/queue/qq.'+ conf.app.id +'.5003', on_5003_fishjoy_blast);
+    _5003_fishjoy_blast = client.subscribe('/queue/qq.5003.'+ conf.app.id, on_5003_fishjoy_blast);
     _5005_fishjoy_ready = client.subscribe('/queue/qq.5005', on_5005_fishjoy_ready);
-    _5011_fishjoy_tool = client.subscribe('/queue/qq.'+ conf.app.id +'.5011', on_5011_fishjoy_tool);
+    _5011_fishjoy_tool = client.subscribe('/queue/qq.5011.'+ conf.app.id, on_5011_fishjoy_tool);
   };
 
   function _unsubscribe(){
@@ -141,6 +136,11 @@ process.on('exit', () => {
     _5005_fishjoy_ready.unsubscribe();
     _5011_fishjoy_tool.unsubscribe();
   }
+
+  var onErr = function(err){
+    _unsubscribe();
+    console.error(':: %s', err);
+  };
 
   process.on('uncaughtException', err => {
     _unsubscribe();

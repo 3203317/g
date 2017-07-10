@@ -1,7 +1,7 @@
 package net.foreworld.gws.util;
 
 /**
- * 
+ *
  * @author huangxin
  *
  */
@@ -11,7 +11,7 @@ public interface Constants {
 	static final String INVALID_CODE = "invalid_code";
 
 	static final String ALL = "ALL";
-	static final String PLUGIN = "qq3203317.";
+	static final String PLUGIN = "qq.";
 
 	static final String SERVER_ID = "server_id";
 	static final String SERVER_STATUS = "status";

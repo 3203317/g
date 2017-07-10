@@ -98,3 +98,56 @@ const conf = require(path.join(cwd, 'settings'));
     });
   };
 })();
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+
+  exports.shot = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();
+
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+
+  exports.blast = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+
+  exports.switch = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+
+  exports.tool = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();

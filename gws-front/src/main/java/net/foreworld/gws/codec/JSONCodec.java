@@ -1,7 +1,16 @@
 package net.foreworld.gws.codec;
 
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+import io.netty.channel.ChannelHandler.Sharable;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.codec.MessageToMessageCodec;
+import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+
 import java.net.SocketAddress;
 import java.util.List;
+
+import net.foreworld.gws.model.ProtocolModel;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,14 +20,6 @@ import org.springframework.stereotype.Component;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelHandler.Sharable;
-import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.MessageToMessageCodec;
-import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
-import net.foreworld.gws.model.ProtocolModel;
-
 /**
  *
  * @author huangxin
@@ -26,20 +27,24 @@ import net.foreworld.gws.model.ProtocolModel;
  */
 @Component
 @Sharable
-public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, String> {
+public class JSONCodec extends
+		MessageToMessageCodec<TextWebSocketFrame, String> {
 
 	@Value("${msg.body.max:512}")
 	private int msg_body_max;
 
-	private static final Logger logger = LoggerFactory.getLogger(JSONCodec.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(JSONCodec.class);
 
 	@Override
-	protected void encode(ChannelHandlerContext ctx, String msg, List<Object> out) throws Exception {
+	protected void encode(ChannelHandlerContext ctx, String msg,
+			List<Object> out) throws Exception {
 		out.add(new TextWebSocketFrame(msg));
 	}
 
 	@Override
-	protected void decode(ChannelHandlerContext ctx, TextWebSocketFrame msg, List<Object> out) throws Exception {
+	protected void decode(ChannelHandlerContext ctx, TextWebSocketFrame msg,
+			List<Object> out) throws Exception {
 		String text = msg.text();
 
 		if (msg_body_max >= text.length()) {
@@ -68,6 +73,10 @@ public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, String>
 				model.setData(jo.get("data").getAsString());
 			}
 
+			if (jo.has("backendId")) {
+				model.setBackendId(jo.get("backendId").getAsString());
+			}
+
 			out.add(model);
 
 			return;
@@ -78,7 +87,8 @@ public class JSONCodec extends MessageToMessageCodec<TextWebSocketFrame, String>
 		future.addListener(new ChannelFutureListener() {
 
 			@Override
-			public void operationComplete(ChannelFuture future) throws Exception {
+			public void operationComplete(ChannelFuture future)
+					throws Exception {
 				SocketAddress addr = ctx.channel().remoteAddress();
 
 				if (future.isSuccess()) {
