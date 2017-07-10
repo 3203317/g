@@ -13,16 +13,7 @@ const utils = require('speedt-utils').utils;
 const mysql = require('./emag/mysql');
 const redis = require('./emag/redis');
 
-var createNewFishs = function(curr_fish_list, prop_fish_type, prop_group, cb){
-  var list = [];
-  cb(list);
-};
-
 (() => {
-
-  function my_async_function(a){
-    a();
-  }
 
   function init(group_info, cb){
     console.log('[INFO ] init');
@@ -55,28 +46,33 @@ var createNewFishs = function(curr_fish_list, prop_fish_type, prop_group, cb){
       weight: 15
     }];
 
-    var interval = 1300;
+    var opts = {
+      prop_group: prop_group,
+      curr_fish_list: curr_fish_list,
+      prop_fish_type: prop_fish_type
+    };
 
-    var i = 0, max = 2000;
+    fishbowlPool.get(opts, function (err, fishbowl){
+      if(err) return cb(err);
 
-    (function schedule(){
-      var timeout = setTimeout(function(){
+      (function schedule(){
+        var timeout = setTimeout(function(){
 
-        clearTimeout(timeout);
+          clearTimeout(timeout);
 
-        my_async_function(function(){
+          fishbowl.push(function (err, fishs){
+            if(err) return cb(err);
 
-          console.log('async is done!');
-          console.log(prop_group)
-          console.log('----')
-          console.log(timeout);
-          schedule();
+            cb(null, null, fishs);
+            schedule();
+          });
 
-        });
+        }, 300);
 
-      }, interval);
+      }());
 
-    }());
+    });
+
 
   }
 

@@ -9,7 +9,9 @@ var res = module.exports = {};
 
 var fishbowls = [];
 
-res.get = function(){};
+res.get = function(opts, cb){
+  // todo
+};
 
 res.release = function(){};
 
