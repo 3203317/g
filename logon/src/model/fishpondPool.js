@@ -5,28 +5,39 @@
  */
 'use strict';
 
-var Fishbowl = require('./fishbowl');
+var Fishpond = require('./fishpond');
 
 var res = module.exports = {};
 
-var fishbowls = {};
+var fishponds = {};
+
+var free = [];
 
 res.create = function(opts, cb){
-  var s = this.get('id');
-  if(!s) return cb('');
-  var b = new Fishbowl(opts);
-  fishbowls[s.id] = b;
+
+  var s = this.get(opts.id);
+  if(s) return s;
+
+  var b = free[0];
+
+  if(b){
+    b.init();
+    fishponds[b.id] = b;
+    return b;
+  }
+
+  b = new Fishpond(opts);
+  fishponds[b.id] = b;
+  return b;
 };
 
 res.get = function(id){
-  return fishbowls[id];
+  return fishponds[id];
 };
 
-res.remove = function(id){
-  var s = fishbowls[id];
-  if(null == s) return;
-  s.release();
-  delete fishbowls[id];
+res.release = function(id){
+  var s = this.get(id);
+  if(!s) return;
+  free.push(s);
+  delete fishponds[id];
 };
-
-res.release = function(){};

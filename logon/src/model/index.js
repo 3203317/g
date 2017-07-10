@@ -5,8 +5,5 @@
  */
 'use strict';
 
-exports.fish = require('./fish');
-exports.fishPool = require('./fishPool');
-
 exports.fishpond = require('./fishpond');
 exports.fishpondPool = require('./fishpondPool');

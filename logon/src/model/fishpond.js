@@ -19,18 +19,11 @@ var Method = function(opts){
 
 var pro = Method.prototype;
 
-pro.push = function(){
-  // todo
+pro.push = function(cb){
 };
 
-pro.kill = function(){
-  // todo
+pro.kill = function(cb){
 };
 
-pro.release = function(){
-  // todo
+pro.scene = function(cb){
 };
-
-pro.scene = function(){
-  // todo
-}
