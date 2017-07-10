@@ -6,7 +6,10 @@
 'use strict';
 
 module.exports = {
-  id: '1234567890',
+  app: {
+    id: '1234567890',
+    version: 102,
+  },
   corp: {
     name: 'foreworld.net',
   },
