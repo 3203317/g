@@ -6,7 +6,7 @@
 'use strict';
 
 module.exports = {
-  id: '123456',
+  id: '1234567890',
   corp: {
     name: 'foreworld.net',
   },
@@ -17,26 +17,24 @@ module.exports = {
   html: {
     cdn: 'http://www.foreworld.net/'
   },
-  emag: {
-    activemq: {
-      host: '127.0.0.1',
-      port: 12613,
-      user: 'admin',
-      password: 'admin',
-    },
-    mysql: {
-      database: 'emag',
-      host: '127.0.0.1',
-      port: 12306,
-      user: 'root',
-      password: 'password',
-      connectionLimit: 50
-    },
-    redis: {
-      port: 12379,
-      host: '127.0.0.1',
-      password: '123456',
-      selectDB: 1
-    }
+  activemq: {
+    host: '127.0.0.1',
+    port: 12613,
+    user: 'admin',
+    password: 'admin',
+  },
+  mysql: {
+    database: 'emag',
+    host: '127.0.0.1',
+    port: 12306,
+    user: 'root',
+    password: 'password',
+    connectionLimit: 50
+  },
+  redis: {
+    port: 12379,
+    host: '127.0.0.1',
+    password: '123456',
+    selectDB: 1
   }
 };

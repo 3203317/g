@@ -10,6 +10,6 @@ const path = require('path'),
 
 const Redis = require('speedt-redis');
 
-const conf = require(path.join(cwd, 'settings')).emag.redis;
+const conf = require(path.join(cwd, 'settings')).redis;
 
 exports = module.exports = new Redis(conf);

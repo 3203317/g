@@ -10,6 +10,6 @@ const path = require('path'),
 
 const Mysql = require('speedt-mysql');
 
-const conf = require(path.join(cwd, 'settings')).emag.mysql;
+const conf = require(path.join(cwd, 'settings')).mysql;
 
 exports = module.exports = new Mysql(conf);
