@@ -6,9 +6,9 @@
 'use strict';
 
 module.exports = {
+  id: '123456',
   corp: {
     name: 'foreworld.net',
-    id: '123456'
   },
   cookie: {
     key: 'login',
@@ -35,7 +35,8 @@ module.exports = {
     redis: {
       port: 12379,
       host: '127.0.0.1',
-      password: '123456'
+      password: '123456',
+      selectDB: 1
     }
   }
 };

@@ -1,5 +1,5 @@
 /*!
- * emag.biz
+ * emag.model
  * Copyright(c) 2016 huangxin <3203317@qq.com>
  * MIT Licensed
  */
@@ -14,23 +14,7 @@ var Method = function(opts){
   opts = opts || {};
   self.id = opts.id;
   self.type = opts.type;
-  self.capacity = opts.capacity;
+  self.weight = opts.weight;
 };
 
 var pro = Method.prototype;
-
-pro.push = function(){
-  // todo
-};
-
-pro.kill = function(){
-  // todo
-};
-
-pro.release = function(){
-  // todo
-};
-
-pro.scene = function(){
-  // todo
-}
