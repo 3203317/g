@@ -10,9 +10,6 @@ const uuid = require('node-uuid');
 
 const utils = require('speedt-utils').utils;
 
-const mysql = require('./emag/mysql');
-const redis = require('./emag/redis');
-
 /**
  *
  * @return 可用的服务器

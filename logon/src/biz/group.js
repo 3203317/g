@@ -10,9 +10,8 @@ const uuid = require('node-uuid');
 
 const utils = require('speedt-utils').utils;
 
-const mysql = require('./emag/mysql');
-const redis = require('./emag/redis');
-
+const db = require('emag.db');
+const redis = db.redis;
 
 (() => {
   const numkeys = 3;

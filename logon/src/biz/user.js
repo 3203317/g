@@ -11,8 +11,9 @@ const uuid = require('node-uuid');
 const md5 = require('speedt-utils').md5;
 const utils = require('speedt-utils').utils;
 
-const mysql = require('./emag/mysql');
-const redis = require('./emag/redis');
+const db = require('emag.db');
+const mysql = db.mysql;
+const redis = db.redis;
 
 const server = require('./server');
 
