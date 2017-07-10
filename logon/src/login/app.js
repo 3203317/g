@@ -204,8 +204,9 @@ process.on('exit', () => {
 
     var s = msg.body.split('::');
 
-    _on_3005_group_quit(s[0], s[1], 0, function (err){
+    _on_3005_group_quit(s[0], s[1], 0, function (err, code){
       if(err) return console.error('[ERROR] %s', err);
+      if(code) return console.warn('[WARN ] %s', code);
       console.info('[INFO ] channel close: %j', s);
     });
   };
@@ -221,7 +222,7 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    console.log('[INFO ] chat 1v1 send: %j', data);
+    console.info('[INFO ] chat 1v1 send: %j', data);
 
     data.version = conf.app.version;
     data.method = 2002;
@@ -241,10 +242,10 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    _on_3005_group_quit(data.serverId, data.channelId, data.seqId, function (err){
+    _on_3005_group_quit(data.serverId, data.channelId, data.seqId, function (err, code){
       if(err) return console.error('[ERROR] %s', err);
 
-      var group_type = JSON.parse(data.data).groupType;
+      var group_type = data.data;
 
       biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
         if(err) return console.error('[ERROR] %s', err);
@@ -282,8 +283,10 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    _on_3005_group_quit(data.serverId, data.channelId, 0, function (err){
+    _on_3005_group_quit(data.serverId, data.channelId, 0, function (err, code){
       if(err) return console.error('[ERROR] %s', err);
+      if(code) return console.warn('[WARN ] %s', code);
+      console.info('[INFO ] group close: %j', data);
     });
   };
 
@@ -295,9 +298,8 @@ process.on('exit', () => {
       switch(doc){
         case 'invalid_user_id':
           client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
-          return cb(doc);
-        case 'OK':
-          return cb();
+          return cb(null, doc);
+        case 'OK': return cb();
       }
 
       cb();
@@ -404,7 +406,7 @@ process.on('exit', () => {
     }
   };
 
-  var _on_5005_fishjoy_ready_cb2 = function(err, doc){
+  var _on_5005_fishjoy_ready_cb2 = function(seq_id, err, doc){
     if(err) return console.error('[ERROR] %s', err);
 
     var result = {
