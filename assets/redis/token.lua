@@ -42,7 +42,7 @@ end;
 redis.call('HMSET', 'prop::'.. user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '', 'open_time', open_time);
 -- redis.call('EXPIRE', 'prop::'.. user_id, seconds);
 
-redis.call('HMSET', server_id ..'::'.. channel_id, 'user_id', user_id, 'client_id', client_id, 'scope', '', 'open_time', open_time);
+redis.call('SET', server_id ..'::'.. channel_id, user_id);
 -- redis.call('EXPIRE', server_id ..'::'.. channel_id, seconds);
 
 return result;
