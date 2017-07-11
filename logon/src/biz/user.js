@@ -183,3 +183,19 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     });
   };
 })();
+
+(() => {
+  const numkeys = 2;
+  const sha1 = '6d5c2adad36f0cbe99a27abf580bc29b6b58f9b0';
+
+  /**
+   *
+   */
+  exports.logout = function(server_id, channel_id, cb1){
+
+    redis.evalsha(sha1, numkeys, '', server_id, channel_id, (err, code) => {
+        if(err) return cb(err);
+        cb(null, code);
+    });
+  };
+})();

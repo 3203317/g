@@ -218,9 +218,14 @@ process.on('exit', () => {
     var s = msg.body.split('::');
 
     _on_3005_group_quit(s[0], s[1], 0, function (err, code){
-      if(err) return console.error('[ERROR] %s', err);
-      if(code) return console.warn('[WARN ] %s', code);
-      console.info('[INFO ] channel close: %j', s);
+      if(err) return console.error('[ERROR] group quit: %s', err);
+      if(code) return console.warn('[WARN ] group quit: %s', code);
+      console.info('[INFO ] group quit: %j', s);
+
+      biz.user.logout(s[0], s[1], function (err, code){
+        if(err) return console.error('[ERROR] channel close: %s', err);
+        console.info('[INFO ] channel close: %j', s);
+      });
     });
   };
 
