@@ -5,8 +5,10 @@
  */
 'use strict';
 
+const path = require('path');
 const EventProxy = require('eventproxy');
 const uuid = require('node-uuid');
+const cwd = process.cwd();
 
 const utils = require('speedt-utils').utils;
 

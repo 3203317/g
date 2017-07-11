@@ -15,6 +15,8 @@ const express = require('express'),
 const macros = require('./lib/macro'),
       conf = require('./settings');
 
+const biz = require('emag.biz');
+
 const app = express();
 
 /* all environments */
@@ -78,6 +80,13 @@ process.on('exit', () => {
   // todo
 });
 
+(() => {
+  biz.backend.open(conf.app.id, (err, code) => {
+    if(err) return console.error('[ERROR] %s', err);
+    console.info('[INFO ] %s', code);
+  });
+})();
+
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------
@@ -90,7 +99,6 @@ process.on('exit', () => {
 // ----------------------------------------------------------------------------------------------------
 
 (function(){
-  const biz = require('emag.biz');
 
   var activemq = conf.activemq;
 
