@@ -34,4 +34,3 @@ redis.call('EXPIRE', code, seconds);
 
 return code;
 
-
