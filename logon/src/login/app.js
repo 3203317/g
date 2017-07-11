@@ -404,15 +404,22 @@ process.on('exit', () => {
     });
   };
 
-  var _on_5005_fishjoy_ready_cb1 = function(seq_id, err, doc){
-    if(err) return console.error('[ERROR] %s', err);
+  var _on_5005_fishjoy_ready_cb1 = function(server_id, channel_id, seq_id, err, doc){
+    if(err) return console.error('[ERROR] fishjoy ready: %s', err);
+
+    switch(doc){
+      case 'invalid_group_id':
+      case 'invalid_group_pos_id':
+      case 'already_raise_hand': return;
+      case 'invalid_user_id': return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+    }
 
     var result = {
       version: conf.app.version,
       method: 5006,
       seqId: seq_id,
       timestamp: new Date().getTime(),
-      data: JSON.stringify(doc[1]),
+      data: doc[1].split('::')[0],
     };
 
     var arr = doc[0];
@@ -450,7 +457,7 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
 
     biz.fishjoy.ready(data.serverId, data.channelId,
-      _on_5005_fishjoy_ready_cb1.bind(null, data.seqId),
+      _on_5005_fishjoy_ready_cb1.bind(null, data.serverId, data.channelId, data.seqId),
       _on_5005_fishjoy_ready_cb2.bind(null, data.seqId));
   };
 
