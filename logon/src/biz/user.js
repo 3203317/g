@@ -186,14 +186,14 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 2;
-  const sha1 = '6d5c2adad36f0cbe99a27abf580bc29b6b58f9b0';
+  const sha1 = '28d3ef1075155147740c3ba4e01fffea99d12427';
 
   /**
    *
    */
   exports.logout = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, '', server_id, channel_id, (err, code) => {
+    redis.evalsha(sha1, numkeys, 1, '', server_id, channel_id, (err, code) => {
         if(err) return cb(err);
         cb(null, code);
     });
