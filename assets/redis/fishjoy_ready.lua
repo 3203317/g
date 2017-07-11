@@ -85,6 +85,8 @@ end;
 
 -- 
 
+local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+
 local capacity = redis.call('HGET', 'prop::group::'.. group_id, 'capacity');
 
 redis.call('SELECT', db);
