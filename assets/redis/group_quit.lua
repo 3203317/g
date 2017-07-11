@@ -31,11 +31,11 @@ redis.call('HDEL', 'prop::'.. user_id, 'group_id', 'group_pos_id');
 
 redis.call('SELECT', 1 + db);
 
-local group_type = redis.call('HGET', 'prop::'.. group_id, 'type');
+local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
 -- 
 
-local s = redis.call('HGET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
+local s = redis.call('HGET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id);
 
 if (false == s) then return 'OK'; end;
 
@@ -45,13 +45,13 @@ if (b ~= user_id) then return 'OK'; end;
 
 -- 
 
-redis.call('HDEL', 'pos::'.. group_type ..'::'.. group_id, group_pos_id);
+redis.call('HDEL', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id);
 
-redis.call('SADD', 'idle::'.. group_type, group_id ..'::'.. group_pos_id);
+redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. group_pos_id);
 
 -- 
 
-local hash_val = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
+local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
 redis.call('SELECT', db);
 

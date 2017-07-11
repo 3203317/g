@@ -10,7 +10,6 @@ local group_uuid = KEYS[2];
 local server_id = ARGV[1];
 local channel_id = ARGV[2];
 local group_type = ARGV[3];
-local open_time = ARGV[4];
 
 -- 
 
