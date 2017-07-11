@@ -10,6 +10,7 @@ local group_uuid = KEYS[2];
 local server_id = ARGV[1];
 local channel_id = ARGV[2];
 local group_type = ARGV[3];
+local open_time = ARGV[4];
 
 -- 
 
@@ -23,31 +24,31 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 redis.call('SELECT', 1 + db);
 
-local exist = redis.call('EXISTS', 'prop::'.. group_type);
+local exist = redis.call('EXISTS', 'prop::groupType::'.. group_type);
 
 if (1 ~= exist) then return 'invalid_group_type'; end;
 
 -- 找一个空闲的群组
 
-local idle_group = redis.call('SPOP', 'idle::'.. group_type);
+local idle_group = redis.call('SPOP', 'idle::groupType::'.. group_type);
 
 if (false == idle_group) then
 
-  local total_players = redis.call('HGET', 'prop::'.. group_type, 'total_players');
+  local total_players = redis.call('HGET', 'prop::groupType::'.. group_type, 'total_players');
 
   for i=1, tonumber(total_players) do
-    redis.call('SADD', 'idle::'.. group_type, group_uuid ..'::'.. i);
+    redis.call('SADD', 'idle::groupType::'.. group_type, group_uuid ..'::'.. i);
   end;
 
   -- 为新创建的群组设置群组类型
 
-  local capacity = redis.call('HGET', 'prop::'.. group_type, 'capacity');
+  local capacity = redis.call('HGET', 'prop::groupType::'.. group_type, 'capacity');
 
-  redis.call('HMSET', 'prop::'.. group_uuid, 'type', group_type, 'capacity', capacity);
+  redis.call('HMSET', 'prop::group::'.. group_uuid, 'type', group_type, 'capacity', capacity);
 
   -- 再次找一个空闲的群组
 
-  idle_group = redis.call('SPOP', 'idle::'.. group_type);
+  idle_group = redis.call('SPOP', 'idle::groupType::'.. group_type);
 
   -- 又没有找到
 
@@ -60,11 +61,11 @@ local group_id, group_pos_id = string.match(idle_group, '(.*)%::(.*)');
 
 -- 
 
-redis.call('HSET', 'pos::'.. group_type ..'::'.. group_id, group_pos_id, user_id ..'::0');
+redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, user_id ..'::0');
 
 -- 
 
-local hash_val = redis.call('HGETALL', 'pos::'.. group_type ..'::'.. group_id);
+local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
 -- 
 
