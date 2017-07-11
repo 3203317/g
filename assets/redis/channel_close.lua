@@ -9,7 +9,7 @@ local channel_id = ARGV[2];
 
 redis.call('SELECT', db);
 
-local sb = redis.call('HGET', server_id ..'::'.. channel_id, 'user_id');
+local sb = redis.call('GET', server_id ..'::'.. channel_id);
 
 if (sb) then
   redis.call('DEL', 'prop::'.. sb, server_id ..'::'.. channel_id);
