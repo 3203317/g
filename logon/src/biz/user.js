@@ -133,9 +133,12 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
       return cb(null, '103');
 
     var p1 = new Promise((resolve, reject) => {
-      self.authorize(doc.id, '5a2c6a1043454b168e6d3e8bef5cbce2', doc.score, (err, code) => {
-        if(err) return reject(err);
-        resolve(code);
+      self.authorize(doc.id, '5a2c6a1043454b168e6d3e8bef5cbce2',
+        doc.score,
+        doc.tool_1, doc.tool_2, doc.tool_3, doc.tool_4,
+        (err, code) => {
+          if(err) return reject(err);
+          resolve(code);
       });
     });
 
@@ -156,7 +159,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const seconds = 5;  //令牌有效期 5s
-  const numkeys = 5;
+  const numkeys = 9;
   const sha1 = '232eca1f1b0411d8be28f714c23cf2f2e52176e1';
 
   /**
@@ -166,12 +169,17 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    * @param client_id
    * @return 登陆令牌
    */
-  exports.authorize = function(user_id, client_id, score, cb){
+  exports.authorize = function(user_id, client_id, score, tool_1, tool_2, tool_3, tool_4, cb){
     var code = utils.replaceAll(uuid.v4(), '-', '');
 
-    redis.evalsha(sha1, numkeys, '1', 'client_id', 'user_id', '', '', code, client_id, user_id, seconds, score, (err, code) => {
-      if(err) return cb(err);
-      cb(null, code);
+    redis.evalsha(sha1, numkeys,
+      '1', 'client_id', 'user_id', '', '',
+      '', '', '', '',
+      code, client_id, user_id, seconds, score,
+      tool_1, tool_2, tool_3, tool_4,
+      (err, code) => {
+        if(err) return cb(err);
+        cb(null, code);
     });
   };
 })();

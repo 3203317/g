@@ -22,6 +22,11 @@ local client_id = redis.call('HGET', code, 'client_id');
 local user_id = redis.call('HGET', code, 'user_id');
 local score = redis.call('HGET', code, 'score');
 
+local tool_1 = redis.call('HGET', code, 'tool_1');
+local tool_2 = redis.call('HGET', code, 'tool_2');
+local tool_3 = redis.call('HGET', code, 'tool_3');
+local tool_4 = redis.call('HGET', code, 'tool_4');
+
 redis.call('DEL', code, client_id ..'::'.. user_id);
 
 -- 
@@ -40,7 +45,7 @@ end;
 
 -- 
 
-redis.call('HMSET', 'prop::'.. user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '', 'open_time', open_time, 'score', score);
+redis.call('HMSET', 'prop::'.. user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '', 'open_time', open_time, 'score', score, 'tool_1', tool_1, 'tool_2', tool_2, 'tool_3', tool_3, 'tool_4', tool_4);
 -- redis.call('EXPIRE', 'prop::'.. user_id, seconds);
 
 redis.call('SET', server_id ..'::'.. channel_id, user_id);
