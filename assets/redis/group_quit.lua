@@ -53,6 +53,8 @@ redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. group_pos
 
 local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
+if (0 == #hash_val) then return 'OK'; end;
+
 redis.call('SELECT', db);
 
 local arr = {};
