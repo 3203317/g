@@ -17,6 +17,7 @@ if (code) then return code; end;
 code = ARGV[1];
 
 local seconds = ARGV[4];
+local score = ARGV[5];
 
 redis.call('SET', _key, code);
 redis.call('EXPIRE', _key, seconds);
@@ -29,7 +30,7 @@ redis.call('EXPIRE', _key, seconds);
   }
 }
 --]]
-redis.call('HMSET', code, KEYS[2], client_id, KEYS[3], user_id);
+redis.call('HMSET', code, KEYS[2], client_id, KEYS[3], user_id, 'score', score);
 redis.call('EXPIRE', code, seconds);
 
 return code;
