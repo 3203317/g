@@ -39,7 +39,11 @@ end;
 
 -- 
 
-redis.call('HMSET', 'prop::'.. user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '', 'open_time', open_time);
+local score = redis.call('HGET', code, 'score');
+
+-- 
+
+redis.call('HMSET', 'prop::'.. user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '', 'open_time', open_time, 'score', score);
 -- redis.call('EXPIRE', 'prop::'.. user_id, seconds);
 
 redis.call('SET', server_id ..'::'.. channel_id, user_id);
