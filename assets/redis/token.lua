@@ -20,6 +20,7 @@ if (1 ~= exist) then return 'invalid_code'; end;
 
 local client_id = redis.call('HGET', code, 'client_id');
 local user_id = redis.call('HGET', code, 'user_id');
+local score = redis.call('HGET', code, 'score');
 
 redis.call('DEL', code, client_id ..'::'.. user_id);
 
@@ -36,10 +37,6 @@ if (s) then
   result = s ..'::'.. b;
   redis.call('DEL', result);
 end;
-
--- 
-
-local score = redis.call('HGET', code, 'score');
 
 -- 
 
