@@ -5,6 +5,11 @@
  */
 'use strict';
 
+const path = require('path');
+const cwd = process.cwd();
+
+const conf = require(path.join(cwd, 'settings'));
+
 const EventProxy = require('eventproxy');
 const uuid = require('node-uuid');
 
@@ -173,7 +178,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     var code = utils.replaceAll(uuid.v4(), '-', '');
 
     redis.evalsha(sha1, numkeys,
-      '1', 'client_id', 'user_id', '', '',
+      conf.redis.selectDB, 'client_id', 'user_id', '', '',
       '', '', '', '',
       code, client_id, user_id, seconds, score,
       tool_1, tool_2, tool_3, tool_4,
@@ -193,7 +198,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    */
   exports.logout = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, 1, '', server_id, channel_id, (err, code) => {
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, '', server_id, channel_id, (err, code) => {
         if(err) return cb(err);
         cb(null, code);
     });

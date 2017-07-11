@@ -5,6 +5,9 @@
  */
 'use strict';
 
+const path = require('path');
+const cwd = process.cwd();
+
 const EventProxy = require('eventproxy');
 const uuid = require('node-uuid');
 
@@ -13,6 +16,8 @@ const utils = require('speedt-utils').utils;
 const db = require('emag.db');
 const mysql = db.mysql;
 const redis = db.redis;
+
+const conf = require(path.join(cwd, 'settings'));
 
 (() => {
   const numkeys = 2;
@@ -23,7 +28,7 @@ const redis = db.redis;
    */
   exports.open = function(back_id, cb){
 
-    redis.evalsha(sha1, numkeys, '1', '', back_id, (new Date().getTime()), (err, code) => {
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, '', back_id, (new Date().getTime()), (err, code) => {
       if(err) return cb(err);
       cb(null, code);
     });
@@ -39,7 +44,7 @@ const redis = db.redis;
    */
   exports.close = function(back_id, cb){
 
-    redis.evalsha(sha1, numkeys, '1', back_id, (err, code) => {
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, back_id, (err, code) => {
       if(err) return cb(err);
       cb(null, code);
     });

@@ -5,6 +5,11 @@
  */
 'use strict';
 
+const path = require('path');
+const cwd = process.cwd();
+
+const conf = require(path.join(cwd, 'settings'));
+
 const EventProxy = require('eventproxy');
 const uuid = require('node-uuid');
 
@@ -19,7 +24,7 @@ const redis = db.redis;
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
-    redis.evalsha(sha1, numkeys, '1', utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
@@ -32,7 +37,7 @@ const redis = db.redis;
 
   exports.quit = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, '', server_id, channel_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });

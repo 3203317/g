@@ -6,9 +6,10 @@
 'use strict';
 
 const path = require('path');
+const cwd = process.cwd();
+
 const EventProxy = require('eventproxy');
 const uuid = require('node-uuid');
-const cwd = process.cwd();
 
 const utils = require('speedt-utils').utils;
 
@@ -86,7 +87,7 @@ const conf = require(path.join(cwd, 'settings'));
 
   exports.ready = function(server_id, channel_id, cb1, cb2){
 
-    redis.evalsha(sha1, numkeys, 1, '112aba1ad4424e7891037028ef024645', '', server_id, channel_id, (new Date().getTime()), (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, conf.app.id, '', server_id, channel_id, (new Date().getTime()), (err, doc) => {
       if(err) return cb1(err);
 
       cb1(null, doc);
