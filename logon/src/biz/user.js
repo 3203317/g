@@ -160,7 +160,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 (() => {
   const seconds = 5;  //令牌有效期 5s
   const numkeys = 9;
-  const sha1 = '232eca1f1b0411d8be28f714c23cf2f2e52176e1';
+  const sha1 = '9aec935e60597fbaeb24f94126c6fdd898e27e51';
 
   /**
    * 令牌授权
@@ -191,7 +191,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   /**
    *
    */
-  exports.logout = function(server_id, channel_id, cb1){
+  exports.logout = function(server_id, channel_id, cb){
 
     redis.evalsha(sha1, numkeys, '', server_id, channel_id, (err, code) => {
         if(err) return cb(err);

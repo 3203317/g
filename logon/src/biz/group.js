@@ -15,7 +15,7 @@ const redis = db.redis;
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'ed34f7142321b1a220334cd81b6d2d51a7981d9f';
+  const sha1 = '13343e5c8bfa165358180fc9dc6f431c79394174';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
@@ -28,7 +28,7 @@ const redis = db.redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+  const sha1 = '87d4df936cb2619402ce915046a7e5f1bb6f1e32';
 
   exports.quit = function(server_id, channel_id, cb){
 
