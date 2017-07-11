@@ -77,13 +77,18 @@ process.on('uncaughtException', err => {
 });
 
 process.on('exit', () => {
-  // todo
+
+  biz.backend.close(conf.app.id, (err, code) => {
+    if(err) return console.error('[ERROR] backend %j close: %s', conf.app.id, err);
+    console.info('[INFO ] backend %j close: %s', conf.app.id, code);
+  });
+
 });
 
 (() => {
   biz.backend.open(conf.app.id, (err, code) => {
-    if(err) return console.error('[ERROR] %s', err);
-    console.info('[INFO ] %s', code);
+    if(err) return console.error('[ERROR] backend %j open: %s', conf.app.id, err);
+    console.info('[INFO ] backend %j open: %s', conf.app.id, code);
   });
 })();
 

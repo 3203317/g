@@ -16,7 +16,7 @@ const redis = db.redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = '232eca1f1b0411d8be28f714c23cf2f2e52176e1';
+  const sha1 = 'eec267d203a4aeae4ff71d41de4667f90d6bc09a';
 
   /**
    *
@@ -32,7 +32,7 @@ const redis = db.redis;
 
 (() => {
   const numkeys = 1;
-  const sha1 = '232eca1f1b0411d8be28f714c23cf2f2e52176e1';
+  const sha1 = '35c7ca0bd2414f5260463bec959f95221dc2c2ef';
 
   /**
    *
