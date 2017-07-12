@@ -10,20 +10,16 @@ module.exports = function(opts){
 }
 
 var Method = function(opts){
+  this.init(opts);
+  this.fishes = [];
+};
+
+var pro = Method.prototype;
+
+pro.init = function(opts){
   var self = this;
   opts = opts || {};
   self.id = opts.id;
   self.type = opts.type;
   self.capacity = opts.capacity;
-};
-
-var pro = Method.prototype;
-
-pro.push = function(cb){
-};
-
-pro.kill = function(cb){
-};
-
-pro.scene = function(cb){
 };

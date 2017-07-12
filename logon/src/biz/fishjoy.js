@@ -30,7 +30,20 @@ const conf = require(path.join(cwd, 'settings'));
       case 'invalid_user_id': return;
     }
 
-    console.log(doc);
+    var s = doc[0];
+    var b = doc[1];
+
+    var bs = b.split('::');
+
+    var opts = {
+      type: s[0],
+      id: s[1],
+      capacity: s[2],
+    };
+
+    if(conf.app.id === bs[0]){
+      // todo
+    }
 
     // var s = group_info.split('::');
 

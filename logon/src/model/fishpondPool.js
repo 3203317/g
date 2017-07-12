@@ -16,19 +16,23 @@ var free = [];
 res.create = function(opts, cb){
 
   var s = this.get(opts.id);
-  if(s) return s;
+  if(s){
+    s.init(opts);
+    return s;
+  }
 
   var b = free[0];
 
   if(b){
-    b.init();
+    free.splice(0,1);
+    b.init(opts);
     fishponds[b.id] = b;
-    return b;
+    return this.get(b.id);
   }
 
   b = new Fishpond(opts);
   fishponds[b.id] = b;
-  return b;
+  return this.get(b.id);
 };
 
 res.get = function(id){
