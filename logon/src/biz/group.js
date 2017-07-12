@@ -43,3 +43,16 @@ const redis = db.redis;
     });
   };
 })();
+
+(() => {
+  const numkeys = 1;
+  const sha1 = '87d4df936cb2619402ce915046a7e5f1bb6f1e32';
+
+  exports.users = function(group_id, cb){
+
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, group_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();

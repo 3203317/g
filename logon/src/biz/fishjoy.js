@@ -32,17 +32,14 @@ const fishpondPool = require('emag.model').fishpondPool;
       case 'invalid_user_id': return;
     }
 
-    var b = doc[1].split('::');
+    var sb = doc[1].split('::');
 
     // 如果不在同一台服务器
-    if(conf.app.id !== b[0]) return;
-
-    var s = doc[0];
+    if(conf.app.id !== sb[0]) return;
 
     var opts = {
-      type: s[0],
-      id: s[1],
-      capacity: s[2],
+      id: sb[1],
+      capacity: sb[2],
     };
 
     var fishpond = fishpondPool.get(opts.id);
@@ -50,7 +47,7 @@ const fishpondPool = require('emag.model').fishpondPool;
 
     fishpond = fishpondPool.create(opts);
 
-    function scene1(cb){
+    function scene1(){
       var i = 9;
 
       (function schedule(){
@@ -59,16 +56,20 @@ const fishpondPool = require('emag.model').fishpondPool;
           clearTimeout(timeout);
           i--;
 
-          cb('scene1: '+ i)
+          biz.group.users(opts.id, (err, doc) => {
+            if(err) return cb(err);
 
-          if(0 === i) return scene2(cb);
-          schedule();
+            console.log('scene1: %j', doc);
+
+            if(0 === i) return scene2();
+            schedule();
+          });
 
         }, 300);
       }());
     }
 
-    function scene2(cb){
+    function scene2(){
       var i = 6;
 
       (function schedule(){
@@ -77,74 +78,20 @@ const fishpondPool = require('emag.model').fishpondPool;
           clearTimeout(timeout);
           i--;
 
-          cb('scene2: '+ i)
+          biz.group.users(opts.id, (err, doc) => {
+            if(err) return cb(err);
 
-          if(0 === i) return scene1(cb);
-          schedule();
+            console.log('scene2: %j', doc);
+
+            if(0 === i) return scene1();
+            schedule();
+          });
 
         }, 300);
       }());
     }
 
-    scene1(function (doc){
-      console.log(doc)
-    });
-
-    // var s = group_info.split('::');
-
-    // var opts = {
-    //   type: s[0],
-    //   id: s[1],
-    //   capacity: s[2]
-    // };
-
-    // var curr_fish_list = [/*{
-    //   id: 'uuid_1',
-    //   type: '鲨鱼',
-    //   weight: 20
-    // },{
-    //   id: 'uuid_2',
-    //   type: '鳄鱼',
-    //   weight: 15
-    // }*/];
-
-    // var prop_fish_type = [{
-    //   type: '鲨鱼',
-    //   probability: 1,
-    //   weight: 20
-    // }, {
-    //   type: '鳄鱼',
-    //   probability: 2,
-    //   weight: 15
-    // }];
-
-    // var opts = {
-    //   scene: scene,
-    //   prop_group: prop_group,
-    //   curr_fish_list: curr_fish_list,
-    //   prop_fish_type: prop_fish_type
-    // };
-
-    // fishpondPool.create(opts, function (err, fishbowl){
-    //   if(err) return cb(err);
-
-    //   (function schedule(){
-    //     var timeout = setTimeout(function(){
-
-    //       clearTimeout(timeout);
-
-    //       fishbowl.push(function (err, fishs){
-    //         if(err) return cb(err);
-
-    //         cb(null, null, fishs);
-    //         schedule();
-    //       });
-
-    //     }, 300);
-
-    //   }());
-
-    // });
+    scene1();
   }
 
   const numkeys = 3;

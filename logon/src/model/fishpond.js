@@ -20,6 +20,5 @@ pro.init = function(opts){
   var self = this;
   opts = opts || {};
   self.id = opts.id;
-  self.type = opts.type;
   self.capacity = opts.capacity;
 };
