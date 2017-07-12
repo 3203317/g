@@ -281,7 +281,7 @@ process.on('exit', () => {
           method: 3002,
           seqId: data.seqId,
           timestamp: new Date().getTime(),
-          data: JSON.stringify(doc[1])
+          data: doc[1],
         };
 
         var arr = doc[0];
@@ -327,7 +327,7 @@ process.on('exit', () => {
         method: 3006,
         seqId: seq_id,
         timestamp: new Date().getTime(),
-        data: JSON.stringify(doc[1]),
+        data: doc[1],
       };
 
       var arr = doc[0];
@@ -362,7 +362,7 @@ process.on('exit', () => {
         method: 5002,
         seqId: data.seqId,
         timestamp: new Date().getTime(),
-        data: JSON.stringify(doc[1]),
+        data: doc[1],
       };
 
       var arr = doc[0];
@@ -390,7 +390,7 @@ process.on('exit', () => {
         method: 5004,
         seqId: data.seqId,
         timestamp: new Date().getTime(),
-        data: JSON.stringify(doc[1]),
+        data: doc[1],
       };
 
       var arr = doc[0];
@@ -419,7 +419,7 @@ process.on('exit', () => {
       method: 5006,
       seqId: seq_id,
       timestamp: new Date().getTime(),
-      data: doc[1].split('::')[0],
+      data: doc,
     };
 
     var arr = doc[0];
@@ -439,7 +439,7 @@ process.on('exit', () => {
       method: 5008,
       seqId: seq_id,
       timestamp: new Date().getTime(),
-      data: JSON.stringify(doc[1]),
+      data: doc[1],
     };
 
     var arr = doc[0];
@@ -475,7 +475,7 @@ process.on('exit', () => {
         method: 5014,
         seqId: data.seqId,
         timestamp: new Date().getTime(),
-        data: JSON.stringify(doc[1]),
+        data: doc[1],
       };
 
       var arr = doc[0];
@@ -503,7 +503,7 @@ process.on('exit', () => {
         method: 5012,
         seqId: data.seqId,
         timestamp: new Date().getTime(),
-        data: JSON.stringify(doc[1]),
+        data: doc[1],
       };
 
       var arr = doc[0];

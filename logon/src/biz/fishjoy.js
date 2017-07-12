@@ -21,7 +21,14 @@ const conf = require(path.join(cwd, 'settings'));
 (() => {
 
   function init(doc, cb){
-    console.log('[INFO ] init');
+    console.log('[INFO ] fishjoy ready init');
+
+    switch(doc){
+      case 'invalid_group_id':
+      case 'invalid_group_pos_id':
+      case 'already_raise_hand':
+      case 'invalid_user_id': return;
+    }
 
     console.log(doc);
 
@@ -89,9 +96,7 @@ const conf = require(path.join(cwd, 'settings'));
 
     redis.evalsha(sha1, numkeys, conf.redis.selectDB, conf.app.id, '', server_id, channel_id, (new Date().getTime()), (err, doc) => {
       if(err) return cb1(err);
-
       cb1(null, doc);
-
       init(doc, cb2);
     });
   };
