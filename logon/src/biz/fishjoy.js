@@ -30,10 +30,12 @@ const conf = require(path.join(cwd, 'settings'));
       case 'invalid_user_id': return;
     }
 
-    var s = doc[0];
-    var b = doc[1];
+    var b = doc[1].split('::');
 
-    var bs = b.split('::');
+    // 如果不在同一台服务器
+    if(conf.app.id !== b[0]) return;
+
+    var s = doc[0];
 
     var opts = {
       type: s[0],
@@ -41,9 +43,48 @@ const conf = require(path.join(cwd, 'settings'));
       capacity: s[2],
     };
 
-    if(conf.app.id === bs[0]){
-      // todo
+    var fishpond = fishbowlPool.get(opts.id);
+    if(!fishpond) fishpond = fishbowlPool.create(opts);
+
+    function scene1(cb){
+      var i = 9;
+
+      (function schedule(){
+
+        var timeout = setTimeout(function(){
+          clearTimeout(timeout);
+          i--;
+
+          cb('scene1: '+ i)
+
+          if(0 === i) return scene2(cb);
+          schedule();
+
+        }, 300);
+      }());
     }
+
+    function scene2(cb){
+      var i = 6;
+
+      (function schedule(){
+
+        var timeout = setTimeout(function(){
+          clearTimeout(timeout);
+          i--;
+
+          cb('scene2: '+ i)
+
+          if(0 === i) return scene1(cb);
+          schedule();
+
+        }, 300);
+      }());
+    }
+
+    scene1(function (doc){
+      console.log(doc)
+    });
 
     // var s = group_info.split('::');
 

@@ -13,7 +13,7 @@ var fishponds = {};
 
 var free = [];
 
-res.create = function(opts, cb){
+res.create = function(opts){
 
   var s = this.get(opts.id);
   if(s){
