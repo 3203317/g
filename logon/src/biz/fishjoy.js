@@ -20,6 +20,8 @@ const redis = db.redis;
 
 const fishpondPool = require('emag.model').fishpondPool;
 
+const biz = require('emag.biz');
+
 (() => {
 
   function init(doc, cb){

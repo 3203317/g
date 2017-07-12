@@ -46,7 +46,7 @@ const redis = db.redis;
 
 (() => {
   const numkeys = 1;
-  const sha1 = '87d4df936cb2619402ce915046a7e5f1bb6f1e32';
+  const sha1 = '73a7592a7cafc09fb52436ba74d7f60ce58300c4';
 
   exports.users = function(group_id, cb){
 
