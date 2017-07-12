@@ -8,6 +8,8 @@
 const path = require('path');
 const cwd = process.cwd();
 
+const conf = require(path.join(cwd, 'settings'));
+
 const EventProxy = require('eventproxy');
 const uuid = require('node-uuid');
 
@@ -16,7 +18,7 @@ const utils = require('speedt-utils').utils;
 const db = require('emag.db');
 const redis = db.redis;
 
-const conf = require(path.join(cwd, 'settings'));
+const fishpondPool = require('emag.model').fishpondPool;
 
 (() => {
 
@@ -43,8 +45,10 @@ const conf = require(path.join(cwd, 'settings'));
       capacity: s[2],
     };
 
-    var fishpond = fishbowlPool.get(opts.id);
-    if(!fishpond) fishpond = fishbowlPool.create(opts);
+    var fishpond = fishpondPool.get(opts.id);
+    if(fishpond) return;
+
+    fishpond = fishpondPool.create(opts);
 
     function scene1(cb){
       var i = 9;
@@ -121,7 +125,7 @@ const conf = require(path.join(cwd, 'settings'));
     //   prop_fish_type: prop_fish_type
     // };
 
-    // fishbowlPool.create(opts, function (err, fishbowl){
+    // fishpondPool.create(opts, function (err, fishbowl){
     //   if(err) return cb(err);
 
     //   (function schedule(){
