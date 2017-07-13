@@ -18,28 +18,26 @@ res.create = function(opts){
   var s = this.get(opts.id);
   if(s) return s.init(opts);
 
-  var b = free[0];
+  var b = free.shift();
 
   if(b){
-    free.splice(0, 1);
     b.init(opts);
     fishponds[b.id] = b;
-    return this.get(b.id);
+    return b;
   }
 
   b = new Fishpond(opts);
   fishponds[b.id] = b;
-  return this.get(b.id);
+  return b;
 };
 
 res.get = function(id){
   return fishponds[id];
 };
 
-res.release = function(fishpond){
-  if(!fishpond) return;
-  var s = this.get(fishpond.id);
+res.release = function(id){
+  var s = this.get(id);
   if(!s) return;
   free.push(s);
-  delete fishponds[fishpond.id];
+  delete fishponds[id];
 };
