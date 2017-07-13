@@ -67,7 +67,7 @@ const biz = require('emag.biz');
 
             var s = [];
             s.push(doc)
-            s.push('scene1');
+            s.push(fishpond.getFishes());
 
             cb(null, s);
 
@@ -99,7 +99,7 @@ const biz = require('emag.biz');
 
             var s = [];
             s.push(doc)
-            s.push('scene1');
+            s.push(fishpond.getFishes());
 
             cb(null, s);
 
