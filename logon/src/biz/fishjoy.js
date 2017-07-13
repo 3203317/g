@@ -49,7 +49,7 @@ const biz = require('emag.biz');
 
     fishpond = fishpondPool.create(opts);
 
-    function scene1(){
+    function scene1(fishpond, callback){
       var i = 9;
 
       (function schedule(){
@@ -58,12 +58,16 @@ const biz = require('emag.biz');
           clearTimeout(timeout);
           i--;
 
-          biz.group.users(opts.id, (err, doc) => {
+          callback((err, doc) => {
             if(err) return cb(err);
+
+            if(0 === doc.length){
+              return fishpondPool.release(opts.id);
+            }
 
             console.log('scene1: %j', doc);
 
-            if(0 === i) return scene2();
+            if(0 === i) return scene2(fishpond, callback);
             schedule();
           });
 
@@ -71,7 +75,7 @@ const biz = require('emag.biz');
       }());
     }
 
-    function scene2(){
+    function scene2(fishpond, callback){
       var i = 6;
 
       (function schedule(){
@@ -80,12 +84,16 @@ const biz = require('emag.biz');
           clearTimeout(timeout);
           i--;
 
-          biz.group.users(opts.id, (err, doc) => {
+          callback((err, doc) => {
             if(err) return cb(err);
+
+            if(0 === doc.length){
+              return fishpondPool.release(opts.id);
+            }
 
             console.log('scene2: %j', doc);
 
-            if(0 === i) return scene1();
+            if(0 === i) return scene1(fishpond, callback);
             schedule();
           });
 
@@ -93,7 +101,7 @@ const biz = require('emag.biz');
       }());
     }
 
-    scene1();
+    scene1(fishpond, biz.group.users.bind(null, opts.id));
   }
 
   const numkeys = 3;
