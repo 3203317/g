@@ -96,7 +96,7 @@ function UpdateFish(fishs, cfg_fish, cfg_pool){
 	for( let f of cfg_fish){
 		if(r < f.probability){
 			new_fish.type = f.type;
-			new_fish.path = Math.round(Math.random()*100);
+			new_fish.path = Math.round(Math.random()*4);
 			break;
 		}
 	}	
