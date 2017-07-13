@@ -24,7 +24,7 @@ res.create = function(opts){
   var b = free[0];
 
   if(b){
-    free.splice(0,1);
+    free.splice(0, 1);
     b.init(opts);
     fishponds[b.id] = b;
     return this.get(b.id);
