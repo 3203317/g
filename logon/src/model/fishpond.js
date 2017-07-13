@@ -21,4 +21,5 @@ pro.init = function(opts){
   opts = opts || {};
   self.id = opts.id;
   self.capacity = opts.capacity;
+  return self;
 };

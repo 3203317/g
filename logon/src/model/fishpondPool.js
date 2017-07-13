@@ -16,10 +16,7 @@ var free = [];
 res.create = function(opts){
 
   var s = this.get(opts.id);
-  if(s){
-    s.init(opts);
-    return s;
-  }
+  if(s) return s.init(opts);
 
   var b = free[0];
 
@@ -39,9 +36,10 @@ res.get = function(id){
   return fishponds[id];
 };
 
-res.release = function(id){
-  var s = this.get(id);
+res.release = function(fishpond){
+  if(!fishpond) return;
+  var s = this.get(fishpond.id);
   if(!s) return;
   free.push(s);
-  delete fishponds[id];
+  delete fishponds[fishpond.id];
 };

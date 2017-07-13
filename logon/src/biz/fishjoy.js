@@ -62,7 +62,7 @@ const biz = require('emag.biz');
             if(err) return cb(err);
 
             if(0 === doc.length){
-              return fishpondPool.release(fishpond.id);
+              return fishpondPool.release(fishpond);
             }
 
             var s = [];
@@ -94,7 +94,7 @@ const biz = require('emag.biz');
             if(err) return cb(err);
 
             if(0 === doc.length){
-              return fishpondPool.release(fishpond.id);
+              return fishpondPool.release(fishpond);
             }
 
             var s = [];
@@ -113,7 +113,7 @@ const biz = require('emag.biz');
       }());
     }
 
-    scene1(fishpond, biz.group.users.bind(null, opts.id));
+    scene1(fishpond, biz.group.users.bind(null, fishpond.id));
   }
 
   const numkeys = 3;
