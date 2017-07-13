@@ -65,6 +65,12 @@ const biz = require('emag.biz');
               return fishpondPool.release(opts.id);
             }
 
+            var s = [];
+            s.push(doc)
+            s.push('scene1');
+
+            cb(null, s);
+
             console.log('scene1: %j', doc);
 
             if(0 === i) return scene2(fishpond, callback);
@@ -90,6 +96,12 @@ const biz = require('emag.biz');
             if(0 === doc.length){
               return fishpondPool.release(opts.id);
             }
+
+            var s = [];
+            s.push(doc)
+            s.push('scene1');
+
+            cb(null, s);
 
             console.log('scene2: %j', doc);
 
