@@ -4,12 +4,11 @@ redis.replicate_commands();
 
 -- 
 
-local db = KEYS[1];
-local group_uuid = KEYS[2];
-
-local server_id = ARGV[1];
-local channel_id = ARGV[2];
-local group_type = ARGV[3];
+local db         = KEYS[1];
+local server_id  = KEYS[2];
+local channel_id = KEYS[3];
+local group_uuid = KEYS[4];
+local group_type = KEYS[5];
 
 -- 
 

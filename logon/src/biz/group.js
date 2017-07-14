@@ -18,12 +18,25 @@ const utils = require('speedt-utils').utils;
 const redis = require('emag.db').redis;
 
 (() => {
-  const numkeys = 3;
+  const numkeys = 5;
   const sha1 = '13343e5c8bfa165358180fc9dc6f431c79394174';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, utils.replaceAll(uuid.v1(), '-', ''), null, server_id, channel_id, group_type, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, utils.replaceAll(uuid.v1(), '-', ''), group_type, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();
+
+(() => {
+  const numkeys = 3;
+  const sha1 = '87d4df936cb2619402ce915046a7e5f1bb6f1e32';
+
+  exports.quit = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
@@ -32,11 +45,11 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = '87d4df936cb2619402ce915046a7e5f1bb6f1e32';
+  const sha1 = '73a7592a7cafc09fb52436ba74d7f60ce58300c4';
 
-  exports.quit = function(server_id, channel_id, cb){
+  exports.readyUsers = function(group_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, null, server_id, channel_id, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, group_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
@@ -44,10 +57,10 @@ const redis = require('emag.db').redis;
 })();
 
 (() => {
-  const numkeys = 1;
+  const numkeys = 2;
   const sha1 = '73a7592a7cafc09fb52436ba74d7f60ce58300c4';
 
-  exports.users = function(group_id, cb){
+  exports.allUsers = function(group_id, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, group_id, (err, doc) => {
       if(err) return cb(err);
