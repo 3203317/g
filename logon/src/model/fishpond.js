@@ -31,6 +31,11 @@ pro.init = function(opts){
   return self;
 };
 
+pro.clear = function(){
+  this._fishWeight = 0;
+  this.fishes.splice(0, this.fishes.length);
+};
+
 pro.getFishWeight = function(){
   return this._fishWeight;
 };
@@ -40,24 +45,22 @@ pro.refresh = function(){
 
   var s = getFish.call(self);
 
-  //
-  if(s) this.fishes.push(s);
+  if(s) self.fishes.push(s);
 
-  // console.log(fishes);
+  for(let i of self.fishes){
 
-  for(let i of this.fishes){
-
-    // loop 还没做，如果为false 要从数组中删除
-
-    if(i.step == 200){
-      i.step = 0;
-  	}
-  	else{
-  		i.step++;
-  	}
+    if((self.fishTrail[i.path].length - 1) === i.step){
+      if(i.loop){
+        i.step = 0;
+      }else{
+        // delete
+      }
+    }else{
+      i.step++;
+    }
   }
 
-  return this.fishes;
+  return self.fishes;
 }
 
 function getFish(){
