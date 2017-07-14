@@ -28,7 +28,7 @@ const conf = require(path.join(cwd, 'settings'));
    */
   exports.open = function(back_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.selectDB, '', back_id, (new Date().getTime()), (err, code) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, '', back_id, (new Date().getTime()), (err, code) => {
       if(err) return cb(err);
       cb(null, code);
     });
@@ -44,7 +44,7 @@ const conf = require(path.join(cwd, 'settings'));
    */
   exports.close = function(back_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.selectDB, back_id, (err, code) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, back_id, (err, code) => {
       if(err) return cb(err);
       cb(null, code);
     });

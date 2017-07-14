@@ -24,7 +24,7 @@ const redis = db.redis;
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.selectDB, utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
@@ -37,7 +37,7 @@ const redis = db.redis;
 
   exports.quit = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.selectDB, '', server_id, channel_id, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, '', server_id, channel_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
@@ -50,7 +50,7 @@ const redis = db.redis;
 
   exports.users = function(group_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.selectDB, group_id, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, group_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });

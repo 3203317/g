@@ -38,6 +38,6 @@ module.exports = {
     port: 12379,
     host: '127.0.0.1',
     password: '123456',
-    selectDB: 1
+    database: 1
   }
 };
