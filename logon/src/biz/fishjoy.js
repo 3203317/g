@@ -10,13 +10,13 @@ const cwd = process.cwd();
 
 const conf = require(path.join(cwd, 'settings'));
 
+const _ = require('underscore');
+
 const EventProxy = require('eventproxy');
-const uuid = require('node-uuid');
 
 const utils = require('speedt-utils').utils;
 
-const db = require('emag.db');
-const redis = db.redis;
+const redis = require('emag.db').redis;
 
 const fishpondPool = require('emag.model').fishpondPool;
 
@@ -27,12 +27,7 @@ const biz = require('emag.biz');
   function init(doc, cb){
     console.log('[INFO ] fishjoy ready init');
 
-    switch(doc){
-      case 'invalid_group_id':
-      case 'invalid_group_pos_id':
-      case 'already_raise_hand':
-      case 'invalid_user_id': return;
-    }
+    if(!_.isArray(doc)) return;
 
     var sb = doc[1].split('::');
 
@@ -121,7 +116,7 @@ const biz = require('emag.biz');
 
   exports.ready = function(server_id, channel_id, cb1, cb2){
 
-    redis.evalsha(sha1, numkeys, conf.redis.selectDB, conf.app.id, '', server_id, channel_id, (new Date().getTime()), (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.selectDB, conf.app.id, null, server_id, channel_id, (new Date().getTime()), (err, doc) => {
       if(err) return cb1(err);
       cb1(null, doc);
       init(doc, cb2);
@@ -131,53 +126,37 @@ const biz = require('emag.biz');
 
 (() => {
   const numkeys = 2;
-  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+  const sha1 = '';
 
   exports.shot = function(server_id, channel_id, cb){
-
-    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
-      if(err) return cb(err);
-      cb(null, doc);
-    });
+    // todo
   };
 })();
 
 
 (() => {
   const numkeys = 2;
-  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+  const sha1 = '';
 
   exports.blast = function(server_id, channel_id, cb){
-
-    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
-      if(err) return cb(err);
-      cb(null, doc);
-    });
+    // todo
   };
 })();
 
 (() => {
   const numkeys = 2;
-  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+  const sha1 = '';
 
   exports.switch = function(server_id, channel_id, cb){
-
-    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
-      if(err) return cb(err);
-      cb(null, doc);
-    });
+    // todo
   };
 })();
 
 (() => {
   const numkeys = 2;
-  const sha1 = '4464a41134b22e88b85b379b3c3d67f0abc2d948';
+  const sha1 = '';
 
   exports.tool = function(server_id, channel_id, cb){
-
-    redis.evalsha(sha1, numkeys, '1', '', server_id, channel_id, (err, doc) => {
-      if(err) return cb(err);
-      cb(null, doc);
-    });
+    // todo
   };
 })();
