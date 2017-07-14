@@ -161,7 +161,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 (() => {
   const seconds = 5;  //令牌有效期 5s
   const numkeys = 4;
-  const sha1 = '9aec935e60597fbaeb24f94126c6fdd898e27e51';
+  const sha1 = '305e219cf32aec0610e4e642776ccfa22f40e53e';
   const client_id = '5a2c6a1043454b168e6d3e8bef5cbce2';
 
   /**
@@ -186,7 +186,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = '28d3ef1075155147740c3ba4e01fffea99d12427';
+  const sha1 = 'c39a13fcb7b9f7f8d19e4541e7700dcece20f40a';
 
   /**
    *

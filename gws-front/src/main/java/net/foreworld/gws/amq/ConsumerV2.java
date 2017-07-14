@@ -69,6 +69,9 @@ public class ConsumerV2 {
 
 			//
 
+			jo.addProperty("version", 103);
+			jo.addProperty("timestamp", System.currentTimeMillis());
+
 			if (Constants.ALL.equals(_receiver)) {
 				ChannelUtil.getDefault().broadcast(jo.toString());
 				return;

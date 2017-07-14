@@ -203,9 +203,7 @@ process.on('exit', () => {
     var s = msg.body.split('::');
 
     var b = {
-      version: conf.app.version,
       seqId: 1,
-      timestamp: new Date().getTime(),
       receiver: s[1]
     };
 
@@ -242,7 +240,6 @@ process.on('exit', () => {
 
     console.info('[INFO ] chat 1v1 send: %j', data);
 
-    data.version = conf.app.version;
     data.method = 2002;
     data.receiver = data.channelId;
 
@@ -277,10 +274,8 @@ process.on('exit', () => {
         }
 
         var result = {
-          version: conf.app.version,
           method: 3002,
           seqId: data.seqId,
-          timestamp: new Date().getTime(),
           data: doc[1],
         };
 
@@ -323,10 +318,8 @@ process.on('exit', () => {
       cb();
 
       var result = {
-        version: conf.app.version,
         method: 3006,
         seqId: seq_id,
-        timestamp: new Date().getTime(),
         data: doc[1],
       };
 
@@ -358,10 +351,8 @@ process.on('exit', () => {
       if(err) return console.error('[ERROR] %s', err);
 
       var result = {
-        version: conf.app.version,
         method: 5002,
         seqId: data.seqId,
-        timestamp: new Date().getTime(),
         data: doc[1],
       };
 
@@ -386,10 +377,8 @@ process.on('exit', () => {
       if(err) return console.error('[ERROR] %s', err);
 
       var result = {
-        version: conf.app.version,
         method: 5004,
         seqId: data.seqId,
-        timestamp: new Date().getTime(),
         data: doc[1],
       };
 
@@ -415,10 +404,8 @@ process.on('exit', () => {
     }
 
     var result = {
-      version: conf.app.version,
       method: 5006,
       seqId: seq_id,
-      timestamp: new Date().getTime(),
       data: doc,
     };
 
@@ -435,10 +422,8 @@ process.on('exit', () => {
     if(err) return console.error('[ERROR] %s', err);
 
     var result = {
-      version: conf.app.version,
       method: 5008,
       seqId: seq_id,
-      timestamp: new Date().getTime(),
       data: doc[1],
     };
 
@@ -471,10 +456,8 @@ process.on('exit', () => {
       if(err) return console.error('[ERROR] %s', err);
 
       var result = {
-        version: conf.app.version,
         method: 5014,
         seqId: data.seqId,
-        timestamp: new Date().getTime(),
         data: doc[1],
       };
 
@@ -499,10 +482,8 @@ process.on('exit', () => {
       if(err) return console.error('[ERROR] %s', err);
 
       var result = {
-        version: conf.app.version,
         method: 5012,
         seqId: data.seqId,
-        timestamp: new Date().getTime(),
         data: doc[1],
       };
 

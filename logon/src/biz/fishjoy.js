@@ -113,7 +113,7 @@ const biz = require('emag.biz');
   }
 
   const numkeys = 3;
-  const sha1 = '26453f18b0c16646a987191d15cd816b816ebd47';
+  const sha1 = 'a3397310a630245d970ccba1af22c731de1576aa';
 
   exports.ready = function(server_id, channel_id, cb1, cb2){
 

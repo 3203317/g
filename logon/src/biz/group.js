@@ -19,7 +19,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 5;
-  const sha1 = '13343e5c8bfa165358180fc9dc6f431c79394174';
+  const sha1 = '3d6f13ebb46927f7a9255aeb345c636ab7a413d2';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
@@ -32,7 +32,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 3;
-  const sha1 = '87d4df936cb2619402ce915046a7e5f1bb6f1e32';
+  const sha1 = '152fcba298eb51a7fa285d2061b1f576b995f2ce';
 
   exports.quit = function(server_id, channel_id, cb){
 
@@ -45,7 +45,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = '73a7592a7cafc09fb52436ba74d7f60ce58300c4';
+  const sha1 = '92212012ab2b3e93358c294a580aab017e584c9e';
 
   exports.readyUsers = function(group_id, cb){
 
@@ -58,7 +58,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = '73a7592a7cafc09fb52436ba74d7f60ce58300c4';
+  const sha1 = 'b2b97f92441e97a5b1b0cd0b3b7da55d350ab21a';
 
   exports.allUsers = function(group_id, cb){
 
