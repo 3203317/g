@@ -57,8 +57,8 @@ public class LoginV2Handler extends SimpleChannelInboundHandler<ProtocolModel> {
 	@Value("${queue.front.force}")
 	private String queue_front_force;
 
-	@Value("${db.redis}")
-	private String db_redis;
+	@Value("${db.redis.database}")
+	private String db_redis_database;
 
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
@@ -143,16 +143,13 @@ public class LoginV2Handler extends SimpleChannelInboundHandler<ProtocolModel> {
 		}
 
 		List<String> s = new ArrayList<String>();
-		s.add(db_redis);
-		s.add(Constants.SERVER_ID);
-		s.add(Constants.CHANNEL_ID);
-		// s.add("seconds");
+		s.add(db_redis_database);
+		s.add(code);
+		s.add(server_id);
+		s.add(channel_id);
 
 		List<String> b = new ArrayList<String>();
-		b.add(code);
-		b.add(server_id);
-		b.add(channel_id);
-		// b.add(String.valueOf(sha_token_expire));
+		b.add(String.valueOf(sha_token_expire));
 		b.add(String.valueOf(System.currentTimeMillis()));
 
 		Jedis j = RedisUtil.getDefault().getJedis();

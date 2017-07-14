@@ -1,8 +1,8 @@
 -- huangxin <3203317@qq.com>
 
-local db = KEYS[1];
+local db        = KEYS[1];
 local client_id = KEYS[2];
-local user_id = KEYS[3];
+local user_id   = KEYS[3];
 
 -- 
 
@@ -13,7 +13,7 @@ local  _key = client_id ..'::'.. user_id;
 local code = redis.call('GET', _key);
 if (code) then return code; end;
 
-code = KEYS[4];
+      code    = KEYS[4];
 
 local seconds = ARGV[1];
 local score   = ARGV[2];

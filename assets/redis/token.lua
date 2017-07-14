@@ -1,11 +1,12 @@
 -- huangxin <3203317@qq.com>
 
-local db = KEYS[1];
-local code = KEYS[2];
-local server_id = KEYS[3];
+local db         = KEYS[1];
+local code       = KEYS[2];
+local server_id  = KEYS[3];
 local channel_id = KEYS[4];
 
-local open_time = ARGV[1];
+local seconds    = ARGV[1];
+local open_time  = ARGV[2];
 
 -- 
 
@@ -17,12 +18,8 @@ if (1 ~= exist) then return 'invalid_code'; end;
 
 -- 
 
-redis.call('EXPIRE', code, 86400);
-
 local client_id = redis.call('HGET', code, 'client_id');
 local user_id = redis.call('HGET', code, 'user_id');
-
-redis.call('RENAME', code, 'prop::'.. user_id);
 
 redis.call('DEL', client_id ..'::'.. user_id);
 
@@ -42,11 +39,16 @@ end;
 
 -- 
 
-redis.call('HDEL', 'prop::'.. user_id, 'user_id')
+redis.call('RENAME', code, 'prop::'.. user_id);
+
+-- 
+
+redis.call('HDEL', 'prop::'.. user_id, 'user_id');
 redis.call('HMSET', 'prop::'.. user_id, 'server_id', server_id, 'channel_id', channel_id, 'open_time', open_time);
+redis.call('EXPIRE', 'prop::'.. user_id, seconds);
 
 redis.call('SET', server_id ..'::'.. channel_id, user_id);
-redis.call('EXPIRE', server_id ..'::'.. channel_id, 86400);
+redis.call('EXPIRE', server_id ..'::'.. channel_id, seconds);
 
 -- 
 
