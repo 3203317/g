@@ -1,11 +1,11 @@
 -- huangxin <3203317@qq.com>
 
-local db = KEYS[1];
-local back_id = KEYS[2];
+local db         = KEYS[1];
+local server_id  = KEYS[2];
+local channel_id = KEYS[3];
 
-local server_id = ARGV[1];
-local channel_id = ARGV[2];
-local open_time = ARGV[3];
+local back_id    = ARGV[1];
+local open_time  = ARGV[2];
 
 -- 
 
@@ -101,6 +101,6 @@ end;
 local result = {};
 
 table.insert(result, arr);
-table.insert(result, back_id ..'::'.. group_id ..'::'.. capacity);
+table.insert(result, group_id ..'::'.. group_type ..'::'.. back_id ..'::'.. capacity);
 
 return result;

@@ -32,11 +32,12 @@ const biz = require('emag.biz');
     var sb = doc[1].split('::');
 
     // 如果不在同一台服务器
-    if(conf.app.id !== sb[0]) return;
+    if(conf.app.id !== sb[2]) return;
 
     var opts = {
-      id: sb[1],
-      capacity: sb[2],
+      id: sb[0],
+      type:: sb[1],
+      capacity: sb[3],
     };
 
     var fishpond = fishpondPool.get(opts.id);
@@ -116,7 +117,7 @@ const biz = require('emag.biz');
 
   exports.ready = function(server_id, channel_id, cb1, cb2){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, conf.app.id, null, server_id, channel_id, (new Date().getTime()), (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, conf.app.id, (new Date().getTime()), (err, doc) => {
       if(err) return cb1(err);
       cb1(null, doc);
       init(doc, cb2);
