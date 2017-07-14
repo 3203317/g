@@ -19,7 +19,7 @@ const mysql = require('emag.db').mysql;
 const redis = require('emag.db').redis;
 
 (() => {
-  const numkeys = 3;
+  const numkeys = 2;
   const sha1 = 'eec267d203a4aeae4ff71d41de4667f90d6bc09a';
 
   /**

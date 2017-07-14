@@ -2,7 +2,8 @@
 
 local db = KEYS[1];
 local back_id = KEYS[2];
-local open_time = KEYS[3];
+
+local open_time = ARGV[1];
 
 -- 
 
