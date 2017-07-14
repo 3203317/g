@@ -36,7 +36,7 @@ const biz = require('emag.biz');
 
     var opts = {
       id: sb[0],
-      type:: sb[1],
+      type: sb[1],
       capacity: sb[3],
     };
 
