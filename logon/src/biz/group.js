@@ -15,8 +15,7 @@ const uuid = require('node-uuid');
 
 const utils = require('speedt-utils').utils;
 
-const db = require('emag.db');
-const redis = db.redis;
+const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 3;
@@ -24,7 +23,7 @@ const redis = db.redis;
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, utils.replaceAll(uuid.v1(), '-', ''), '', server_id, channel_id, group_type, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, utils.replaceAll(uuid.v1(), '-', ''), null, server_id, channel_id, group_type, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
@@ -37,7 +36,7 @@ const redis = db.redis;
 
   exports.quit = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, '', server_id, channel_id, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, null, server_id, channel_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
     });
