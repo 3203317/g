@@ -47,16 +47,19 @@ pro.refresh = function(){
 
   if(s) self.fishes.push(s);
 
-  for(let i of self.fishes){
+  for(let i in self.fishes){
 
-    if((self.fishTrail[i.path].length - 1) === i.step){
-      if(i.loop){
-        i.step = 0;
+    var f = self.fishes[i];
+
+    if((self.fishTrail[f.path].length - 1) === f.step){
+      if(self.fishType[f.type].loop){
+        f.step = 0;
       }else{
-        // delete
+        self._fishWeight -= i.weight;
+        self.fishes.splice(i, 1);
       }
     }else{
-      i.step++;
+      f.step++;
     }
   }
 
@@ -66,7 +69,7 @@ pro.refresh = function(){
 function getFish(){
   var self = this;
 
-  if(self.getFishWeight() >= self.capacity) return;
+  if(self._fishWeight >= self.capacity) return;
 
   var newFish = {
     id: utils.replaceAll(uuid.v1(), '-', ''),
@@ -75,14 +78,16 @@ function getFish(){
 
   var r = Math.random();
 
-  for(let f of self.fishType){
-    if(r <= f.probability){
-      newFish.type = f.type;
+  for(let i in self.fishType){
+
+    var t = self.fishType[i];
+
+    if(r <= t.probability){
+      newFish.type = i;
       newFish.path = Math.round((self.fishTrail.length - 1) * Math.random());
-      newFish.probability = f.probability;
-      newFish.weight = f.weight;
-      newFish.loop = f.loop;
-      self._fishWeight += f.weight;
+      newFish.probability = t.probability;
+      newFish.weight = t.weight;
+      self._fishWeight += t.weight;
       break;
     }
   }
