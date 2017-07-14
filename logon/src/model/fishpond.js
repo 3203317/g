@@ -5,40 +5,40 @@
  */
 'use strict';
 
+const uuid = require('node-uuid');
+const utils = require('speedt-utils').utils;
+
 module.exports = function(opts){
   return new Method(opts);
 }
 
 var Method = function(opts){
-  this.init(opts);
-  this.fishes = [];
+  var self = this;
+  self.fishes = [];
+  self.fishType = opts.fishType;
+  self.fishTrail = opts.fishTrail;
+  self._fishWeight = 0;
+  self.init(opts);
 };
 
 var pro = Method.prototype;
 
 pro.init = function(opts){
   var self = this;
-  opts = opts || {};
   self.id = opts.id;
   self.capacity = opts.capacity;
+  self.type = opts.type;
   return self;
 };
 
-var cfg_fish = [{
-	type: 1,
-	probability: 0.1,
-	weight: 10
-},{
-	type: 2,
-	probability: 0.5,
-	weight: 5
-}];
+pro.getFishWeight = function(){
+  return this._fishWeight;
+};
 
-pro.getFishes = function(){
+pro.refresh = function(){
+  var self = this;
 
-  // console.log(this.fishes)
-
-  var s = UpdateFish(this.fishes, cfg_fish, this);
+  var s = getFish.call(self);
 
   //
   if(s) this.fishes.push(s);
@@ -47,10 +47,10 @@ pro.getFishes = function(){
 
   for(let i of this.fishes){
 
-  	// loop 还没做，如果为false 要从数组中删除
+    // loop 还没做，如果为false 要从数组中删除
 
-  	if(i.step == 200){
-  		i.step = 0;
+    if(i.step == 200){
+      i.step = 0;
   	}
   	else{
   		i.step++;
@@ -60,46 +60,29 @@ pro.getFishes = function(){
   return this.fishes;
 }
 
-function CreatUUID(i){
-	return new Date().getTime();
-}
+function getFish(){
+  var self = this;
 
-function UpdateFish(fishs, cfg_fish, cfg_pool){	
-	var aw=0;
-	//累加鱼池中鱼的总重
-	for(let f of fishs){
-		aw += f.weight; 
-	}
+  if(self.getFishWeight() >= self.capacity) return;
 
-	// console.log(cfg_pool)
-	// console.log(aw)
+  var newFish = {
+    id: utils.replaceAll(uuid.v1(), '-', ''),
+    step: 0
+  };
 
-	// console.log(aw)
+  var r = Math.random();
 
-	//超出鱼池可容纳重量 不再创建新鱼
-	if(aw >= cfg_pool.capacity) return;
+  for(let f of self.fishType){
+    if(r <= f.probability){
+      newFish.type = f.type;
+      newFish.path = Math.round((self.fishTrail.length - 1) * Math.random());
+      newFish.probability = f.probability;
+      newFish.weight = f.weight;
+      newFish.loop = f.loop;
+      self._fishWeight += f.weight;
+      break;
+    }
+  }
 
-	var new_fish = {
-		id: CreatUUID(1),
-		type: 0,
-		path: 0,
-		step: 0,
-		max: 222,
-		loop: true,
-		weight: 15
-	};
-
-	//产生随机数
-	var r = Math.random();	
-
-	//在配置表中查找 随机数对应的鱼
-	for( let f of cfg_fish){
-		if(r < f.probability){
-			new_fish.type = f.type;
-			new_fish.path = Math.round(Math.random()*4);
-			break;
-		}
-	}	
-
-	return new_fish;
+  return newFish;
 }
