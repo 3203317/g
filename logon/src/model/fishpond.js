@@ -82,8 +82,8 @@ function getFish(){
 
     var t = self.fishType[i];
 
-    if(r <= t.probability){
-      newFish.type = i;
+    if(r >= t.probability){
+      newFish.type = i - 0;
       newFish.path = Math.round((self.fishTrail.length - 1) * Math.random());
       newFish.probability = t.probability;
       newFish.weight = t.weight;

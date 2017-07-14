@@ -50,5 +50,10 @@
 		"probability": 0.1,
 		"weight": 5,
 		"loop": true
+	}, {
+		"name": "mini",
+		"probability": 0.0,
+		"weight": 1,
+		"loop": true
 	}]
 }

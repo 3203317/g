@@ -427,7 +427,7 @@ process.on('exit', () => {
       data: doc[1],
     };
 
-    var arr = doc[0];
+    var arr = doc[0][0];
 
     for(let i=0, j=arr.length; i<j; i++){
       var s = arr[i];
