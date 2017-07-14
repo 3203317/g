@@ -137,10 +137,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
       return cb(null, '103');
 
     var p1 = new Promise((resolve, reject) => {
-      self.authorize(doc.id, '5a2c6a1043454b168e6d3e8bef5cbce2',
-        doc.score,
-        doc.tool_1, doc.tool_2, doc.tool_3, doc.tool_4,
-        (err, code) => {
+      self.authorize(doc, (err, code) => {
           if(err) return reject(err);
           resolve(code);
       });
@@ -163,8 +160,9 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const seconds = 5;  //令牌有效期 5s
-  const numkeys = 9;
+  const numkeys = 4;
   const sha1 = '9aec935e60597fbaeb24f94126c6fdd898e27e51';
+  const client_id = '5a2c6a1043454b168e6d3e8bef5cbce2';
 
   /**
    * 令牌授权
@@ -173,14 +171,12 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    * @param client_id
    * @return 登陆令牌
    */
-  exports.authorize = function(user_id, client_id, score, tool_1, tool_2, tool_3, tool_4, cb){
+  exports.authorize = function(doc, cb){
     var code = utils.replaceAll(uuid.v4(), '-', '');
 
     redis.evalsha(sha1, numkeys,
-      conf.redis.database, 'client_id', 'user_id', '', '',
-      '', '', '', '',
-      code, client_id, user_id, seconds, score,
-      tool_1, tool_2, tool_3, tool_4,
+      conf.redis.database, client_id, doc.id, code,
+      seconds, doc.score, doc.tool_1, doc.tool_2, doc.tool_3, doc.tool_4,
       (err, code) => {
         if(err) return cb(err);
         cb(null, code);
@@ -189,7 +185,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 })();
 
 (() => {
-  const numkeys = 2;
+  const numkeys = 3;
   const sha1 = '28d3ef1075155147740c3ba4e01fffea99d12427';
 
   /**
@@ -197,7 +193,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    */
   exports.logout = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, '', server_id, channel_id, (err, code) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, code) => {
         if(err) return cb(err);
         cb(null, code);
     });
