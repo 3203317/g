@@ -1,12 +1,11 @@
 -- huangxin <3203317@qq.com>
 
 local db = KEYS[1];
+local code = KEYS[2];
+local server_id = KEYS[3];
+local channel_id = KEYS[4];
 
-local code = ARGV[1];
-local server_id = ARGV[2];
-local channel_id = ARGV[3];
--- local seconds = ARGV[4];
-local open_time = ARGV[4];
+local open_time = ARGV[1];
 
 -- 
 
@@ -18,16 +17,14 @@ if (1 ~= exist) then return 'invalid_code'; end;
 
 -- 
 
+redis.call('EXPIRE', code, 86400);
+
 local client_id = redis.call('HGET', code, 'client_id');
 local user_id = redis.call('HGET', code, 'user_id');
-local score = redis.call('HGET', code, 'score');
 
-local tool_1 = redis.call('HGET', code, 'tool_1');
-local tool_2 = redis.call('HGET', code, 'tool_2');
-local tool_3 = redis.call('HGET', code, 'tool_3');
-local tool_4 = redis.call('HGET', code, 'tool_4');
+redis.call('RENAME', code, 'prop::'.. user_id);
 
-redis.call('DEL', code, client_id ..'::'.. user_id);
+redis.call('DEL', client_id ..'::'.. user_id);
 
 -- 
 
@@ -45,11 +42,12 @@ end;
 
 -- 
 
-redis.call('HMSET', 'prop::'.. user_id, 'client_id', client_id, KEYS[2], server_id, KEYS[3], channel_id, 'scope', '', 'open_time', open_time, 'score', score, 'tool_1', tool_1, 'tool_2', tool_2, 'tool_3', tool_3, 'tool_4', tool_4);
--- redis.call('EXPIRE', 'prop::'.. user_id, seconds);
+redis.call('HDEL', 'prop::'.. user_id, 'user_id')
+redis.call('HMSET', 'prop::'.. user_id, 'server_id', server_id, 'channel_id', channel_id, 'open_time', open_time);
 
 redis.call('SET', server_id ..'::'.. channel_id, user_id);
--- redis.call('EXPIRE', server_id ..'::'.. channel_id, seconds);
+redis.call('EXPIRE', server_id ..'::'.. channel_id, 86400);
+
+-- 
 
 return result;
-
