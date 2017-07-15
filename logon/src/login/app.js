@@ -215,9 +215,8 @@ process.on('exit', () => {
 
     var s = msg.body.split('::');
 
-    _on_3005_group_quit(s[0], s[1], 0, function (err, code){
+    _on_3005_group_quit(s[0], s[1], 0, function (err){
       if(err) return console.error('[ERROR] group quit: %s', err);
-      if(code) return console.warn('[WARN ] group quit: %s', code);
       console.info('[INFO ] group quit: %j', s);
 
       biz.user.logout(s[0], s[1], function (err, code){
@@ -257,7 +256,7 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    _on_3005_group_quit(data.serverId, data.channelId, data.seqId, function (err, code){
+    _on_3005_group_quit(data.serverId, data.channelId, data.seqId, function (err){
       if(err) return console.error('[ERROR] %s', err);
 
       var group_type = data.data;
@@ -282,7 +281,7 @@ process.on('exit', () => {
         var arr = doc[0];
 
         for(let i=0, j=arr.length; i<j; i++){
-          var s = arr[i];
+          let s = arr[i];
           result.receiver = arr[++i];
           if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
         }
@@ -296,9 +295,8 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    _on_3005_group_quit(data.serverId, data.channelId, 0, function (err, code){
+    _on_3005_group_quit(data.serverId, data.channelId, 0, function (err){
       if(err) return console.error('[ERROR] %s', err);
-      if(code) return console.warn('[WARN ] %s', code);
       console.info('[INFO ] group close: %j', data);
     });
   };
@@ -311,7 +309,6 @@ process.on('exit', () => {
       switch(doc){
         case 'invalid_user_id':
           client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
-          return cb(null, doc);
         case 'OK': return cb();
       }
 

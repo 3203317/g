@@ -32,7 +32,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 3;
-  const sha1 = '184aa3dcba883d4a8ce465e94e22289f9f695e32';
+  const sha1 = 'dc5fa10fb60dc63ea186fce33196b5f1c2ebd674';
 
   exports.quit = function(server_id, channel_id, cb){
 
