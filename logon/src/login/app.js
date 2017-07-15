@@ -326,7 +326,7 @@ process.on('exit', () => {
       var arr = doc[0];
 
       for(let i=0, j=arr.length; i<j; i++){
-        var s = arr[i];
+        let s = arr[i];
         result.receiver = arr[++i];
         if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }
