@@ -79,6 +79,10 @@ for i=2, #hash_val, 2 do
   end;
 end;
 
+-- 
+
+if (0 == #arr) then return 'OK'; end;
+
 local result = {};
 
 table.insert(result, arr);
