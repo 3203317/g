@@ -422,6 +422,7 @@ process.on('exit', () => {
     if(err) return console.error('[ERROR] %s', err);
 
     var result = {
+      timestamp: new Date().getTime(),
       method: 5008,
       seqId: seq_id,
       data: doc[1],
