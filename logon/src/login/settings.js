@@ -8,7 +8,6 @@
 module.exports = {
   app: {
     id: '112aba1ad4424e7891037028ef024645',
-    version: 102,
   },
   corp: {
     name: 'foreworld.net',
