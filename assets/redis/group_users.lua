@@ -17,18 +17,14 @@ local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. grou
 
 redis.call('SELECT', db);
 
-local arr = {};
-
-for i=2, #hash_val, 2 do
-  local u = string.match(hash_val[i], '(.*)%::(.*)');
-
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
-end;
-
 local result = {};
 
-table.insert(result, arr);
-table.insert(result, hash_val);
+for i=2, #hash_val, 2 do
+  local u, hand = string.match(hash_val[i], '(.*)%::(.*)');
+
+  table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
+  table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+  table.insert(result, hand);
+end;
 
 return result;
