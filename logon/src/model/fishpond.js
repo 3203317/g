@@ -49,7 +49,7 @@ pro.refresh = function(){
 
   for(let i in self.fishes){
 
-    var f = self.fishes[i];
+    let f = self.fishes[i];
 
     if((self.fishTrail[f.path].length - 1) === f.step){
       if(self.fishType[f.type].loop){
@@ -80,7 +80,7 @@ function getFish(){
 
   for(let i in self.fishType){
 
-    var t = self.fishType[i];
+    let t = self.fishType[i];
 
     if(r >= t.probability){
       newFish.type = i - 0;
