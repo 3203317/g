@@ -55,7 +55,7 @@ pro.refresh = function(){
       if(self.fishType[f.type].loop){
         f.step = 0;
       }else{
-        self._fishWeight -= i.weight;
+        self._fishWeight -= f.weight;
         self.fishes.splice(i, 1);
       }
     }else{

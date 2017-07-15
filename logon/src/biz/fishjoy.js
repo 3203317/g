@@ -88,7 +88,7 @@ const biz = require('emag.biz');
                   return cb(err);
                 }
 
-                if(0 === doc[0].length){
+                if(0 === doc.length){
                   return fishpondPool.release(fishpond.id);
                 }
 
@@ -123,7 +123,7 @@ const biz = require('emag.biz');
                   return cb(err);
                 }
 
-                if(0 === doc[0].length){
+                if(0 === doc.length){
                   return fishpondPool.release(fishpond.id);
                 }
 
