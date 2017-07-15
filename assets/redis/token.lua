@@ -39,6 +39,14 @@ end;
 
 -- 
 
+local sb = redis.call('HGET', 'prop::'.. user_id, 'group_id');
+
+if (sb) then
+  redis.call('HMSET', code, 'group_id', sb, 'group_pos_id', redis.call('HGET', 'prop::'.. user_id, 'group_pos_id'));
+end;
+
+-- 
+
 redis.call('RENAME', code, 'prop::'.. user_id);
 
 -- 
