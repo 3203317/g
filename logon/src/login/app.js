@@ -427,12 +427,11 @@ process.on('exit', () => {
       data: doc[1],
     };
 
-    var arr = doc[0][0];
+    var arr = doc[0];
 
     for(let i=0, j=arr.length; i<j; i++){
       var s = arr[i];
       result.receiver = arr[++i];
-      ++i;
       client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
     }
   };

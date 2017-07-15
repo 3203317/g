@@ -45,7 +45,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = '92212012ab2b3e93358c294a580aab017e584c9e';
+  const sha1 = 'd01631de4357c0d35b8e7477fd158a10014abbdc';
 
   exports.readyUsers = function(group_id, cb){
 
@@ -58,7 +58,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = 'b2b97f92441e97a5b1b0cd0b3b7da55d350ab21a';
+  const sha1 = 'beebd502fa7a6b1918bfc1cdff757e50da048399';
 
   exports.allUsers = function(group_id, cb){
 

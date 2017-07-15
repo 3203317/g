@@ -25,7 +25,6 @@ for i=2, #hash_val, 2 do
   if ('1' == hand) then
     table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
     table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
-    table.insert(result, hand);
   end;
 
 end;
