@@ -88,6 +88,10 @@ const biz = require('emag.biz');
                   return cb(err);
                 }
 
+                if('invalid_group_id' === doc){
+                  return fishpondPool.release(fishpond.id);
+                }
+
                 if(0 === doc.length){
                   return fishpondPool.release(fishpond.id);
                 }
@@ -121,6 +125,10 @@ const biz = require('emag.biz');
                 if(err){
                   fishpondPool.release(fishpond.id);
                   return cb(err);
+                }
+
+                if('invalid_group_id' === doc){
+                  return fishpondPool.release(fishpond.id);
                 }
 
                 if(0 === doc.length){

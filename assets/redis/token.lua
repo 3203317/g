@@ -1,9 +1,9 @@
 -- huangxin <3203317@qq.com>
 
 local db         = KEYS[1];
-local code       = KEYS[2];
-local server_id  = KEYS[3];
-local channel_id = KEYS[4];
+local server_id  = KEYS[2];
+local channel_id = KEYS[3];
+local code       = KEYS[4];
 
 local seconds    = ARGV[1];
 local open_time  = ARGV[2];

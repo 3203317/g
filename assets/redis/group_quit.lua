@@ -54,16 +54,29 @@ local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. grou
 
 if (0 == #hash_val) then return 'OK'; end;
 
-redis.call('SELECT', db);
+-- 
 
 local arr = {};
 
 for i=2, #hash_val, 2 do
-  -- table.insert(result, hash_val[i - 1]);
+  -- table.insert(arr, hash_val[i - 1]);
   local u = string.match(hash_val[i], '(.*)%::(.*)');
 
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+  redis.call('SELECT', db);
+
+  local sb = redis.call('HGET', 'prop::'.. u, 'server_id');
+
+  if (sb) then
+    table.insert(arr, sb);
+    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+  else
+
+    redis.call('SELECT', 1 + db);
+
+    local pos = hash_val[i - 1];
+    redis.call('HDEL', 'pos::group::'.. group_type ..'::'.. group_id, pos);
+    redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. pos);
+  end;
 end;
 
 local result = {};
