@@ -51,7 +51,7 @@ redis.call('RENAME', code, 'prop::'.. user_id);
 
 -- 
 
-redis.call('HDEL', 'prop::'.. user_id, 'user_id');
+-- redis.call('HDEL', 'prop::'.. user_id, 'user_id');
 redis.call('HMSET', 'prop::'.. user_id, 'server_id', server_id, 'channel_id', channel_id, 'open_time', open_time);
 redis.call('EXPIRE', 'prop::'.. user_id, seconds);
 
