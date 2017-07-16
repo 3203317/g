@@ -163,7 +163,7 @@ const biz = require('emag.biz');
 
               console.log('scene2: %s', fishes.length);
 
-              if(opts.fishFixed[1].length === i){
+              if(65 === i){
                 fishpond.clear();
                 return scene1(fishpond, callback);
               }

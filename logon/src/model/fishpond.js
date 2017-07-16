@@ -72,26 +72,21 @@ pro.getFixed = function(i){
 
   for(let f of self.fishFixed[1][i]){
 
-    if(0 === f.length) return;
+    var k = self.fishFixed[0][f];
 
-    for(let j of f){
+    let t = self.fishType[k[0]];
 
-      var k = self.fishFixed[0][j];
+    var newFish = {
+      id: utils.replaceAll(uuid.v1(), '-', ''),
+      step: 0,
+      type: k[0],
+      path: k[1],
+      probability: t.probability,
+      weight: t.weight,
+    };
 
-      let t = self.fishType[k[0]];
-
-      var newFish = {
-        id: utils.replaceAll(uuid.v1(), '-', ''),
-        step: 0,
-        type: k[0],
-        path: k[1],
-        probability: t.probability,
-        weight: t.weight,
-      };
-
-      self._fishWeight += newFish.weight;
-      self.fishes.push(newFish);
-    }
+    self._fishWeight += newFish.weight;
+    self.fishes.push(newFish);
   }
 
   return self.fishes;
