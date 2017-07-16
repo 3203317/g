@@ -197,14 +197,16 @@ const biz = require('emag.biz');
 })();
 
 (() => {
-  const numkeys = 2;
-  const sha1 = '';
+  const numkeys = 4;
+  const sha1 = '143c59883687544f9a351faf317d1e9f8c8d528e';
 
   exports.shot = function(server_id, channel_id, shot, cb){
-    biz.group.readyUsers(server_id, channel_id, function (err, doc){
-      if(err) return cb(err);
-      cb(null, [doc, shot]);
-    })
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
+      shot.id, shot.x, shot.y, shot.level, (err, doc) => {
+        if(err) return cb(err);
+        console.log(doc);
+    });
   };
 })();
 
