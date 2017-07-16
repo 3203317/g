@@ -48,7 +48,18 @@ const biz = require('emag.biz');
     }).catch(reject);
   });
 
-  Promise.all([p1, p2]).then(values => {
+  var p3 = new Promise((resolve, reject) => {
+    ajax(http.request, {
+      host: conf.app.resHost,
+      port: 80,
+      path: '/assets/fish.fixed.json',
+      method: 'GET',
+    }, null, null).then(html => {
+      resolve(JSON.parse(html));
+    }).catch(reject);
+  });
+
+  Promise.all([p1, p2, p3]).then(values => {
 
     function init(doc, cb){
       console.log('[INFO ] fishjoy ready init');
@@ -66,6 +77,7 @@ const biz = require('emag.biz');
         capacity: sb[3],
         fishType: values[1].data,
         fishTrail: values[0].data,
+        fishFixed: values[2].data[0],
       };
 
       var fishpond = fishpondPool.get(opts.id);
@@ -97,12 +109,14 @@ const biz = require('emag.biz');
               }
 
               var s = [];
+              var fishes = fishpond.refresh();
+
               s.push(doc)
-              s.push(fishpond.refresh());
+              s.push(fishes);
 
               cb(null, s);
 
-              console.log('scene1: %j', doc);
+              console.log('scene1: %s', fishes.length);
 
               if(0 === i){
                 fishpond.clear();
@@ -117,13 +131,13 @@ const biz = require('emag.biz');
       }
 
       function scene2(fishpond, callback){
-        var i = 6;
+        var i = 0;
 
         (function schedule(){
 
           var timeout = setTimeout(function(){
             clearTimeout(timeout);
-            i--;
+            i++;
 
             callback((err, doc) => {
               if(err){
@@ -140,14 +154,20 @@ const biz = require('emag.biz');
               }
 
               var s = [];
+              var fishes = fishpond.getFixed(i);
+
               s.push(doc)
-              s.push(fishpond.refresh());
+              s.push(fishes);
 
               cb(null, s);
 
-              console.log('scene2: %j', doc);
+              console.log('scene2: %s', fishes.length);
 
-              if(0 === i) return scene1(fishpond, callback);
+              if(opts.fishFixed[1].length === i){
+                fishpond.clear();
+                return scene1(fishpond, callback);
+              }
+
               schedule();
             });
 
