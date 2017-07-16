@@ -144,7 +144,13 @@ process.on('exit', () => {
       receiver: s[1]
     };
 
-    client.send('/queue/back.send.v2.'+ s[0], { priority: 9 }, JSON.stringify(b));
+    biz.user.myInfo(s[0], s[1], function (err, doc){
+      if(err) return console.error('[ERROR] channel open: %s', err);
+
+      b.data = doc;
+      client.send('/queue/back.send.v2.'+ s[0], { priority: 9 }, JSON.stringify(b));
+    });
+
   };
 
   var on_channel_close = function(msg){

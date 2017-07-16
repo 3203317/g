@@ -122,3 +122,52 @@ function getFish(){
 
   return newFish;
 }
+
+
+HitFish:function(msg){
+
+    //取得子弹id对应的子弹信息
+    var bullet = GetBullet(msg.id);
+    
+    for(let f of msg.fishes){
+         
+        //取得鱼id对应的鱼配置
+        var fish = GetFish(f);
+
+        var d =  Distance(   fish.path[fish.step].x, fish.path[fish.step].y, 
+                                bullet.x,bullet.y) ;
+
+        //计算子弹位置与鱼当前位置 是否合法
+        if(d < bullet.range ) //鱼坐标和子弹坐标 距离小于当前子弹的爆炸半径
+        {//合法命中
+           
+           if(--fish.hp <= 0){      //生命值为0，按概率计算能否打死
+                 //取得玩家信息
+                var p = GetPlayer(bullet.owner);
+                var r = Math.random();
+                if(r < fish.die + (1-fish.die)*p.lucky){   //随机值大于死亡率
+                   
+                    //检测玩家盈利率  本局玩家打到鱼赚的金币数 / 本局玩家消耗掉的金币 < 玩家盈利率
+                    // if(  ){            }
+
+                    //返回打到鱼的结果
+                    return {
+                        player_id:0,
+                        fish_id:0,                            
+                        fish_value:0,
+                    };
+                }
+           }//else{}//不处理
+
+        }
+        //else{}//非法命中，不处理
+    }       
+}
+
+
+//计算两点间距离
+function distance(x1, y1, x2, y2){
+  var xdiff = x2 - x1;
+  var ydiff = y2 - y1;
+  retrun Math.abs(Math.pow((xdiff * xdiff + ydiff * ydiff), 0.5));
+}

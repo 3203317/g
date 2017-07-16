@@ -199,3 +199,19 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     });
   };
 })();
+
+(() => {
+  const numkeys = 3;
+  const sha1 = 'c39a13fcb7b9f7f8d19e4541e7700dcece20f40a';
+
+  /**
+   *
+   */
+  exports.myInfo = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, code) => {
+        if(err) return cb(err);
+        cb(null, code);
+    });
+  };
+})();

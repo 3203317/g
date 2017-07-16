@@ -86,7 +86,7 @@ const biz = require('emag.biz');
       fishpond = fishpondPool.create(opts);
 
       function scene1(fishpond, callback){
-        var i = 229;
+        var i = 30;
 
         (function schedule(){
 
