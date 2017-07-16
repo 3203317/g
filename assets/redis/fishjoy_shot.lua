@@ -3,7 +3,7 @@
 local db         = KEYS[1];
 local server_id  = KEYS[2];
 local channel_id = KEYS[3];
-local bullet_id  = ARGV[4];
+local bullet_id  = KEYS[4];
 
 local seconds      = ARGV[1];
 local bullet_x     = ARGV[2];
@@ -32,13 +32,15 @@ local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
 -- 
 
+redis.call('SELECT', db);
+
 local score = redis.call('HGET', 'prop::'.. user_id, 'score');
 
 -- 
 
 redis.call('SELECT', 1 + db);
 
-redis.call('HMSET', 'prop::bullet::'.. bullet_id, 'x', bullet_x, 'y', bullet_y, 'level', bullet_level, 'user_id', user_id);
+redis.call('HMSET', 'prop::bullet::'.. bullet_id, 'id', bullet_id, 'x', bullet_x, 'y', bullet_y, 'level', bullet_level, 'user_id', user_id);
 redis.call('EXPIRE', 'prop::bullet::'.. bullet_id, seconds);
 
 -- 
@@ -47,7 +49,7 @@ local x = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
 
 redis.call('SELECT', db);
 
-redis.call('HSET', 'prop::'.. user_id, tonumber(score) - tonumber(x));
+redis.call('HSET', 'prop::'.. user_id, 'score', tonumber(score) - tonumber(x));
 
 -- 
 
@@ -70,7 +72,12 @@ end;
 
 local result = {};
 
+redis.call('SELECT', 1 + db);
+
 table.insert(result, arr);
+
+redis.call('SELECT', 1 + db);
+
 table.insert(result, redis.call('HGETALL', 'prop::bullet::'.. bullet_id));
 
 return result;
