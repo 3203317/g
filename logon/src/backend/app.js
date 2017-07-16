@@ -140,6 +140,7 @@ process.on('exit', () => {
     var s = msg.body.split('::');
 
     var b = {
+      method: 1,
       seqId: 1,
       receiver: s[1]
     };
@@ -346,7 +347,7 @@ process.on('exit', () => {
     var result = {
       method: 5006,
       seqId: seq_id,
-      data: doc[1].split('::')[2],
+      data: [doc[1].split('::')[2], doc[2]]
     };
 
     var arr = doc[0];

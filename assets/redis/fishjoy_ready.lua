@@ -114,5 +114,6 @@ local result = {};
 
 table.insert(result, arr);
 table.insert(result, group_id ..'::'.. group_type ..'::'.. back_id ..'::'.. capacity);
+table.insert(result, hash_val);
 
 return result;
