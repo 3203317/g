@@ -198,7 +198,7 @@ const biz = require('emag.biz');
 
 (() => {
   const numkeys = 4;
-  const sha1 = '8b8d67783f8357d1018d576ee7668ae53d1d4b7b';
+  const sha1 = '7e72c37c8543eefa1d8041c0de8d58592d55ca16';
 
   exports.shot = function(server_id, channel_id, shot, cb){
 

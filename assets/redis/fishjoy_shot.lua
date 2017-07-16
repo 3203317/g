@@ -64,10 +64,12 @@ redis.call('SELECT', db);
 local arr = {};
 
 for i=2, #hash_val, 2 do
-  local u = string.match(hash_val[i], '(.*)%::(.*)');
+  local u, hand = string.match(hash_val[i], '(.*)%::(.*)');
 
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+  if ('1' == hand) then
+    table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
+    table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+  end;
 end;
 
 local result = {};
@@ -75,8 +77,6 @@ local result = {};
 redis.call('SELECT', 1 + db);
 
 table.insert(result, arr);
-
-redis.call('SELECT', 1 + db);
 
 table.insert(result, redis.call('HGETALL', 'prop::bullet::'.. bullet_id));
 
