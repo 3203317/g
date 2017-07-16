@@ -27,7 +27,8 @@ redis.call('HMSET', 'prop::groupType::qingtong', 'total_players', 4, 'total_visi
 redis.call('HMSET', 'prop::groupType::baiyin', 'total_players', 7, 'total_visitors', 0, 'min_run', 1, 'capacity', 200);
 redis.call('HMSET', 'prop::groupType::huangjin', 'total_players', 6, 'total_visitors', 0, 'min_run', 1, 'capacity', 300);
 
-redis.call('HMSET', 'prop::sys', 'bullet_level_consume', 10, 'bullet_level_max', 100, 'bullet_level_min', 1);
+redis.call('HMSET', 'cfg::bullet', 'level_max', 100, 'level_min', 1);
+redis.call('HMSET', 'cfg::bullet::consume', '1', 1, '2', 2, '3', 3, '4', 4, '5', 5);
 
 -- tuibing
 

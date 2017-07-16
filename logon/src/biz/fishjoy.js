@@ -200,8 +200,11 @@ const biz = require('emag.biz');
   const numkeys = 2;
   const sha1 = '';
 
-  exports.shot = function(server_id, channel_id, cb){
-    // todo
+  exports.shot = function(server_id, channel_id, shot, cb){
+    biz.group.readyUsers(server_id, channel_id, function (err, doc){
+      if(err) return cb(err);
+      cb(null, [doc, shot]);
+    })
   };
 })();
 
