@@ -83,7 +83,7 @@ pro.getFixed = function(i){
       path: k[1],
       probability: t.probability,
       weight: t.weight,
-      blood: t.blood
+      hp: t.hp
     };
 
     self._fishWeight += newFish.weight;
@@ -114,7 +114,7 @@ function getFish(){
       newFish.path = Math.round((self.fishTrail.length - 1) * Math.random());
       newFish.probability = t.probability;
       newFish.weight = t.weight;
-      newFish.blood = t.blood;
+      newFish.hp = t.hp;
       self._fishWeight += t.weight;
       break;
     }

@@ -4,67 +4,67 @@
 		"name": "大",
 		"probability": 1,
 		"weight": 10,
-		"blood": 100,
+		"hp": 100,
 		"loop": false
 	}, {
 		"name": "中",
 		"probability": 0.9,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "小",
 		"probability": 0.8,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "红",
 		"probability": 0.7,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "橙",
 		"probability": 0.6,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": false
 	}, {
 		"name": "黄",
 		"probability": 0.5,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "绿",
 		"probability": 0.4,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "青",
 		"probability": 0.3,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "蓝",
 		"probability": 0.2,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "紫",
 		"probability": 0.1,
 		"weight": 5,
-		"blood": 50,
+		"hp": 50,
 		"loop": true
 	}, {
 		"name": "mini",
 		"probability": 0.0,
 		"weight": 1,
-		"blood": 10,
+		"hp": 10,
 		"loop": true
 	}]
 }
