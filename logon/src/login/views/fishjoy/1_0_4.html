@@ -24,7 +24,8 @@
     <textarea rows='8' cols='50'></textarea><p></p>
 
     <input type='button' id='_5005_ready' value='_5005_ready'>
-    <input type='button' id='shot' value='shot'><p></p>
+    <input type='button' id='shot' value='shot'>
+    <input type='button' id='blast' value='blast'><p></p>
 
     发送给：
     <input type='text' id='user_id' placeholder='ALL,GROUP,PERSON,...' />
@@ -180,6 +181,20 @@ $(function(){
         x: 1,
         y: 2,
         level: 1
+      })
+    };
+    socket.send(JSON.stringify(p));
+  });
+
+  $('#blast').click(function(){
+    var p = {
+      version: 102,
+      method: 5003,
+      seqId: Math.random() * 1000,
+      timestamp: new Date().getTime(),
+      data: JSON.stringify({
+        id: new Date().getTime(),
+        fishes: ['1','2']
       })
     };
     socket.send(JSON.stringify(p));

@@ -198,14 +198,14 @@ const biz = require('emag.biz');
 
 (() => {
   const numkeys = 4;
-  const sha1 = '7e72c37c8543eefa1d8041c0de8d58592d55ca16';
+  const sha1 = 'f1eb076eca600554df61a93e3b97c461ddd290f2';
 
   exports.shot = function(server_id, channel_id, shot, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
       10, shot.x, shot.y, shot.level, (err, doc) => {
         if(err) return cb(err);
-        console.log(doc);
+        cb(null, doc);
     });
   };
 })();

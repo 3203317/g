@@ -67,8 +67,8 @@ for i=2, #hash_val, 2 do
   local u, hand = string.match(hash_val[i], '(.*)%::(.*)');
 
   if ('1' == hand) then
-    table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
-    table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
+    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
   end;
 end;
 
