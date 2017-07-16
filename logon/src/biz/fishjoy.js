@@ -86,7 +86,7 @@ const biz = require('emag.biz');
       fishpond = fishpondPool.create(opts);
 
       function scene1(fishpond, callback){
-        var i = 9;
+        var i = 229;
 
         (function schedule(){
 
@@ -116,9 +116,12 @@ const biz = require('emag.biz');
 
               cb(null, s);
 
-              console.log('scene1: %s', fishes.length);
+              console.log('scene1: %s %s', i, fishes.length);
 
-              if(0 === i){
+              console.log(0==i)
+
+              if(0 == i){
+                console.log('123123')
                 cb3(null, doc);
                 fishpond.clear();
                 return scene2(fishpond, callback);
@@ -162,9 +165,9 @@ const biz = require('emag.biz');
 
               cb(null, s);
 
-              console.log('scene2: %s', fishes.length);
+              console.log('scene2: %s %s', i, fishes.length);
 
-              if(65 === i){
+              if((opts.fishFixed[1].length - 1) === i){
                 cb3(null, doc);
                 fishpond.clear();
                 return scene1(fishpond, callback);
