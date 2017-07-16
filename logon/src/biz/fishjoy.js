@@ -215,8 +215,9 @@ const biz = require('emag.biz');
   const numkeys = 2;
   const sha1 = '';
 
-  exports.blast = function(server_id, channel_id, cb){
-    // todo
+  exports.blast = function(server_id, channel_id, blast, cb){
+    console.log(blast)
+    console.log('----')
   };
 })();
 

@@ -295,7 +295,7 @@ process.on('exit', () => {
       for(let i=0, j=arr.length; i<j; i++){
         var s = arr[i];
         result.receiver = arr[++i];
-        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }
 
     });
@@ -321,7 +321,7 @@ process.on('exit', () => {
       for(let i=0, j=arr.length; i<j; i++){
         var s = arr[i];
         result.receiver = arr[++i];
-        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }
 
     });
@@ -401,7 +401,7 @@ process.on('exit', () => {
       for(let i=0, j=arr.length; i<j; i++){
         var s = arr[i];
         result.receiver = arr[++i];
-        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }
 
     });
@@ -427,7 +427,7 @@ process.on('exit', () => {
       for(let i=0, j=arr.length; i<j; i++){
         var s = arr[i];
         result.receiver = arr[++i];
-        client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
       }
 
     });

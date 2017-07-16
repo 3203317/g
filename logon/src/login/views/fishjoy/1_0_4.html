@@ -95,6 +95,8 @@ $(function(){
     socket.send(JSON.stringify(p));
   });
 
+  var back_id;
+
   (function(){
 
     socket = new WebSocket('ws://'+ window.location.hostname +'/s/'+ (location.search.match(/s=([\w\-]+)/) ? RegExp.$1 : '') +'/');
@@ -124,6 +126,16 @@ $(function(){
             (function(){
               // data = data.data;
               console.log(data)
+            })();
+
+            break;
+          }
+          case 5006: {
+
+            (function(){
+              // data = data.data;
+              back_id = data.data;
+              console.log(data.data)
             })();
 
             break;
@@ -187,9 +199,13 @@ $(function(){
   });
 
   $('#blast').click(function(){
+
+    if(!back_id) return;
+
     var p = {
       version: 102,
       method: 5003,
+      backendId: back_id,
       seqId: Math.random() * 1000,
       timestamp: new Date().getTime(),
       data: JSON.stringify({
