@@ -11,14 +11,18 @@ var res = module.exports = {};
 
 var fishponds = {};
 
-var free = [];
+var free = {};
 
 res.create = function(opts){
 
   var s = this.get(opts.id);
-  if(s) return s.init(opts);
+  if(s) return s;
 
-  var b = free.shift();
+  var type = free[opts.type];
+
+  if(!type) type = free[opts.type] = [];
+
+  var b = type.shift();
 
   if(b){
     b.init(opts);
@@ -38,6 +42,6 @@ res.get = function(id){
 res.release = function(id){
   var s = this.get(id);
   if(!s) return;
-  free.push(s);
+  free[s.type].push(s);
   delete fishponds[id];
 };

@@ -104,7 +104,11 @@ const biz = require('emag.biz');
 
               console.log('scene1: %j', doc);
 
-              if(0 === i) return scene2(fishpond, callback);
+              if(0 === i){
+                fishpond.clear();
+                return scene2(fishpond, callback);
+              }
+
               schedule();
             });
 
