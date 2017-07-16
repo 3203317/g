@@ -371,6 +371,24 @@ process.on('exit', () => {
     }
   };
 
+  var _on_5005_fishjoy_ready_cb3 = function(seq_id, err, doc){
+    if(err) return console.error('[ERROR] %s', err);
+
+    var result = {
+      timestamp: new Date().getTime(),
+      method: 5010,
+      seqId: seq_id,
+    };
+
+    var arr = doc;
+
+    for(let i=0, j=arr.length; i<j; i++){
+      let s = arr[i];
+      result.receiver = arr[++i];
+      if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+    }
+  };
+
   var on_5005_fishjoy_ready = function(msg){
     if(!msg.body) return console.error('[ERROR] empty message');
 
@@ -378,7 +396,8 @@ process.on('exit', () => {
 
     biz.fishjoy.ready(data.serverId, data.channelId,
       _on_5005_fishjoy_ready_cb1.bind(null, data.serverId, data.channelId, data.seqId),
-      _on_5005_fishjoy_ready_cb2.bind(null, data.seqId));
+      _on_5005_fishjoy_ready_cb2.bind(null, data.seqId),
+      _on_5005_fishjoy_ready_cb3.bind(null, data.seqId));
   };
 
   var on_5013_fishjoy_switch = function(msg){

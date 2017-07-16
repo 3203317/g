@@ -61,7 +61,7 @@ const biz = require('emag.biz');
 
   Promise.all([p1, p2, p3]).then(values => {
 
-    function init(doc, cb){
+    function init(doc, cb, cb3){
       console.log('[INFO ] fishjoy ready init');
 
       if(!_.isArray(doc)) return;
@@ -119,6 +119,7 @@ const biz = require('emag.biz');
               console.log('scene1: %s', fishes.length);
 
               if(0 === i){
+                cb3(null, doc);
                 fishpond.clear();
                 return scene2(fishpond, callback);
               }
@@ -164,6 +165,7 @@ const biz = require('emag.biz');
               console.log('scene2: %s', fishes.length);
 
               if(65 === i){
+                cb3(null, doc);
                 fishpond.clear();
                 return scene1(fishpond, callback);
               }
@@ -181,12 +183,12 @@ const biz = require('emag.biz');
     const numkeys = 3;
     const sha1 = '70ee764d70d6666f1704a3ba7b6697fa27fbd5b0';
 
-    exports.ready = function(server_id, channel_id, cb1, cb2){
+    exports.ready = function(server_id, channel_id, cb1, cb2, cb3){
 
       redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, conf.app.id, (new Date().getTime()), (err, doc) => {
         if(err) return cb1(err);
         cb1(null, doc);
-        init(doc, cb2);
+        init(doc, cb2, cb3);
       });
     };
 
