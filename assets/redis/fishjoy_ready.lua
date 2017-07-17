@@ -85,9 +85,13 @@ end;
 
 local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
-local capacity = redis.call('HGET', 'prop::group::'.. group_id, 'capacity');
+local group_info = redis.call('HGETALL', 'prop::group::'.. group_id);
+
+-- 
 
 local arr = {};
+
+local user_info = {};
 
 for i=2, #hash_val, 2 do
   local u = string.match(hash_val[i], '(.*)%::(.*)');
@@ -99,6 +103,11 @@ for i=2, #hash_val, 2 do
   if (dsb) then
     table.insert(arr, dsb);
     table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+
+    -- 
+
+    table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'extend_data'));
+    table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'open_time'));
   else
 
     redis.call('SELECT', 1 + db);
@@ -113,7 +122,6 @@ end;
 local result = {};
 
 table.insert(result, arr);
-table.insert(result, group_id ..'::'.. group_type ..'::'.. back_id ..'::'.. capacity);
-table.insert(result, hash_val);
+table.insert(result, [user_info, group_info, hash_val]);
 
 return result;
