@@ -333,7 +333,7 @@ process.on('exit', () => {
     });
   };
 
-  var _on_5005_fishjoy_ready_cb1 = function(server_id, channel_id, seq_id, err, doc){
+  var _on_5005_fishjoy_ready_ready = function(server_id, channel_id, seq_id, err, doc){
     if(err) return console.error('[ERROR] fishjoy ready: %s', err);
 
     switch(doc){
@@ -358,7 +358,7 @@ process.on('exit', () => {
     }
   };
 
-  var _on_5005_fishjoy_ready_cb2 = function(seq_id, err, doc){
+  var _on_5005_fishjoy_ready_refresh = function(seq_id, err, doc){
     if(err) return console.error('[ERROR] %s', err);
 
     var result = {
@@ -377,7 +377,7 @@ process.on('exit', () => {
     }
   };
 
-  var _on_5005_fishjoy_ready_cb3 = function(seq_id, err, doc){
+  var _on_5005_fishjoy_ready_scene = function(seq_id, err, doc){
     if(err) return console.error('[ERROR] %s', err);
 
     var result = {
@@ -401,9 +401,9 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
 
     biz.fishjoy.ready(data.serverId, data.channelId,
-      _on_5005_fishjoy_ready_cb1.bind(null, data.serverId, data.channelId, data.seqId),
-      _on_5005_fishjoy_ready_cb2.bind(null, data.seqId),
-      _on_5005_fishjoy_ready_cb3.bind(null, data.seqId));
+      _on_5005_fishjoy_ready_ready.bind(null, data.serverId, data.channelId, data.seqId),
+      _on_5005_fishjoy_ready_refresh.bind(null, data.seqId),
+      _on_5005_fishjoy_ready_scene.bind(null, data.seqId));
   };
 
   var on_5013_fishjoy_switch = function(msg){
