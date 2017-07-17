@@ -18,6 +18,8 @@ local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
 
 if (false == bullet_consume) then return 'invalid_bullet_level'; end;
 
+-- 
+
 redis.call('SELECT', db);
 
 local user_id = redis.call('GET', server_id ..'::'.. channel_id);
