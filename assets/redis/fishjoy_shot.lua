@@ -20,11 +20,11 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 不在任何群组
 
-local group_pos_id = redis.call('HGET', 'prop::'.. user_id, 'group_pos_id');
-
-if (false == group_pos_id) then return 'invalid_group_pos_id'; end;
-
 local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
+
+if (false == group_id) then return 'invalid_group_id'; end;
+
+local group_pos_id = redis.call('HGET', 'prop::'.. user_id, 'group_pos_id');
 
 -- 
 
@@ -58,7 +58,7 @@ if (0 > x) then return 'invalid_user_score'; end;
 
 redis.call('HSET', 'prop::'.. user_id, 'score', x);
 
--- 获取群组的类型
+-- 
 
 redis.call('SELECT', 1 + db);
 
@@ -82,11 +82,26 @@ for i=2, #group_pos_info, 2 do
   end;
 end;
 
-local result = {};
+local user_info = {};
+
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'extend_data'));
+table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'score'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_1'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_2'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_3'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_4'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_5'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_6'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_7'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_8'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_9'));
+table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'open_time'));
 
 redis.call('SELECT', 1 + db);
 
+local result = {};
+
 table.insert(result, arr);
-table.insert(result, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id));
+table.insert(result, [user_info, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id)]);
 
 return result;
