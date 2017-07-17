@@ -17,7 +17,7 @@ var Method = function(opts){
   self.fishes = [];
   self.fishType = opts.fishType;
   self.fishTrail = opts.fishTrail;
-  self.fishFixed = opts.fishFixed;
+  // self.fishFixed = opts.fishFixed;
   self._fishWeight = 0;
   self.init(opts);
 };
@@ -67,31 +67,31 @@ pro.refresh = function(){
   return self.fishes;
 }
 
-pro.getFixed = function(i){
-  var self = this;
+// pro.getFixed = function(i){
+//   var self = this;
 
-  for(let f of self.fishFixed[1][i]){
+//   for(let f of self.fishFixed[1][i]){
 
-    var k = self.fishFixed[0][f];
+//     var k = self.fishFixed[0][f];
 
-    let t = self.fishType[k[0]];
+//     let t = self.fishType[k[0]];
 
-    var newFish = {
-      id: utils.replaceAll(uuid.v1(), '-', ''),
-      step: 0,
-      type: k[0],
-      path: k[1],
-      probability: t.probability,
-      weight: t.weight,
-      hp: t.hp
-    };
+//     var newFish = {
+//       id: utils.replaceAll(uuid.v1(), '-', ''),
+//       step: 0,
+//       type: k[0],
+//       path: k[1],
+//       probability: t.probability,
+//       weight: t.weight,
+//       hp: t.hp
+//     };
 
-    self._fishWeight += newFish.weight;
-    self.fishes.push(newFish);
-  }
+//     self._fishWeight += newFish.weight;
+//     self.fishes.push(newFish);
+//   }
 
-  return self.fishes;
-}
+//   return self.fishes;
+// }
 
 function getFish(){
   var self = this;
