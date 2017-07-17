@@ -346,7 +346,7 @@ process.on('exit', () => {
     var result = {
       method: 5006,
       seqId: seq_id,
-      data: [doc[1].split('::')[2], doc[2]]
+      data: doc[1]
     };
 
     var arr = doc[0];
