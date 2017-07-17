@@ -73,17 +73,23 @@ redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id, 'group_pos_id', gr
 
 local arr = {};
 
+local user_info = {};
+
 for i=2, #hash_val, 2 do
   local u = string.match(hash_val[i], '(.*)%::(.*)');
 
   table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
   table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+
+  -- 
+
+  table.insert(user_info, redis.call('HGETALL', 'prop::'.. u));
 end;
 
 local result = {};
 
 table.insert(result, arr);
-table.insert(result, hash_val);
+table.insert(result, [user_info, hash_val]);
 
 return result;
 
