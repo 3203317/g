@@ -12,6 +12,12 @@ local bullet_level = ARGV[4];
 
 -- 
 
+redis.call('SELECT', 1 + db);
+
+local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
+
+if (false == bullet_consume) then return 'invalid_bullet_level'; end;
+
 redis.call('SELECT', db);
 
 local user_id = redis.call('GET', server_id ..'::'.. channel_id);
@@ -45,8 +51,6 @@ if (b ~= user_id) then return 'invalid_user_id'; end;
 if (0 == tonumber(hand)) then return 'invalid_raise_hand' end;
 
 -- 
-
-local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
 
 redis.call('SELECT', db);
 
