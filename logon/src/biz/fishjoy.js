@@ -66,15 +66,15 @@ const biz = require('emag.biz');
 
       if(!_.isArray(doc)) return;
 
-      var sb = doc[1].split('::');
+      var group_info = doc[1];
 
       // 如果不在同一台服务器
-      if(conf.app.id !== sb[2]) return;
+      if(conf.app.id !== group_info.back_id) return;
 
       var opts = {
-        id: sb[0],
-        type: sb[1],
-        capacity: sb[3],
+        id: group_info.id,
+        type: group_info.type,
+        capacity: group_info.capacity,
         fishType: values[1].data,
         fishTrail: values[0].data,
         fishFixed: values[2].data[0],
