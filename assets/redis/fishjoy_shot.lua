@@ -26,6 +26,10 @@ local user_id = redis.call('GET', server_id ..'::'.. channel_id);
 
 if (false == user_id) then return 'invalid_user_id'; end;
 
+local max_bullet_level = redis.call('HGET', 'prop::'.. user_id, 'bullet_level');
+
+if (max_bullet_level < bullet_level) return 'invalid_bullet_level'; end;
+
 -- 不在任何群组
 
 local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');

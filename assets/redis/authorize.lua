@@ -43,6 +43,7 @@ redis.call('EXPIRE', _key, seconds);
 redis.call('HMSET', code, 'client_id', client_id, 'user_id', user_id, 'extend_data', extend_data);
 
 redis.call('HSET', code, 'score', score);
+
 redis.call('HSET', code, 'tool_1', tool_1);
 redis.call('HSET', code, 'tool_2', tool_2);
 redis.call('HSET', code, 'tool_3', tool_3);
