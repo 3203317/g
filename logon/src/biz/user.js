@@ -176,11 +176,19 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
     delete doc.user_pass;
 
-    var extend_data = JSON.stringify(doc);
-
     redis.evalsha(sha1, numkeys,
       conf.redis.database, client_id, doc.id, code,
-      seconds, extend_data,
+      seconds, JSON.stringify(doc),
+      doc.score,
+      doc.tool_1,
+      doc.tool_2,
+      doc.tool_3,
+      doc.tool_4,
+      doc.tool_5,
+      doc.tool_6,
+      doc.tool_7,
+      doc.tool_8,
+      doc.tool_9,
       (err, code) => {
         if(err) return cb(err);
         cb(null, code);

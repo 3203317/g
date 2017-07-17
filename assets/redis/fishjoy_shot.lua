@@ -62,7 +62,7 @@ redis.call('HSET', 'prop::'.. user_id, 'score', x);
 
 redis.call('SELECT', 1 + db);
 
-redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id', bullet_id, 'x', bullet_x, 'y', bullet_y, 'level', bullet_level, 'user_id', user_id);
+redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id', bullet_id, 'x', bullet_x, 'y', bullet_y, 'level', bullet_level);
 redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
 
 local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
@@ -84,8 +84,9 @@ end;
 
 local user_info = {};
 
+table.insert(user_info, user_id);
 -- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'extend_data'));
-table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'score'));
+table.insert(user_info, x);
 -- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_1'));
 -- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_2'));
 -- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_3'));
