@@ -26,6 +26,8 @@ local user_id = redis.call('GET', server_id ..'::'.. channel_id);
 
 if (false == user_id) then return 'invalid_user_id'; end;
 
+-- 
+
 local max_bullet_level = redis.call('HGET', 'prop::'.. user_id, 'bullet_level');
 
 if (max_bullet_level < bullet_level) return 'invalid_bullet_level'; end;
@@ -106,7 +108,7 @@ table.insert(user_info, x);
 -- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_7'));
 -- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_8'));
 -- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'tool_9'));
-table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'open_time'));
+-- table.insert(user_info, redis.call('HGET', 'prop::'.. user_id, 'open_time'));
 
 redis.call('SELECT', 1 + db);
 
