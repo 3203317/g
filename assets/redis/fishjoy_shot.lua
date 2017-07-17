@@ -30,7 +30,7 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 local max_bullet_level = redis.call('HGET', 'prop::'.. user_id, 'bullet_level');
 
-if (max_bullet_level < bullet_level) return 'invalid_bullet_level'; end;
+if (tonumber(max_bullet_level) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
 
 -- 不在任何群组
 
@@ -115,6 +115,16 @@ redis.call('SELECT', 1 + db);
 local result = {};
 
 table.insert(result, arr);
-table.insert(result, [user_info, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id)]);
+
+-- 
+
+local xx = {};
+
+table.insert(xx, user_info);
+table.insert(xx, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id));
+
+-- 
+
+table.insert(result, xx);
 
 return result;

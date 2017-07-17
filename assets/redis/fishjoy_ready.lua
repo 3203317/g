@@ -121,7 +121,17 @@ end;
 
 local result = {};
 
+-- 
+
+local xx = {};
+
+table.insert(xx, user_info);
+table.insert(xx, group_info);
+table.insert(xx, group_pos_info);
+
+-- 
+
 table.insert(result, arr);
-table.insert(result, [user_info, group_info, group_pos_info]);
+table.insert(result, xx);
 
 return result;
