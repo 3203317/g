@@ -83,7 +83,8 @@ for i=2, #hash_val, 2 do
 
   -- 
 
-  table.insert(user_info, redis.call('HGETALL', 'prop::'.. u));
+  table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'extend_data'));
+  table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'open_time'));
 end;
 
 local result = {};
