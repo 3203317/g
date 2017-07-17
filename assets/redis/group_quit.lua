@@ -50,17 +50,17 @@ redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. group_pos
 
 -- 
 
-local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
-if (0 == #hash_val) then return 'OK'; end;
+if (0 == #group_pos_info) then return 'OK'; end;
 
 -- 
 
 local arr = {};
 
-for i=2, #hash_val, 2 do
-  -- table.insert(arr, hash_val[i - 1]);
-  local u = string.match(hash_val[i], '(.*)%::(.*)');
+for i=2, #group_pos_info, 2 do
+  -- table.insert(arr, group_pos_info[i - 1]);
+  local u = string.match(group_pos_info[i], '(.*)%::(.*)');
 
   redis.call('SELECT', db);
 
@@ -73,7 +73,7 @@ for i=2, #hash_val, 2 do
 
     redis.call('SELECT', 1 + db);
 
-    local pos = hash_val[i - 1];
+    local pos = group_pos_info[i - 1];
     redis.call('HDEL', 'pos::group::'.. group_type ..'::'.. group_id, pos);
     redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. pos);
   end;
@@ -86,7 +86,7 @@ if (0 == #arr) then return 'OK'; end;
 local result = {};
 
 table.insert(result, arr);
-table.insert(result, hash_val);
+table.insert(result, user_id);
 
 return result;
 

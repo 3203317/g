@@ -71,7 +71,7 @@ redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, 
 
 -- 
 
-local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
 -- 
 
@@ -83,8 +83,8 @@ local arr = {};
 
 local user_info = {};
 
-for i=2, #hash_val, 2 do
-  local u = string.match(hash_val[i], '(.*)%::(.*)');
+for i=2, #group_pos_info, 2 do
+  local u = string.match(group_pos_info[i], '(.*)%::(.*)');
 
   table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
   table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
@@ -98,7 +98,7 @@ end;
 local result = {};
 
 table.insert(result, arr);
-table.insert(result, [user_info, hash_val]);
+table.insert(result, [user_info, group_pos_info]);
 
 return result;
 
