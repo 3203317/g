@@ -20,42 +20,52 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 不在任何群组
 
+local group_pos_id = redis.call('HGET', 'prop::'.. user_id, 'group_pos_id');
+
+if (false == group_pos_id) then return 'invalid_group_pos_id'; end;
+
 local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
 
-if (false == group_id) then return 'invalid_group_id'; end;
-
--- 获取群组的类型
+-- 
 
 redis.call('SELECT', 1 + db);
 
 local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
+local s = redis.call('HGET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id);
+
+if (false == s) then return 'invalid_group_pos_id'; end;
+
+-- 判断是否是本人
+
+local b, hand = string.match(s, '(.*)%::(.*)');
+
+if (b ~= user_id) then return 'invalid_user_id'; end;
+
+if (0 == tonumber(hand)) then return 'invalid_raise_hand' end;
+
 -- 
+
+local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
 
 redis.call('SELECT', db);
 
-local score = redis.call('HGET', 'prop::'.. user_id, 'score');
+local user_score = redis.call('HGET', 'prop::'.. user_id, 'score');
 
--- 
+local x = tonumber(user_score) - tonumber(bullet_consume);
 
-redis.call('SELECT', 1 + db);
+if (0 > x) then return 'invalid_user_score'; end;
 
-redis.call('HMSET', 'prop::bullet::'.. bullet_id, 'id', bullet_id, 'x', bullet_x, 'y', bullet_y, 'level', bullet_level, 'user_id', user_id);
-redis.call('EXPIRE', 'prop::bullet::'.. bullet_id, seconds);
+redis.call('HSET', 'prop::'.. user_id, 'score', x);
 
--- 
-
-local x = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
-
-redis.call('SELECT', db);
-
-redis.call('HSET', 'prop::'.. user_id, 'score', tonumber(score) - tonumber(x));
-
--- 
+-- 获取群组的类型
 
 redis.call('SELECT', 1 + db);
 
-local hash_val = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id', bullet_id, 'x', bullet_x, 'y', bullet_y, 'level', bullet_level, 'user_id', user_id);
+redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
+
+local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
 -- 
 
@@ -63,8 +73,8 @@ redis.call('SELECT', db);
 
 local arr = {};
 
-for i=2, #hash_val, 2 do
-  local u, hand = string.match(hash_val[i], '(.*)%::(.*)');
+for i=2, #group_pos_info, 2 do
+  local u, hand = string.match(group_pos_info[i], '(.*)%::(.*)');
 
   if ('1' == hand) then
     table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
@@ -77,8 +87,6 @@ local result = {};
 redis.call('SELECT', 1 + db);
 
 table.insert(result, arr);
-
-table.insert(result, redis.call('HGETALL', 'prop::bullet::'.. bullet_id));
+table.insert(result, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id));
 
 return result;
-
