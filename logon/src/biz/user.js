@@ -174,10 +174,12 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   exports.authorize = function(doc, cb){
     var code = utils.replaceAll(uuid.v4(), '-', '');
 
-    redis.evalsha(sha1, numkeys,
-      conf.redis.database, client_id, doc.id, code,
-      seconds, doc.score, doc.tool_1, doc.tool_2, doc.tool_3, doc.tool_4,
-      (err, code) => {
+    delete doc.user_pass;
+
+    var extend_data = JSON.stringify(doc);
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, client_id, doc.id, code,
+      seconds, extend_data, (err, code) => {
         if(err) return cb(err);
         cb(null, code);
     });
