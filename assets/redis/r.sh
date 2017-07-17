@@ -8,8 +8,12 @@ echo "token.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 script load "$(cat /root/my/git/3203317/g/assets/redis/token.lua)"
 
 echo ""
-echo "myinfo.lua"
-/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 script load "$(cat /root/my/git/3203317/g/assets/redis/myinfo.lua)"
+echo "my_info.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 script load "$(cat /root/my/git/3203317/g/assets/redis/my_info.lua)"
+
+echo ""
+echo "user_info.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 script load "$(cat /root/my/git/3203317/g/assets/redis/user_info.lua)"
 
 echo ""
 echo "channel_close.lua"
