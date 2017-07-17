@@ -178,8 +178,10 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
     var extend_data = JSON.stringify(doc);
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, client_id, doc.id, code,
-      seconds, extend_data, (err, code) => {
+    redis.evalsha(sha1, numkeys,
+      conf.redis.database, client_id, doc.id, code,
+      seconds, extend_data,
+      (err, code) => {
         if(err) return cb(err);
         cb(null, code);
     });
