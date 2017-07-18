@@ -347,6 +347,19 @@ const uuid = require('node-uuid');
   exports.blast = function(server_id, channel_id, blast, cb){
     console.log(blast)
     console.log('----')
+
+    biz.user.myInfo(server_id, channel_id, function (err, doc){
+      if(err) return cb(err);
+
+      var user = {};
+
+      for(let i=0, j=doc.length; i<j; i++){
+        user[doc[i]] = doc[++i];
+      }
+
+      console.log(user);
+
+    });
   };
 })();
 

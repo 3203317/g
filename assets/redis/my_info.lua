@@ -14,6 +14,6 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 
 
-local result = redis.call('HGET', 'prop::'.. user_id, 'extend_data');
+local result = redis.call('HGETALL', 'prop::'.. user_id);
 
 return result;
