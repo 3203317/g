@@ -348,7 +348,9 @@ const uuid = require('node-uuid');
     console.log(blast)
     console.log('----')
 
-    biz.user.bullet(server_id, channel_id, function (err, doc){
+    var self = this;
+
+    self.bullet(server_id, channel_id, blast.id, function (err, doc){
       if(err) return cb(err);
 
       if(!_.isArray(doc)) return cb(null, doc);
@@ -367,8 +369,14 @@ const uuid = require('node-uuid');
       // 判断当前鱼池是否存在
       if(!fishpond) return;
 
-      console.log(fishpond);
-      console.log(b);
+      var bullet = {};
+
+      for(let i=0, j=b.length; i<j; i++){
+        bullet[b[i]] = b[++i];
+      }
+
+      console.log(user);
+      console.log(bullet);
 
     });
   };
@@ -394,7 +402,7 @@ const uuid = require('node-uuid');
 
 (() => {
   const numkeys = 4;
-  const sha1 = '';
+  const sha1 = 'f0a5eea16f9410ac90c223666f109544887f889d';
 
   /**
    *
