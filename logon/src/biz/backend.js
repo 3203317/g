@@ -20,7 +20,7 @@ const redis = require('emag.db').redis;
 
 (() => {
   const numkeys = 2;
-  const sha1 = '95e2ea527b9b471c4c738f53e41a02187fb7b68b';
+  const sha1 = '5e360796e9e10f02db4e018d9c77f756c7f580fd';
 
   /**
    *
