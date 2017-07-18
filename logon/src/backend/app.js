@@ -147,7 +147,7 @@ process.on('exit', () => {
 
     biz.user.myInfo(s[0], s[1], function (err, doc){
       if(err) return console.error('[ERROR] channel open: %s', err);
-      b.data = doc;
+      b.data = JSON.parse(doc);
       client.send('/queue/back.send.v2.'+ s[0], { priority: 9 }, JSON.stringify(b));
     });
 

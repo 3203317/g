@@ -271,14 +271,13 @@ const uuid = require('node-uuid');
 
             i++;
 
-            var _fishes = [];
-
-            for(let m of fishes){
-              let f = fishpond.put(m, true);
-              if(f) _fishes.push(f);
+            for(let m in fishes){
+              let n = fishes[m];
+              let f = fishpond.put(n, true);
+              if(!f) fishes.splice(m, 1);
             }
 
-            if(0 === _fishes.length) return schedule();
+            if(0 === fishes.length) return schedule();
 
             biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
@@ -294,9 +293,9 @@ const uuid = require('node-uuid');
                 return fishpondPool.release(fishpond.id);
               }
 
-              refresh(null, [doc, _fishes]);
+              refresh(null, [doc, fishes]);
 
-              console.info('[INFO ] scene2: %s::%j', i, _fishes);
+              console.info('[INFO ] scene2: %s::%j', i, fishes);
 
               schedule();
             });
