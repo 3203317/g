@@ -15,9 +15,6 @@ module.exports = function(opts){
 var Method = function(opts){
   var self = this;
   self._fishes = {};
-  // self.fishType = opts.fishType;
-  // self.fishTrail = opts.fishTrail;
-  // self.fishFixed = opts.fishFixed;
   self._fishWeight = 0;
   self.init(opts);
 };
@@ -79,19 +76,6 @@ pro.refresh = function(){
   var self = this;
 
   for(let i in self._fishes){
-
-    // let f = self._fishes[i];
-
-    // if((self.fishTrail[f.path].length - 1) === f.step){
-    //   if(self.fishType[f.type].loop){
-    //     f.step = 0;
-    //   }else{
-    //     self._fishWeight -= f.weight;
-    //     self._fishes.splice(i, 1);
-    //   }
-    // }else{
-    //   f.step++;
-    // }
 
     let fish = self._fishes[i];
 

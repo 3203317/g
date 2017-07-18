@@ -63,6 +63,41 @@ const uuid = require('node-uuid');
 
   Promise.all([p1, p2, p3]).then(values => {
 
+    var fishTrail = values[0].data;
+    var fishType  = values[1].data;
+    var fishFixed = values[2].data;
+
+    /**
+     * 生成一条新鱼
+     */
+    function createFish1(){
+
+      var newFish = {
+        id: utils.replaceAll(uuid.v1(), '-', ''),
+        step: 0
+      };
+
+      var r = Math.random();
+
+      for(let i in fishType){
+
+        let t = fishType[i];
+
+        if(r >= t.probability){
+          newFish.type        = i - 0;
+          newFish.path        = Math.round((fishTrail.length - 1) * Math.random());
+          newFish.probability = t.probability;
+          newFish.weight      = t.weight;
+          newFish.hp          = t.hp;
+          newFish.loop        = t.loop;
+          newFish.trailLen    = fishTrail[newFish.path].length;
+          break;
+        }
+      }
+
+      return newFish;
+    }
+
     function init(doc, refresh, scene){
       console.log('[INFO ] fishjoy ready init');
 
@@ -94,42 +129,7 @@ const uuid = require('node-uuid');
       // 如果不在同一台服务器
       if(conf.app.id !== group_info.back_id) return;
 
-      var fishTrail = values[0].data;
-      var fishType  = values[1].data;
-      var fishFixed = values[2].data;
-
       fishpond = fishpondPool.create(group_info);
-
-      /**
-       * 生成一条新鱼
-       */
-      function createFish1(){
-
-        var newFish = {
-          id: utils.replaceAll(uuid.v1(), '-', ''),
-          step: 0
-        };
-
-        var r = Math.random();
-
-        for(let i in fishType){
-
-          let t = fishType[i];
-
-          if(r >= t.probability){
-            newFish.type        = i - 0;
-            newFish.path        = Math.round((fishTrail.length - 1) * Math.random());
-            newFish.probability = t.probability;
-            newFish.weight      = t.weight;
-            newFish.hp          = t.hp;
-            newFish.loop        = t.loop;
-            newFish.trailLen    = fishTrail[newFish.path].length;
-            break;
-          }
-        }
-
-        return newFish;
-      }
 
       function scene1(){
         var i = group_info.free_swim_time;
