@@ -97,6 +97,8 @@ pro.refresh = function(){
   return self._fishes;
 }
 
+pro.blast = function(){};
+
 // pro.getFixed = function(i){
 //   var self = this;
 

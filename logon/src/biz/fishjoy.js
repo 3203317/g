@@ -348,13 +348,18 @@ const uuid = require('node-uuid');
     console.log(blast)
     console.log('----')
 
-    biz.user.myInfo(server_id, channel_id, function (err, doc){
+    biz.user.bullet(server_id, channel_id, function (err, doc){
       if(err) return cb(err);
+
+      if(!_.isArray(doc)) return cb(null, doc);
+
+      var s = doc[0];
+      var b = doc[1];
 
       var user = {};
 
-      for(let i=0, j=doc.length; i<j; i++){
-        user[doc[i]] = doc[++i];
+      for(let i=0, j=s.length; i<j; i++){
+        user[s[i]] = s[++i];
       }
 
       var fishpond = fishpondPool.get(user.group_id);
@@ -363,6 +368,7 @@ const uuid = require('node-uuid');
       if(!fishpond) return;
 
       console.log(fishpond);
+      console.log(b);
 
     });
   };
@@ -383,5 +389,23 @@ const uuid = require('node-uuid');
 
   exports.tool = function(server_id, channel_id, cb){
     // todo
+  };
+})();
+
+(() => {
+  const numkeys = 4;
+  const sha1 = '';
+
+  /**
+   *
+   * fishjoy_bullet.lua
+   *
+   * @return
+   */
+  exports.bullet = function(server_id, channel_id, bullet_id, cb){
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, bullet_id, (err, doc) => {
+        if(err) return cb(err);
+        cb(null, doc);
+    });
   };
 })();

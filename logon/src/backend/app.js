@@ -323,6 +323,13 @@ process.on('exit', () => {
     biz.fishjoy.blast(data.serverId, data.channelId, blast, function (err, doc){
       if(err) return console.error('[ERROR] %s', err);
 
+      switch(doc){
+        case 'invalid_user_id':
+          return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
+        case 'invalid_bullet_id':
+          return;
+      }
+
       var result = {
         method: 5004,
         seqId: data.seqId,
