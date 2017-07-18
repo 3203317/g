@@ -27,8 +27,8 @@ var pro = Method.prototype;
 pro.init = function(opts){
   var self = this;
   self.id = opts.id;
-  self.capacity = opts.capacity;
-  self.type = opts.type;
+  self.capacity = opts.capacity - 0;
+  self.type = opts.type - 0;
   return self;
 };
 
@@ -39,6 +39,11 @@ pro.clear = function(){
   for(let i in self._fishes){
     delete self._fishes[i];
   }
+};
+
+pro.clearFish = function(fish){
+  delete this._fishes[fish.id];
+  this._fishWeight -= fish.weight;
 };
 
 pro.getFishWeight = function(){
@@ -56,37 +61,53 @@ pro.getFishes = function(){
  * @return
  */
 pro.put = function(fish){
-  if(!self._fishes[fish.id]) return;
+  var self = this;
+  if(self._fishWeight >= self.capacity) return;
+  if(self._fishes[fish.id]) return;
   self._fishes[fish.id] = fish;
   self._fishWeight += fish.weight;
   return fish;
 };
 
-// pro.refresh = function(){
-//   var self = this;
+/**
+ * 让所有鱼游动
+ *
+ * @params
+ * @return
+ */
+pro.refresh = function(){
+  var self = this;
 
-//   var s = getFish.call(self);
+  for(let i in self._fishes){
 
-//   if(s) self._fishes.push(s);
+    // let f = self._fishes[i];
 
-//   for(let i in self._fishes){
+    // if((self.fishTrail[f.path].length - 1) === f.step){
+    //   if(self.fishType[f.type].loop){
+    //     f.step = 0;
+    //   }else{
+    //     self._fishWeight -= f.weight;
+    //     self._fishes.splice(i, 1);
+    //   }
+    // }else{
+    //   f.step++;
+    // }
 
-//     let f = self._fishes[i];
+    let fish = self._fishes[i];
 
-//     if((self.fishTrail[f.path].length - 1) === f.step){
-//       if(self.fishType[f.type].loop){
-//         f.step = 0;
-//       }else{
-//         self._fishWeight -= f.weight;
-//         self._fishes.splice(i, 1);
-//       }
-//     }else{
-//       f.step++;
-//     }
-//   }
+    if(fish.trailLen === fish.step){
+      if(fish.loop){
+        fish.step = 0;
+      }else{
+        self.clearFish(fish);
+      }
+    }else{
+      fish.step++;
+    }
+  }
 
-//   return self._fishes;
-// }
+  return self._fishes;
+}
 
 // pro.getFixed = function(i){
 //   var self = this;

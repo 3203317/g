@@ -25,6 +25,8 @@ const fishpondPool = require('emag.model').fishpondPool;
 
 const biz = require('emag.biz');
 
+const uuid = require('node-uuid');
+
 (() => {
   var p1 = new Promise((resolve, reject) => {
     ajax(http.request, {
@@ -92,25 +94,42 @@ const biz = require('emag.biz');
       // 如果不在同一台服务器
       if(conf.app.id !== group_info.back_id) return;
 
-      // 
-
-      // var opts = {
-      //   id: group_info.id,
-      //   type: group_info.type,
-      //   capacity: group_info.capacity,
-      //   // fishTrail: values[0].data,
-      //   // fishType: values[1].data,
-      //   // fishFixed: values[2].data[0],
-      // };
-
-      // group_info.fishTrail = values[0].data;
-      // group_info.fishType  = values[1].data;
-
       var fishTrail = values[0].data;
       var fishType  = values[1].data;
       var fishFixed = values[2].data;
 
       fishpond = fishpondPool.create(group_info);
+
+      /**
+       * 生成一条新鱼
+       */
+      function createFish1(){
+
+        var newFish = {
+          id: utils.replaceAll(uuid.v1(), '-', ''),
+          step: 0
+        };
+
+        var r = Math.random();
+
+        for(let i in fishType){
+
+          let t = fishType[i];
+
+          if(r >= t.probability){
+            newFish.type        = i - 0;
+            newFish.path        = Math.round((fishTrail.length - 1) * Math.random());
+            newFish.probability = t.probability;
+            newFish.weight      = t.weight;
+            newFish.hp          = t.hp;
+            newFish.loop        = t.loop;
+            newFish.trailLen    = fishTrail[newFish.path].length;
+            break;
+          }
+        }
+
+        return newFish;
+      }
 
       function scene1(){
         var i = group_info.free_swim_time;
@@ -119,11 +138,10 @@ const biz = require('emag.biz');
 
           var timeout = setTimeout(function(){
             clearTimeout(timeout);
-            i--;
 
             biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
-                console.error('[ERROR] %s', err);
+                console.error('[ERROR] group readyUsers: %s', err);
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -135,21 +153,25 @@ const biz = require('emag.biz');
                 return fishpondPool.release(fishpond.id);
               }
 
-              var sb = [];
-              sb.push(doc);
-
-              var fishes = fishpond.refresh();
-              sb.push(fishes);
-
-              refresh(null, sb);
-
-              console.info('[INFO ] scene1: %s::%s', i, fishes.length);
-
               if(0 === i){
                 scene(null, doc);
                 fishpond.clear();
                 return scene1();
               }
+
+              i--;
+
+              fishpond.refresh();
+
+              var fish = createFish1();
+
+              fish = fishpond.put(fish);
+
+              if(!fish) return schedule();
+
+              refresh(null, [doc, fish]);
+
+              console.info('[INFO ] scene1: %s::%j', i, fish);
 
               schedule();
             });
@@ -204,7 +226,7 @@ const biz = require('emag.biz');
       //   }());
       // }
 
-      scene1(fishpond, biz.group.readyUsers.bind(null, group_info.id));
+      scene1();
     }
 
     const numkeys = 3;
