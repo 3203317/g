@@ -274,7 +274,7 @@ const uuid = require('node-uuid');
             var _fishes = [];
 
             for(let m of fishes){
-              let f = fishpond.put(m);
+              let f = fishpond.put(m, true);
               if(f) _fishes.push(f);
             }
 

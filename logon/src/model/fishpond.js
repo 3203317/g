@@ -57,9 +57,13 @@ pro.getFishes = function(){
  * @params
  * @return
  */
-pro.put = function(fish){
+pro.put = function(fish, force){
   var self = this;
-  if(self._fishWeight >= self.capacity) return;
+
+  if(!force){
+    if(self._fishWeight >= self.capacity) return;
+  }
+
   if(self._fishes[fish.id]) return;
   self._fishes[fish.id] = fish;
   self._fishWeight += fish.weight;
