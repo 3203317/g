@@ -215,7 +215,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'e33f119c75d4f931c8f98fe68b9b9ad5b1a73714';
+  const sha1 = 'f06832582a7fd8913d81dbd5a389bb245ef970b3';
 
   /**
    *
