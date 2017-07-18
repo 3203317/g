@@ -98,6 +98,36 @@ const uuid = require('node-uuid');
       return newFish;
     }
 
+    function createFish2(fixed, i){
+
+      var fishes = [];
+
+      for(let f of fishFixed[fixed][1][i]){
+
+        var k = fishFixed[fixed][0][f];
+
+        if(!k) continue;
+
+        let t = fishType[k[0]];
+
+        var newFish = {
+          id:          utils.replaceAll(uuid.v1(), '-', ''),
+          step:        0,
+          type:        k[0],
+          path:        k[1],
+          probability: t.probability,
+          weight:      t.weight,
+          hp:          t.hp,
+          loop:        t.loop,
+          trailLen:    fishTrail[k[1]].length,
+        };
+
+        fishes.push(newFish);
+      }
+
+      return fishes;
+    };
+
     function init(doc, refresh, scene){
       console.log('[INFO ] fishjoy ready init');
 
@@ -156,7 +186,7 @@ const uuid = require('node-uuid');
               if(0 === i){
                 scene(null, doc);
                 fishpond.clear();
-                return scene1();
+                return scene2();
               }
 
               i--;
@@ -180,53 +210,63 @@ const uuid = require('node-uuid');
         }());
       }
 
-      // function scene2(fishpond, callback){
-      //   var i = 0;
+      function scene2(){
+        var fixed = Math.round((fishFixed.length - 1) * Math.random());
+        var i     = 0;
+        var j     = fishFixed[fixed][1].length - 1;
 
-      //   (function schedule(){
+        (function schedule(){
 
-      //     var timeout = setTimeout(function(){
-      //       clearTimeout(timeout);
-      //       i++;
+          var timeout = setTimeout(function(){
+            clearTimeout(timeout);
 
-      //       callback((err, doc) => {
-      //         if(err){
-      //           fishpondPool.release(fishpond.id);
-      //           return refresh(err);
-      //         }
+            biz.group.readyUsers(group_info.id, function (err, doc){
+              if(err){
+                console.error('[ERROR] group readyUsers: %s', err);
+                return fishpondPool.release(fishpond.id);
+              }
 
-      //         if('invalid_group_id' === doc){
-      //           return fishpondPool.release(fishpond.id);
-      //         }
+              if('invalid_group_id' === doc){
+                return fishpondPool.release(fishpond.id);
+              }
 
-      //         if(0 === doc.length){
-      //           return fishpondPool.release(fishpond.id);
-      //         }
+              if(0 === doc.length){
+                return fishpondPool.release(fishpond.id);
+              }
 
-      //         var s = [];
-      //         var fishes = fishpond.getFixed(i);
+              if(j === i){
+                scene(null, doc);
+                fishpond.clear();
+                return scene1();
+              }
 
-      //         s.push(doc)
-      //         s.push(fishes);
+              fishpond.refresh();
 
-      //         refresh(null, s);
+              var fishes = createFish2(fixed, i);
 
-      //         console.log('scene2: %s %s', i, fishes.length);
+              var _fishes = [];
 
-      //         if((opts.fishFixed[1].length - 1) === i){
-      //           scene(null, doc);
-      //           fishpond.clear();
-      //           return scene1(fishpond, callback);
-      //         }
+              for(let i of fishes){
+                let f = fishpond.put(i);
+                if(f) _fishes.push(f);
+              }
 
-      //         schedule();
-      //       });
+              i++;
 
-      //     }, 300);
-      //   }());
-      // }
+              if(0 === _fishes.length) return schedule();
 
-      scene1();
+              refresh(null, [doc, _fishes]);
+
+              console.info('[INFO ] scene2: %s::%j', i, _fishes);
+
+              schedule();
+            });
+
+          }, 300);
+        }());
+      };
+
+      scene2();
     }
 
     const numkeys = 3;
