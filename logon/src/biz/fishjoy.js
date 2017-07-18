@@ -74,12 +74,23 @@ const biz = require('emag.biz');
         group_info[s[i]] = s[++i];
       }
 
+      var fishpond = fishpondPool.get(group_info.id);
+
+      // 判断当前鱼池是否已经创建
+      if(fishpond){
+        return biz.group.readyUsers(group_info.id, function (err, doc){
+          if(err){
+            console.error('[ERROR] %s', err);
+            return fishpondPool.release(fishpond.id);
+          }
+
+          // 获取所有鱼并发送给举手的人
+          refresh(null, [doc, fishpond.getFishes()]);
+        });
+      }
+
       // 如果不在同一台服务器
       if(conf.app.id !== group_info.back_id) return;
-
-      // 判断当前服务器是否已经创建
-      var fishpond = fishpondPool.get(group_info.id);
-      if(fishpond) return;
 
       // 
 
@@ -92,8 +103,12 @@ const biz = require('emag.biz');
       //   // fishFixed: values[2].data[0],
       // };
 
-      group_info.fishTrail = values[0].data;
-      group_info.fishType  = values[1].data;
+      // group_info.fishTrail = values[0].data;
+      // group_info.fishType  = values[1].data;
+
+      var fishTrail = values[0].data;
+      var fishType  = values[1].data;
+      var fishFixed = values[2].data;
 
       fishpond = fishpondPool.create(group_info);
 

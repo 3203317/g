@@ -14,9 +14,9 @@ module.exports = function(opts){
 
 var Method = function(opts){
   var self = this;
-  self.fishes = [];
-  self.fishType = opts.fishType;
-  self.fishTrail = opts.fishTrail;
+  self._fishes = {};
+  // self.fishType = opts.fishType;
+  // self.fishTrail = opts.fishTrail;
   // self.fishFixed = opts.fishFixed;
   self._fishWeight = 0;
   self.init(opts);
@@ -33,39 +33,60 @@ pro.init = function(opts){
 };
 
 pro.clear = function(){
-  this._fishWeight = 0;
-  this.fishes.splice(0, this.fishes.length);
+  var self = this;
+  self._fishWeight = 0;
+  // self._fishes.splice(0, self._fishes.length);
+  for(let i in self._fishes){
+    delete self._fishes[i];
+  }
 };
 
 pro.getFishWeight = function(){
   return this._fishWeight;
 };
 
-pro.refresh = function(){
-  var self = this;
+pro.getFishes = function(){
+  return this._fishes;
+};
 
-  var s = getFish.call(self);
+/**
+ * 放入一条鱼
+ *
+ * @params
+ * @return
+ */
+pro.put = function(fish){
+  if(!self._fishes[fish.id]) return;
+  self._fishes[fish.id] = fish;
+  self._fishWeight += fish.weight;
+  return fish;
+};
 
-  if(s) self.fishes.push(s);
+// pro.refresh = function(){
+//   var self = this;
 
-  for(let i in self.fishes){
+//   var s = getFish.call(self);
 
-    let f = self.fishes[i];
+//   if(s) self._fishes.push(s);
 
-    if((self.fishTrail[f.path].length - 1) === f.step){
-      if(self.fishType[f.type].loop){
-        f.step = 0;
-      }else{
-        self._fishWeight -= f.weight;
-        self.fishes.splice(i, 1);
-      }
-    }else{
-      f.step++;
-    }
-  }
+//   for(let i in self._fishes){
 
-  return self.fishes;
-}
+//     let f = self._fishes[i];
+
+//     if((self.fishTrail[f.path].length - 1) === f.step){
+//       if(self.fishType[f.type].loop){
+//         f.step = 0;
+//       }else{
+//         self._fishWeight -= f.weight;
+//         self._fishes.splice(i, 1);
+//       }
+//     }else{
+//       f.step++;
+//     }
+//   }
+
+//   return self._fishes;
+// }
 
 // pro.getFixed = function(i){
 //   var self = this;
@@ -87,41 +108,41 @@ pro.refresh = function(){
 //     };
 
 //     self._fishWeight += newFish.weight;
-//     self.fishes.push(newFish);
+//     self._fishes.push(newFish);
 //   }
 
-//   return self.fishes;
+//   return self._fishes;
 // }
 
-function getFish(){
-  var self = this;
+// function getFish(){
+//   var self = this;
 
-  if(self._fishWeight >= self.capacity) return;
+//   if(self._fishWeight >= self.capacity) return;
 
-  var newFish = {
-    id: utils.replaceAll(uuid.v1(), '-', ''),
-    step: 0
-  };
+//   var newFish = {
+//     id: utils.replaceAll(uuid.v1(), '-', ''),
+//     step: 0
+//   };
 
-  var r = Math.random();
+//   var r = Math.random();
 
-  for(let i in self.fishType){
+//   for(let i in self.fishType){
 
-    let t = self.fishType[i];
+//     let t = self.fishType[i];
 
-    if(r >= t.probability){
-      newFish.type = i - 0;
-      newFish.path = Math.round((self.fishTrail.length - 1) * Math.random());
-      newFish.probability = t.probability;
-      newFish.weight = t.weight;
-      newFish.hp = t.hp;
-      self._fishWeight += t.weight;
-      break;
-    }
-  }
+//     if(r >= t.probability){
+//       newFish.type = i - 0;
+//       newFish.path = Math.round((self.fishTrail.length - 1) * Math.random());
+//       newFish.probability = t.probability;
+//       newFish.weight = t.weight;
+//       newFish.hp = t.hp;
+//       self._fishWeight += t.weight;
+//       break;
+//     }
+//   }
 
-  return newFish;
-}
+//   return newFish;
+// }
 
 
 // HitFish:function(msg){
@@ -129,7 +150,7 @@ function getFish(){
 //     //取得子弹id对应的子弹信息
 //     var bullet = GetBullet(msg.id);
     
-//     for(let f of msg.fishes){
+//     for(let f of msg._fishes){
          
 //         //取得鱼id对应的鱼配置
 //         var fish = GetFish(f);
