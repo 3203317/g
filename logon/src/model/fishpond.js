@@ -97,7 +97,55 @@ pro.refresh = function(){
   return self._fishes;
 }
 
-pro.blast = function(){};
+pro.blast = function(bullet, fishes, fishTrail){
+
+
+  console.log('====')
+  // console.log(fishTrail)
+
+  var self = this;
+
+  var ppp = [];
+
+  for(let f of fishes){
+
+    // console.log(f)
+
+    var fish = self._fishes[f];
+
+    var trail = fishTrail[fish.path];
+
+    var s = trail[fish.step];
+
+    var d = distance(s[0], s[1], bullet.x, bullet.y);
+
+    console.log('+++++')
+    console.log(d)
+
+
+    if(d < (0.4)){
+      if((fish.hp-=10) <= 0){
+        var r = Math.random();
+
+        if(r < 0.2){
+
+          self.clearFish(fish.id);
+
+          ppp.push({
+            fish_id: fish.id,
+            tools: [{
+              type: 1,
+              num: 10
+            }]
+          });
+        }
+
+      }
+    }
+  }
+
+  return ppp;
+};
 
 // pro.getFixed = function(i){
 //   var self = this;
@@ -197,9 +245,12 @@ pro.blast = function(){};
 // }
 
 
-// //计算两点间距离
-// function distance(x1, y1, x2, y2){
-//   var xdiff = x2 - x1;
-//   var ydiff = y2 - y1;
-//   retrun Math.abs(Math.pow((xdiff * xdiff + ydiff * ydiff), 0.5));
-// }
+//计算两点间距离
+function distance(x1, y1, x2, y2){
+
+  console.log(arguments)
+  console.log('===---')
+  var xdiff = x2 - x1;
+  var ydiff = y2 - y1;
+  return Math.abs(Math.pow((xdiff * xdiff + ydiff * ydiff), 0.5));
+}

@@ -208,10 +208,11 @@ $(function(){
       backendId: '112aba1ad4424e7891037028ef024645',
       seqId: Math.random() * 1000,
       timestamp: new Date().getTime(),
-      data: JSON.stringify({
+      data: JSON.stringify([{
         id: new Date().getTime(),
-        fishes: ['1','2']
-      })
+        x: 1,
+        y: 2,
+      }, ['1','2']])
     };
     socket.send(JSON.stringify(p));
   });

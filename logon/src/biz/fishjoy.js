@@ -224,7 +224,7 @@ const uuid = require('node-uuid');
 
               refresh(null, [doc, [fish]]);
 
-              console.info('[INFO ] scene1: %s::%j', i, fish);
+              // console.info('[INFO ] scene1: %s::%j', i, fish);
 
               schedule();
             });
@@ -295,7 +295,7 @@ const uuid = require('node-uuid');
 
               refresh(null, [doc, fishes]);
 
-              console.info('[INFO ] scene2: %s::%j', i, fishes);
+              // console.info('[INFO ] scene2: %s::%j', i, fishes);
 
               schedule();
             });
@@ -344,42 +344,105 @@ const uuid = require('node-uuid');
   const numkeys = 2;
   const sha1 = '';
 
-  exports.blast = function(server_id, channel_id, blast, cb){
-    console.log(blast)
-    console.log('----')
+  var p1 = new Promise((resolve, reject) => {
+    ajax(http.request, {
+      host: conf.app.resHost,
+      port: 80,
+      path: '/assets/fish.trail.json',
+      method: 'GET',
+    }, null, null).then(html => {
+      resolve(JSON.parse(html));
+    }).catch(reject);
+  });
 
-    var self = this;
+  // var p2 = new Promise((resolve, reject) => {
+  //   ajax(http.request, {
+  //     host: conf.app.resHost,
+  //     port: 80,
+  //     path: '/assets/fish.type.json',
+  //     method: 'GET',
+  //   }, null, null).then(html => {
+  //     resolve(JSON.parse(html));
+  //   }).catch(reject);
+  // });
 
-    self.bullet(server_id, channel_id, blast.id, function (err, doc){
-      if(err) return cb(err);
+  // var p3 = new Promise((resolve, reject) => {
+  //   ajax(http.request, {
+  //     host: conf.app.resHost,
+  //     port: 80,
+  //     path: '/assets/fish.fixed.json',
+  //     method: 'GET',
+  //   }, null, null).then(html => {
+  //     resolve(JSON.parse(html));
+  //   }).catch(reject);
+  // });
 
-      if(!_.isArray(doc)) return cb(null, doc);
+  Promise.all([p1]).then(values => {
 
-      var s = doc[0];
-      var b = doc[1];
+    var fishTrail = values[0].data;
+    // var fishType  = values[1].data;
+    // var fishFixed = values[2].data;
 
-      var user = {};
+    exports.blast = function(server_id, channel_id, blast, cb){
+      var bb     = blast[0];
+      var fishes = blast[1];
 
-      for(let i=0, j=s.length; i<j; i++){
-        user[s[i]] = s[++i];
-      }
+      var self = this;
 
-      var fishpond = fishpondPool.get(user.group_id);
+      self.bullet(server_id, channel_id, bb.id, function (err, doc){
+        if(err) return cb(err);
 
-      // 判断当前鱼池是否存在
-      if(!fishpond) return;
+        if(!_.isArray(doc)) return cb(null, doc);
 
-      var bullet = {};
+        var s = doc[0];
+        var b = doc[1];
 
-      for(let i=0, j=b.length; i<j; i++){
-        bullet[b[i]] = b[++i];
-      }
+        var user = {};
 
-      console.log(user);
-      console.log(bullet);
+        for(let i=0, j=s.length; i<j; i++){
+          user[s[i]] = s[++i];
+        }
 
-    });
-  };
+        var fishpond = fishpondPool.get(user.group_id);
+
+        // 判断当前鱼池是否存在
+        if(!fishpond) return;
+
+        var bullet = {};
+
+        for(let i=0, j=b.length; i<j; i++){
+          bullet[b[i]] = b[++i];
+        }
+
+        bullet.x = bb.x;
+        bullet.y = bb.y;
+
+        // console.log(user);
+        // console.log(bullet);
+
+        var result = fishpond.blast(bullet, fishes, fishTrail);
+
+        console.log('-----')
+        console.log(result);
+
+        if(result.length===0) return;
+
+
+        var ssss = JSON.parse(user.extend_data);
+        result.push(ssss.id);
+
+
+        biz.group.readyUsers(user.group_id, function (err, doc){
+          if(err) return cb(err);
+
+          cb(null, [doc, result]);
+
+        });
+
+      });
+    };
+
+  });
 })();
 
 (() => {

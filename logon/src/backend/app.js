@@ -297,6 +297,17 @@ process.on('exit', () => {
     biz.fishjoy.shot(data.serverId, data.channelId, shot, function (err, doc){
       if(err) return console.error('[ERROR] %s', err);
 
+      switch(doc){
+        case 'invalid_user_id':
+          client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+        case 'invalid_bullet_level':
+        case 'invalid_group_id':
+        case 'invalid_group_pos_id':
+        case 'invalid_raise_hand':
+        case 'invalid_user_score':
+          return;
+      }
+
       var result = {
         method: 5002,
         seqId: data.seqId,
