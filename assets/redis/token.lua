@@ -42,7 +42,8 @@ end;
 local sb = redis.call('HGET', 'prop::'.. user_id, 'group_id');
 
 if (sb) then
-  redis.call('HMSET', code, 'group_id', sb, 'group_pos_id', redis.call('HGET', 'prop::'.. user_id, 'group_pos_id'));
+  redis.call('HMSET', code, 'group_id', sb,
+                            'group_pos_id', redis.call('HGET', 'prop::'.. user_id, 'group_pos_id'));
 end;
 
 -- 
@@ -52,7 +53,9 @@ redis.call('RENAME', code, 'prop::'.. user_id);
 -- 
 
 redis.call('HDEL', 'prop::'.. user_id, 'user_id');
-redis.call('HMSET', 'prop::'.. user_id, 'server_id', server_id, 'channel_id', channel_id, 'open_time', open_time);
+redis.call('HMSET', 'prop::'.. user_id, 'server_id', server_id,
+                                        'channel_id', channel_id,
+                                        'open_time', open_time);
 redis.call('EXPIRE', 'prop::'.. user_id, seconds);
 
 redis.call('SET', server_id ..'::'.. channel_id, user_id);

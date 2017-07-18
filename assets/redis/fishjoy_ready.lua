@@ -55,7 +55,8 @@ local sb = redis.call('HGET', 'prop::group::'.. group_id, 'back_id');
 
 if (false == sb) then
 
-  redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id, 'open_time', open_time);
+  redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id,
+                                                  'open_time', open_time);
 else
 
   -- 后置服务器的启动时间
@@ -64,7 +65,8 @@ else
 
   if (false == x) then
 
-    redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id, 'open_time', open_time);
+    redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id,
+                                                    'open_time', open_time);
   else
 
     local y = redis.call('HGET', 'prop::group::'.. group_id, 'open_time');
@@ -74,7 +76,8 @@ else
       back_id = sb;
     else
 
-      redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id, 'open_time', open_time);
+      redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id,
+                                                      'open_time', open_time);
     end;
 
   end;

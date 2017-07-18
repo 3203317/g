@@ -9,7 +9,7 @@ local open_time = ARGV[1];
 
 redis.call('SELECT', 1 + db);
 
-redis.call('HMSET', 'prop::back::'.. back_id, 'open_time', open_time);
+redis.call('HSET', 'prop::back::'.. back_id, 'open_time', open_time);
 
 -- 
 

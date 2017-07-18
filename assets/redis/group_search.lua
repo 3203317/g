@@ -45,14 +45,13 @@ if (false == idle_group) then
   local capacity       = redis.call('HGET', 'prop::groupType::'.. group_type, 'capacity');
   local free_swim_time = redis.call('HGET', 'prop::groupType::'.. group_type, 'free_swim_time');
 
-  redis.call('HSET', 'prop::group::'.. group_uuid, 'id', group_uuid);
-  redis.call('HSET', 'prop::group::'.. group_uuid, 'type', group_type);
-
-  redis.call('HSET', 'prop::group::'.. group_uuid, 'total_players', total_players);
-  redis.call('HSET', 'prop::group::'.. group_uuid, 'total_visitors', total_visitors);
-  redis.call('HSET', 'prop::group::'.. group_uuid, 'min_run', min_run);
-  redis.call('HSET', 'prop::group::'.. group_uuid, 'capacity', capacity);
-  redis.call('HSET', 'prop::group::'.. group_uuid, 'free_swim_time', free_swim_time);
+  redis.call('HMSET', 'prop::group::'.. group_uuid, 'id', group_uuid,
+                                                    'type', group_type,
+                                                    'total_players', total_players,
+                                                    'total_visitors', total_visitors,
+                                                    'min_run', min_run,
+                                                    'capacity', capacity,
+                                                    'free_swim_time', free_swim_time);
 
   -- 再次找一个空闲的群组
 
@@ -79,7 +78,8 @@ local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.
 
 redis.call('SELECT', db);
 
-redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id, 'group_pos_id', group_pos_id);
+redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id,
+                                        'group_pos_id', group_pos_id);
 
 local arr = {};
 
