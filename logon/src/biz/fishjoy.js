@@ -357,7 +357,12 @@ const uuid = require('node-uuid');
         user[doc[i]] = doc[++i];
       }
 
-      console.log(user);
+      var fishpond = fishpondPool.get(user.group_id);
+
+      // 判断当前鱼池是否存在
+      if(!fishpond) return;
+
+      console.log(fishpond);
 
     });
   };
