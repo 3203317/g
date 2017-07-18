@@ -67,6 +67,14 @@ const uuid = require('node-uuid');
     var fishType  = values[1].data;
     var fishFixed = values[2].data;
 
+    function transform(obj){
+      let arr = [];
+      for(let item in obj){
+        arr.push(obj[item]);
+      }
+      return arr;
+    }
+
     /**
      * 生成一条新鱼
      */
@@ -152,7 +160,7 @@ const uuid = require('node-uuid');
           }
 
           // 获取所有鱼并发送给举手的人
-          refresh(null, [doc, fishpond.getFishes()]);
+          refresh(null, [doc, transform(fishpond.getFishes())]);
         });
       }
 
@@ -169,6 +177,37 @@ const uuid = require('node-uuid');
           var timeout = setTimeout(function(){
             clearTimeout(timeout);
 
+            if(0 === i){
+              return biz.group.readyUsers(group_info.id, function (err, doc){
+                if(err){
+                  console.error('[ERROR] group readyUsers: %s', err);
+                  return fishpondPool.release(fishpond.id);
+                }
+
+                if('invalid_group_id' === doc){
+                  return fishpondPool.release(fishpond.id);
+                }
+
+                if(0 === doc.length){
+                  return fishpondPool.release(fishpond.id);
+                }
+
+                scene(null, doc);
+                fishpond.clear();
+                scene2();
+              });
+            }
+
+            i--;
+
+            fishpond.refresh();
+
+            var fish = createFish1();
+
+            fish = fishpond.put(fish);
+
+            if(!fish) return schedule();
+
             biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
                 console.error('[ERROR] group readyUsers: %s', err);
@@ -183,23 +222,7 @@ const uuid = require('node-uuid');
                 return fishpondPool.release(fishpond.id);
               }
 
-              if(0 === i){
-                scene(null, doc);
-                fishpond.clear();
-                return scene2();
-              }
-
-              i--;
-
-              fishpond.refresh();
-
-              var fish = createFish1();
-
-              fish = fishpond.put(fish);
-
-              if(!fish) return schedule();
-
-              refresh(null, [doc, fish]);
+              refresh(null, [doc, [fish]]);
 
               console.info('[INFO ] scene1: %s::%j', i, fish);
 
@@ -220,6 +243,43 @@ const uuid = require('node-uuid');
           var timeout = setTimeout(function(){
             clearTimeout(timeout);
 
+            if(j === i){
+              return biz.group.readyUsers(group_info.id, function (err, doc){
+                if(err){
+                  console.error('[ERROR] group readyUsers: %s', err);
+                  return fishpondPool.release(fishpond.id);
+                }
+
+                if('invalid_group_id' === doc){
+                  return fishpondPool.release(fishpond.id);
+                }
+
+                if(0 === doc.length){
+                  return fishpondPool.release(fishpond.id);
+                }
+
+                scene(null, doc);
+                fishpond.clear();
+                scene1();
+              });
+            }
+
+            // 刷新池
+            fishpond.refresh();
+
+            var fishes = createFish2(fixed, i);
+
+            i++;
+
+            var _fishes = [];
+
+            for(let m of fishes){
+              let f = fishpond.put(m);
+              if(f) _fishes.push(f);
+            }
+
+            if(0 === _fishes.length) return schedule();
+
             biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
                 console.error('[ERROR] group readyUsers: %s', err);
@@ -233,27 +293,6 @@ const uuid = require('node-uuid');
               if(0 === doc.length){
                 return fishpondPool.release(fishpond.id);
               }
-
-              if(j === i){
-                scene(null, doc);
-                fishpond.clear();
-                return scene1();
-              }
-
-              fishpond.refresh();
-
-              var fishes = createFish2(fixed, i);
-
-              var _fishes = [];
-
-              for(let i of fishes){
-                let f = fishpond.put(i);
-                if(f) _fishes.push(f);
-              }
-
-              i++;
-
-              if(0 === _fishes.length) return schedule();
 
               refresh(null, [doc, _fishes]);
 
