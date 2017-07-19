@@ -420,8 +420,23 @@ const logger = log4js.getLogger('fishjoy');
   const numkeys = 2;
   const sha1 = '';
 
-  exports.switch = function(server_id, channel_id, cb){
-    // todo
+  var i = 0;
+
+  exports.switch = function(server_id, channel_id, level, cb){
+
+    biz.user.myInfo(server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+
+      var user = cfg.arrayToObject(doc);
+
+      var d = JSON.parse(user.extend_data);
+
+      biz.group.readyUsersByChannel(server_id, channel_id, function (err, doc){
+        if(err) return cb(err);
+        cb(null, [doc, [d.id, ++i]]);
+      });
+    });
+
   };
 })();
 

@@ -68,3 +68,16 @@ const redis = require('emag.db').redis;
     });
   };
 })();
+
+(() => {
+  const numkeys = 3;
+  const sha1 = '921cfe8c0a29346c8fe452033abc7b6629296dd0';
+
+  exports.readyUsersByChannel = function(server_id, channel_id, cb){
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();

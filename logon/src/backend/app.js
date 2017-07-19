@@ -519,7 +519,7 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
     var level = data.data;
 
-    if(!level) return;
+    if(!_.isNumber(level)) return;
 
     biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
       if(err) return logger.error('fishjoy switch: %s', err);
