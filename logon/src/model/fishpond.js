@@ -8,6 +8,8 @@
 const uuid = require('node-uuid');
 const utils = require('speedt-utils').utils;
 
+const cfg = require('emag.cfg');
+
 module.exports = function(opts){
   return new Method(opts);
 }
@@ -97,11 +99,11 @@ pro.refresh = function(){
   return self._fishes;
 }
 
-pro.blast = function(bullet, fishes, fishTrail){
+pro.blast = function(bullet, fishes){
 
 
   console.log('====')
-  // console.log(fishTrail)
+  // console.log(cfg.fishTrail)
 
   var self = this;
 
@@ -113,7 +115,7 @@ pro.blast = function(bullet, fishes, fishTrail){
 
     var fish = self._fishes[f];
 
-    var trail = fishTrail[fish.path];
+    var trail = cfg.fishTrail[fish.path];
 
     var s = trail[fish.step];
 
@@ -191,7 +193,7 @@ pro.blast = function(bullet, fishes, fishTrail){
 
 //     if(r >= t.probability){
 //       newFish.type = i - 0;
-//       newFish.path = Math.round((self.fishTrail.length - 1) * Math.random());
+//       newFish.path = Math.round((self.cfg.fishTrail.length - 1) * Math.random());
 //       newFish.probability = t.probability;
 //       newFish.weight = t.weight;
 //       newFish.hp = t.hp;
