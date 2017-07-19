@@ -352,7 +352,7 @@ const logger = log4js.getLogger('fishjoy');
 
     var self = this;
 
-    self.bullet(server_id, channel_id, bb.id, function (err, doc){
+    self.bullet(server_id, channel_id, bullet_blast.id, function (err, doc){
       if(err) return cb(err);
 
       if(!_.isArray(doc)) return cb(null, doc);
