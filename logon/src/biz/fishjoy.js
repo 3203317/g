@@ -313,6 +313,11 @@ const logger = log4js.getLogger('fishjoy');
 
   exports.shot = function(server_id, channel_id, shot, cb){
 
+    if(!_.isString(shot.id)) return cb(null, 'invalid_shot_id');
+    if(!_.isNumber(shot.x)) return cb(null, 'invalid_shot_x');
+    if(!_.isNumber(shot.y)) return cb(null, 'invalid_shot_y');
+    if(!_.isNumber(shot.level)) return cb(null, 'invalid_shot_level');
+
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
       10, shot.x, shot.y, shot.level, (err, doc) => {
         if(err) return cb(err);

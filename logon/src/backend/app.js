@@ -379,7 +379,8 @@ process.on('exit', () => {
         case 'invalid_group_id':
         case 'invalid_group_pos_id':
         case 'invalid_raise_hand':
-        case 'invalid_user_score': return;
+        case 'invalid_user_score':
+        default: return;
       }
 
     });
