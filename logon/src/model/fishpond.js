@@ -98,53 +98,54 @@ pro.refresh = function(){
 
 pro.blast = function(bullet, fishes){
 
-
-  console.log('====')
-  // console.log(cfg.fishTrail)
-
   var self = this;
 
-  var ppp = [];
+  var result = [];
 
   for(let f of fishes){
 
-    // console.log(f)
-
     var fish = self._fishes[f];
+
+    if(!fish) continue;
 
     var trail = cfg.fishTrail[fish.path];
 
     var s = trail[fish.step];
 
-    var d = distance(s[0], s[1], bullet.x, bullet.y);
+    var d = distance(s[0], s[1], bullet.x2, bullet.y2);
 
-    console.log('+++++')
-    console.log(d)
+    // ----------------
 
+    if(d > cfg.bulletProp[bullet.bullet_level - 1].range) continue;
 
-    if(d < (0.4)){
-      if((fish.hp-=10) <= 0){
-        var r = Math.random();
+    if(!(--fish.hp < 1)) continue;
 
-        if(r < 0.2){
+    var r = Math.random();
 
-          self.clearFish(fish.id);
+    if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
 
-          ppp.push({
-            fish_id: fish.id,
-            tools: [{
-              type: 1,
-              num: 10
-            }]
-          });
-        }
+    // 根据玩家的幸运值与盈亏比率在进行判断
 
-      }
-    }
+    self.clearFish(fish.id);
+
+    // 根据配置表生成特殊物品掉落率
+
+    result.push({
+      id: fish.id,
+      money: cfg.fishType[fish.type].money * bullet.bullet_level,
+      tools: [{
+        type: 1,
+        num:  2
+      }]
+    });
+
   }
 
-  return ppp;
+  return result;
 };
+
+
+
 
 // pro.getFixed = function(i){
 //   var self = this;
@@ -246,9 +247,6 @@ pro.blast = function(bullet, fishes){
 
 //计算两点间距离
 function distance(x1, y1, x2, y2){
-
-  console.log(arguments)
-  console.log('===---')
   var xdiff = x2 - x1;
   var ydiff = y2 - y1;
   return Math.abs(Math.pow((xdiff * xdiff + ydiff * ydiff), 0.5));
