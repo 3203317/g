@@ -61,14 +61,13 @@ const logger = log4js.getLogger('fishjoy');
   // }
 
   /**
-   * 生成一条新鱼
+   * 从池中生成一条新鱼
    */
   function createFish1(){
 
-    var newFish = {
-      id: utils.replaceAll(uuid.v1(), '-', ''),
-      step: 0
-    };
+    var newFish = fishPool.create(utils.replaceAll(uuid.v1(), '-', ''));
+
+    if(!newFish) return;
 
     var r = Math.random();
 
@@ -77,6 +76,7 @@ const logger = log4js.getLogger('fishjoy');
       let t = cfg.fishType[i];
 
       if(r >= t.probability){
+        newFish.step        = 0;
         newFish.type        = i - 0;
         newFish.path        = Math.round((cfg.fishTrail.length - 1) * Math.random());
         newFish.probability = t.probability;
@@ -103,17 +103,18 @@ const logger = log4js.getLogger('fishjoy');
 
       let t = cfg.fishType[k[0]];
 
-      var newFish = {
-        id:          utils.replaceAll(uuid.v1(), '-', ''),
-        step:        0,
-        type:        k[0],
-        path:        k[1],
-        probability: t.probability,
-        weight:      t.weight,
-        hp:          t.hp,
-        loop:        t.loop,
-        trailLen:    cfg.fishTrail[k[1]].length,
-      };
+      var newFish = fishPool.create(utils.replaceAll(uuid.v1(), '-', ''));
+
+      if(!newFish) continue;
+
+      newFish.step        = 0;
+      newFish.type        = k[0];
+      newFish.path        = k[1];
+      newFish.probability = t.probability;
+      newFish.weight      = t.weight;
+      newFish.hp          = t.hp;
+      newFish.loop        = t.loop;
+      newFish.trailLen    = cfg.fishTrail[newFish.path].length;
 
       fishes.push(newFish);
     }
@@ -122,17 +123,11 @@ const logger = log4js.getLogger('fishjoy');
   };
 
   function init(doc, refresh, scene){
-    console.log('[INFO ] fishjoy ready init');
+    logger.info('fishjoy ready init');
 
     if(!_.isArray(doc)) return;
 
-    var s = doc[1][1];
-
-    var group_info = {};
-
-    for(let i=0, j=s.length; i<j; i++){
-      group_info[s[i]] = s[++i];
-    }
+    var group_info = cfg.arrayToObject(doc[1][1]);
 
     var fishpond = fishpondPool.get(group_info.id);
 
@@ -140,9 +135,11 @@ const logger = log4js.getLogger('fishjoy');
     if(fishpond){
       return biz.group.readyUsers(group_info.id, function (err, doc){
         if(err){
-          console.error('[ERROR] %s', err);
+          logger.error('group readyUsers: %s', err);
           return fishpondPool.release(fishpond.id);
         }
+
+        if(!_.isArray(doc)) return;
 
         // 获取所有鱼并发送给举手的人
         refresh(null, [doc, _.values(fishpond.getFishes())]);
@@ -153,6 +150,8 @@ const logger = log4js.getLogger('fishjoy');
     if(conf.app.id !== group_info.back_id) return;
 
     fishpond = fishpondPool.create(group_info);
+
+    if(!fishpond) return;
 
     function scene1(){
       var i = group_info.free_swim_time;
@@ -165,7 +164,7 @@ const logger = log4js.getLogger('fishjoy');
           if(0 === i){
             return biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
-                console.error('[ERROR] group readyUsers: %s', err);
+                logger.error('group readyUsers: %s', err);
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -189,13 +188,15 @@ const logger = log4js.getLogger('fishjoy');
 
           var fish = createFish1();
 
+          if(!fish) return schedule();
+
           fish = fishpond.put(fish);
 
           if(!fish) return schedule();
 
           biz.group.readyUsers(group_info.id, function (err, doc){
             if(err){
-              console.error('[ERROR] group readyUsers: %s', err);
+              logger.error('group readyUsers: %s', err);
               return fishpondPool.release(fishpond.id);
             }
 
@@ -209,7 +210,7 @@ const logger = log4js.getLogger('fishjoy');
 
             refresh(null, [doc, [fish]]);
 
-            // console.info('[INFO ] scene1: %s::%j', i, fish);
+            logger.info('scene1: %s::%j', i, fish);
 
             schedule();
           });
@@ -231,7 +232,7 @@ const logger = log4js.getLogger('fishjoy');
           if(j === i){
             return biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
-                console.error('[ERROR] group readyUsers: %s', err);
+                logger.error('group readyUsers: %s', err);
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -266,7 +267,7 @@ const logger = log4js.getLogger('fishjoy');
 
           biz.group.readyUsers(group_info.id, function (err, doc){
             if(err){
-              console.error('[ERROR] group readyUsers: %s', err);
+              logger.error('group readyUsers: %s', err);
               return fishpondPool.release(fishpond.id);
             }
 
@@ -280,7 +281,7 @@ const logger = log4js.getLogger('fishjoy');
 
             refresh(null, [doc, fishes]);
 
-            // console.info('[INFO ] scene2: %s::%j', i, fishes);
+            logger.info('scene2: %s::%j', i, fishes);
 
             schedule();
           });
@@ -303,7 +304,6 @@ const logger = log4js.getLogger('fishjoy');
       init(doc, refresh, scene);
     });
   };
-
 
 })();
 
@@ -359,13 +359,13 @@ const logger = log4js.getLogger('fishjoy');
       bullet.x = bb.x;
       bullet.y = bb.y;
 
-      // console.log(user);
-      // console.log(bullet);
+      // logger.info(user);
+      // logger.info(bullet);
 
       var result = fishpond.blast(bullet, fishes);
 
-      console.log('-----')
-      console.log(result);
+      logger.info('-----')
+      logger.info(result);
 
       if(result.length===0) return;
 
