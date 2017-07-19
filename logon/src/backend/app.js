@@ -5,12 +5,16 @@
  */
 'use strict';
 
+const _ = require('underscore');
+
 const conf = require('./settings');
 
 const biz = require('emag.biz');
 
+const cfg = require('emag.cfg');
+
 process.on('uncaughtException', err => {
-  console.error('[ERROR] %s', err);
+  console.error('[ERROR] uncaughtException: %s', err);
 });
 
 process.on('exit', () => {
@@ -148,13 +152,14 @@ process.on('exit', () => {
     biz.user.myInfo(s[0], s[1], function (err, doc){
       if(err) return console.error('[ERROR] channel open: %s', err);
 
-      var user = {};
+      if(!_.isArray(doc)) return;
 
-      for(let i=0, j=doc.length; i<j; i++){
-        user[doc[i]] = doc[++i];
-      }
+      if(0 === doc.length) return;
+
+      var user = cfg.arrayToObject(doc);
 
       b.data = JSON.parse(user.extend_data);
+
       client.send('/queue/back.send.v2.'+ s[0], { priority: 9 }, JSON.stringify(b));
     });
 
@@ -256,26 +261,29 @@ process.on('exit', () => {
     biz.group.quit(server_id, channel_id, function (err, doc){
       if(err) return cb(err);
 
-      switch(doc){
-        case 'invalid_user_id':
-          client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
-        case 'OK': return cb();
+      if(_.isArray(doc)){
+
+        var result = {
+          method: 3006,
+          seqId: seq_id,
+          data: doc[1],
+        };
+
+        var arr = doc[0];
+
+        for(let i=0, j=arr.length; i<j; i++){
+          let s = arr[i];
+          result.receiver = arr[++i];
+          if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        }
+
+        return cb();
       }
 
-      cb();
-
-      var result = {
-        method: 3006,
-        seqId: seq_id,
-        data: doc[1],
-      };
-
-      var arr = doc[0];
-
-      for(let i=0, j=arr.length; i<j; i++){
-        let s = arr[i];
-        result.receiver = arr[++i];
-        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+      switch(doc){
+        case 'OK': return cb();
+        case 'invalid_user_id':
+          return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
       }
 
     });

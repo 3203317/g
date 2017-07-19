@@ -54,3 +54,13 @@ Promise.all([p1, p2, p3]).then(values => {
 }).catch(function (err){
   process.exit(1);
 });
+
+exports.arrayToObject = function(arr){
+  let obj = {};
+
+  for(let i=0, j=arr.length; i<j; i++){
+    obj[arr[i]] = arr[++i];
+  }
+
+  return obj;
+};

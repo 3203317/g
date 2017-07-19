@@ -5,9 +5,6 @@
  */
 'use strict';
 
-const uuid = require('node-uuid');
-const utils = require('speedt-utils').utils;
-
 const cfg = require('emag.cfg');
 
 module.exports = function(opts){
