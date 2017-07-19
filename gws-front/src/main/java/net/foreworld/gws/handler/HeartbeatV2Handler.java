@@ -24,7 +24,7 @@ public class HeartbeatV2Handler extends SimpleChannelInboundHandler<ProtocolMode
 	protected void channelRead0(ChannelHandlerContext ctx, ProtocolModel msg) throws Exception {
 		logger.info("method: {}", msg.getMethod());
 
-		if (6 == msg.getMethod()) {
+		if (666 == msg.getMethod()) {
 			ctx.flush();
 			return;
 		}

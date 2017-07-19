@@ -5,29 +5,27 @@
  */
 'use strict';
 
-const _ = require('underscore');
-
 var res = module.exports = {};
 
 var fishes = {};
 
 var free = [];
 
-res.create = function(opts){
+res.create = function(id){
 
-  var s = this.get(opts.id);
+  var s = this.get(id);
   if(s) return s;
 
   var b = free.shift();
 
   if(b){
-    b.init(opts);
-    fishes[b.id] = b;
+    b.id = id;
+    fishes[id] = b;
     return b;
   }
 
-  b = new Fishpond(opts);
-  fishes[b.id] = b;
+  b = { id: id };
+  fishes[id] = b;
   return b;
 };
 

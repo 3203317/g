@@ -27,7 +27,7 @@ public class HeartbeatHandler extends
 			throws Exception {
 		logger.info("method: {}", msg.getMethod());
 
-		if (6 == msg.getMethod()) {
+		if (666 == msg.getMethod()) {
 			ctx.flush();
 			return;
 		}
