@@ -5,6 +5,9 @@
  */
 'use strict';
 
+const path = require('path');
+const cwd = process.cwd();
+
 const _ = require('underscore');
 
 const conf = require('./settings');
@@ -20,7 +23,8 @@ log4js.configure({
     app: {
       type: 'dateFile',
       filename: __dirname +'/logs/',
-      pattern: 'app.js yyyy-MM-dd.log',
+      filename: path.join(cwd, 'logs', 'app.js'),
+      pattern: 'yyyy-MM-dd.log',
       alwaysIncludePattern: true
     },
     console: {

@@ -19,22 +19,46 @@ const utils = require('speedt-utils').utils;
 const redis = require('emag.db').redis;
 
 const fishpondPool = require('emag.model').fishpondPool;
+const fishPool     = require('emag.model').fishPool;
 
 const biz = require('emag.biz');
-
 const cfg = require('emag.cfg');
 
 const uuid = require('node-uuid');
 
+const log4js = require('log4js');
+
+log4js.configure({
+  appenders: {
+    fishjoy: {
+      type: 'dateFile',
+      filename: path.join(cwd, 'logs', 'fishjoy.js'),
+      pattern: 'yyyy-MM-dd.log',
+      alwaysIncludePattern: true
+    },
+    console: {
+      type: 'console'
+    }
+  },
+  categories: {
+    default: {
+      appenders: ['fishjoy', 'console'],
+      level: 'debug'
+    }
+  }
+});
+
+const logger = log4js.getLogger('fishjoy');
+
 (() => {
 
-  function transform(obj){
-    let arr = [];
-    for(let item in obj){
-      arr.push(obj[item]);
-    }
-    return arr;
-  }
+  // function transform(obj){
+  //   let arr = [];
+  //   for(let item in obj){
+  //     arr.push(obj[item]);
+  //   }
+  //   return arr;
+  // }
 
   /**
    * 生成一条新鱼
@@ -121,7 +145,7 @@ const uuid = require('node-uuid');
         }
 
         // 获取所有鱼并发送给举手的人
-        refresh(null, [doc, transform(fishpond.getFishes())]);
+        refresh(null, [doc, _.values(fishpond.getFishes())]);
       });
     }
 

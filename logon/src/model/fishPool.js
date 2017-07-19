@@ -14,7 +14,7 @@ var free = [];
 res.create = function(id){
 
   var s = this.get(id);
-  if(s) return s;
+  if(s) return;
 
   var b = free.shift();
 
