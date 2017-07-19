@@ -212,33 +212,41 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
 
     _on_3005_group_quit(data.serverId, data.channelId, data.seqId, function (err){
-      if(err) return console.error('[ERROR] %s', err);
+      if(err) return console.error('[ERROR] group quit: %s', err);
 
       var group_type = data.data;
 
+      if(!group_type) return;
+
       biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
-        if(err) return console.error('[ERROR] %s', err);
+        if(err) return console.error('[ERROR] group search: %s', err);
+
+        if(_.isArray(doc)){
+
+          var result = {
+            method: 3002,
+            seqId: data.seqId,
+            data: doc[1],
+          };
+
+          var arr = doc[0];
+
+          return ((function(){
+
+            for(let i=0, j=arr.length; i<j; i++){
+              let s = arr[i];
+              result.receiver = arr[++i];
+              if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+            }
+
+          })());
+        }
 
         switch(doc){
           case 'invalid_user_id':
           case 'invalid_group_type':
             return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
-          case 'non_idle_group':
-            return;
-        }
-
-        var result = {
-          method: 3002,
-          seqId: data.seqId,
-          data: doc[1],
-        };
-
-        var arr = doc[0];
-
-        for(let i=0, j=arr.length; i<j; i++){
-          let s = arr[i];
-          result.receiver = arr[++i];
-          if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          case 'non_idle_group': return;
         }
 
       });
@@ -251,7 +259,7 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
 
     _on_3005_group_quit(data.serverId, data.channelId, 0, function (err){
-      if(err) return console.error('[ERROR] %s', err);
+      if(err) return console.error('[ERROR] group quit: %s', err);
       console.info('[INFO ] group close: %j', data);
     });
   };
@@ -300,34 +308,46 @@ process.on('exit', () => {
     if(!msg.body) return console.error('[ERROR] empty message');
 
     var data = JSON.parse(msg.body);
-    var shot = JSON.parse(data.data);
+
+    try{
+      var shot = JSON.parse(data.data);
+      if('object' !== typeof shot) return;
+    }catch(ex){
+      return console.error('[ERROR] fishjoy shot: %s', ex);
+    }
 
     biz.fishjoy.shot(data.serverId, data.channelId, shot, function (err, doc){
-      if(err) return console.error('[ERROR] %s', err);
+      if(err) return console.error('[ERROR] fishjoy shot: %s', err);
+
+      if(_.isArray(doc)){
+
+        var result = {
+          method: 5002,
+          seqId: data.seqId,
+          data: doc[1],
+        };
+
+        var arr = doc[0];
+
+        return ((function(){
+
+          for(let i=0, j=arr.length; i<j; i++){
+            var s = arr[i];
+            result.receiver = arr[++i];
+            if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          }
+
+        })());
+      }
 
       switch(doc){
         case 'invalid_user_id':
-          client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+          return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
         case 'invalid_bullet_level':
         case 'invalid_group_id':
         case 'invalid_group_pos_id':
         case 'invalid_raise_hand':
-        case 'invalid_user_score':
-          return;
-      }
-
-      var result = {
-        method: 5002,
-        seqId: data.seqId,
-        data: doc[1],
-      };
-
-      var arr = doc[0];
-
-      for(let i=0, j=arr.length; i<j; i++){
-        var s = arr[i];
-        result.receiver = arr[++i];
-        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        case 'invalid_user_score': return;
       }
 
     });
@@ -337,62 +357,85 @@ process.on('exit', () => {
     if(!msg.body) return console.error('[ERROR] empty message');
 
     var data = JSON.parse(msg.body);
-    var blast = JSON.parse(data.data);
+
+    try{
+      var blast = JSON.parse(data.data);
+      if('object' !== typeof blast) return;
+    }catch(ex){
+      return console.error('[ERROR] fishjoy blast: %s', ex);
+    }
 
     biz.fishjoy.blast(data.serverId, data.channelId, blast, function (err, doc){
-      if(err) return console.error('[ERROR] %s', err);
+      if(err) return console.error('[ERROR] fishjoy blast: %s', err);
+
+      if(_.isArray(doc)){
+
+        var result = {
+          method: 5004,
+          seqId: data.seqId,
+          data: doc[1],
+        };
+
+        var arr = doc[0];
+
+        return ((function(){
+
+          for(let i=0, j=arr.length; i<j; i++){
+            var s = arr[i];
+            result.receiver = arr[++i];
+            if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          }
+
+        })());
+      }
 
       switch(doc){
         case 'invalid_user_id':
           return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
-        case 'invalid_bullet_id':
-          return;
-      }
-
-      var result = {
-        method: 5004,
-        seqId: data.seqId,
-        data: doc[1],
-      };
-
-      var arr = doc[0];
-
-      for(let i=0, j=arr.length; i<j; i++){
-        var s = arr[i];
-        result.receiver = arr[++i];
-        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        case 'invalid_bullet_id': return;
       }
 
     });
   };
 
   var _on_5005_fishjoy_ready_ready = function(server_id, channel_id, seq_id, err, doc){
-    if(err) return console.error('[ERROR] fishjoy ready: %s', err);
+    if(err) return console.error('[ERROR] fishjoy ready ready: %s', err);
+
+    if(_.isArray(doc)){
+
+      var result = {
+        method: 5006,
+        seqId: seq_id,
+        data: doc[1]
+      };
+
+      var arr = doc[0];
+
+      return ((function(){
+
+        for(let i=0, j=arr.length; i<j; i++){
+          let s = arr[i];
+          result.receiver = arr[++i];
+          if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        }
+
+      })());
+    }
 
     switch(doc){
+      case 'invalid_user_id':
+        return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
       case 'invalid_group_id':
       case 'invalid_group_pos_id':
       case 'already_raise_hand': return;
-      case 'invalid_user_id': return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
     }
 
-    var result = {
-      method: 5006,
-      seqId: seq_id,
-      data: doc[1]
-    };
-
-    var arr = doc[0];
-
-    for(let i=0, j=arr.length; i<j; i++){
-      let s = arr[i];
-      result.receiver = arr[++i];
-      if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-    }
   };
 
   var _on_5005_fishjoy_ready_refresh = function(seq_id, err, doc){
-    if(err) return console.error('[ERROR] %s', err);
+    if(err) return console.error('[ERROR] fishjoy ready refresh: %s', err);
+
+    if(!_.isArray(doc)) return;
 
     var result = {
       timestamp: new Date().getTime(),
@@ -411,7 +454,9 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_scene = function(seq_id, err, doc){
-    if(err) return console.error('[ERROR] %s', err);
+    if(err) return console.error('[ERROR] fishjoy ready scene: %s', err);
+
+    if(!_.isArray(doc)) return;
 
     var result = {
       timestamp: new Date().getTime(),
@@ -445,8 +490,10 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
     var level = data.data;
 
+    if(!level) return;
+
     biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
-      if(err) return console.error('[ERROR] %s', err);
+      if(err) return console.error('[ERROR] fishjoy switch: %s', err);
 
       var result = {
         method: 5014,
@@ -471,8 +518,10 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
     var tool_id = data.data;
 
+    if(!tool_id) return;
+
     biz.fishjoy.tool(data.serverId, data.channelId, tool_id, function (err, doc){
-      if(err) return console.error('[ERROR] %s', err);
+      if(err) return console.error('[ERROR] fishjoy tool: %s', err);
 
       var result = {
         method: 5012,
