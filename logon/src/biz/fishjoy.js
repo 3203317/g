@@ -313,10 +313,10 @@ const logger = log4js.getLogger('fishjoy');
 
   exports.shot = function(server_id, channel_id, shot, cb){
 
-    if(!_.isString(shot.id)) return cb(null, 'invalid_shot_id');
-    if(!_.isNumber(shot.x)) return cb(null, 'invalid_shot_x');
-    if(!_.isNumber(shot.y)) return cb(null, 'invalid_shot_y');
-    if(!_.isNumber(shot.level)) return cb(null, 'invalid_shot_level');
+    if(!_.isString(shot.id))    return cb(null, 'invalid_shot');
+    if(!_.isNumber(shot.x))     return cb(null, 'invalid_shot');
+    if(!_.isNumber(shot.y))     return cb(null, 'invalid_shot');
+    if(!_.isNumber(shot.level)) return cb(null, 'invalid_shot');
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
       10, shot.x, shot.y, shot.level, (err, doc) => {
@@ -331,6 +331,22 @@ const logger = log4js.getLogger('fishjoy');
   const sha1 = '';
 
   exports.blast = function(server_id, channel_id, blast, cb){
+
+    if(!_.isArray(blast))  return cb(null, 'invalid_blast');
+    if(2 !== blast.length) return cb(null, 'invalid_blast');
+
+    var bullet_blast = blast[0];
+    if(!_.isObject(bullet_blast))   return cb(null, 'invalid_blast');
+    if(!_.isNumber(bullet_blast.x)) return cb(null, 'invalid_blast');
+    if(!_.isNumber(bullet_blast.y)) return cb(null, 'invalid_blast');
+    if(!_.isString(bullet_blast.id)) return cb(null, 'invalid_blast');
+
+    var hit_fishes = blast[1];
+    if(!_.isArray(hit_fishes)) return cb(null, 'invalid_blast');
+    if(0 === blast.length)     return cb(null, 'invalid_blast');
+
+    // 
+
     var bb     = blast[0];
     var fishes = blast[1];
 

@@ -391,9 +391,7 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    try{
-      var blast = JSON.parse(data.data);
-      if('object' !== typeof blast) return;
+    try{ var blast = JSON.parse(data.data);
     }catch(ex){ return; }
 
     biz.fishjoy.blast(data.serverId, data.channelId, blast, function (err, doc){
@@ -423,7 +421,8 @@ process.on('exit', () => {
       switch(doc){
         case 'invalid_user_id':
           return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
-        case 'invalid_bullet_id': return;
+        case 'invalid_bullet_id':
+        default: return;
       }
 
     });
