@@ -93,7 +93,7 @@ process.on('exit', () => {
 
   var onErr = function(err){
     _unsubscribe();
-    console.error(':: %s', err);
+    console.error('[ERROR] :: %s', err);
   };
 
   process.on('uncaughtException', err => {
