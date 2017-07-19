@@ -13,23 +13,53 @@ const biz = require('emag.biz');
 
 const cfg = require('emag.cfg');
 
+const log4js = require('log4js');
+
+log4js.configure({
+  appenders: {
+    app: {
+      type: 'dateFile',
+      filename: __dirname +'/logs/',
+      pattern: 'app.js yyyy-MM-dd.log',
+      alwaysIncludePattern: true
+    },
+    console: {
+      type: 'console'
+    }
+  },
+  categories: {
+    default: {
+      appenders: ['app', 'console'],
+      level: 'debug'
+    }
+  }
+});
+
+const logger = log4js.getLogger('app');
+// logger.trace('Entering cheese testing');
+// logger.debug('Got cheese.');
+// logger.info('Cheese is Gouda.');
+// logger.warn('Cheese is quite smelly.');
+// logger.error('Cheese is too ripe!');
+// logger.fatal('Cheese was breeding ground for listeria.');
+
 process.on('uncaughtException', err => {
-  console.error('[ERROR] uncaughtException: %s', err);
+  logger.error('uncaughtException: %s', err);
 });
 
 process.on('exit', () => {
 
   biz.backend.close(conf.app.id, (err, code) => {
-    if(err) return console.error('[ERROR] backend %j close: %s', conf.app.id, err);
-    console.info('[INFO ] backend %j close: %s', conf.app.id, code);
+    if(err) return logger.error('backend %j close: %s', conf.app.id, err);
+    logger.info('backend %j close: %s', conf.app.id, code);
   });
 
 });
 
 (() => {
   biz.backend.open(conf.app.id, (err, code) => {
-    if(err) return console.error('[ERROR] backend %j open: %s', conf.app.id, err);
-    console.info('[INFO ] backend %j open: %s', conf.app.id, code);
+    if(err) return logger.error('backend %j open: %s', conf.app.id, err);
+    logger.info('backend %j open: %s', conf.app.id, code);
   });
 })();
 
@@ -93,7 +123,7 @@ process.on('exit', () => {
 
   var onErr = function(err){
     _unsubscribe();
-    console.error('[ERROR] :: %s', err);
+    logger.error(':: %s', err);
   };
 
   process.on('uncaughtException', err => {
@@ -123,13 +153,13 @@ process.on('exit', () => {
   var _front_start, _front_stop;
 
   var on_front_start = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
-    console.info('[INFO ] front start: %s', msg.body);
+    if(!msg.body) return logger.error('empty message');
+    logger.info('front start: %s', msg.body);
   };
 
   var on_front_stop = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
-    console.info('[INFO ] front stop: %s', msg.body);
+    if(!msg.body) return logger.error('empty message');
+    logger.info('front stop: %s', msg.body);
   };
 
   // ----------------------------------------------------------------------------------------------------
@@ -139,7 +169,7 @@ process.on('exit', () => {
   var _channel_open, _channel_close;
 
   var on_channel_open = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var s = msg.body.split('::');
 
@@ -150,7 +180,7 @@ process.on('exit', () => {
     };
 
     biz.user.myInfo(s[0], s[1], function (err, doc){
-      if(err) return console.error('[ERROR] channel open: %s', err);
+      if(err) return logger.error('channel open: %s', err);
 
       if(!_.isArray(doc)) return;
 
@@ -166,17 +196,17 @@ process.on('exit', () => {
   };
 
   var on_channel_close = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var s = msg.body.split('::');
 
     _on_3005_group_quit(s[0], s[1], 0, function (err){
-      if(err) return console.error('[ERROR] group quit: %s', err);
-      console.info('[INFO ] group quit: %j', s);
+      if(err) return logger.error('group quit: %s', err);
+      logger.info('group quit: %j', s);
 
       biz.user.logout(s[0], s[1], function (err, code){
-        if(err) return console.error('[ERROR] channel close: %s', err);
-        console.info('[INFO ] channel close: %j', s);
+        if(err) return logger.error('channel close: %s', err);
+        logger.info('channel close: %j', s);
       });
     });
   };
@@ -188,11 +218,11 @@ process.on('exit', () => {
   var _2001_chat_1v1;
 
   var on_2001_chat_1v1 = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
 
-    console.info('[INFO ] chat 1v1 send: %j', data);
+    logger.info('chat 1v1 send: %j', data);
 
     data.method = 2002;
     data.receiver = data.channelId;
@@ -207,19 +237,19 @@ process.on('exit', () => {
   var _3001_group_search, _3005_group_quit;
 
   var on_3001_group_search = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
 
     _on_3005_group_quit(data.serverId, data.channelId, data.seqId, function (err){
-      if(err) return console.error('[ERROR] group quit: %s', err);
+      if(err) return logger.error('group quit: %s', err);
 
       var group_type = data.data;
 
       if(!group_type) return;
 
       biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
-        if(err) return console.error('[ERROR] group search: %s', err);
+        if(err) return logger.error('group search: %s', err);
 
         if(_.isArray(doc)){
 
@@ -254,13 +284,13 @@ process.on('exit', () => {
   };
 
   var on_3005_group_quit = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
 
     _on_3005_group_quit(data.serverId, data.channelId, 0, function (err){
-      if(err) return console.error('[ERROR] group quit: %s', err);
-      console.info('[INFO ] group close: %j', data);
+      if(err) return logger.error('group quit: %s', err);
+      logger.info('group close: %j', data);
     });
   };
 
@@ -305,7 +335,7 @@ process.on('exit', () => {
   var _5003_fishjoy_blast, _5005_fishjoy_ready, _5011_fishjoy_tool;
 
   var on_5001_fishjoy_shot = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
 
@@ -313,11 +343,11 @@ process.on('exit', () => {
       var shot = JSON.parse(data.data);
       if('object' !== typeof shot) return;
     }catch(ex){
-      return console.error('[ERROR] fishjoy shot: %s', ex);
+      return logger.error('fishjoy shot: %s', ex);
     }
 
     biz.fishjoy.shot(data.serverId, data.channelId, shot, function (err, doc){
-      if(err) return console.error('[ERROR] fishjoy shot: %s', err);
+      if(err) return logger.error('fishjoy shot: %s', err);
 
       if(_.isArray(doc)){
 
@@ -354,7 +384,7 @@ process.on('exit', () => {
   };
 
   var on_5003_fishjoy_blast = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
 
@@ -362,11 +392,11 @@ process.on('exit', () => {
       var blast = JSON.parse(data.data);
       if('object' !== typeof blast) return;
     }catch(ex){
-      return console.error('[ERROR] fishjoy blast: %s', ex);
+      return logger.error('fishjoy blast: %s', ex);
     }
 
     biz.fishjoy.blast(data.serverId, data.channelId, blast, function (err, doc){
-      if(err) return console.error('[ERROR] fishjoy blast: %s', err);
+      if(err) return logger.error('fishjoy blast: %s', err);
 
       if(_.isArray(doc)){
 
@@ -399,7 +429,7 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_ready = function(server_id, channel_id, seq_id, err, doc){
-    if(err) return console.error('[ERROR] fishjoy ready ready: %s', err);
+    if(err) return logger.error('fishjoy ready ready: %s', err);
 
     if(_.isArray(doc)){
 
@@ -433,7 +463,7 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_refresh = function(seq_id, err, doc){
-    if(err) return console.error('[ERROR] fishjoy ready refresh: %s', err);
+    if(err) return logger.error('fishjoy ready refresh: %s', err);
 
     if(!_.isArray(doc)) return;
 
@@ -454,7 +484,7 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_scene = function(seq_id, err, doc){
-    if(err) return console.error('[ERROR] fishjoy ready scene: %s', err);
+    if(err) return logger.error('fishjoy ready scene: %s', err);
 
     if(!_.isArray(doc)) return;
 
@@ -474,7 +504,7 @@ process.on('exit', () => {
   };
 
   var on_5005_fishjoy_ready = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
 
@@ -485,7 +515,7 @@ process.on('exit', () => {
   };
 
   var on_5013_fishjoy_switch = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
     var level = data.data;
@@ -493,7 +523,7 @@ process.on('exit', () => {
     if(!level) return;
 
     biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
-      if(err) return console.error('[ERROR] fishjoy switch: %s', err);
+      if(err) return logger.error('fishjoy switch: %s', err);
 
       var result = {
         method: 5014,
@@ -513,7 +543,7 @@ process.on('exit', () => {
   };
 
   var on_5011_fishjoy_tool = function(msg){
-    if(!msg.body) return console.error('[ERROR] empty message');
+    if(!msg.body) return logger.error('empty message');
 
     var data = JSON.parse(msg.body);
     var tool_id = data.data;
@@ -521,7 +551,7 @@ process.on('exit', () => {
     if(!tool_id) return;
 
     biz.fishjoy.tool(data.serverId, data.channelId, tool_id, function (err, doc){
-      if(err) return console.error('[ERROR] fishjoy tool: %s', err);
+      if(err) return logger.error('fishjoy tool: %s', err);
 
       var result = {
         method: 5012,
