@@ -14,6 +14,30 @@ const http  = require('http');
 
 const ajax  = require('speedt-utils').ajax;
 
+const log4js = require('log4js');
+
+log4js.configure({
+  appenders: {
+    cfg: {
+      type: 'dateFile',
+      filename: path.join(cwd, 'logs', 'cfg.js'),
+      pattern: 'yyyy-MM-dd.log',
+      alwaysIncludePattern: true
+    },
+    console: {
+      type: 'console'
+    }
+  },
+  categories: {
+    default: {
+      appenders: ['cfg', 'console'],
+      level: 'debug'
+    }
+  }
+});
+
+const logger = log4js.getLogger('cfg');
+
 var p1 = new Promise((resolve, reject) => {
   ajax(http.request, {
     host: conf.app.resHost,
@@ -63,6 +87,8 @@ Promise.all([p1, p2, p3, p4]).then(values => {
   exports.fishType  = values[1].data;
   exports.fishFixed = values[2].data;
   exports.bulletProp = values[3].data;
+
+  logger.info('loaded config');
 }).catch(function (err){
   process.exit(1);
 });

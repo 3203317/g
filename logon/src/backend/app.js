@@ -22,7 +22,6 @@ log4js.configure({
   appenders: {
     app: {
       type: 'dateFile',
-      filename: __dirname +'/logs/',
       filename: path.join(cwd, 'logs', 'app.js'),
       pattern: 'yyyy-MM-dd.log',
       alwaysIncludePattern: true

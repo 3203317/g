@@ -7,6 +7,9 @@
 
 const cfg = require('emag.cfg');
 
+const log4js = require('log4js');
+const logger = log4js.getLogger('fishjoy');
+
 module.exports = function(opts){
   return new Method(opts);
 }
@@ -116,13 +119,21 @@ pro.blast = function(bullet, fishes){
 
     // ----------------
 
-    if(d > cfg.bulletProp[bullet.bullet_level - 1].range) continue;
+    logger.debug('1');
+
+    if(d > cfg.bulletProp[bullet.level - 1].range) continue;
+
+    logger.debug('2');
 
     if(!(--fish.hp < 1)) continue;
 
     var r = Math.random();
 
+    logger.debug('3');
+
     if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
+
+    logger.debug('4');
 
     // 根据玩家的幸运值与盈亏比率在进行判断
 
@@ -132,7 +143,7 @@ pro.blast = function(bullet, fishes){
 
     result.push({
       id: fish.id,
-      money: cfg.fishType[fish.type].money * bullet.bullet_level,
+      money: cfg.fishType[fish.type].money * bullet.level,
       tools: [{
         type: 1,
         num:  2
