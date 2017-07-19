@@ -153,12 +153,12 @@ process.on('exit', () => {
   var _front_start, _front_stop;
 
   var on_front_start = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('front start empty');
     logger.info('front start: %s', msg.body);
   };
 
   var on_front_stop = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('front stop empty');
     logger.info('front stop: %s', msg.body);
   };
 
@@ -169,7 +169,7 @@ process.on('exit', () => {
   var _channel_open, _channel_close;
 
   var on_channel_open = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('channel open empty');
 
     var s = msg.body.split('::');
 
@@ -196,7 +196,7 @@ process.on('exit', () => {
   };
 
   var on_channel_close = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('channel close empty');
 
     var s = msg.body.split('::');
 
@@ -218,7 +218,7 @@ process.on('exit', () => {
   var _2001_chat_1v1;
 
   var on_2001_chat_1v1 = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('chat 1v1 empty');
 
     var data = JSON.parse(msg.body);
 
@@ -237,7 +237,7 @@ process.on('exit', () => {
   var _3001_group_search, _3005_group_quit;
 
   var on_3001_group_search = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('group search empty');
 
     var data = JSON.parse(msg.body);
 
@@ -259,9 +259,9 @@ process.on('exit', () => {
             data: doc[1],
           };
 
-          var arr = doc[0];
-
           return ((function(){
+
+            var arr = doc[0];
 
             for(let i=0, j=arr.length; i<j; i++){
               let s = arr[i];
@@ -284,7 +284,7 @@ process.on('exit', () => {
   };
 
   var on_3005_group_quit = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('group quit empty');
 
     var data = JSON.parse(msg.body);
 
@@ -335,16 +335,14 @@ process.on('exit', () => {
   var _5003_fishjoy_blast, _5005_fishjoy_ready, _5011_fishjoy_tool;
 
   var on_5001_fishjoy_shot = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('fishjoy shot empty');
 
     var data = JSON.parse(msg.body);
 
     try{
       var shot = JSON.parse(data.data);
       if('object' !== typeof shot) return;
-    }catch(ex){
-      return logger.error('fishjoy shot: %s', ex);
-    }
+    }catch(ex){ return; }
 
     biz.fishjoy.shot(data.serverId, data.channelId, shot, function (err, doc){
       if(err) return logger.error('fishjoy shot: %s', err);
@@ -357,9 +355,9 @@ process.on('exit', () => {
           data: doc[1],
         };
 
-        var arr = doc[0];
-
         return ((function(){
+
+          var arr = doc[0];
 
           for(let i=0, j=arr.length; i<j; i++){
             var s = arr[i];
@@ -384,16 +382,14 @@ process.on('exit', () => {
   };
 
   var on_5003_fishjoy_blast = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('fishjoy blast empty');
 
     var data = JSON.parse(msg.body);
 
     try{
       var blast = JSON.parse(data.data);
       if('object' !== typeof blast) return;
-    }catch(ex){
-      return logger.error('fishjoy blast: %s', ex);
-    }
+    }catch(ex){ return; }
 
     biz.fishjoy.blast(data.serverId, data.channelId, blast, function (err, doc){
       if(err) return logger.error('fishjoy blast: %s', err);
@@ -406,9 +402,9 @@ process.on('exit', () => {
           data: doc[1],
         };
 
-        var arr = doc[0];
-
         return ((function(){
+
+          var arr = doc[0];
 
           for(let i=0, j=arr.length; i<j; i++){
             var s = arr[i];
@@ -439,9 +435,9 @@ process.on('exit', () => {
         data: doc[1]
       };
 
-      var arr = doc[0];
-
       return ((function(){
+
+        var arr = doc[0];
 
         for(let i=0, j=arr.length; i<j; i++){
           let s = arr[i];
@@ -504,7 +500,7 @@ process.on('exit', () => {
   };
 
   var on_5005_fishjoy_ready = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('fishjoy ready empty');
 
     var data = JSON.parse(msg.body);
 
@@ -515,7 +511,7 @@ process.on('exit', () => {
   };
 
   var on_5013_fishjoy_switch = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('fishjoy switch empty');
 
     var data = JSON.parse(msg.body);
     var level = data.data;
@@ -543,7 +539,7 @@ process.on('exit', () => {
   };
 
   var on_5011_fishjoy_tool = function(msg){
-    if(!msg.body) return logger.error('empty message');
+    if(!msg.body) return logger.error('fishjoy tool empty');
 
     var data = JSON.parse(msg.body);
     var tool_id = data.data;
