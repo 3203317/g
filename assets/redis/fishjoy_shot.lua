@@ -80,7 +80,8 @@ redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id',        
                                                                    'level',        bullet_level,
                                                                    'group_id',     group_id,
                                                                    'group_pos_id', group_pos_id,
-                                                                   'group_type',   group_type);
+                                                                   'group_type',   group_type,
+                                                                   'user_id',      user_id);
 redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
 
 local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);

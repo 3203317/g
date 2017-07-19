@@ -48,7 +48,7 @@ const logger = log4js.getLogger('app');
 // logger.fatal('Cheese was breeding ground for listeria.');
 
 process.on('uncaughtException', err => {
-  logger.error('uncaughtException: %s', err);
+  logger.error('uncaughtException: %j', err);
 });
 
 process.on('exit', () => {

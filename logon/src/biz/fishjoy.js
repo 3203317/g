@@ -309,7 +309,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 4;
-  const sha1 = 'fca64117dae0991c8fa1ce0eefbaec8d01208e23';
+  const sha1 = '2a97b1cf102f34dca4cfca7f83e8a199c9c5bf66';
 
   exports.shot = function(server_id, channel_id, shot, cb){
 
@@ -319,7 +319,7 @@ const logger = log4js.getLogger('fishjoy');
     if(!_.isNumber(shot.level)) return cb(null, 'invalid_shot');
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
-      10, shot.x, shot.y, shot.level, (err, doc) => {
+      99, shot.x, shot.y, shot.level, (err, doc) => {
         if(err) return cb(err);
         cb(null, doc);
     });
@@ -347,8 +347,8 @@ const logger = log4js.getLogger('fishjoy');
 
     // 
 
-    var bb     = blast[0];
-    var fishes = blast[1];
+    // var bb     = blast[0];
+    // var fishes = blast[1];
 
     var self = this;
 
@@ -357,49 +357,58 @@ const logger = log4js.getLogger('fishjoy');
 
       if(!_.isArray(doc)) return cb(null, doc);
 
-      var s = doc[0];
-      var b = doc[1];
+      // var s = doc[0];
+      // var b = doc[1];
 
-      var user = {};
+      // var user = {};
 
-      for(let i=0, j=s.length; i<j; i++){
-        user[s[i]] = s[++i];
-      }
+      // for(let i=0, j=s.length; i<j; i++){
+      //   user[s[i]] = s[++i];
+      // }
 
-      var fishpond = fishpondPool.get(user.group_id);
+
+      var user_info = cfg.arrayToObject(doc[0]);
+
+      var fishpond = fishpondPool.get(user_info.group_id);
 
       // 判断当前鱼池是否存在
       if(!fishpond) return;
 
-      var bullet = {};
+      // var bullet = {};
 
-      for(let i=0, j=b.length; i<j; i++){
-        bullet[b[i]] = b[++i];
-      }
+      // for(let i=0, j=b.length; i<j; i++){
+      //   bullet[b[i]] = b[++i];
+      // }
 
-      bullet.x = bb.x;
-      bullet.y = bb.y;
+      // bullet.x = bb.x;
+      // bullet.y = bb.y;
+
+
+      var bullet_info = cfg.arrayToObject(doc[1]);
+
+      bullet_info.x2 = bullet_blast.x;
+      bullet_info.y2 = bullet_blast.y;
 
       // logger.info(user);
       // logger.info(bullet);
 
-      var result = fishpond.blast(bullet, fishes);
+      var result = fishpond.blast(bullet_info, hit_fishes);
 
-      logger.info('-----')
-      logger.info(result);
+      // logger.info('-----')
+      // logger.info(result);
 
-      if(result.length===0) return;
-
-
-      var ssss = JSON.parse(user.extend_data);
-      result.push(ssss.id);
+      if(0 === result.length) return;
 
 
-      biz.group.readyUsers(user.group_id, function (err, doc){
+      // var ssss = JSON.parse(user.extend_data);
+      // result.push(ssss.id);
+
+      result.push(bullet_info.user_id);
+
+
+      biz.group.readyUsers(user_info.group_id, function (err, doc){
         if(err) return cb(err);
-
         cb(null, [doc, result]);
-
       });
 
     });
