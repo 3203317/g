@@ -23,6 +23,8 @@ const redis = require('emag.db').redis;
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
+    if(!group_type) return;
+
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, utils.replaceAll(uuid.v1(), '-', ''), group_type, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);

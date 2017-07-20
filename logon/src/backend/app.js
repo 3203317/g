@@ -47,13 +47,13 @@ const logger = log4js.getLogger('app');
 // logger.fatal('Cheese was breeding ground for listeria.');
 
 process.on('uncaughtException', err => {
-  logger.error('uncaughtException: %j', err);
+  logger.error('uncaughtException:', err);
 });
 
 process.on('exit', () => {
 
   biz.backend.close(conf.app.id, (err, code) => {
-    if(err) return logger.error('backend %j close: %s', conf.app.id, err);
+    if(err) return logger.error('backend %j close:', conf.app.id, err);
     logger.info('backend %j close: %s', conf.app.id, code);
   });
 
@@ -61,7 +61,7 @@ process.on('exit', () => {
 
 (() => {
   biz.backend.open(conf.app.id, (err, code) => {
-    if(err) return logger.error('backend %j open: %s', conf.app.id, err);
+    if(err) return logger.error('backend %j open:', conf.app.id, err);
     logger.info('backend %j open: %s', conf.app.id, code);
   });
 })();
@@ -126,7 +126,7 @@ process.on('exit', () => {
 
   var onErr = function(err){
     _unsubscribe();
-    logger.error(':: %s', err);
+    logger.error('::', err);
   };
 
   process.on('uncaughtException', err => {
@@ -176,20 +176,20 @@ process.on('exit', () => {
 
     var s = msg.body.split('::');
 
-    var b = {
-      method: 1,
-      seqId: 1,
-      receiver: s[1]
-    };
-
     biz.user.myInfo(s[0], s[1], function (err, doc){
-      if(err) return logger.error('channel open: %s', err);
+      if(err) return logger.error('channel open:', err);
 
       if(!_.isArray(doc)) return;
 
       if(0 === doc.length) return;
 
       var user = cfg.arrayToObject(doc);
+
+      var b = {
+        method: 1,
+        seqId: 1,
+        receiver: s[1]
+      };
 
       b.data = JSON.parse(user.extend_data);
 
@@ -204,11 +204,11 @@ process.on('exit', () => {
     var s = msg.body.split('::');
 
     _on_3005_group_quit(s[0], s[1], 0, function (err){
-      if(err) return logger.error('group quit: %s', err);
+      if(err) return logger.error('group quit:', err);
       logger.info('group quit: %j', s);
 
       biz.user.logout(s[0], s[1], function (err, code){
-        if(err) return logger.error('channel close: %s', err);
+        if(err) return logger.error('channel close:', err);
         logger.info('channel close: %j', s);
       });
     });
@@ -245,14 +245,10 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
 
     _on_3005_group_quit(data.serverId, data.channelId, data.seqId, function (err){
-      if(err) return logger.error('group quit: %s', err);
+      if(err) return logger.error('group quit:', err);
 
-      var group_type = data.data;
-
-      if(!group_type) return;
-
-      biz.group.search(data.serverId, data.channelId, group_type, function (err, doc){
-        if(err) return logger.error('group search: %s', err);
+      biz.group.search(data.serverId, data.channelId, data.data, function (err, doc){
+        if(err) return logger.error('group search:', err);
 
         if(_.isArray(doc)){
 
@@ -292,7 +288,7 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
 
     _on_3005_group_quit(data.serverId, data.channelId, 0, function (err){
-      if(err) return logger.error('group quit: %s', err);
+      if(err) return logger.error('group quit:', err);
       logger.info('group close: %j', data);
     });
   };
@@ -342,13 +338,8 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    try{
-      var shot = JSON.parse(data.data);
-      if('object' !== typeof shot) return;
-    }catch(ex){ return; }
-
-    biz.fishjoy.shot(data.serverId, data.channelId, shot, function (err, doc){
-      if(err) return logger.error('fishjoy shot: %s', err);
+    biz.fishjoy.shot(data.serverId, data.channelId, data.data, function (err, doc){
+      if(err) return logger.error('fishjoy shot:', err);
 
       if(_.isArray(doc)){
 
@@ -390,11 +381,8 @@ process.on('exit', () => {
 
     var data = JSON.parse(msg.body);
 
-    try{ var blast = JSON.parse(data.data);
-    }catch(ex){ return; }
-
-    biz.fishjoy.blast(data.serverId, data.channelId, blast, function (err, doc){
-      if(err) return logger.error('fishjoy blast: %s', err);
+    biz.fishjoy.blast(data.serverId, data.channelId, data.data, function (err, doc){
+      if(err) return logger.error('fishjoy blast:', err);
 
       if(_.isArray(doc)){
 
@@ -428,7 +416,7 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_ready = function(server_id, channel_id, seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready ready: %s', err);
+    if(err) return logger.error('fishjoy ready ready:', err);
 
     if(_.isArray(doc)){
 
@@ -462,7 +450,7 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_refresh = function(seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready refresh: %s', err);
+    if(err) return logger.error('fishjoy ready refresh:', err);
 
     if(!_.isArray(doc)) return;
 
@@ -483,7 +471,7 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_scene = function(seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready scene: %s', err);
+    if(err) return logger.error('fishjoy ready scene:', err);
 
     if(!_.isArray(doc)) return;
 
@@ -503,7 +491,7 @@ process.on('exit', () => {
   };
 
   var _on_5005_fishjoy_ready_unfreeze = function(seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready unfreeze: %s', err);
+    if(err) return logger.error('fishjoy ready unfreeze:', err);
 
     if(!_.isArray(doc)) return;
 
@@ -538,15 +526,9 @@ process.on('exit', () => {
     if(!msg.body) return logger.error('fishjoy switch empty');
 
     var data = JSON.parse(msg.body);
-    var level = data.data - 0;
 
-    if(!_.isNumber(level)) return;
-
-    if(1 > level) return;
-
-    biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
-
-      if(err) return logger.error('fishjoy switch: %s', err);
+    biz.fishjoy.switch(data.serverId, data.channelId, data.data, function (err, doc){
+      if(err) return logger.error('fishjoy switch:', err);
 
       if(_.isArray(doc)){
 
@@ -585,7 +567,7 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
 
     biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
-      if(err) return logger.error('fishjoy tool: %s', err);
+      if(err) return logger.error('fishjoy tool:', err);
 
       if(_.isArray(doc)){
 

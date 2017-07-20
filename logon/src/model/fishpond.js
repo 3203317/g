@@ -127,21 +127,13 @@ pro.blast = function(bullet, fishes){
 
     // ----------------
 
-    logger.debug('1');
-
     if(d > cfg.bullet[bullet.level - 1].range) continue;
-
-    logger.debug('2');
 
     if(!(--fish.hp < 1)) continue;
 
     var r = Math.random();
 
-    logger.debug('3');
-
     if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
-
-    logger.debug('4');
 
     // 根据玩家的幸运值与盈亏比率在进行判断
 

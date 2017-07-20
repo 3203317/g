@@ -135,7 +135,7 @@ const logger = log4js.getLogger('fishjoy');
     if(fishpond){
       return biz.group.readyUsers(group_info.id, function (err, doc){
         if(err){
-          logger.error('group readyUsers: %s', err);
+          logger.error('group readyUsers:', err);
           return fishpondPool.release(fishpond.id);
         }
 
@@ -164,7 +164,7 @@ const logger = log4js.getLogger('fishjoy');
           if(0 === i){
             return biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
-                logger.error('group readyUsers: %s', err);
+                logger.error('group readyUsers:', err);
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -188,7 +188,7 @@ const logger = log4js.getLogger('fishjoy');
 
             return biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
-                logger.error('group readyUsers: %s', err);
+                logger.error('group readyUsers:', err);
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -201,7 +201,6 @@ const logger = log4js.getLogger('fishjoy');
               }
 
               unfreeze(null, doc);
-
               schedule();
             });
           }else if(pause){
@@ -222,7 +221,7 @@ const logger = log4js.getLogger('fishjoy');
 
           biz.group.readyUsers(group_info.id, function (err, doc){
             if(err){
-              logger.error('group readyUsers: %s', err);
+              logger.error('group readyUsers:', err);
               return fishpondPool.release(fishpond.id);
             }
 
@@ -258,7 +257,7 @@ const logger = log4js.getLogger('fishjoy');
           if(j === i){
             return biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
-                logger.error('group readyUsers: %s', err);
+                logger.error('group readyUsers:', err);
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -282,7 +281,7 @@ const logger = log4js.getLogger('fishjoy');
 
             return biz.group.readyUsers(group_info.id, function (err, doc){
               if(err){
-                logger.error('group readyUsers: %s', err);
+                logger.error('group readyUsers:', err);
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -295,7 +294,6 @@ const logger = log4js.getLogger('fishjoy');
               }
 
               unfreeze(null, doc);
-
               schedule();
             });
           }else if(pause){
@@ -319,7 +317,7 @@ const logger = log4js.getLogger('fishjoy');
 
           biz.group.readyUsers(group_info.id, function (err, doc){
             if(err){
-              logger.error('group readyUsers: %s', err);
+              logger.error('group readyUsers:', err);
               return fishpondPool.release(fishpond.id);
             }
 
@@ -365,10 +363,16 @@ const logger = log4js.getLogger('fishjoy');
 
   exports.shot = function(server_id, channel_id, shot, cb){
 
-    if(!_.isString(shot.id))    return cb(null, 'invalid_shot');
-    if(!_.isNumber(shot.x))     return cb(null, 'invalid_shot');
-    if(!_.isNumber(shot.y))     return cb(null, 'invalid_shot');
-    if(!_.isNumber(shot.level)) return cb(null, 'invalid_shot');
+    if(!shot) return;
+
+    try{
+      shot = JSON.parse(shot);
+    }catch(ex){ return; }
+
+    if(!_.isString(shot.id))    return;
+    if(!_.isNumber(shot.x))     return;
+    if(!_.isNumber(shot.y))     return;
+    if(!_.isNumber(shot.level)) return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
       99, shot.x, shot.y, shot.level, (err, doc) => {
@@ -384,23 +388,26 @@ const logger = log4js.getLogger('fishjoy');
 
   exports.blast = function(server_id, channel_id, blast, cb){
 
-    if(!_.isArray(blast))  return cb(null, 'invalid_blast');
-    if(2 !== blast.length) return cb(null, 'invalid_blast');
+    if(!blast) return;
+
+    try{
+      blast = JSON.parse(blast);
+    }catch(ex){ return; }
+
+    if(!_.isArray(blast))  return;
+    if(2 !== blast.length) return;
 
     var bullet_blast = blast[0];
-    if(!_.isObject(bullet_blast))   return cb(null, 'invalid_blast');
-    if(!_.isNumber(bullet_blast.x)) return cb(null, 'invalid_blast');
-    if(!_.isNumber(bullet_blast.y)) return cb(null, 'invalid_blast');
-    if(!_.isString(bullet_blast.id)) return cb(null, 'invalid_blast');
+    if(!_.isObject(bullet_blast))   return;
+    if(!_.isNumber(bullet_blast.x)) return;
+    if(!_.isNumber(bullet_blast.y)) return;
+    if(!_.isString(bullet_blast.id)) return;
 
     var hit_fishes = blast[1];
-    if(!_.isArray(hit_fishes)) return cb(null, 'invalid_blast');
-    if(0 === blast.length)     return cb(null, 'invalid_blast');
+    if(!_.isArray(hit_fishes)) return;
+    if(0 === blast.length)     return;
 
     // 
-
-    // var bb     = blast[0];
-    // var fishes = blast[1];
 
     var self = this;
 
@@ -409,16 +416,6 @@ const logger = log4js.getLogger('fishjoy');
 
       if(!_.isArray(doc)) return cb(null, doc);
 
-      // var s = doc[0];
-      // var b = doc[1];
-
-      // var user = {};
-
-      // for(let i=0, j=s.length; i<j; i++){
-      //   user[s[i]] = s[++i];
-      // }
-
-
       var user_info = cfg.arrayToObject(doc[0]);
 
       var fishpond = fishpondPool.get(user_info.group_id);
@@ -426,37 +423,16 @@ const logger = log4js.getLogger('fishjoy');
       // 判断当前鱼池是否存在
       if(!fishpond) return;
 
-      // var bullet = {};
-
-      // for(let i=0, j=b.length; i<j; i++){
-      //   bullet[b[i]] = b[++i];
-      // }
-
-      // bullet.x = bb.x;
-      // bullet.y = bb.y;
-
-
       var bullet_info = cfg.arrayToObject(doc[1]);
 
       bullet_info.x2 = bullet_blast.x;
       bullet_info.y2 = bullet_blast.y;
 
-      // logger.info(user);
-      // logger.info(bullet);
-
       var result = fishpond.blast(bullet_info, hit_fishes);
-
-      // logger.info('-----')
-      // logger.info(result);
 
       if(0 === result.length) return;
 
-
-      // var ssss = JSON.parse(user.extend_data);
-      // result.push(ssss.id);
-
       result.push(bullet_info.user_id);
-
 
       biz.group.readyUsers(user_info.group_id, function (err, doc){
         if(err) return cb(err);
@@ -473,6 +449,12 @@ const logger = log4js.getLogger('fishjoy');
   const sha1 = '531a864189790a8d551f29d7f210298e705c40f4';
 
   exports.switch = function(server_id, channel_id, level, cb){
+
+    level = level - 0;
+
+    if(!_.isNumber(level)) return;
+
+    if(1 > level) return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, level, (err, doc) => {
         if(err) return cb(err);
@@ -495,6 +477,8 @@ const logger = log4js.getLogger('fishjoy');
 
         // 获取群组
         var group_id = doc[1].shift();
+
+        if(!group_id) return;
 
         var fishpond = fishpondPool.get(group_id);
 

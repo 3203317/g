@@ -82,7 +82,7 @@ var p4 = new Promise((resolve, reject) => {
   }).catch(reject);
 });
 
-var p4 = new Promise((resolve, reject) => {
+var p5 = new Promise((resolve, reject) => {
   ajax(http.request, {
     host: conf.app.resHost,
     port: 80,
@@ -102,6 +102,7 @@ Promise.all([p1, p2, p3, p4, p5]).then(values => {
 
   logger.info('loaded config');
 }).catch(function (err){
+  logger.error('loaded config:', err);
   process.exit(1);
 });
 
