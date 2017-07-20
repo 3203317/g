@@ -123,11 +123,11 @@ const logger = log4js.getLogger('fishjoy');
   };
 
   function init(doc, refresh, scene, unfreeze){
-    logger.info('fishjoy ready init');
-
     if(!_.isArray(doc)) return;
 
     var group_info = cfg.arrayToObject(doc[1][1]);
+
+    logger.info('fishjoy ready init: %s', group_info.id);
 
     var fishpond = fishpondPool.get(group_info.id);
 
@@ -377,6 +377,7 @@ const logger = log4js.getLogger('fishjoy');
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
       99, shot.x, shot.y, shot.level, (err, doc) => {
         if(err) return cb(err);
+        logger.info('shot: %j', shot);
         cb(null, doc);
     });
   };

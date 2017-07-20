@@ -100,7 +100,7 @@ Promise.all([p1, p2, p3, p4, p5]).then(values => {
   exports.bullet    = values[3].data;
   exports.tool      = values[4].data;
 
-  logger.info('loaded config');
+  logger.info('loaded config success');
 }).catch(function (err){
   logger.error('loaded config:', err);
   process.exit(1);
@@ -108,10 +108,8 @@ Promise.all([p1, p2, p3, p4, p5]).then(values => {
 
 exports.arrayToObject = function(arr){
   let obj = {};
-
   for(let i=0, j=arr.length; i<j; i++){
     obj[arr[i]] = arr[++i];
   }
-
   return obj;
 };
