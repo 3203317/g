@@ -399,20 +399,18 @@ const logger = log4js.getLogger('fishjoy');
     if(2 !== blast.length) return;
 
     var bullet_blast = blast[0];
-    if(!_.isObject(bullet_blast))   return;
-    if(!_.isNumber(bullet_blast.x)) return;
-    if(!_.isNumber(bullet_blast.y)) return;
-    if(!_.isString(bullet_blast.id)) return;
+    if(!_.isObject(bullet_blast))    return;
+    if(!_.isNumber(bullet_blast.x))  return;
+    if(!_.isNumber(bullet_blast.y))  return;
+    if(!_.isString(bullet_blast.bullet_id)) return;
 
     var hit_fishes = blast[1];
     if(!_.isArray(hit_fishes)) return;
     if(0 === blast.length)     return;
 
-    // 
-
     var self = this;
 
-    self.bullet(server_id, channel_id, bullet_blast.id, function (err, doc){
+    self.bullet(server_id, channel_id, bullet_blast.bullet_id, function (err, doc){
       if(err) return cb(err);
 
       if(!_.isArray(doc)) return cb(null, doc);
@@ -429,16 +427,28 @@ const logger = log4js.getLogger('fishjoy');
       bullet_info.x2 = bullet_blast.x;
       bullet_info.y2 = bullet_blast.y;
 
-      var result = fishpond.blast(bullet_info, hit_fishes);
+      var dead_fishes = fishpond.blast(bullet_info, hit_fishes);
 
-      if(0 === result.length) return;
+      for(let i of dead_fishes){
 
-      result.push(bullet_info.user_id);
+        let fish = fishPool.get(i.id);
 
-      biz.group.readyUsers(user_info.group_id, function (err, doc){
-        if(err) return cb(err);
-        cb(null, [doc, result]);
-      });
+        if(!fish) continue;
+
+        self.deadFish(user_info.id, fish.id, fish.type, i.money, function (err, doc){
+          if(err) return cb(err);
+          if(!_.isArray(doc)) return cb(null, doc);
+
+          var result = [user_info.id, fish.id, i.money];
+
+          // 将鱼释放到对象池
+          fishPool.release(fish.id);
+          logger.info('blast: %j', result);
+
+          cb(null, [doc, result]);
+        });
+
+      }
 
     });
   };
@@ -527,6 +537,31 @@ const logger = log4js.getLogger('fishjoy');
     if(!bullet_id) return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, bullet_id, (err, doc) => {
+        if(err) return cb(err);
+        cb(null, doc);
+    });
+  };
+})();
+
+(() => {
+  const numkeys = 3;
+  const sha1 = 'f0a5eea16f9410ac90c223666f109544887f889d';
+
+  /**
+   *
+   * fishjoy_deadFish.lua
+   *
+   * @return
+   */
+  exports.deadFish = function(user_id, fish_id, fish_type, money, cb){
+
+    if(!user_id)   return;
+    if(!fish_id)   return;
+    if(!fish_type) return;
+    if(!money)     return;
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, user_id, fish_id,
+      fish_type, money, (err, doc) => {
         if(err) return cb(err);
         cb(null, doc);
     });
