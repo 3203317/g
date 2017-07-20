@@ -549,7 +549,7 @@ const logger = log4js.getLogger('fishjoy');
 
   /**
    *
-   * fishjoy_deadFish.lua
+   * fishjoy_blast.lua
    *
    * @return
    */
@@ -561,7 +561,7 @@ const logger = log4js.getLogger('fishjoy');
     if(!money)     return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, user_id, fish_id,
-      fish_type, money, (err, doc) => {
+      fish_type, money, _.now(), (err, doc) => {
         if(err) return cb(err);
         cb(null, doc);
     });
