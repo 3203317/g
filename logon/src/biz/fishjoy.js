@@ -432,8 +432,8 @@ const logger = log4js.getLogger('fishjoy');
 })();
 
 (() => {
-  const numkeys = 2;
-  const sha1 = '';
+  const numkeys = 3;
+  const sha1 = 'f8be29b805c84799ce057c44217216fb0b65fa59';
 
   function freeze(server_id, channel_id, tool_id, cb){
 
