@@ -459,6 +459,7 @@ const logger = log4js.getLogger('fishjoy');
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, level, (err, doc) => {
         if(err) return cb(err);
         if(!_.isArray(doc)) return cb(null, doc);
+        logger.info('switch: %s::%s', doc[1], level);
         cb(null, [doc[0], [doc[1], level]]);
     });
 
@@ -487,6 +488,7 @@ const logger = log4js.getLogger('fishjoy');
         fishpond.pause(cfg.tool[0].time);
 
         doc[1].push(1);
+        logger.info('freeze: %j', doc[1]);
         cb(null, doc);
     });
   }
@@ -520,6 +522,9 @@ const logger = log4js.getLogger('fishjoy');
    * @return
    */
   exports.bullet = function(server_id, channel_id, bullet_id, cb){
+
+    if(!bullet_id) return;
+
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, bullet_id, (err, doc) => {
         if(err) return cb(err);
         cb(null, doc);
