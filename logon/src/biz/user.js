@@ -19,6 +19,8 @@ const utils = require('speedt-utils').utils;
 const mysql = require('emag.db').mysql;
 const redis = require('emag.db').redis;
 
+const cfg = require('emag.cfg');
+
 const server = require('./server');
 
 (() => {
@@ -204,14 +206,20 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   const sha1 = 'c39a13fcb7b9f7f8d19e4541e7700dcece20f40a';
 
   /**
-   *
+   * channel_close.lua
    */
   exports.logout = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, code) => {
+    this.saveInfo(server_id, channel_id, function (err){
+      if(err) return cb(err);
+
+      redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, code) => {
         if(err) return cb(err);
         cb(null, code);
+      });
+
     });
+
   };
 })();
 
@@ -236,13 +244,48 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   const sha1 = 'a9e6028acde5c177fe3634f7cb1016f29fd2e340';
 
   /**
+   * user_info.lua
    *
+   * @return
    */
   exports.userInfo = function(user_id, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, user_id, (err, code) => {
         if(err) return cb(err);
         cb(null, code);
+    });
+  };
+})();
+
+(() => {
+  const sql = 'UPDATE s_user set SCORE=? WHERE id=?';
+
+  /**
+   *
+   * 保存游戏分值等信息
+   *
+   * @return
+   */
+  exports.saveInfo = function(server_id, channel_id, cb){
+    var self = this;
+
+    self.myInfo(server_id, channel_id, function (err, doc){
+      if(err) return cb(err);
+      if(!doc) return;
+      if(0 === doc.length) return;
+
+      var user = cfg.arrayToObject(doc);
+
+      var postData = [
+        user.score,
+        JSON.parse(user.extend_data).id
+      ];
+
+      mysql.query(sql, postData, function (err, status){
+        if(err) return cb(err);
+        cb(null, status);
+      });
+
     });
   };
 })();
