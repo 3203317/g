@@ -4,7 +4,7 @@ local db         = KEYS[1];
 local server_id  = KEYS[2];
 local channel_id = KEYS[3];
 
-local bullet_level  = ARGV[1];
+local tool_type  = ARGV[1];
 
 -- 
 
@@ -16,9 +16,13 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 
 
-local x = redis.call('HGET', 'prop::'.. user_id, 'bullet_level');
+local x = tonumber(redis.call('HGET', 'prop::'.. user_id, 'tool_'.. tool_type));
 
-if (tonumber(x) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
+if (0 == x) then return 'invalid_tool_'.. tool_type; end;
+
+local y = x - 1;
+
+redis.call('HSET', 'prop::'.. user_id, 'tool_'.. tool_type, y);
 
 -- 
 
@@ -52,9 +56,14 @@ for i=2, #group_pos_info, 2 do
 
 end;
 
+local sb = {};
+
+table.insert(sb, user_id);
+table.insert(sb, y);
+
 local result = {};
 
 table.insert(result, arr);
-table.insert(result, user_id);
+table.insert(result, sb);
 
 return result;

@@ -435,8 +435,14 @@ const logger = log4js.getLogger('fishjoy');
   const numkeys = 2;
   const sha1 = '';
 
-  function freeze(server_id, channel_id, cb){
+  function freeze(server_id, channel_id, tool_id, cb){
 
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, tool_id, (err, doc) => {
+        if(err) return cb(err);
+        if(!_.isArray(doc)) return cb(null, doc);
+        doc[1].push(tool_id);
+        cb(null, doc);
+    });
   }
 
   exports.tool = function(server_id, channel_id, tool, cb){
@@ -446,7 +452,7 @@ const logger = log4js.getLogger('fishjoy');
     var tool_id = tool[0];
 
     switch(tool_id){
-      case 'freeze': return freeze(server_id, channel_id, cb);
+      case 'freeze': return freeze(server_id, channel_id, 1, cb);
       default: break;
     }
 
