@@ -402,7 +402,7 @@ const logger = log4js.getLogger('fishjoy');
     if(!_.isObject(bullet_blast))    return;
     if(!_.isNumber(bullet_blast.x))  return;
     if(!_.isNumber(bullet_blast.y))  return;
-    if(!_.isString(bullet_blast.bullet_id)) return;
+    if(!_.isString(bullet_blast.id)) return;
 
     var hit_fishes = blast[1];
     if(!_.isArray(hit_fishes)) return;
@@ -410,7 +410,7 @@ const logger = log4js.getLogger('fishjoy');
 
     var self = this;
 
-    self.bullet(server_id, channel_id, bullet_blast.bullet_id, function (err, doc){
+    self.bullet(server_id, channel_id, bullet_blast.id, function (err, doc){
       if(err) return cb(err);
 
       if(!_.isArray(doc)) return cb(null, doc);
@@ -427,6 +427,8 @@ const logger = log4js.getLogger('fishjoy');
       bullet_info.x2 = bullet_blast.x;
       bullet_info.y2 = bullet_blast.y;
 
+      logger.debug('biz blast: %j', bullet_info);
+
       var dead_fishes = fishpond.blast(bullet_info, hit_fishes);
 
       for(let i of dead_fishes){
@@ -439,11 +441,14 @@ const logger = log4js.getLogger('fishjoy');
           if(err) return cb(err);
           if(!_.isArray(doc)) return cb(null, doc);
 
+          logger.debug('let fish: %j', fish);
+          logger.debug('let fish: %j', doc);
+
           var result = [user_info.id, fish.id, i.money, doc[1]];
 
           // 将鱼释放到对象池
           fishPool.release(fish.id);
-          logger.info('blast: %j', result);
+          logger.info('clear blast: %j', result);
 
           cb(null, [doc[0], result]);
         });

@@ -117,6 +117,8 @@ pro.blast = function(bullet, fishes){
 
     var fish = self._fishes[f];
 
+    logger.debug('blast calculate: %s', !!fish);
+
     if(!fish) continue;
 
     var trail = cfg.fishTrail[fish.path];
@@ -125,21 +127,31 @@ pro.blast = function(bullet, fishes){
 
     var d = distance(s[0], s[1], bullet.x2, bullet.y2);
 
+    logger.debug('blast calculate: 1');
+
     // ----------------
 
     if(d > cfg.bullet[bullet.level - 1].range) continue;
+
+    logger.debug('blast calculate: 2');
 
     if(!(--fish.hp < 1)) continue;
 
     var r = Math.random();
 
+    logger.debug('blast calculate: 3');
+
     if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
+
+    logger.debug('blast calculate: 4');
 
     // 根据玩家的幸运值与盈亏比率在进行判断
 
     self.clearFish(fish.id);
 
     // 根据配置表生成特殊物品掉落率
+
+    logger.debug('clear fish: %s', fish);
 
     result.push({
       id: fish.id,
@@ -149,6 +161,8 @@ pro.blast = function(bullet, fishes){
     });
 
   }
+
+  logger.debug('dead fishes: %j', result);
 
   return result;
 };
