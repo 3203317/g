@@ -129,7 +129,7 @@ pro.blast = function(bullet, fishes){
 
     logger.debug('1');
 
-    if(d > cfg.bulletProp[bullet.level - 1].range) continue;
+    if(d > cfg.bullet[bullet.level - 1].range) continue;
 
     logger.debug('2');
 

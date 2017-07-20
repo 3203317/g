@@ -487,9 +487,9 @@ const logger = log4js.getLogger('fishjoy');
   const numkeys = 3;
   const sha1 = 'dd849fcc0389a3340232af70c269ad4c1abbd2ff';
 
-  function freeze(server_id, channel_id, tool_id, cb){
+  function freeze(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, tool_id, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, 1, (err, doc) => {
         if(err) return cb(err);
         if(!_.isArray(doc)) return cb(null, doc);
 
@@ -500,9 +500,9 @@ const logger = log4js.getLogger('fishjoy');
 
         if(!fishpond) return;
 
-        fishpond.pause(30);
+        fishpond.pause(cfg.tool[0].time);
 
-        doc[1].push(tool_id);
+        doc[1].push(1);
         cb(null, doc);
     });
   }
@@ -518,7 +518,7 @@ const logger = log4js.getLogger('fishjoy');
     var tool_id = tool[0];
 
     switch(tool_id){
-      case 'freeze': return freeze(server_id, channel_id, 1, cb);
+      case 1: return freeze(server_id, channel_id, cb);
       default: break;
     }
 
