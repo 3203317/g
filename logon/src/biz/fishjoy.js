@@ -439,13 +439,13 @@ const logger = log4js.getLogger('fishjoy');
           if(err) return cb(err);
           if(!_.isArray(doc)) return cb(null, doc);
 
-          var result = [user_info.id, fish.id, i.money];
+          var result = [user_info.id, fish.id, i.money, doc[1]];
 
           // 将鱼释放到对象池
           fishPool.release(fish.id);
           logger.info('blast: %j', result);
 
-          cb(null, [doc, result]);
+          cb(null, [doc[0], result]);
         });
 
       }
@@ -545,7 +545,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'f0a5eea16f9410ac90c223666f109544887f889d';
+  const sha1 = '9b0ef578aad5a18dd7b161b98cc0aac738362863';
 
   /**
    *

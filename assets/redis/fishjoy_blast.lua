@@ -47,20 +47,29 @@ redis.call('SELECT', db);
 
 local x = redis.call('HGET', 'prop::'.. user_id, 'score');
 
-redis.call('HSET', 'prop::'.. user_id, 'score', tonumber(x) + tonumber(money));
+local y = tonumber(x) + tonumber(money);
+
+redis.call('HSET', 'prop::'.. user_id, 'score', y);
 
 -- 
 
-local result = {};
+local arr = {};
 
 for i=2, #group_pos_info, 2 do
   local u, hand = string.match(group_pos_info[i], '(.*)%::(.*)');
 
   if ('1' == hand) then
-    table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
-    table.insert(result, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
+    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
   end;
 
 end;
+
+-- 
+
+local result = {};
+
+table.insert(result, arr);
+table.insert(result, y);
 
 return result;
