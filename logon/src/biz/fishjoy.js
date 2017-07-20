@@ -182,6 +182,8 @@ const logger = log4js.getLogger('fishjoy');
             });
           }
 
+          if(fishpond.pause()) return schedule();
+
           i--;
 
           fishpond.refresh();
@@ -440,6 +442,10 @@ const logger = log4js.getLogger('fishjoy');
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, tool_id, (err, doc) => {
         if(err) return cb(err);
         if(!_.isArray(doc)) return cb(null, doc);
+
+        // 获取群组
+        var group_id = doc[1].shift();
+
         doc[1].push(tool_id);
         cb(null, doc);
     });

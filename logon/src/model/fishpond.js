@@ -28,6 +28,7 @@ pro.init = function(opts){
   self.id = opts.id;
   self.capacity = opts.capacity - 0;
   self.type = opts.type;
+  self._pause = 0;
   return self;
 };
 
@@ -51,6 +52,12 @@ pro.getFishWeight = function(){
 
 pro.getFishes = function(){
   return this._fishes;
+};
+
+pro.pause = function(time){
+  if(time) return (this._pause += time);
+  if(0 === this._pause) return false;
+  return (0 !== (--this._pause));
 };
 
 /**

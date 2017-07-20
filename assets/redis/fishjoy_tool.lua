@@ -58,6 +58,7 @@ end;
 
 local sb = {};
 
+table.insert(sb, group_id);
 table.insert(sb, user_id);
 table.insert(sb, y);
 
