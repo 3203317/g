@@ -28,25 +28,25 @@ const uuid = require('node-uuid');
 
 const log4js = require('log4js');
 
-log4js.configure({
-  appenders: {
-    fishjoy: {
-      type: 'dateFile',
-      filename: path.join(cwd, 'logs', 'fishjoy.js'),
-      pattern: 'yyyy-MM-dd.log',
-      alwaysIncludePattern: true
-    },
-    console: {
-      type: 'console'
-    }
-  },
-  categories: {
-    default: {
-      appenders: ['fishjoy', 'console'],
-      level: 'debug'
-    }
-  }
-});
+// log4js.configure({
+//   appenders: {
+//     fishjoy: {
+//       type: 'dateFile',
+//       filename: path.join(cwd, 'logs'),
+//       pattern: 'yyyy-MM-dd.log',
+//       alwaysIncludePattern: true
+//     },
+//     console: {
+//       type: 'console'
+//     }
+//   },
+//   categories: {
+//     default: {
+//       appenders: ['fishjoy', 'console'],
+//       level: 'debug'
+//     }
+//   }
+// });
 
 const logger = log4js.getLogger('fishjoy');
 

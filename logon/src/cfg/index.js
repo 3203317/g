@@ -16,25 +16,25 @@ const ajax  = require('speedt-utils').ajax;
 
 const log4js = require('log4js');
 
-log4js.configure({
-  appenders: {
-    cfg: {
-      type: 'dateFile',
-      filename: path.join(cwd, 'logs', 'cfg.js'),
-      pattern: 'yyyy-MM-dd.log',
-      alwaysIncludePattern: true
-    },
-    console: {
-      type: 'console'
-    }
-  },
-  categories: {
-    default: {
-      appenders: ['cfg', 'console'],
-      level: 'debug'
-    }
-  }
-});
+// log4js.configure({
+//   appenders: {
+//     cfg: {
+//       type: 'dateFile',
+//       filename: path.join(cwd, 'logs'),
+//       pattern: 'yyyy-MM-dd.log',
+//       alwaysIncludePattern: true
+//     },
+//     console: {
+//       type: 'console'
+//     }
+//   },
+//   categories: {
+//     default: {
+//       appenders: ['cfg', 'console'],
+//       level: 'debug'
+//     }
+//   }
+// });
 
 const logger = log4js.getLogger('cfg');
 
