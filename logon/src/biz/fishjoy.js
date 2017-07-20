@@ -417,24 +417,15 @@ const logger = log4js.getLogger('fishjoy');
 })();
 
 (() => {
-  const numkeys = 2;
+  const numkeys = 3;
   const sha1 = '';
-
-  var i = 0;
 
   exports.switch = function(server_id, channel_id, level, cb){
 
-    biz.user.myInfo(server_id, channel_id, (err, doc) => {
-      if(err) return cb(err);
-
-      var user = cfg.arrayToObject(doc);
-
-      var d = JSON.parse(user.extend_data);
-
-      biz.group.readyUsersByChannel(server_id, channel_id, function (err, doc){
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, level, (err, doc) => {
         if(err) return cb(err);
-        cb(null, [doc, [d.id, ++i]]);
-      });
+        if(!_.isArray(doc)) return cb(null, doc);
+        cb(null, [doc[0], [doc[1], level]]);
     });
 
   };

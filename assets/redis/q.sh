@@ -52,6 +52,10 @@ echo "fishjoy_bullet.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/3203317/g/assets/redis/fishjoy_bullet.lua)"
 
 echo ""
+echo "fishjoy_switch.lua"
+/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/3203317/g/assets/redis/fishjoy_switch.lua)"
+
+echo ""
 echo "group_users.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/3203317/g/assets/redis/group_users.lua)"
 

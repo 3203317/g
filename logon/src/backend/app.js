@@ -517,25 +517,39 @@ process.on('exit', () => {
     if(!msg.body) return logger.error('fishjoy switch empty');
 
     var data = JSON.parse(msg.body);
-    var level = data.data - 1;
+    var level = data.data - 0;
 
     if(!_.isNumber(level)) return;
 
     biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
       if(err) return logger.error('fishjoy switch: %s', err);
 
-      var result = {
-        method: 5014,
-        seqId: data.seqId,
-        data: doc[1],
-      };
+      if(_.isArray(doc)){
 
-      var arr = doc[0];
+        var result = {
+          method: 5014,
+          seqId: data.seqId,
+          data: doc[1],
+        };
 
-      for(let i=0, j=arr.length; i<j; i++){
-        var s = arr[i];
-        result.receiver = arr[++i];
-        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        return ((function(){
+
+          var arr = doc[0];
+
+          for(let i=0, j=arr.length; i<j; i++){
+            var s = arr[i];
+            result.receiver = arr[++i];
+            if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          }
+
+        })());
+      }
+
+      switch(doc){
+        case 'invalid_user_id':
+          return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+        case 'invalid_bullet_level':
+        default: return;
       }
 
     });
@@ -545,7 +559,7 @@ process.on('exit', () => {
     if(!msg.body) return logger.error('fishjoy tool empty');
 
     var data = JSON.parse(msg.body);
-    var tool_id = data.data - 1;
+    var tool_id = data.data - 0;
 
     if(!_.isNumber(tool_id)) return;
 
