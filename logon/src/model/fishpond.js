@@ -57,7 +57,8 @@ pro.getFishes = function(){
 pro.pause = function(time){
   if(time) return (this._pause += time);
   if(0 === this._pause) return false;
-  return (0 !== (--this._pause));
+  if(0 === (--this._pause)) return 'unfreeze';
+  return true;
 };
 
 /**

@@ -122,7 +122,7 @@ const logger = log4js.getLogger('fishjoy');
     return fishes;
   };
 
-  function init(doc, refresh, scene){
+  function init(doc, refresh, scene, unfreeze){
     logger.info('fishjoy ready init');
 
     if(!_.isArray(doc)) return;
@@ -182,7 +182,31 @@ const logger = log4js.getLogger('fishjoy');
             });
           }
 
-          if(fishpond.pause()) return schedule();
+          var pause = fishpond.pause();
+
+          if('unfreeze' === pause){
+
+            return biz.group.readyUsers(group_info.id, function (err, doc){
+              if(err){
+                logger.error('group readyUsers: %s', err);
+                return fishpondPool.release(fishpond.id);
+              }
+
+              if('invalid_group_id' === doc){
+                return fishpondPool.release(fishpond.id);
+              }
+
+              if(0 === doc.length){
+                return fishpondPool.release(fishpond.id);
+              }
+
+              unfreeze(null, doc);
+
+              schedule();
+            });
+          }else if(pause){
+            return schedule();
+          }
 
           i--;
 
@@ -252,7 +276,31 @@ const logger = log4js.getLogger('fishjoy');
             });
           }
 
-          if(fishpond.pause()) return schedule();
+          var pause = fishpond.pause();
+
+          if('unfreeze' === pause){
+
+            return biz.group.readyUsers(group_info.id, function (err, doc){
+              if(err){
+                logger.error('group readyUsers: %s', err);
+                return fishpondPool.release(fishpond.id);
+              }
+
+              if('invalid_group_id' === doc){
+                return fishpondPool.release(fishpond.id);
+              }
+
+              if(0 === doc.length){
+                return fishpondPool.release(fishpond.id);
+              }
+
+              unfreeze(null, doc);
+
+              schedule();
+            });
+          }else if(pause){
+            return schedule();
+          }
 
           // 刷新池
           fishpond.refresh();
@@ -300,12 +348,12 @@ const logger = log4js.getLogger('fishjoy');
   const numkeys = 3;
   const sha1 = '5308f6f6460a36b7bb01319971f6b86a54d12283';
 
-  exports.ready = function(server_id, channel_id, ready, refresh, scene){
+  exports.ready = function(server_id, channel_id, ready, refresh, scene, unfreeze){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, conf.app.id, (new Date().getTime()), (err, doc) => {
       if(err) return ready(err);
       ready(null, doc);
-      init(doc, refresh, scene);
+      init(doc, refresh, scene, unfreeze);
     });
   };
 
@@ -422,7 +470,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 3;
-  const sha1 = '21cd39edcb3ef61ef97644323bfb2445da755d4e';
+  const sha1 = '531a864189790a8d551f29d7f210298e705c40f4';
 
   exports.switch = function(server_id, channel_id, level, cb){
 
@@ -437,7 +485,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'f8be29b805c84799ce057c44217216fb0b65fa59';
+  const sha1 = 'dd849fcc0389a3340232af70c269ad4c1abbd2ff';
 
   function freeze(server_id, channel_id, tool_id, cb){
 
@@ -460,6 +508,10 @@ const logger = log4js.getLogger('fishjoy');
   }
 
   exports.tool = function(server_id, channel_id, tool, cb){
+
+    try{
+      tool = JSON.parse(tool);
+    }catch(ex){ return; }
 
     if(!_.isArray(tool)) return;
 

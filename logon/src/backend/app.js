@@ -502,6 +502,26 @@ process.on('exit', () => {
     }
   };
 
+  var _on_5005_fishjoy_ready_unfreeze = function(seq_id, err, doc){
+    if(err) return logger.error('fishjoy ready unfreeze: %s', err);
+
+    if(!_.isArray(doc)) return;
+
+    var result = {
+      timestamp: new Date().getTime(),
+      method: 5016,
+      seqId: seq_id,
+    };
+
+    var arr = doc;
+
+    for(let i=0, j=arr.length; i<j; i++){
+      let s = arr[i];
+      result.receiver = arr[++i];
+      if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+    }
+  };
+
   var on_5005_fishjoy_ready = function(msg){
     if(!msg.body) return logger.error('fishjoy ready empty');
 
@@ -510,7 +530,8 @@ process.on('exit', () => {
     biz.fishjoy.ready(data.serverId, data.channelId,
       _on_5005_fishjoy_ready_ready.bind(null, data.serverId, data.channelId, data.seqId),
       _on_5005_fishjoy_ready_refresh.bind(null, data.seqId),
-      _on_5005_fishjoy_ready_scene.bind(null, data.seqId));
+      _on_5005_fishjoy_ready_scene.bind(null, data.seqId),
+      _on_5005_fishjoy_ready_unfreeze.bind(null, data.seqId));
   };
 
   var on_5013_fishjoy_switch = function(msg){
@@ -519,18 +540,11 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
     var level = data.data - 0;
 
-    logger.debug(level);
-    logger.debug(_.isNumber(level));
-
     if(!_.isNumber(level)) return;
 
     if(1 > level) return;
 
     biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
-
-      logger.debug(doc)
-
-
 
       if(err) return logger.error('fishjoy switch: %s', err);
 
@@ -569,8 +583,6 @@ process.on('exit', () => {
     if(!msg.body) return logger.error('fishjoy tool empty');
 
     var data = JSON.parse(msg.body);
-
-    logger.debug(data);
 
     biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
       if(err) return logger.error('fishjoy tool: %s', err);
