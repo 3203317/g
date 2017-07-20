@@ -131,7 +131,11 @@ pro.blast = function(bullet, fishes){
 
     // ----------------
 
-    if(d > cfg.bullet[bullet.level - 1].range) continue;
+    var ff = cfg.bullet[bullet.level - 1];
+
+    if(!ff) continue;
+
+    if(d > ff.range) continue;
 
     logger.debug('blast calculate: 2');
 

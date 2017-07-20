@@ -437,14 +437,22 @@ const logger = log4js.getLogger('fishjoy');
 
         if(!fish) continue;
 
-        self.deadFish(user_info.id, fish.id, fish.type, i.money, function (err, doc){
+        var idid = JSON.parse(user_info.extend_data).id;
+
+        logger.debug('idid:'+ idid);
+
+        self.deadFish(idid, fish.id, fish.type, i.money, function (err, doc){
           if(err) return cb(err);
+
+          logger.debug('deadFish:'+ doc)
+
+
           if(!_.isArray(doc)) return cb(null, doc);
 
           logger.debug('let fish: %j', fish);
           logger.debug('let fish: %j', doc);
 
-          var result = [user_info.id, fish.id, i.money, doc[1]];
+          var result = [idid, fish.id, i.money, doc[1]];
 
           // 将鱼释放到对象池
           fishPool.release(fish.id);
