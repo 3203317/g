@@ -521,6 +521,8 @@ process.on('exit', () => {
 
     if(!_.isNumber(level)) return;
 
+    if(1 > level) return;
+
     biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
       if(err) return logger.error('fishjoy switch: %s', err);
 
