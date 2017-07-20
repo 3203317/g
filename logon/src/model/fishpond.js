@@ -144,10 +144,8 @@ pro.blast = function(bullet, fishes){
     result.push({
       id: fish.id,
       money: cfg.fishType[fish.type].money * bullet.level,
-      tools: [{
-        type: 1,
-        num:  2
-      }]
+      tool_1: 2,
+      tool_2: 0,
     });
 
   }
