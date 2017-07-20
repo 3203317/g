@@ -519,11 +519,19 @@ process.on('exit', () => {
     var data = JSON.parse(msg.body);
     var level = data.data - 0;
 
+    logger.debug(level);
+    logger.debug(_.isNumber(level));
+
     if(!_.isNumber(level)) return;
 
     if(1 > level) return;
 
     biz.fishjoy.switch(data.serverId, data.channelId, level, function (err, doc){
+
+      logger.debug(doc)
+
+
+
       if(err) return logger.error('fishjoy switch: %s', err);
 
       if(_.isArray(doc)){
@@ -561,6 +569,8 @@ process.on('exit', () => {
     if(!msg.body) return logger.error('fishjoy tool empty');
 
     var data = JSON.parse(msg.body);
+
+    logger.debug(data);
 
     biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
       if(err) return logger.error('fishjoy tool: %s', err);

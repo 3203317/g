@@ -22,13 +22,13 @@ if (tonumber(x) < tonumber(bullet_level)) then return 'invalid_bullet_level'; en
 
 -- 
 
-redis.call('SELECT', 1 + db);
-
 local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
 
 -- 
+
+redis.call('SELECT', 1 + db);
 
 local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 

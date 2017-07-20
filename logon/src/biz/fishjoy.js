@@ -252,6 +252,8 @@ const logger = log4js.getLogger('fishjoy');
             });
           }
 
+          if(fishpond.pause()) return schedule();
+
           // 刷新池
           fishpond.refresh();
 
@@ -445,6 +447,12 @@ const logger = log4js.getLogger('fishjoy');
 
         // 获取群组
         var group_id = doc[1].shift();
+
+        var fishpond = fishpondPool.get(group_id);
+
+        if(!fishpond) return;
+
+        fishpond.pause(30);
 
         doc[1].push(tool_id);
         cb(null, doc);
