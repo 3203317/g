@@ -565,18 +565,32 @@ process.on('exit', () => {
     biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
       if(err) return logger.error('fishjoy tool: %s', err);
 
-      var result = {
-        method: 5012,
-        seqId: data.seqId,
-        data: doc[1],
-      };
+      if(_.isArray(doc)){
 
-      var arr = doc[0];
+        var result = {
+          method: 5012,
+          seqId: data.seqId,
+          data: doc[1],
+        };
 
-      for(let i=0, j=arr.length; i<j; i++){
-        var s = arr[i];
-        result.receiver = arr[++i];
-        if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        return ((function(){
+
+          var arr = doc[0];
+
+          for(let i=0, j=arr.length; i<j; i++){
+            var s = arr[i];
+            result.receiver = arr[++i];
+            if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+          }
+
+        })());
+      }
+
+      switch(doc){
+        case 'invalid_user_id':
+          return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+        case 'invalid_group_id':
+        default: return;
       }
 
     });
