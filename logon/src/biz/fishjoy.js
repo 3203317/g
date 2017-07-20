@@ -435,20 +435,20 @@ const logger = log4js.getLogger('fishjoy');
   const numkeys = 2;
   const sha1 = '';
 
-  exports.tool = function(server_id, channel_id, tool_id, cb){
+  function freeze(server_id, channel_id, cb){
 
-    biz.user.myInfo(server_id, channel_id, (err, doc) => {
-      if(err) return cb(err);
+  }
 
-      var user = cfg.arrayToObject(doc);
+  exports.tool = function(server_id, channel_id, tool, cb){
 
-      var d = JSON.parse(user.extend_data);
+    if(!_.isArray(tool)) return;
 
-      biz.group.readyUsersByChannel(server_id, channel_id, function (err, doc){
-        if(err) return cb(err);
-        cb(null, [doc, [d.id, tool_id]]);
-      });
-    });
+    var tool_id = tool[0];
+
+    switch(tool_id){
+      case 'freeze': return freeze(server_id, channel_id, cb);
+      default: break;
+    }
 
   };
 })();

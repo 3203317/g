@@ -561,11 +561,8 @@ process.on('exit', () => {
     if(!msg.body) return logger.error('fishjoy tool empty');
 
     var data = JSON.parse(msg.body);
-    var tool_id = data.data - 0;
 
-    if(!_.isNumber(tool_id)) return;
-
-    biz.fishjoy.tool(data.serverId, data.channelId, tool_id, function (err, doc){
+    biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
       if(err) return logger.error('fishjoy tool: %s', err);
 
       var result = {
