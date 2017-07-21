@@ -158,16 +158,6 @@ biz.backend.open(conf.app.id, (err, code) => {
 
   var _front_start, _front_stop;
 
-  // var on_front_start = function(msg){
-  //   if(!msg.body) return logger.error('front start empty');
-  //   logger.info('front start: %s', msg.body);
-  // };
-
-  // var on_front_stop = function(msg){
-  //   if(!msg.body) return logger.error('front stop empty');
-  //   logger.info('front stop: %s', msg.body);
-  // };
-
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------
@@ -218,19 +208,6 @@ biz.backend.open(conf.app.id, (err, code) => {
   // ----------------------------------------------------------------------------------------------------
 
   var _2001_chat_1v1;
-
-  // var on_2001_chat_1v1 = function(msg){
-  //   if(!msg.body) return logger.error('chat 1v1 empty');
-
-  //   var data = JSON.parse(msg.body);
-
-  //   logger.info('chat 1v1 send: %j', data);
-
-  //   data.method = 2002;
-  //   data.receiver = data.channelId;
-
-  //   client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
-  // };
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------

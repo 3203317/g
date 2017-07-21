@@ -17,7 +17,7 @@ if (code) then return code; end;
 
 local seconds = ARGV[1];
 
-redis.call('SET', _key, code);
+redis.call('SET',    _key, code);
 redis.call('EXPIRE', _key, seconds);
 
 --[[
