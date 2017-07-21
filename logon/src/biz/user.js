@@ -194,6 +194,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
       doc.tool_9 || 0,
       doc.bullet_level,
       doc.diamond,
+      1,
       (err, code) => {
         if(err) return cb(err);
         cb(null, code);

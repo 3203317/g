@@ -475,12 +475,8 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, level, (err, doc) => {
         if(err) return cb(err);
-        if(!_.isArray(doc)) return cb(null, doc);
-        var result = [doc[1], level];
-        logger.debug('switch: %j', result);
-        cb(null, [doc[0], result]);
+        cb(null, doc);
     });
-
   };
 })();
 

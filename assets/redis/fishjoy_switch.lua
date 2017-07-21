@@ -34,7 +34,9 @@ local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
 if (false == group_type) then return 'invalid_group_type'; end;
 
-local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+
+if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 -- 
 
@@ -46,21 +48,26 @@ redis.call('HSET', 'prop::'.. user_id, 'current_bullet_level', bullet_level);
 
 -- 
 
-local arr = {};
+local arr1 = {};
 
-for i=2, #group_pos_info, 2 do
-  local u, hand = string.match(group_pos_info[i], '(.*)%::(.*)');
+for i=2, #group_pos, 2 do
+  local u, hand = string.match(group_pos[i], '(.*)%::(.*)');
 
   if ('1' == hand) then
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+    table.insert(arr1, redis.call('HGET', 'prop::'.. u, 'server_id'));
+    table.insert(arr1, redis.call('HGET', 'prop::'.. u, 'channel_id'));
   end;
 
 end;
 
+local arr2 = {};
+
+table.insert(arr2, user_id);
+table.insert(arr2, bullet_level);
+
 local result = {};
 
-table.insert(result, arr);
-table.insert(result, user_id);
+table.insert(result, arr1);
+table.insert(result, arr2);
 
 return result;

@@ -28,21 +28,22 @@ redis.call('EXPIRE', _key, seconds);
   }
 }
 --]]
-redis.call('HMSET', code, 'client_id',    client_id,
-                          'user_id',      user_id,
-                          'extend_data',  ARGV[2],
-                          'score',        ARGV[3],
-                          'tool_1',       ARGV[4],
-                          'tool_2',       ARGV[5],
-                          'tool_3',       ARGV[6],
-                          'tool_4',       ARGV[7],
-                          'tool_5',       ARGV[8],
-                          'tool_6',       ARGV[9],
-                          'tool_7',       ARGV[10],
-                          'tool_8',       ARGV[11],
-                          'tool_9',       ARGV[12],
-                          'bullet_level', ARGV[13],
-                          'diamond',      ARGV[14]);
+redis.call('HMSET', code, 'client_id',            client_id,
+                          'id',                   user_id,
+                          'extend_data',          ARGV[2],
+                          'score',                ARGV[3],
+                          'tool_1',               ARGV[4],
+                          'tool_2',               ARGV[5],
+                          'tool_3',               ARGV[6],
+                          'tool_4',               ARGV[7],
+                          'tool_5',               ARGV[8],
+                          'tool_6',               ARGV[9],
+                          'tool_7',               ARGV[10],
+                          'tool_8',               ARGV[11],
+                          'tool_9',               ARGV[12],
+                          'bullet_level',         ARGV[13],
+                          'diamond',              ARGV[14],
+                          'current_bullet_level', ARGV[15]);
 
 redis.call('EXPIRE', code, seconds);
 
