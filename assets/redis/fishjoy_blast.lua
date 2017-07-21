@@ -20,7 +20,7 @@ if (1 == exist) then return 'invalid_dead_fish_id'; end;
 
 redis.call('SELECT', db);
 
-local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
+local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
 
@@ -32,7 +32,9 @@ local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
 if (false == group_type) then return 'invalid_group_type'; end;
 
-local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+
+if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 -- 
 
@@ -45,22 +47,22 @@ redis.call('HMSET', 'dead::'.. fish_id, 'user_id',      user_id,
 
 redis.call('SELECT', db);
 
-local x = redis.call('HGET', 'prop::'.. user_id, 'score');
+local x = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
 local y = tonumber(x) + tonumber(money);
 
-redis.call('HSET', 'prop::'.. user_id, 'score', y);
+redis.call('HSET', 'prop::user::'.. user_id, 'score', y);
 
 -- 
 
 local arr = {};
 
-for i=2, #group_pos_info, 2 do
-  local u, hand = string.match(group_pos_info[i], '(.*)%::(.*)');
+for i=2, #group_pos, 2 do
+  local u, hand = string.match(group_pos[i], '(.*)%::(.*)');
 
   if ('1' == hand) then
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'server_id'));
+    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
   end;
 
 end;

@@ -15,17 +15,13 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 
 
-redis.call('SELECT', 1 + db);
-
 local bullet_info = redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id);
 
 if (false == bullet_info) then return 'invalid_bullet_id'; end;
 
 -- 
 
-redis.call('SELECT', db);
-
-local user_info = redis.call('HGETALL', 'prop::'.. user_id);
+local user_info = redis.call('HGETALL', 'prop::user::'.. user_id);
 
 -- 
 

@@ -17,17 +17,15 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 不在任何群组
 
-local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
+local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
 
 -- 
 
-local group_pos_id = redis.call('HGET', 'prop::'.. user_id, 'group_pos_id');
+local group_pos_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_pos_id');
 
 -- 获取群组的类型
-
-redis.call('SELECT', 1 + db);
 
 local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
@@ -99,21 +97,17 @@ local user_info = {};
 for i=2, #group_pos_info, 2 do
   local u = string.match(group_pos_info[i], '(.*)%::(.*)');
 
-  redis.call('SELECT', db);
-
-  local dsb = redis.call('HGET', 'prop::'.. u, 'server_id');
+  local dsb = redis.call('HGET', 'prop::user::'.. u, 'server_id');
 
   if (dsb) then
     table.insert(arr, dsb);
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
 
     -- 
 
-    table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'extend_data'));
-    table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'open_time'));
+    table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'extend_data'));
+    table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'open_time'));
   else
-
-    redis.call('SELECT', 1 + db);
 
     local pos = group_pos_info[i - 1];
     redis.call('HDEL', 'pos::group::'.. group_type ..'::'.. group_id, pos);
