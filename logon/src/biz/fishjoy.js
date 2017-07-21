@@ -472,6 +472,13 @@ const logger = log4js.getLogger('fishjoy');
   const numkeys = 3;
   const sha1 = '531a864189790a8d551f29d7f210298e705c40f4';
 
+  /**
+   * 子弹等级切换
+   *
+   * fishjoy_switch.lua
+   *
+   * @return
+   */
   exports.switch = function(server_id, channel_id, level, cb){
 
     level = level - 0;
@@ -494,6 +501,11 @@ const logger = log4js.getLogger('fishjoy');
   const numkeys = 3;
   const sha1 = 'dd849fcc0389a3340232af70c269ad4c1abbd2ff';
 
+  /**
+   * 冰冻
+   *
+   * @return
+   */
   function freeze(server_id, channel_id, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, 1, (err, doc) => {
@@ -517,6 +529,13 @@ const logger = log4js.getLogger('fishjoy');
     });
   }
 
+  /**
+   * 使用道具
+   *
+   * fishjoy_tool.lua
+   *
+   * @return
+   */
   exports.tool = function(server_id, channel_id, tool, cb){
 
     try{
@@ -540,6 +559,7 @@ const logger = log4js.getLogger('fishjoy');
   const sha1 = 'f0a5eea16f9410ac90c223666f109544887f889d';
 
   /**
+   * 获取子弹信息
    *
    * fishjoy_bullet.lua
    *

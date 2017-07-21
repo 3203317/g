@@ -51,6 +51,8 @@ const redis = require('emag.db').redis;
 
   exports.readyUsers = function(group_id, cb){
 
+    if(!group_id) return;
+
     redis.evalsha(sha1, numkeys, conf.redis.database, group_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
@@ -63,6 +65,8 @@ const redis = require('emag.db').redis;
   const sha1 = '7d7d9b45f97db7bebc5b1f870cae415a73281bd9';
 
   exports.allUsers = function(group_id, cb){
+
+    if(!group_id) return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, group_id, (err, doc) => {
       if(err) return cb(err);

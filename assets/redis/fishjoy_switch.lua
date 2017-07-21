@@ -40,6 +40,12 @@ local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.
 
 redis.call('SELECT', db);
 
+-- 为用户设置当前使用的子弹等级
+
+redis.call('HSET', 'prop::'.. user_id, 'current_bullet_level', bullet_level);
+
+-- 
+
 local arr = {};
 
 for i=2, #group_pos_info, 2 do
