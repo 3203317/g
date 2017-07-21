@@ -234,9 +234,7 @@ const logger = log4js.getLogger('fishjoy');
             }
 
             refresh(null, [doc, [fish]]);
-
             logger.debug('scene1: %s::%j', i, fish);
-
             schedule();
           });
 
@@ -330,9 +328,7 @@ const logger = log4js.getLogger('fishjoy');
             }
 
             refresh(null, [doc, fishes]);
-
             logger.debug('scene2: %s::%j', i, fishes);
-
             schedule();
           });
 

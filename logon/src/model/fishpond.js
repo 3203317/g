@@ -40,7 +40,7 @@ pro.clear = function(){
   var self = this;
   self._fishWeight = 0;
   // self._fishes.splice(0, self._fishes.length);
-  for(let i in self._fishes){
+  for(let i of _.keys(self._fishes)){
     delete self._fishes[i];
     fishPool.release(i);
   }
@@ -95,7 +95,7 @@ pro.put = function(fish, force){
 pro.refresh = function(){
   var self = this;
 
-  for(let i in self._fishes){
+  for(let i of _.keys(self._fishes)){
 
     let fish = self._fishes[i];
 
@@ -114,7 +114,6 @@ pro.refresh = function(){
 }
 
 pro.blast = function(bullet, fishes){
-
   var self = this;
 
   var result = [];
@@ -127,19 +126,17 @@ pro.blast = function(bullet, fishes){
 
     logger.debug('blast calculate: 1');
 
-    var trail = cfg.fishTrail[fish.path];
-
-    var s = trail[fish.step];
-
-    var d = distance(s[0], s[1], bullet.x2, bullet.y2);
-
-    // ----------------
-
     var bullet_level = cfg.bullet[bullet.level - 1];
 
     if(!bullet_level) continue;
 
     logger.debug('blast calculate: 2');
+
+    var trail = cfg.fishTrail[fish.path];
+
+    var s = trail[fish.step];
+
+    var d = distance(s[0], s[1], bullet.x2, bullet.y2);
 
     if(d > bullet_level.range) continue;
 
@@ -159,9 +156,9 @@ pro.blast = function(bullet, fishes){
     // 根据配置表生成特殊物品掉落率
 
     result.push({
-      id: fish.id,
-      type: fish.type,
-      money: cfg.fishType[fish.type].money * bullet.level,
+      id:     fish.id,
+      type:   fish.type,
+      money:  cfg.fishType[fish.type].money * bullet.level,
       tool_1: 0,
       tool_2: 0,
     });
@@ -174,7 +171,9 @@ pro.blast = function(bullet, fishes){
   return result;
 };
 
-//计算两点间距离
+/**
+ * 计算两点间距离
+ */
 function distance(x1, y1, x2, y2){
   var xdiff = x2 - x1;
   var ydiff = y2 - y1;

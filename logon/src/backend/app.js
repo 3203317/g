@@ -54,17 +54,14 @@ process.on('exit', () => {
 
   biz.backend.close(conf.app.id, (err, code) => {
     if(err) return logger.error('backend %j close:', conf.app.id, err);
-    logger.info('backend %j close: %s', conf.app.id, code);
+    logger.info('backend %j close: %j', conf.app.id, code);
   });
-
 });
 
-(() => {
-  biz.backend.open(conf.app.id, (err, code) => {
-    if(err) return logger.error('backend %j open:', conf.app.id, err);
-    logger.info('backend %j open: %s', conf.app.id, code);
-  });
-})();
+biz.backend.open(conf.app.id, (err, code) => {
+  if(err) return logger.error('backend %j open:', conf.app.id, err);
+  logger.info('backend %j open: %j', conf.app.id, code);
+});
 
 // ----------------------------------------------------------------------------------------------------
 // ----------------------------------------------------------------------------------------------------
@@ -126,7 +123,7 @@ process.on('exit', () => {
 
   var onErr = function(err){
     _unsubscribe();
-    logger.error('::', err);
+    logger.error('stompjs:', err);
   };
 
   process.on('uncaughtException', err => {
@@ -178,20 +175,16 @@ process.on('exit', () => {
 
     biz.user.myInfo(s[0], s[1], function (err, doc){
       if(err) return logger.error('channel open:', err);
-
       if(!_.isArray(doc)) return;
-
-      if(0 === doc.length) return;
 
       var user = cfg.arrayToObject(doc);
 
       var b = {
         method: 1,
         seqId: 1,
-        receiver: s[1]
+        receiver: s[1],
+        data: JSON.parse(user.extend_data),
       };
-
-      b.data = JSON.parse(user.extend_data);
 
       client.send('/queue/back.send.v2.'+ s[0], { priority: 9 }, JSON.stringify(b));
     });
