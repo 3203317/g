@@ -28,7 +28,24 @@ redis.call('HMSET', 'prop::groupType::baiyin', 'total_players', 4, 'total_visito
 redis.call('HMSET', 'prop::groupType::huangjin', 'total_players', 4, 'total_visitors', 0, 'min_run', 1, 'capacity', 300, 'free_swim_time', 180);
 
 redis.call('HMSET', 'cfg::bullet', 'level_max', 100, 'level_min', 1);
-redis.call('HMSET', 'cfg::bullet::consume', '1', 1, '2', 2, '3', 3, '4', 4, '5', 5);
+redis.call('HMSET', 'cfg::bullet::consume', '1', 1,
+	                                        '2', 2,
+	                                        '3', 3,
+	                                        '4', 4,
+	                                        '5', 5,
+	                                        '6', 6,
+	                                        '7', 7,
+	                                        '8', 8,
+	                                        '9', 9,
+	                                        '10', 10,
+	                                        '11', 11,
+	                                        '12', 12,
+	                                        '13', 13,
+	                                        '14', 14,
+	                                        '15', 15,
+	                                        '16', 16,
+	                                        '17', 17,
+	                                        '18', 18);
 
 -- tuibing
 

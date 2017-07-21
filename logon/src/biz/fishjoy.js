@@ -365,25 +365,25 @@ const logger = log4js.getLogger('fishjoy');
    *
    * @return
    */
-  exports.shot = function(server_id, channel_id, shot, cb){
+  exports.shot = function(server_id, channel_id, bullet, cb){
 
-    if(!shot) return;
+    if(!bullet) return;
 
     try{
-      shot = JSON.parse(shot);
+      bullet = JSON.parse(bullet);
     }catch(ex){ return; }
 
-    if(!_.isString(shot.id))    return;
-    if(!_.isNumber(shot.x))     return;
-    if(!_.isNumber(shot.y))     return;
-    if(!_.isNumber(shot.level)) return;
+    if(!_.isString(bullet.id))    return;
+    if(!_.isNumber(bullet.x))     return;
+    if(!_.isNumber(bullet.y))     return;
+    if(!_.isNumber(bullet.level)) return;
 
-    logger.debug('shot info: %j', shot);
+    logger.debug('bullet info: %j', bullet);
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
-      seconds, shot.x, shot.y, shot.level, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, bullet.id,
+      seconds, bullet.x, bullet.y, bullet.level, (err, doc) => {
         if(err) return cb(err);
-        logger.debug('shot result: %j', shot);
+        logger.debug('shot result: %j', doc);
         cb(null, doc);
     });
   };
@@ -470,9 +470,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
   exports.switch = function(server_id, channel_id, level, cb){
 
     level = level - 0;
-
     if(!_.isNumber(level)) return;
-
     if(1 > level) return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, level, (err, doc) => {
