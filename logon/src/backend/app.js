@@ -12,9 +12,9 @@ const _ = require('underscore');
 
 const conf = require('./settings');
 
-const biz = require('emag.biz');
-
-const cfg = require('emag.cfg');
+const biz    = require('emag.biz');
+const cfg    = require('emag.cfg');
+const handle = require('emag.handle');
 
 const log4js = require('log4js');
 
@@ -81,49 +81,55 @@ biz.backend.open(conf.app.id, (err, code) => {
   var Stomp = require('stompjs');
   var client = Stomp.overTCP(activemq.host, activemq.port);
 
-  var onCb = function(frame){
-    _front_start = client.subscribe('/queue/front.start', on_front_start);
-    _front_stop = client.subscribe('/queue/front.stop', on_front_stop);
+  client.heartbeat.outgoing = 20000;
+  // client will send heartbeats every 20000ms
+  client.heartbeat.incoming = 10000;
 
-    _channel_open = client.subscribe('/queue/channel.open', on_channel_open);
+  var onCb = function(frame){
+    _front_start = client.subscribe('/queue/front.start', handle.front.start);
+    _front_stop  = client.subscribe('/queue/front.stop',  handle.front.stop);
+
+    _channel_open  = client.subscribe('/queue/channel.open',  on_channel_open);
     _channel_close = client.subscribe('/queue/channel.close', on_channel_close);
 
     _2001_chat_1v1 = client.subscribe('/queue/qq.2001', on_2001_chat_1v1);
 
     _3001_group_search = client.subscribe('/queue/qq.3001', on_3001_group_search);
-    _3005_group_quit = client.subscribe('/queue/qq.3005', on_3005_group_quit);
+    _3005_group_quit   = client.subscribe('/queue/qq.3005', on_3005_group_quit);
 
-    _5001_fishjoy_shot = client.subscribe('/queue/qq.5001', on_5001_fishjoy_shot);
-    _5013_fishjoy_switch = client.subscribe('/queue/qq.5013', on_5013_fishjoy_switch);
-
-    _5003_fishjoy_blast = client.subscribe('/queue/qq.5003.'+ conf.app.id, on_5003_fishjoy_blast);
-    _5005_fishjoy_ready = client.subscribe('/queue/qq.5005', on_5005_fishjoy_ready);
-    _5011_fishjoy_tool = client.subscribe('/queue/qq.5011.'+ conf.app.id, on_5011_fishjoy_tool);
+    _5001_fishjoy_shot   = client.subscribe('/queue/qq.5001',               on_5001_fishjoy_shot);
+    _5013_fishjoy_switch = client.subscribe('/queue/qq.5013',               on_5013_fishjoy_switch);
+    _5003_fishjoy_blast  = client.subscribe('/queue/qq.5003.'+ conf.app.id, on_5003_fishjoy_blast);
+    _5005_fishjoy_ready  = client.subscribe('/queue/qq.5005',               on_5005_fishjoy_ready);
+    _5011_fishjoy_tool   = client.subscribe('/queue/qq.5011.'+ conf.app.id, on_5011_fishjoy_tool);
   };
 
   function _unsubscribe(){
-    _front_start.unsubscribe();
-    _front_stop.unsubscribe();
+    if(_front_start) _front_start.unsubscribe();
+    if(_front_stop)  _front_stop.unsubscribe();
 
-    _channel_open.unsubscribe();
-    _channel_close.unsubscribe();
+    if(_channel_open)  _channel_open.unsubscribe();
+    if(_channel_close) _channel_close.unsubscribe();
 
-    _2001_chat_1v1.unsubscribe();
+    if(_2001_chat_1v1) _2001_chat_1v1.unsubscribe();
 
-    _3001_group_search.unsubscribe();
-    _3005_group_quit.unsubscribe();
+    if(_3001_group_search) _3001_group_search.unsubscribe();
+    if(_3005_group_quit)   _3005_group_quit.unsubscribe();
 
-    _5001_fishjoy_shot.unsubscribe();
-    _5013_fishjoy_switch.unsubscribe();
+    if(_5001_fishjoy_shot)   _5001_fishjoy_shot.unsubscribe();
+    if(_5013_fishjoy_switch) _5013_fishjoy_switch.unsubscribe();
+    if(_5003_fishjoy_blast)  _5003_fishjoy_blast.unsubscribe();
+    if(_5005_fishjoy_ready)  _5005_fishjoy_ready.unsubscribe();
+    if(_5011_fishjoy_tool)   _5011_fishjoy_tool.unsubscribe();
 
-    _5003_fishjoy_blast.unsubscribe();
-    _5005_fishjoy_ready.unsubscribe();
-    _5011_fishjoy_tool.unsubscribe();
+    client.disconnect(() => {
+      logger.debug('stompjs client disconnect: %s', _.now());
+    });
   }
 
   var onErr = function(err){
     _unsubscribe();
-    logger.error('stompjs:', err);
+    logger.error('stompjs client:', err);
   };
 
   process.on('uncaughtException', err => {
@@ -152,15 +158,15 @@ biz.backend.open(conf.app.id, (err, code) => {
 
   var _front_start, _front_stop;
 
-  var on_front_start = function(msg){
-    if(!msg.body) return logger.error('front start empty');
-    logger.info('front start: %s', msg.body);
-  };
+  // var on_front_start = function(msg){
+  //   if(!msg.body) return logger.error('front start empty');
+  //   logger.info('front start: %s', msg.body);
+  // };
 
-  var on_front_stop = function(msg){
-    if(!msg.body) return logger.error('front stop empty');
-    logger.info('front stop: %s', msg.body);
-  };
+  // var on_front_stop = function(msg){
+  //   if(!msg.body) return logger.error('front stop empty');
+  //   logger.info('front stop: %s', msg.body);
+  // };
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------

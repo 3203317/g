@@ -18,6 +18,8 @@ const utils = require('speedt-utils').utils;
 const mysql = require('emag.db').mysql;
 const redis = require('emag.db').redis;
 
+const _ = require('underscore');
+
 (() => {
   const numkeys = 2;
   const sha1 = '5e360796e9e10f02db4e018d9c77f756c7f580fd';
@@ -27,7 +29,9 @@ const redis = require('emag.db').redis;
    */
   exports.open = function(back_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, back_id, (new Date().getTime()), (err, code) => {
+    if(!back_id) return;
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, back_id, _.now(), (err, code) => {
       if(err) return cb(err);
       cb(null, code);
     });
@@ -42,6 +46,8 @@ const redis = require('emag.db').redis;
    *
    */
   exports.close = function(back_id, cb){
+
+    if(!back_id) return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, back_id, (err, code) => {
       if(err) return cb(err);
