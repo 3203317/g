@@ -68,12 +68,4 @@ echo "group_users_ready.lua"
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/3203317/g/assets/redis/group_users_ready.lua)"
 
 echo ""
-echo "group_users_ready_channel.lua"
-/root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 script load "$(cat /root/my/git/3203317/g/assets/redis/group_users_ready_channel.lua)"
-
-echo ""
 /root/my/redis/redis-3.2.6/src/redis-cli -a 123456 -p 12379 --eval /root/my/git/3203317/g/assets/redis/init.lua 1 ,
-
-
-
-
