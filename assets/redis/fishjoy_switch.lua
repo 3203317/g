@@ -6,7 +6,7 @@ local channel_id = KEYS[3];
 
 local bullet_level  = ARGV[1];
 
--- 
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 redis.call('SELECT', db);
 
@@ -14,19 +14,17 @@ local user_id = redis.call('GET', server_id ..'::'.. channel_id);
 
 if (false == user_id) then return 'invalid_user_id'; end;
 
--- 
+-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-local x = redis.call('HGET', 'prop::'.. user_id, 'bullet_level');
+local max_bullet_level = redis.call('HGET', 'prop::'.. user_id, 'bullet_level');
 
-if (tonumber(x) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
+if (tonumber(max_bullet_level) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
 
--- 
+-- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
-
--- 
 
 redis.call('SELECT', 1 + db);
 
@@ -38,7 +36,7 @@ local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. gro
 
 if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
--- 
+-- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 redis.call('SELECT', db);
 
@@ -46,7 +44,7 @@ redis.call('SELECT', db);
 
 redis.call('HSET', 'prop::'.. user_id, 'current_bullet_level', bullet_level);
 
--- 
+-- ========================================================================================
 
 local arr1 = {};
 
@@ -57,8 +55,9 @@ for i=2, #group_pos, 2 do
     table.insert(arr1, redis.call('HGET', 'prop::'.. u, 'server_id'));
     table.insert(arr1, redis.call('HGET', 'prop::'.. u, 'channel_id'));
   end;
-
 end;
+
+if (0 == #arr1) then return 'invalid_group_pos'; end;
 
 local arr2 = {};
 
