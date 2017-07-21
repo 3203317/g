@@ -8,9 +8,9 @@ local code       = KEYS[4];
 local seconds    = ARGV[1];
 local open_time  = ARGV[2];
 
--- 
-
 redis.call('SELECT', db);
+
+-- 
 
 local exist = redis.call('EXISTS', code);
 
@@ -29,34 +29,33 @@ local result = 'OK';
 
 -- 
 
-local s = redis.call('HGET', 'prop::'.. user_id, 'server_id');
+local s = redis.call('HGET', 'prop::user::'.. user_id, 'server_id');
 
 if (s) then
-  local b = redis.call('HGET', 'prop::'.. user_id, 'channel_id');
+  local b = redis.call('HGET', 'prop::user::'.. user_id, 'channel_id');
   result = s ..'::'.. b;
   redis.call('DEL', result);
 end;
 
 -- 
 
-local sb = redis.call('HGET', 'prop::'.. user_id, 'group_id');
+local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
 
-if (sb) then
-  redis.call('HMSET', code, 'group_id', sb,
-                            'group_pos_id', redis.call('HGET', 'prop::'.. user_id, 'group_pos_id'));
+if (group_id) then
+  redis.call('HMSET', code, 'group_id', group_id,
+                            'group_pos_id', redis.call('HGET', 'prop::user::'.. user_id, 'group_pos_id'));
 end;
 
 -- 
 
-redis.call('RENAME', code, 'prop::'.. user_id);
+redis.call('RENAME', code, 'prop::user::'.. user_id);
 
 -- 
 
--- redis.call('HDEL', 'prop::'.. user_id, 'user_id');
-redis.call('HMSET', 'prop::'.. user_id, 'server_id', server_id,
-                                        'channel_id', channel_id,
-                                        'open_time', open_time);
-redis.call('EXPIRE', 'prop::'.. user_id, seconds);
+redis.call('HMSET', 'prop::user::'.. user_id, 'server_id', server_id,
+                                              'channel_id', channel_id,
+                                              'open_time', open_time);
+redis.call('EXPIRE', 'prop::user::'.. user_id, seconds);
 
 redis.call('SET', server_id ..'::'.. channel_id, user_id);
 redis.call('EXPIRE', server_id ..'::'.. channel_id, seconds);

@@ -7,6 +7,8 @@ local user_id = KEYS[2];
 
 redis.call('SELECT', db);
 
-local result = redis.call('HGETALL', 'prop::'.. user_id);
+local result = redis.call('HGETALL', 'prop::user::'.. user_id);
+
+if (0 == #result) then return 'invalid_user'; end;
 
 return result;
