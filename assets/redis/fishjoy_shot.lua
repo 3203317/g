@@ -58,11 +58,11 @@ if (0 == tonumber(hand)) then return 'invalid_raise_hand' end;
 
 local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
-local x = tonumber(user_score) - tonumber(bullet_consume);
+local current_score = tonumber(user_score) - tonumber(bullet_consume);
 
-if (0 > x) then return 'invalid_user_score'; end;
+if (0 > current_score) then return 'invalid_user_score'; end;
 
-redis.call('HSET', 'prop::user::'.. user_id, 'score', x);
+redis.call('HSET', 'prop::user::'.. user_id, 'score', current_score);
 
 -- 
 
@@ -76,50 +76,36 @@ redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id',        
                                                                    'user_id',      user_id);
 redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
 
-local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+
+if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 -- 
 
-local arr = {};
+local arr1 = {};
 
-for i=2, #group_pos_info, 2 do
-  local u, hand = string.match(group_pos_info[i], '(.*)%::(.*)');
+for i=2, #group_pos, 2 do
+  local u, hand = string.match(group_pos[i], '(.*)%::(.*)');
 
   if ('1' == hand) then
-    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'server_id'));
-    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
+    table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));
+    table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
   end;
 end;
 
 local user_info = {};
 
 table.insert(user_info, user_id);
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'extend_data'));
-table.insert(user_info, x);
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_1'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_2'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_3'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_4'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_5'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_6'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_7'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_8'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'tool_9'));
--- table.insert(user_info, redis.call('HGET', 'prop::user::'.. user_id, 'open_time'));
+table.insert(user_info, current_score);
+
+local arr2 = {};
+
+table.insert(arr2, user_info);
+table.insert(arr2, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id));
 
 local result = {};
 
-table.insert(result, arr);
-
--- 
-
-local xx = {};
-
-table.insert(xx, user_info);
-table.insert(xx, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id));
-
--- 
-
-table.insert(result, xx);
+table.insert(result, arr1);
+table.insert(result, arr2);
 
 return result;

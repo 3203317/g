@@ -20,8 +20,6 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 
 
-redis.call('SELECT', 1 + db);
-
 local exist = redis.call('EXISTS', 'prop::groupType::'.. group_type);
 
 if (1 ~= exist) then return 'invalid_group_type'; end;
@@ -72,44 +70,41 @@ redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, 
 
 -- 
 
-local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+
+if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 -- 
 
-redis.call('SELECT', db);
-
-redis.call('HMSET', 'prop::'.. user_id, 'group_id', group_id,
+redis.call('HMSET', 'prop::user::'.. user_id, 'group_id', group_id,
                                         'group_pos_id', group_pos_id);
 
-local arr = {};
+local arr1 = {};
 
 local user_info = {};
 
-for i=2, #group_pos_info, 2 do
-  local u = string.match(group_pos_info[i], '(.*)%::(.*)');
+for i=2, #group_pos, 2 do
+  local u = string.match(group_pos[i], '(.*)%::(.*)');
 
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
-  table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+  table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));
+  table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
 
   -- 
 
-  table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'extend_data'));
-  table.insert(user_info, redis.call('HGET', 'prop::'.. u, 'open_time'));
+  table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'extend_data'));
+  table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'open_time'));
 end;
+
+-- 
+
+local arr2 = {};
+
+table.insert(arr2, user_info);
+table.insert(arr2, group_pos);
 
 local result = {};
 
-table.insert(result, arr);
-
--- 
-
-local xx = {};
-
-table.insert(xx, user_info);
-table.insert(xx, group_pos_info);
-
--- 
-
-table.insert(result, xx);
+table.insert(result, arr1);
+table.insert(result, arr2);
 
 return result;

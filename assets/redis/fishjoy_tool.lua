@@ -16,23 +16,21 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 
 
-local x = tonumber(redis.call('HGET', 'prop::'.. user_id, 'tool_'.. tool_type));
+local x = tonumber(redis.call('HGET', 'prop::user::'.. user_id, 'tool_'.. tool_type));
 
 if (0 == x) then return 'invalid_tool_'.. tool_type; end;
 
 local y = x - 1;
 
-redis.call('HSET', 'prop::'.. user_id, 'tool_'.. tool_type, y);
+redis.call('HSET', 'prop::user::'.. user_id, 'tool_'.. tool_type, y);
 
 -- 
 
-local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
+local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
 
 -- 
-
-redis.call('SELECT', 1 + db);
 
 local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
@@ -42,16 +40,14 @@ local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.
 
 -- 
 
-redis.call('SELECT', db);
-
 local arr = {};
 
 for i=2, #group_pos_info, 2 do
   local u, hand = string.match(group_pos_info[i], '(.*)%::(.*)');
 
   if ('1' == hand) then
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'server_id'));
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'server_id'));
+    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
   end;
 
 end;

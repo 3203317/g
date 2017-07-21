@@ -16,19 +16,17 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- 
 
-local group_id = redis.call('HGET', 'prop::'.. user_id, 'group_id');
+local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'OK'; end;
 
 -- 
 
-local group_pos_id = redis.call('HGET', 'prop::'.. user_id, 'group_pos_id');
+local group_pos_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_pos_id');
 
-redis.call('HDEL', 'prop::'.. user_id, 'group_id', 'group_pos_id');
+redis.call('HDEL', 'prop::user::'.. user_id, 'group_id', 'group_pos_id');
 
 -- 获取群组的类型
-
-redis.call('SELECT', 1 + db);
 
 local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
@@ -50,30 +48,26 @@ redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. group_pos
 
 -- 
 
-local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
-if (0 == #group_pos_info) then return 'OK'; end;
+if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 -- 
 
 local arr = {};
 
-for i=2, #group_pos_info, 2 do
-  -- table.insert(arr, group_pos_info[i - 1]);
-  local u = string.match(group_pos_info[i], '(.*)%::(.*)');
+for i=2, #group_pos, 2 do
+  -- table.insert(arr, group_pos[i - 1]);
+  local u = string.match(group_pos[i], '(.*)%::(.*)');
 
-  redis.call('SELECT', db);
-
-  local sb = redis.call('HGET', 'prop::'.. u, 'server_id');
+  local sb = redis.call('HGET', 'prop::user::'.. u, 'server_id');
 
   if (sb) then
     table.insert(arr, sb);
-    table.insert(arr, redis.call('HGET', 'prop::'.. u, 'channel_id'));
+    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
   else
 
-    redis.call('SELECT', 1 + db);
-
-    local pos = group_pos_info[i - 1];
+    local pos = group_pos[i - 1];
     redis.call('HDEL', 'pos::group::'.. group_type ..'::'.. group_id, pos);
     redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. pos);
   end;
