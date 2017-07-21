@@ -92,7 +92,7 @@ biz.backend.open(conf.app.id, (err, code) => {
     _channel_open  = client.subscribe('/queue/channel.open',  on_channel_open);
     _channel_close = client.subscribe('/queue/channel.close', on_channel_close);
 
-    _2001_chat_1v1 = client.subscribe('/queue/qq.2001', on_2001_chat_1v1);
+    _2001_chat_1v1 = client.subscribe('/queue/qq.2001', handle.chat.one_for_one.bind(null, client));
 
     _3001_group_search = client.subscribe('/queue/qq.3001', on_3001_group_search);
     _3005_group_quit   = client.subscribe('/queue/qq.3005', on_3005_group_quit);
@@ -219,18 +219,18 @@ biz.backend.open(conf.app.id, (err, code) => {
 
   var _2001_chat_1v1;
 
-  var on_2001_chat_1v1 = function(msg){
-    if(!msg.body) return logger.error('chat 1v1 empty');
+  // var on_2001_chat_1v1 = function(msg){
+  //   if(!msg.body) return logger.error('chat 1v1 empty');
 
-    var data = JSON.parse(msg.body);
+  //   var data = JSON.parse(msg.body);
 
-    logger.info('chat 1v1 send: %j', data);
+  //   logger.info('chat 1v1 send: %j', data);
 
-    data.method = 2002;
-    data.receiver = data.channelId;
+  //   data.method = 2002;
+  //   data.receiver = data.channelId;
 
-    client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
-  };
+  //   client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
+  // };
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------

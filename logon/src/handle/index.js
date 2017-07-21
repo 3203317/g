@@ -6,3 +6,4 @@
 'use strict';
 
 exports.front = require('./front');
+exports.chat  = require('./chat');
