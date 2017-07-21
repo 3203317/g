@@ -235,7 +235,7 @@ const logger = log4js.getLogger('fishjoy');
 
             refresh(null, [doc, [fish]]);
 
-            logger.info('scene1: %s::%j', i, fish);
+            logger.debug('scene1: %s::%j', i, fish);
 
             schedule();
           });
@@ -331,7 +331,7 @@ const logger = log4js.getLogger('fishjoy');
 
             refresh(null, [doc, fishes]);
 
-            logger.info('scene2: %s::%j', i, fishes);
+            logger.debug('scene2: %s::%j', i, fishes);
 
             schedule();
           });
@@ -360,7 +360,15 @@ const logger = log4js.getLogger('fishjoy');
 (() => {
   const numkeys = 4;
   const sha1 = 'a0b748bd63eb19f4994d3246dd49298bea99e3a6';
+  const seconds = 22;
 
+  /**
+   * 子弹发射
+   *
+   * fishjoy_shot.lua
+   *
+   * @return
+   */
   exports.shot = function(server_id, channel_id, shot, cb){
 
     if(!shot) return;
@@ -374,99 +382,83 @@ const logger = log4js.getLogger('fishjoy');
     if(!_.isNumber(shot.y))     return;
     if(!_.isNumber(shot.level)) return;
 
+    logger.debug('shot info: %j', shot);
+
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, shot.id,
-      99, shot.x, shot.y, shot.level, (err, doc) => {
+      seconds, shot.x, shot.y, shot.level, (err, doc) => {
         if(err) return cb(err);
-        logger.info('shot: %j', shot);
+        logger.debug('shot result: %j', shot);
         cb(null, doc);
     });
   };
 })();
 
-(() => {
-  const numkeys = 2;
-  const sha1 = '';
+/**
+ *
+ * 子弹爆炸
+ *
+ * @return
+ */
+exports.blast = function(server_id, channel_id, blast, cb){
 
-  exports.blast = function(server_id, channel_id, blast, cb){
+  if(!blast) return;
 
-    if(!blast) return;
+  try{
+    blast = JSON.parse(blast);
+  }catch(ex){ return; }
 
-    try{
-      blast = JSON.parse(blast);
-    }catch(ex){ return; }
+  if(!_.isArray(blast))  return;
+  if(2 !== blast.length) return;
 
-    if(!_.isArray(blast))  return;
-    if(2 !== blast.length) return;
+  var bullet_blast = blast[0];
+  if(!_.isObject(bullet_blast))    return;
+  if(!_.isNumber(bullet_blast.x))  return;
+  if(!_.isNumber(bullet_blast.y))  return;
+  if(!_.isString(bullet_blast.id)) return;
 
-    var bullet_blast = blast[0];
-    if(!_.isObject(bullet_blast))    return;
-    if(!_.isNumber(bullet_blast.x))  return;
-    if(!_.isNumber(bullet_blast.y))  return;
-    if(!_.isString(bullet_blast.id)) return;
+  var hit_fishes = blast[1];
+  if(!_.isArray(hit_fishes)) return;
+  if(0 === blast.length)     return;
 
-    var hit_fishes = blast[1];
-    if(!_.isArray(hit_fishes)) return;
-    if(0 === blast.length)     return;
+  logger.debug('blast info: %j', blast);
 
-    var self = this;
+  var self = this;
 
-    self.bullet(server_id, channel_id, bullet_blast.id, function (err, doc){
-      if(err) return cb(err);
+  self.bullet(server_id, channel_id, bullet_blast.id, function (err, doc){
+    if(err) return cb(err);
+    if(!_.isArray(doc)) return cb(null, doc);
 
-      if(!_.isArray(doc)) return cb(null, doc);
+    var user_info = cfg.arrayToObject(doc[0]);
 
-      var user_info = cfg.arrayToObject(doc[0]);
+    var fishpond = fishpondPool.get(user_info.group_id);
 
-      var fishpond = fishpondPool.get(user_info.group_id);
+    // 判断当前鱼池是否存在
+    if(!fishpond) return;
 
-      // 判断当前鱼池是否存在
-      if(!fishpond) return;
+    var bullet_info = cfg.arrayToObject(doc[1]);
 
-      var bullet_info = cfg.arrayToObject(doc[1]);
+    bullet_info.x2 = bullet_blast.x;
+    bullet_info.y2 = bullet_blast.y;
 
-      bullet_info.x2 = bullet_blast.x;
-      bullet_info.y2 = bullet_blast.y;
+    logger.debug('blast bullet info: %j', bullet_info);
 
-      logger.debug('biz blast: %j', bullet_info);
+    var dead_fishes = fishpond.blast(bullet_info, hit_fishes);
 
-      var dead_fishes = fishpond.blast(bullet_info, hit_fishes);
+    for(let fish of dead_fishes){
 
-      for(let i of dead_fishes){
+      self.deadFish(user_info.id, fish.id, fish.type, fish.money, function (err, doc){
+        if(err) return cb(err);
+        if(!_.isArray(doc)) return cb(null, doc);
 
-        let fish = fishPool.get(i.id);
+        var result = [user_info.id, fish.id, fish.money, doc[1]];
+        logger.debug('fish money: %j', result);
 
-        if(!fish) continue;
+        cb(null, [doc[0], result]);
+      });
+    }
 
-        var idid = JSON.parse(user_info.extend_data).id;
-
-        logger.debug('idid:'+ idid);
-
-        self.deadFish(idid, fish.id, fish.type, i.money, function (err, doc){
-          if(err) return cb(err);
-
-          logger.debug('deadFish:'+ doc)
-
-
-          if(!_.isArray(doc)) return cb(null, doc);
-
-          logger.debug('let fish: %j', fish);
-          logger.debug('let fish: %j', doc);
-
-          var result = [idid, fish.id, i.money, doc[1]];
-
-          // 将鱼释放到对象池
-          fishPool.release(fish.id);
-          logger.info('clear blast: %j', result);
-
-          cb(null, [doc[0], result]);
-        });
-
-      }
-
-    });
-  };
-
-})();
+  });
+};
 
 (() => {
   const numkeys = 3;
@@ -490,8 +482,9 @@ const logger = log4js.getLogger('fishjoy');
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, level, (err, doc) => {
         if(err) return cb(err);
         if(!_.isArray(doc)) return cb(null, doc);
-        logger.info('switch: %s::%s', doc[1], level);
-        cb(null, [doc[0], [doc[1], level]]);
+        var result = [doc[1], level];
+        logger.debug('switch: %j', result);
+        cb(null, [doc[0], result]);
     });
 
   };
@@ -524,7 +517,7 @@ const logger = log4js.getLogger('fishjoy');
         fishpond.pause(cfg.tool[0].time);
 
         doc[1].push(1);
-        logger.info('freeze: %j', doc[1]);
+        logger.debug('freeze: %j', doc[1]);
         cb(null, doc);
     });
   }

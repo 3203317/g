@@ -7,8 +7,12 @@
 
 const cfg = require('emag.cfg');
 
+const _ = require('underscore');
+
 const log4js = require('log4js');
-const logger = log4js.getLogger('fishjoy');
+const logger = log4js.getLogger('fishpond');
+
+const fishPool = require('emag.model').fishPool;
 
 module.exports = function(opts){
   return new Method(opts);
@@ -38,12 +42,14 @@ pro.clear = function(){
   // self._fishes.splice(0, self._fishes.length);
   for(let i in self._fishes){
     delete self._fishes[i];
+    fishPool.release(i);
   }
 };
 
 pro.clearFish = function(fish){
   delete this._fishes[fish.id];
   this._fishWeight -= fish.weight;
+  fishPool.release(fish.id);
 };
 
 pro.getFishWeight = function(){
@@ -117,9 +123,9 @@ pro.blast = function(bullet, fishes){
 
     var fish = self._fishes[f];
 
-    logger.debug('blast calculate: %s', !!fish);
-
     if(!fish) continue;
+
+    logger.debug('blast calculate: 1');
 
     var trail = cfg.fishTrail[fish.path];
 
@@ -127,150 +133,46 @@ pro.blast = function(bullet, fishes){
 
     var d = distance(s[0], s[1], bullet.x2, bullet.y2);
 
-    logger.debug('blast calculate: 1');
-
     // ----------------
 
-    var ff = cfg.bullet[bullet.level - 1];
+    var bullet_level = cfg.bullet[bullet.level - 1];
 
-    if(!ff) continue;
-
-    if(d > ff.range) continue;
+    if(!bullet_level) continue;
 
     logger.debug('blast calculate: 2');
 
-    if(!(--fish.hp < 1)) continue;
-
-    var r = Math.random();
+    if(d > bullet_level.range) continue;
 
     logger.debug('blast calculate: 3');
 
-    if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
+    if(!(--fish.hp < 1)) continue;
 
     logger.debug('blast calculate: 4');
 
+    var r = Math.random();
+
+    if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
+
+    logger.debug('blast calculate: 5');
+
     // 根据玩家的幸运值与盈亏比率在进行判断
-
-    self.clearFish(fish.id);
-
     // 根据配置表生成特殊物品掉落率
-
-    logger.debug('clear fish: %s', fish);
 
     result.push({
       id: fish.id,
+      type: fish.type,
       money: cfg.fishType[fish.type].money * bullet.level,
       tool_1: 0,
       tool_2: 0,
     });
 
+    self.clearFish(fish.id);
   }
 
   logger.debug('dead fishes: %j', result);
 
   return result;
 };
-
-
-
-
-// pro.getFixed = function(i){
-//   var self = this;
-
-//   for(let f of self.fishFixed[1][i]){
-
-//     var k = self.fishFixed[0][f];
-
-//     let t = self.fishType[k[0]];
-
-//     var newFish = {
-//       id: utils.replaceAll(uuid.v1(), '-', ''),
-//       step: 0,
-//       type: k[0],
-//       path: k[1],
-//       probability: t.probability,
-//       weight: t.weight,
-//       hp: t.hp
-//     };
-
-//     self._fishWeight += newFish.weight;
-//     self._fishes.push(newFish);
-//   }
-
-//   return self._fishes;
-// }
-
-// function getFish(){
-//   var self = this;
-
-//   if(self._fishWeight >= self.capacity) return;
-
-//   var newFish = {
-//     id: utils.replaceAll(uuid.v1(), '-', ''),
-//     step: 0
-//   };
-
-//   var r = Math.random();
-
-//   for(let i in self.fishType){
-
-//     let t = self.fishType[i];
-
-//     if(r >= t.probability){
-//       newFish.type = i - 0;
-//       newFish.path = Math.round((self.cfg.fishTrail.length - 1) * Math.random());
-//       newFish.probability = t.probability;
-//       newFish.weight = t.weight;
-//       newFish.hp = t.hp;
-//       self._fishWeight += t.weight;
-//       break;
-//     }
-//   }
-
-//   return newFish;
-// }
-
-
-// HitFish:function(msg){
-
-//     //取得子弹id对应的子弹信息
-//     var bullet = GetBullet(msg.id);
-    
-//     for(let f of msg._fishes){
-         
-//         //取得鱼id对应的鱼配置
-//         var fish = GetFish(f);
-
-//         var d =  Distance(   fish.path[fish.step].x, fish.path[fish.step].y, 
-//                                 bullet.x,bullet.y) ;
-
-//         //计算子弹位置与鱼当前位置 是否合法
-//         if(d < bullet.range ) //鱼坐标和子弹坐标 距离小于当前子弹的爆炸半径
-//         {//合法命中
-           
-//            if(--fish.hp <= 0){      //生命值为0，按概率计算能否打死
-//                  //取得玩家信息
-//                 var p = GetPlayer(bullet.owner);
-//                 var r = Math.random();
-//                 if(r < fish.die + (1-fish.die)*p.lucky){   //随机值大于死亡率
-                   
-//                     //检测玩家盈利率  本局玩家打到鱼赚的金币数 / 本局玩家消耗掉的金币 < 玩家盈利率
-//                     // if(  ){            }
-
-//                     //返回打到鱼的结果
-//                     return {
-//                         player_id:0,
-//                         fish_id:0,                            
-//                         fish_value:0,
-//                     };
-//                 }
-//            }//else{}//不处理
-
-//         }
-//         //else{}//非法命中，不处理
-//     }       
-// }
-
 
 //计算两点间距离
 function distance(x1, y1, x2, y2){
