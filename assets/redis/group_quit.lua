@@ -22,7 +22,7 @@ if (false == group_id) then return 'OK'; end;
 
 local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
 
-if (false == group_type) return 'OK'; end;
+if (false == group_type) then return 'OK'; end;
 
 -- 
 
