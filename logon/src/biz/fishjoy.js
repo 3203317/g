@@ -292,6 +292,8 @@ const logger = log4js.getLogger('fishjoy');
           for(let m in fishes){
             let n = fishes[m];
             let f = fishpond.put(n, true);
+
+            // 如果没有往鱼池投放成功，则删除这条鱼
             if(!f) fishes.splice(m, 1);
           }
 
@@ -303,11 +305,7 @@ const logger = log4js.getLogger('fishjoy');
               return fishpondPool.release(fishpond.id);
             }
 
-            if('invalid_group_id' === doc){
-              return fishpondPool.release(fishpond.id);
-            }
-
-            if(0 === doc.length){
+            if(!_.isArray(doc)){
               return fishpondPool.release(fishpond.id);
             }
 

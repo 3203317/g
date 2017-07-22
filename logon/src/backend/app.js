@@ -265,80 +265,80 @@ biz.backend.open(conf.app.id, (err, code) => {
     });
   };
 
-  var _on_5005_fishjoy_ready_ready = function(server_id, channel_id, seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready ready:', err);
+  // var _on_5005_fishjoy_ready_ready = function(server_id, channel_id, seq_id, err, doc){
+  //   if(err) return logger.error('fishjoy ready ready:', err);
 
-    if(_.isArray(doc)){
+  //   if(_.isArray(doc)){
 
-      var result = {
-        method: 5006,
-        seqId: seq_id,
-        data: doc[1]
-      };
+  //     var result = {
+  //       method: 5006,
+  //       seqId: seq_id,
+  //       data: doc[1]
+  //     };
 
-      return ((function(){
+  //     return ((function(){
 
-        var arr = doc[0];
+  //       var arr = doc[0];
 
-        for(let i=0, j=arr.length; i<j; i++){
-          let s = arr[i];
-          result.receiver = arr[++i];
-          if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-        }
+  //       for(let i=0, j=arr.length; i<j; i++){
+  //         let s = arr[i];
+  //         result.receiver = arr[++i];
+  //         if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  //       }
 
-      })());
-    }
+  //     })());
+  //   }
 
-    switch(doc){
-      case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
-      case 'invalid_group_id':
-      case 'invalid_group_pos_id':
-      case 'already_raise_hand': return;
-    }
+  //   switch(doc){
+  //     case 'invalid_user_id':
+  //       return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+  //     case 'invalid_group_id':
+  //     case 'invalid_group_pos_id':
+  //     case 'already_raise_hand': return;
+  //   }
 
-  };
+  // };
 
-  var _on_5005_fishjoy_ready_refresh = function(seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready refresh:', err);
+  // var _on_5005_fishjoy_ready_refresh = function(seq_id, err, doc){
+  //   if(err) return logger.error('fishjoy ready refresh:', err);
 
-    if(!_.isArray(doc)) return;
+  //   if(!_.isArray(doc)) return;
 
-    var result = {
-      timestamp: new Date().getTime(),
-      method: 5008,
-      seqId: seq_id,
-      data: doc[1],
-    };
+  //   var result = {
+  //     timestamp: new Date().getTime(),
+  //     method: 5008,
+  //     seqId: seq_id,
+  //     data: doc[1],
+  //   };
 
-    var arr = doc[0];
+  //   var arr = doc[0];
 
-    for(let i=0, j=arr.length; i<j; i++){
-      let s = arr[i];
-      result.receiver = arr[++i];
-      if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-    }
-  };
+  //   for(let i=0, j=arr.length; i<j; i++){
+  //     let s = arr[i];
+  //     result.receiver = arr[++i];
+  //     if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  //   }
+  // };
 
-  var _on_5005_fishjoy_ready_scene = function(seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready scene:', err);
+  // var _on_5005_fishjoy_ready_scene = function(seq_id, err, doc){
+  //   if(err) return logger.error('fishjoy ready scene:', err);
 
-    if(!_.isArray(doc)) return;
+  //   if(!_.isArray(doc)) return;
 
-    var result = {
-      timestamp: new Date().getTime(),
-      method: 5010,
-      seqId: seq_id,
-    };
+  //   var result = {
+  //     timestamp: new Date().getTime(),
+  //     method: 5010,
+  //     seqId: seq_id,
+  //   };
 
-    var arr = doc;
+  //   var arr = doc;
 
-    for(let i=0, j=arr.length; i<j; i++){
-      let s = arr[i];
-      result.receiver = arr[++i];
-      if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-    }
-  };
+  //   for(let i=0, j=arr.length; i<j; i++){
+  //     let s = arr[i];
+  //     result.receiver = arr[++i];
+  //     if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  //   }
+  // };
 
   var _on_5005_fishjoy_ready_unfreeze = function(seq_id, err, doc){
     if(err) return logger.error('fishjoy ready unfreeze:', err);

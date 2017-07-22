@@ -48,6 +48,82 @@ function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
   }
 }
 
+function _ready_refresh(client, seq_id, err, doc){
+  if(err) return logger.error('fishjoy refresh:', err);
+
+  if(!_.isArray(doc)) return;
+
+  var arr1 = doc[0];
+  if(!arr1) return;
+
+  var result = {
+    timestamp: new Date().getTime(),
+    method:    5008,
+    seqId:     seq_id,
+    data:      doc[1],
+  };
+
+  for(let i=0, j=arr1.length; i<j; i++){
+    let s           = arr1[i];
+    result.receiver = arr1[++i];
+
+    if(!s)               continue;
+    if(!result.receiver) continue;
+
+    client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  }
+}
+
+function _ready_scene(client, seq_id, err, doc){
+  if(err) return logger.error('fishjoy scene:', err);
+
+  if(!_.isArray(doc)) return;
+
+  var arr1 = doc[0];
+  if(!arr1) return;
+
+  var result = {
+    timestamp: new Date().getTime(),
+    method:    5010,
+    seqId:     seq_id,
+  };
+
+  for(let i=0, j=arr1.length; i<j; i++){
+    let s           = arr1[i];
+    result.receiver = arr1[++i];
+
+    if(!s)               continue;
+    if(!result.receiver) continue;
+
+    client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  }
+}
+
+function _ready_unfreeze(client, seq_id, err, doc){
+  if(err) return logger.error('fishjoy unfreeze:', err);
+
+  if(!_.isArray(doc)) return;
+
+  var arr1 = doc[0];
+  if(!arr1) return;
+
+  var result = {
+    method: 5016,
+    seqId:  seq_id,
+    data:   doc[1],
+  };
+
+  for(let i=0, j=arr1.length; i<j; i++){
+    let s           = arr1[i];
+    result.receiver = arr1[++i];
+
+    if(!s)               continue;
+    if(!result.receiver) continue;
+
+    client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  }
+}
+
 exports.ready = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy ready empty');
 
@@ -55,7 +131,10 @@ exports.ready = function(client, msg){
   }catch(ex){ return; }
 
   biz.fishjoy.ready(data.serverId, data.channelId,
-    _ready_ready.bind(null, client, data.serverId, data.channelId, data.seqId));
+       _ready_ready.bind(null, client, data.serverId, data.channelId, data.seqId),
+     _ready_refresh.bind(null, client, data.seqId),
+       _ready_scene.bind(null, client, data.seqId),
+    _ready_unfreeze.bind(null, client, data.seqId));
 };
 
 exports.switch = function(client, msg){
