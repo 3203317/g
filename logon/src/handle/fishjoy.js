@@ -13,7 +13,6 @@ const logger = log4js.getLogger('handle');
 
 const _ = require('underscore');
 
-
 function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
   if(err) return logger.error('fishjoy ready:', err);
 

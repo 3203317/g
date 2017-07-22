@@ -17,6 +17,8 @@ const utils = require('speedt-utils').utils;
 
 const redis = require('emag.db').redis;
 
+const _ = require('underscore');
+
 (() => {
   const numkeys = 5;
   const sha1 = '1101daa0c0023c3e9ea53f628c0f0c6f4e0f69e0';
@@ -54,6 +56,9 @@ const redis = require('emag.db').redis;
   const numkeys = 2;
   const sha1 = '921cfe8c0a29346c8fe452033abc7b6629296dd0';
 
+  /**
+   * group_users_ready.lua
+   */
   exports.readyUsers = function(group_id, cb){
 
     if(!group_id) return;
@@ -69,6 +74,9 @@ const redis = require('emag.db').redis;
   const numkeys = 2;
   const sha1 = '7d7d9b45f97db7bebc5b1f870cae415a73281bd9';
 
+  /**
+   * group_users.lua
+   */
   exports.allUsers = function(group_id, cb){
 
     if(!group_id) return;

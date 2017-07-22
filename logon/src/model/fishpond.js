@@ -44,7 +44,7 @@ pro.clearAll = function(){
     self.clearFish(fish);
   }
 
-  if(0 < self._fishesWeight){
+  if(0 !== self._fishesWeight){
     logger.error('clearAll: %s::%s', self.id, self._fishesWeight);
   }
 };

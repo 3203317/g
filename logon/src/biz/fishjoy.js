@@ -52,14 +52,6 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
 
-  // function transform(obj){
-  //   let arr = [];
-  //   for(let item in obj){
-  //     arr.push(obj[item]);
-  //   }
-  //   return arr;
-  // }
-
   /**
    * 从池中生成一条新鱼
    */
@@ -67,7 +59,7 @@ const logger = log4js.getLogger('fishjoy');
 
     var newFish = fishPool.create(utils.replaceAll(uuid.v1(), '-', ''));
 
-    if(!newFish) return;
+    if(!newFish) return logger.error('create fish repeat');
 
     var r = Math.random();
 
@@ -127,7 +119,7 @@ const logger = log4js.getLogger('fishjoy');
 
     var group_info = cfg.arrayToObject(doc[1][1]);
 
-    logger.info('fishjoy ready init: %s', group_info.id);
+    logger.info('ready init: %s', group_info.id);
 
     var fishpond = fishpondPool.get(group_info.id);
 
@@ -168,19 +160,17 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
-              if('invalid_group_id' === doc){
-                return fishpondPool.release(fishpond.id);
-              }
-
-              if(0 === doc.length){
+              if(!_.isArray(doc)){
                 return fishpondPool.release(fishpond.id);
               }
 
               scene(null, doc);
-              fishpond.clear();
+              fishpond.clearAll();
               scene2();
             });
           }
+
+          // 检测是否被冰冻
 
           var pause = fishpond.pause();
 
@@ -192,11 +182,7 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
-              if('invalid_group_id' === doc){
-                return fishpondPool.release(fishpond.id);
-              }
-
-              if(0 === doc.length){
+              if(!_.isArray(doc)){
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -209,13 +195,21 @@ const logger = log4js.getLogger('fishjoy');
 
           i--;
 
+          // 让鱼池中现有的鱼游动
+
           fishpond.refresh();
+
+          // 创建一条新鱼
 
           var fish = createFish1();
 
           if(!fish) return schedule();
 
+          // 把鱼放进鱼池
+
           fish = fishpond.put(fish);
+
+          // 判断是否成功把鱼放进鱼池
 
           if(!fish) return schedule();
 
@@ -225,13 +219,11 @@ const logger = log4js.getLogger('fishjoy');
               return fishpondPool.release(fishpond.id);
             }
 
-            if('invalid_group_id' === doc){
+            if(!_.isArray(doc)){
               return fishpondPool.release(fishpond.id);
             }
 
-            if(0 === doc.length){
-              return fishpondPool.release(fishpond.id);
-            }
+            // 把新创建的鱼群发
 
             refresh(null, [doc, [fish]]);
             logger.debug('scene1: %s::%j', i, fish);
@@ -259,16 +251,12 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
-              if('invalid_group_id' === doc){
-                return fishpondPool.release(fishpond.id);
-              }
-
-              if(0 === doc.length){
+              if(!_.isArray(doc)){
                 return fishpondPool.release(fishpond.id);
               }
 
               scene(null, doc);
-              fishpond.clear();
+              fishpond.clearAll();
               scene1();
             });
           }
@@ -283,11 +271,7 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
-              if('invalid_group_id' === doc){
-                return fishpondPool.release(fishpond.id);
-              }
-
-              if(0 === doc.length){
+              if(!_.isArray(doc)){
                 return fishpondPool.release(fishpond.id);
               }
 
