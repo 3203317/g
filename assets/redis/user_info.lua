@@ -9,6 +9,6 @@ redis.call('SELECT', db);
 
 local result = redis.call('HGETALL', 'prop::user::'.. user_id);
 
-if (0 == #result) then return 'invalid_user'; end;
+if (0 == #result) then return 'invalid_user_id'; end;
 
 return result;

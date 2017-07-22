@@ -38,6 +38,9 @@ const redis = require('emag.db').redis;
 
   exports.quit = function(server_id, channel_id, cb){
 
+    if(!server_id)  return;
+    if(!channel_id) return;
+
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, doc) => {
       if(err) return cb(err);
       cb(null, doc);
