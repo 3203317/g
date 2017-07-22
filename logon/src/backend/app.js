@@ -90,12 +90,12 @@ biz.backend.open(conf.app.id, (err, code) => {
     _front_stop  = client.subscribe('/queue/front.stop',  handle.front.stop);
 
     _channel_open  = client.subscribe('/queue/channel.open',  handle.channel.open.bind(null, client));
-    _channel_close = client.subscribe('/queue/channel.close', handle.channel.close);
+    _channel_close = client.subscribe('/queue/channel.close', handle.channel.close.bind(null, client));
 
     _2001_chat_1v1 = client.subscribe('/queue/qq.2001', handle.chat.one_for_one.bind(null, client));
 
-    _3001_group_search = client.subscribe('/queue/qq.3001', on_3001_group_search);
-    _3005_group_quit   = client.subscribe('/queue/qq.3005', on_3005_group_quit);
+    _3001_group_search = client.subscribe('/queue/qq.3001', handle.group.search.bind(null, client));
+    _3005_group_quit   = client.subscribe('/queue/qq.3005', handle.group.quit.bind(null, client));
 
     _5001_fishjoy_shot   = client.subscribe('/queue/qq.5001',               on_5001_fishjoy_shot);
     _5013_fishjoy_switch = client.subscribe('/queue/qq.5013',               on_5013_fishjoy_switch);
@@ -123,7 +123,7 @@ biz.backend.open(conf.app.id, (err, code) => {
     if(_5011_fishjoy_tool)   _5011_fishjoy_tool.unsubscribe();
 
     client.disconnect(() => {
-      logger.debug('stompjs client disconnect: %s', _.now());
+      logger.info('stompjs client disconnect: %s', _.now());
     });
   }
 

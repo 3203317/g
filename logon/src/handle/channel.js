@@ -42,7 +42,7 @@ exports.open = function(client, msg){
   });
 };
 
-exports.close = function(msg){
+exports.close = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('channel close empty');
 
   var s = msg.body.split('::');
@@ -50,7 +50,7 @@ exports.close = function(msg){
   var server_id  = s[0];
   var channel_id = s[1];
 
-  group.quit(server_id, channel_id, 0, function (err){
+  group.quit(client, server_id, channel_id, 0, function (err){
     if(err) return logger.error('group quit:', err);
     logger.info('group quit: %j', s);
 

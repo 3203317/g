@@ -25,7 +25,7 @@ const _ = require('underscore');
   const sha1 = '5e360796e9e10f02db4e018d9c77f756c7f580fd';
 
   /**
-   *
+   * back_open.lua
    */
   exports.open = function(back_id, cb){
 
@@ -43,7 +43,7 @@ const _ = require('underscore');
   const sha1 = 'f7f5e836961699048db5e9f4cd0ee48c074098bb';
 
   /**
-   *
+   * back_close.lua
    */
   exports.close = function(back_id, cb){
 
