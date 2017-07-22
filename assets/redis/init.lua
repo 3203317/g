@@ -22,7 +22,7 @@ redis.call('SELECT', db);
 -- min_run 最小运行
 
 redis.call('HMSET', 'prop::groupType::qingtong', 'total_players', 4, 'total_visitors', 0, 'min_run', 1, 'capacity', 100, 'free_swim_time', 180);
-redis.call('HMSET', 'prop::groupType::baiyin', 'total_players', 4, 'total_visitors', 0, 'min_run', 1, 'capacity', 200, 'free_swim_time', 180);
+redis.call('HMSET', 'prop::groupType::baiyin',   'total_players', 4, 'total_visitors', 0, 'min_run', 1, 'capacity', 200, 'free_swim_time', 180);
 redis.call('HMSET', 'prop::groupType::huangjin', 'total_players', 4, 'total_visitors', 0, 'min_run', 1, 'capacity', 300, 'free_swim_time', 180);
 
 redis.call('HMSET', 'cfg::bullet', 'level_max', 100, 'level_min', 1);
