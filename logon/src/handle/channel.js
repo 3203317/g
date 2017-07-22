@@ -27,8 +27,7 @@ exports.open = function(client, msg){
     if(err) return logger.error('channel open:', err);
     if(!_.isObject(doc)) return;
 
-    try{
-      var extend_data = JSON.parse(doc.extend_data);
+    try{ var extend_data = JSON.parse(doc.extend_data);
     }catch(ex){ return; }
 
     var sb = {
@@ -50,7 +49,7 @@ exports.close = function(client, msg){
   var server_id  = s[0];
   var channel_id = s[1];
 
-  group.quit(client, server_id, channel_id, 0, function (err){
+  group._quit(client, server_id, channel_id, 0, function (err){
     if(err) return logger.error('group quit:', err);
     logger.info('group quit: %j', s);
 

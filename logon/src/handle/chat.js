@@ -11,8 +11,7 @@ const logger = log4js.getLogger('handle');
 exports.one_for_one = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('chat one_for_one empty');
 
-  try{
-    var data = JSON.parse(msg.body);
+  try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
 
   if(!data.serverId)  return;

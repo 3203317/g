@@ -219,17 +219,6 @@ biz.backend.open(conf.app.id, (err, code) => {
     });
   };
 
-  var on_3005_group_quit = function(msg){
-    if(!msg.body) return logger.error('group quit empty');
-
-    var data = JSON.parse(msg.body);
-
-    _on_3005_group_quit(data.serverId, data.channelId, 0, function (err){
-      if(err) return logger.error('group quit:', err);
-      logger.info('group close: %j', data);
-    });
-  };
-
   var _on_3005_group_quit = function(server_id, channel_id, seq_id, cb){
 
     biz.group.quit(server_id, channel_id, function (err, doc){
