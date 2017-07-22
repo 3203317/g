@@ -15,24 +15,24 @@ var free = {};
 
 res.create = function(opts){
 
-  var s = this.get(opts.id);
-  if(s) return;
+  var fishpond = this.get(opts.id);
+  if(fishpond) return;
 
   var type = free[opts.type];
 
   if(!type) type = free[opts.type] = [];
 
-  var b = type.shift();
+  var newFishpond = type.shift();
 
-  if(b){
-    b.init(opts);
-    fishponds[b.id] = b;
-    return b;
+  if(newFishpond){
+    newFishpond.init(opts);
+    fishponds[newFishpond.id] = newFishpond;
+    return newFishpond;
   }
 
-  b = new Fishpond(opts);
-  fishponds[b.id] = b;
-  return b;
+  newFishpond = new Fishpond(opts);
+  fishponds[newFishpond.id] = newFishpond;
+  return newFishpond;
 };
 
 res.get = function(id){
@@ -40,8 +40,9 @@ res.get = function(id){
 };
 
 res.release = function(id){
-  var s = this.get(id);
-  if(!s) return;
-  free[s.type].push(s);
+  var fishpond = this.get(id);
+  if(!fishpond) return;
+  fishpond.clearAll();
+  free[fishpond.type].push(fishpond);
   delete fishponds[id];
 };

@@ -13,20 +13,20 @@ var free = [];
 
 res.create = function(id){
 
-  var s = this.get(id);
-  if(s) return;
+  var fish = this.get(id);
+  if(fish) return;
 
-  var b = free.shift();
+  var newFish = free.shift();
 
-  if(b){
-    b.id = id;
-    fishes[id] = b;
-    return b;
+  if(newFish){
+    newFish.id = id;
+    fishes[id] = newFish;
+    return newFish;
   }
 
-  b = { id: id };
-  fishes[id] = b;
-  return b;
+  newFish = { id: id };
+  fishes[id] = newFish;
+  return newFish;
 };
 
 res.get = function(id){
@@ -34,8 +34,8 @@ res.get = function(id){
 };
 
 res.release = function(id){
-  var s = this.get(id);
-  if(!s) return;
-  free.push(s);
+  var fish = this.get(id);
+  if(!fish) return;
+  free.push(fish);
   delete fishes[id];
 };

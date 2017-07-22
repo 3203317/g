@@ -12,48 +12,55 @@ const _ = require('underscore');
 const log4js = require('log4js');
 const logger = log4js.getLogger('fishpond');
 
-const fishPool = require('emag.model').fishPool;
+const fishPool = require('./fishPool');
 
 module.exports = function(opts){
   return new Method(opts);
 }
 
 var Method = function(opts){
-  var self = this;
-  self._fishes = {};
-  self._fishWeight = 0;
+  var self           = this;
+  self._fishes       = {};
+  self._fishesWeight = 0;
   self.init(opts);
 };
 
 var pro = Method.prototype;
 
 pro.init = function(opts){
-  var self = this;
-  self.id = opts.id;
+  var self      = this;
+  self.id       = opts.id;
   self.capacity = opts.capacity - 0;
-  self.type = opts.type;
-  self._pause = 0;
+  self.type     = opts.type;
+  self._pause   = 0;
   return self;
 };
 
-pro.clear = function(){
+pro.clearAll = function(){
   var self = this;
-  self._fishWeight = 0;
   // self._fishes.splice(0, self._fishes.length);
   for(let i of _.keys(self._fishes)){
+    let fish = self._fishes[i];
+    self._fishesWeight -= fish.weight;
     delete self._fishes[i];
     fishPool.release(i);
+  }
+
+  if(0 < self._fishesWeight){
+    logger.error('clearAll: %s::%s', self.id, self._fishesWeight);
   }
 };
 
 pro.clearFish = function(fish){
-  delete this._fishes[fish.id];
-  this._fishWeight -= fish.weight;
+  var self = this;
+  if(!fish) return;
+  delete self._fishes[fish.id];
   fishPool.release(fish.id);
+  self._fishesWeight -= fish.weight;
 };
 
-pro.getFishWeight = function(){
-  return this._fishWeight;
+pro.getFishesWeight = function(){
+  return this._fishesWeight;
 };
 
 pro.getFishes = function(){
@@ -77,12 +84,12 @@ pro.put = function(fish, force){
   var self = this;
 
   if(!force){
-    if(self._fishWeight >= self.capacity) return;
+    if(self._fishesWeight >= self.capacity) return;
   }
 
   if(self._fishes[fish.id]) return;
   self._fishes[fish.id] = fish;
-  self._fishWeight += fish.weight;
+  self._fishesWeight += fish.weight;
   return fish;
 };
 
