@@ -22,7 +22,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 2;
-  const sha1 = '5e360796e9e10f02db4e018d9c77f756c7f580fd';
+  const sha1 = '19ca6887d336b78f1edbf9954d58d75f842c07a3';
 
   /**
    * back_open.lua
@@ -40,7 +40,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 2;
-  const sha1 = 'f7f5e836961699048db5e9f4cd0ee48c074098bb';
+  const sha1 = '5e68fe02ad9ffc41f3cfa3d1b85212b8ab370bef';
 
   /**
    * back_close.lua

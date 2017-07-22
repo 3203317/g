@@ -8,3 +8,4 @@
 exports.front    = require('./front');
 exports.chat     = require('./chat');
 exports.channel  = require('./channel');
+exports.group    = require('./group');

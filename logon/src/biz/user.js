@@ -206,7 +206,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'c39a13fcb7b9f7f8d19e4541e7700dcece20f40a';
+  const sha1 = '243ee192b64ae839b6d4d974f29d73b56f8526f2';
 
   /**
    * channel_close.lua
@@ -229,7 +229,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = '9dc475bfde5777ab55570e42377f72110756d236';
+  const sha1 = '6df440fb93a747912f3eae2835c8fec8e90788ca';
 
   /**
    * my_info.lua
@@ -249,7 +249,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
 (() => {
   const numkeys = 2;
-  const sha1 = 'a9e6028acde5c177fe3634f7cb1016f29fd2e340';
+  const sha1 = '7a37ef6afacc93605536b75a22e566062570a61f';
 
   /**
    * user_info.lua
