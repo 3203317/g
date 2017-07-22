@@ -33,14 +33,14 @@ exports.search = function(client, msg){
 
         var result = {
           method: 3002,
-          seqId: data.seqId,
-          data: doc[1],
+          seqId:  data.seqId,
+          data:   doc[1],
         };
 
         return ((function(){
 
           for(let i=0, j=arr1.length; i<j; i++){
-            let s = arr1[i];
+            let s           = arr1[i];
             result.receiver = arr1[++i];
 
             if(!s)               continue;
@@ -87,12 +87,12 @@ exports._quit = function(client, server_id, channel_id, seq_id, cb){
 
       var result = {
         method: 3006,
-        seqId: seq_id,
-        data: doc[1],
+        seqId:  seq_id,
+        data:   doc[1],
       };
 
       for(let i=0, j=arr1.length; i<j; i++){
-        let s = arr1[i];
+        let s           = arr1[i];
         result.receiver = arr1[++i];
 
         if(!s)               continue;

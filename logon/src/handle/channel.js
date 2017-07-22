@@ -31,10 +31,10 @@ exports.open = function(client, msg){
     }catch(ex){ return; }
 
     var sb = {
-      method: 1,
-      seqId: 1,
+      method:   1,
+      seqId:    1,
       receiver: channel_id,
-      data: extend_data,
+      data:     extend_data,
     };
 
     if(client) client.send('/queue/back.send.v2.'+ server_id, { priority: 9 }, JSON.stringify(sb));

@@ -7,9 +7,9 @@ local channel_id = KEYS[3];
 local back_id    = ARGV[1];
 local open_time  = ARGV[2];
 
--- 
-
 redis.call('SELECT', db);
+
+-- 
 
 local user_id = redis.call('GET', server_id ..'::'.. channel_id);
 
@@ -21,13 +21,15 @@ local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
 
--- 
-
-local group_pos_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_pos_id');
-
 -- 获取群组的类型
 
 local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
+
+if (false == group_type) then return 'invalid_group_type'; end;
+
+-- 
+
+local group_pos_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_pos_id');
 
 -- 
 
@@ -53,7 +55,7 @@ local sb = redis.call('HGET', 'prop::group::'.. group_id, 'back_id');
 
 if (false == sb) then
 
-  redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id,
+  redis.call('HMSET', 'prop::group::'.. group_id, 'back_id',   back_id,
                                                   'open_time', open_time);
 else
 
@@ -63,7 +65,7 @@ else
 
   if (false == x) then
 
-    redis.call('HMSET', 'prop::group::'.. group_id, 'back_id', back_id,
+    redis.call('HMSET', 'prop::group::'.. group_id, 'back_id',   back_id,
                                                     'open_time', open_time);
   else
 
@@ -84,24 +86,24 @@ end;
 
 -- 
 
-local group_pos_info = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
 
 local group_info = redis.call('HGETALL', 'prop::group::'.. group_id);
 
 -- 
 
-local arr = {};
+local arr1 = {};
 
 local user_info = {};
 
-for i=2, #group_pos_info, 2 do
-  local u = string.match(group_pos_info[i], '(.*)%::(.*)');
+for i=2, #group_pos, 2 do
+  local u = string.match(group_pos[i], '(.*)%::(.*)');
 
   local dsb = redis.call('HGET', 'prop::user::'.. u, 'server_id');
 
   if (dsb) then
-    table.insert(arr, dsb);
-    table.insert(arr, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
+    table.insert(arr1, dsb);
+    table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));
 
     -- 
 
@@ -109,26 +111,26 @@ for i=2, #group_pos_info, 2 do
     table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'open_time'));
   else
 
-    local pos = group_pos_info[i - 1];
+    local pos = group_pos[i - 1];
     redis.call('HDEL', 'pos::group::'.. group_type ..'::'.. group_id, pos);
-    redis.call('SADD', 'idle::groupType::'.. group_type, group_id ..'::'.. pos);
+    redis.call('SADD', 'idle::groupType::'.. group_type,              group_id ..'::'.. pos);
   end;
 
 end;
 
+-- 
+
+local arr2 = {};
+
+table.insert(arr2, user_info);
+table.insert(arr2, group_info);
+table.insert(arr2, group_pos);
+
+-- 
+
 local result = {};
 
--- 
-
-local xx = {};
-
-table.insert(xx, user_info);
-table.insert(xx, group_info);
-table.insert(xx, group_pos_info);
-
--- 
-
-table.insert(result, arr);
-table.insert(result, xx);
+table.insert(result, arr1);
+table.insert(result, arr2);
 
 return result;

@@ -8,6 +8,8 @@
 const log4js = require('log4js');
 const logger = log4js.getLogger('handle');
 
+const _ = require('underscore');
+
 exports.one_for_one = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('chat one_for_one empty');
 
@@ -17,7 +19,7 @@ exports.one_for_one = function(client, msg){
   if(!data.serverId)  return;
   if(!data.channelId) return;
 
-  data.method = 2002;
+  data.method   = 2002;
   data.receiver = data.channelId;
 
   logger.debug('chat one_for_one: %j', data);
