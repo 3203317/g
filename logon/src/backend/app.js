@@ -90,7 +90,7 @@ biz.backend.open(conf.app.id, (err, code) => {
     _front_stop  = client.subscribe('/queue/front.stop',  handle.front.stop);
 
     _channel_open  = client.subscribe('/queue/channel.open',  handle.channel.open.bind(null, client));
-    _channel_close = client.subscribe('/queue/channel.close', handle.channel.close.bind(null, client));
+    _channel_close = client.subscribe('/queue/channel.close', handle.channel.close);
 
     _2001_chat_1v1 = client.subscribe('/queue/qq.2001', handle.chat.one_for_one.bind(null, client));
 

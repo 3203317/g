@@ -23,6 +23,8 @@ const cfg = require('emag.cfg');
 
 const server = require('./server');
 
+const _ = require('underscore');
+
 (() => {
   var sql = 'SELECT a.* FROM s_user a WHERE a.user_name=?';
 
@@ -211,6 +213,9 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    */
   exports.logout = function(server_id, channel_id, cb){
 
+    if(!server_id)  return;
+    if(!channel_id) return;
+
     this.saveInfo(server_id, channel_id, function (err){
       if(err) return cb(err);
 
@@ -218,9 +223,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
         if(err) return cb(err);
         cb(null, code);
       });
-
     });
-
   };
 })();
 
@@ -229,13 +232,17 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
   const sha1 = '9dc475bfde5777ab55570e42377f72110756d236';
 
   /**
-   *
+   * my_info.lua
    */
   exports.myInfo = function(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, code) => {
+    if(!server_id)  return;
+    if(!channel_id) return;
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, doc) => {
         if(err) return cb(err);
-        cb(null, code);
+        if(!_.isArray(doc)) return;
+        cb(null, cfg.arrayToObject(doc));
     });
   };
 })();
@@ -268,25 +275,25 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    * @return
    */
   exports.saveInfo = function(server_id, channel_id, cb){
-    var self = this;
 
-    self.myInfo(server_id, channel_id, function (err, doc){
-      if(err) return cb(err);
-      if(!doc) return;
-      if(0 === doc.length) return;
+    if(!server_id)  return;
+    if(!channel_id) return;
 
-      var user = cfg.arrayToObject(doc);
+    this.myInfo(server_id, channel_id, function (err, doc){
+      if(err)              return cb(err);
+      if(!_.isObject(doc)) return;
+      if(!doc.id)          return;
+      if(!doc.score)       return;
 
       var postData = [
-        user.score,
-        JSON.parse(user.extend_data).id
+        doc.score,
+        doc.id
       ];
 
       mysql.query(sql, postData, function (err, status){
         if(err) return cb(err);
         cb(null, status);
       });
-
     });
   };
 })();
