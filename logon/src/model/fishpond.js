@@ -39,11 +39,9 @@ pro.init = function(opts){
 pro.clearAll = function(){
   var self = this;
   // self._fishes.splice(0, self._fishes.length);
-  for(let i of _.keys(self._fishes)){
-    let fish = self._fishes[i];
-    self._fishesWeight -= fish.weight;
-    delete self._fishes[i];
-    fishPool.release(i);
+
+  for(let fish of _.values(self._fishes)){
+    self.clearFish(fish);
   }
 
   if(0 < self._fishesWeight){
@@ -54,9 +52,9 @@ pro.clearAll = function(){
 pro.clearFish = function(fish){
   var self = this;
   if(!fish) return;
-  delete self._fishes[fish.id];
-  fishPool.release(fish.id);
   self._fishesWeight -= fish.weight;
+  fishPool.release(fish.id);
+  delete self._fishes[fish.id];
 };
 
 pro.getFishesWeight = function(){
@@ -83,6 +81,8 @@ pro.pause = function(time){
 pro.put = function(fish, force){
   var self = this;
 
+  if(!fish) return;
+
   if(!force){
     if(self._fishesWeight >= self.capacity) return;
   }
@@ -102,9 +102,7 @@ pro.put = function(fish, force){
 pro.refresh = function(){
   var self = this;
 
-  for(let i of _.keys(self._fishes)){
-
-    let fish = self._fishes[i];
+  for(let fish of _.values(self._fishes)){
 
     if(fish.trailLen === fish.step){
       if(fish.loop){
