@@ -13,10 +13,10 @@ exports.one_for_one = function(client, msg){
 
   var data = JSON.parse(msg.body);
 
-  logger.info('chat send: %j', data);
-
   data.method = 2002;
   data.receiver = data.channelId;
 
-  client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
+  logger.info('chat send: %j', data);
+
+  if(client) client.send('/queue/back.send.v2.'+ data.serverId, { priority: 9 }, JSON.stringify(data));
 };

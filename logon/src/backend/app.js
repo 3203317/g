@@ -89,8 +89,8 @@ biz.backend.open(conf.app.id, (err, code) => {
     _front_start = client.subscribe('/queue/front.start', handle.front.start);
     _front_stop  = client.subscribe('/queue/front.stop',  handle.front.stop);
 
-    _channel_open  = client.subscribe('/queue/channel.open',  on_channel_open);
-    _channel_close = client.subscribe('/queue/channel.close', on_channel_close);
+    _channel_open  = client.subscribe('/queue/channel.open',  handle.channel.open.bind(null, client));
+    _channel_close = client.subscribe('/queue/channel.close', handle.channel.close.bind(null, client));
 
     _2001_chat_1v1 = client.subscribe('/queue/qq.2001', handle.chat.one_for_one.bind(null, client));
 
@@ -163,45 +163,6 @@ biz.backend.open(conf.app.id, (err, code) => {
   // ----------------------------------------------------------------------------------------------------
 
   var _channel_open, _channel_close;
-
-  var on_channel_open = function(msg){
-    if(!msg.body) return logger.error('channel open empty');
-
-    var s = msg.body.split('::');
-
-    biz.user.myInfo(s[0], s[1], function (err, doc){
-      if(err) return logger.error('channel open:', err);
-      if(!_.isArray(doc)) return;
-
-      var user = cfg.arrayToObject(doc);
-
-      var b = {
-        method: 1,
-        seqId: 1,
-        receiver: s[1],
-        data: JSON.parse(user.extend_data),
-      };
-
-      client.send('/queue/back.send.v2.'+ s[0], { priority: 9 }, JSON.stringify(b));
-    });
-
-  };
-
-  var on_channel_close = function(msg){
-    if(!msg.body) return logger.error('channel close empty');
-
-    var s = msg.body.split('::');
-
-    _on_3005_group_quit(s[0], s[1], 0, function (err){
-      if(err) return logger.error('group quit:', err);
-      logger.info('group quit: %j', s);
-
-      biz.user.logout(s[0], s[1], function (err, code){
-        if(err) return logger.error('channel close:', err);
-        logger.info('channel close: %j', s);
-      });
-    });
-  };
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------

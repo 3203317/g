@@ -5,5 +5,6 @@
  */
 'use strict';
 
-exports.front = require('./front');
-exports.chat  = require('./chat');
+exports.front    = require('./front');
+exports.chat     = require('./chat');
+exports.channel  = require('./channel');
