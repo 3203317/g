@@ -19,7 +19,7 @@ exports.search = function(client, msg){
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
 
-  this._quit(client, data.serverId, data.channelId, data.seqId, function (err){
+  _quit(client, data.serverId, data.channelId, data.seqId, function (err){
     if(err) return logger.error('group quit:', err);
     logger.info('group quit: %j', data);
 
@@ -66,13 +66,13 @@ exports.quit = function(client, msg){
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
 
-  this._quit(client, data.serverId, data.channelId, data.seqId, function (err){
+  _quit(client, data.serverId, data.channelId, data.seqId, function (err){
     if(err) return logger.error('group quit:', err);
     logger.info('group quit: %j', data);
   });
 };
 
-exports._quit = function(client, server_id, channel_id, seq_id, cb){
+var _quit = exports._quit = function(client, server_id, channel_id, seq_id, cb){
   if(!client)     return;
   if(!server_id)  return;
   if(!channel_id) return;
