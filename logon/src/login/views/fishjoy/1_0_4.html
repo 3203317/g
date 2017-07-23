@@ -25,7 +25,8 @@
 
     <input type='button' id='_5005_ready' value='_5005_ready'>
     <input type='button' id='shot' value='shot'>
-    <input type='button' id='switch' value='switch'>
+    <input type='button' id='switch_1' value='switch::1'>
+    <input type='button' id='switch_3' value='switch::3'>
     <input type='button' id='blast' value='blast'><p></p>
 
     发送给：
@@ -198,7 +199,18 @@ $(function(){
     socket.send(JSON.stringify(p));
   });
 
-  $('#switch').click(function(){
+  $('#switch_1').click(function(){
+    var p = {
+      version: 102,
+      method: 5013,
+      seqId: Math.random() * 1000,
+      timestamp: new Date().getTime(),
+      data: 1
+    };
+    socket.send(JSON.stringify(p));
+  });
+
+  $('#switch_3').click(function(){
     var p = {
       version: 102,
       method: 5013,

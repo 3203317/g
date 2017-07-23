@@ -186,10 +186,12 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
+              logger.debug('unfreeze: %s', fishpond.id);
               unfreeze(null, doc);
               schedule();
             });
           }else if(pause){
+            logger.debug('freeze: %s::%s', fishpond.id, pause);
             return schedule();
           }
 
@@ -275,10 +277,12 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
+              logger.debug('unfreeze: %s', fishpond.id);
               unfreeze(null, doc);
               schedule();
             });
           }else if(pause){
+            logger.debug('freeze: %s::%s', fishpond.id, pause);
             return schedule();
           }
 
