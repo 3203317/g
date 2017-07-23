@@ -337,7 +337,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 4;
-  const sha1 = 'a0b748bd63eb19f4994d3246dd49298bea99e3a6';
+  const sha1 = '6a9148816cf999949ef2b7574a17f9e4344679e6';
   const seconds = 22;
 
   /**
@@ -449,12 +449,14 @@ exports.blast = function(server_id, channel_id, blast, cb){
    */
   exports.switch = function(server_id, channel_id, level, cb){
 
+    if(!level)             return;
     level = level - 0;
     if(!_.isNumber(level)) return;
-    if(1 > level) return;
+    if(1 > level)          return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, level, (err, doc) => {
         if(err) return cb(err);
+        logger.debug('switch: %j', doc);
         cb(null, doc);
     });
   };

@@ -24,6 +24,12 @@ local user_id = redis.call('GET', server_id ..'::'.. channel_id);
 
 if (false == user_id) then return 'invalid_user_id'; end;
 
+-- 判断子弹id是否存在
+
+local exist = redis.call('EXISTS', 'prop::bullet::'.. user_id ..'::'.. bullet_id);
+
+if (1 == exist) then return 'invalid_bullet_id'; end;
+
 -- 获取用户的最大子弹等级
 
 local max_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_level');

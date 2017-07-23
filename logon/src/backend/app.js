@@ -372,44 +372,44 @@ biz.backend.open(conf.app.id, (err, code) => {
   //     _on_5005_fishjoy_ready_unfreeze.bind(null, data.seqId));
   // };
 
-  var on_5013_fishjoy_switch = function(msg){
-    if(!msg.body) return logger.error('fishjoy switch empty');
+  // var on_5013_fishjoy_switch = function(msg){
+  //   if(!msg.body) return logger.error('fishjoy switch empty');
 
-    var data = JSON.parse(msg.body);
+  //   var data = JSON.parse(msg.body);
 
-    biz.fishjoy.switch(data.serverId, data.channelId, data.data, function (err, doc){
-      if(err) return logger.error('fishjoy switch:', err);
+  //   biz.fishjoy.switch(data.serverId, data.channelId, data.data, function (err, doc){
+  //     if(err) return logger.error('fishjoy switch:', err);
 
-      if(_.isArray(doc)){
+  //     if(_.isArray(doc)){
 
-        var result = {
-          method: 5014,
-          seqId: data.seqId,
-          data: doc[1],
-        };
+  //       var result = {
+  //         method: 5014,
+  //         seqId: data.seqId,
+  //         data: doc[1],
+  //       };
 
-        return ((function(){
+  //       return ((function(){
 
-          var arr = doc[0];
+  //         var arr = doc[0];
 
-          for(let i=0, j=arr.length; i<j; i++){
-            var s = arr[i];
-            result.receiver = arr[++i];
-            if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-          }
+  //         for(let i=0, j=arr.length; i<j; i++){
+  //           var s = arr[i];
+  //           result.receiver = arr[++i];
+  //           if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  //         }
 
-        })());
-      }
+  //       })());
+  //     }
 
-      switch(doc){
-        case 'invalid_user_id':
-          return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
-        case 'invalid_bullet_level':
-        default: return;
-      }
+  //     switch(doc){
+  //       case 'invalid_user_id':
+  //         return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+  //       case 'invalid_bullet_level':
+  //       default: return;
+  //     }
 
-    });
-  };
+  //   });
+  // };
 
   var on_5011_fishjoy_tool = function(msg){
     if(!msg.body) return logger.error('fishjoy tool empty');
