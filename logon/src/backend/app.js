@@ -183,48 +183,48 @@ biz.backend.open(conf.app.id, (err, code) => {
   var _5001_fishjoy_shot, _5013_fishjoy_switch;
   var _5003_fishjoy_blast, _5005_fishjoy_ready, _5011_fishjoy_tool;
 
-  var on_5001_fishjoy_shot = function(msg){
-    if(!msg.body) return logger.error('fishjoy shot empty');
+  // var on_5001_fishjoy_shot = function(msg){
+  //   if(!msg.body) return logger.error('fishjoy shot empty');
 
-    var data = JSON.parse(msg.body);
+  //   var data = JSON.parse(msg.body);
 
-    biz.fishjoy.shot(data.serverId, data.channelId, data.data, function (err, doc){
-      if(err) return logger.error('fishjoy shot:', err);
+  //   biz.fishjoy.shot(data.serverId, data.channelId, data.data, function (err, doc){
+  //     if(err) return logger.error('fishjoy shot:', err);
 
-      if(_.isArray(doc)){
+  //     if(_.isArray(doc)){
 
-        var result = {
-          method: 5002,
-          seqId: data.seqId,
-          data: doc[1],
-        };
+  //       var result = {
+  //         method: 5002,
+  //         seqId: data.seqId,
+  //         data: doc[1],
+  //       };
 
-        return ((function(){
+  //       return ((function(){
 
-          var arr = doc[0];
+  //         var arr = doc[0];
 
-          for(let i=0, j=arr.length; i<j; i++){
-            var s = arr[i];
-            result.receiver = arr[++i];
-            if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-          }
+  //         for(let i=0, j=arr.length; i<j; i++){
+  //           var s = arr[i];
+  //           result.receiver = arr[++i];
+  //           if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  //         }
 
-        })());
-      }
+  //       })());
+  //     }
 
-      switch(doc){
-        case 'invalid_user_id':
-          return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
-        case 'invalid_bullet_level':
-        case 'invalid_group_id':
-        case 'invalid_group_pos_id':
-        case 'invalid_raise_hand':
-        case 'invalid_user_score':
-        default: return;
-      }
+  //     switch(doc){
+  //       case 'invalid_user_id':
+  //         return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+  //       case 'invalid_bullet_level':
+  //       case 'invalid_group_id':
+  //       case 'invalid_group_pos_id':
+  //       case 'invalid_raise_hand':
+  //       case 'invalid_user_score':
+  //       default: return;
+  //     }
 
-    });
-  };
+  //   });
+  // };
 
   var on_5003_fishjoy_blast = function(msg){
     if(!msg.body) return logger.error('fishjoy blast empty');
@@ -340,37 +340,37 @@ biz.backend.open(conf.app.id, (err, code) => {
   //   }
   // };
 
-  var _on_5005_fishjoy_ready_unfreeze = function(seq_id, err, doc){
-    if(err) return logger.error('fishjoy ready unfreeze:', err);
+  // var _on_5005_fishjoy_ready_unfreeze = function(seq_id, err, doc){
+  //   if(err) return logger.error('fishjoy ready unfreeze:', err);
 
-    if(!_.isArray(doc)) return;
+  //   if(!_.isArray(doc)) return;
 
-    var result = {
-      timestamp: new Date().getTime(),
-      method: 5016,
-      seqId: seq_id,
-    };
+  //   var result = {
+  //     timestamp: new Date().getTime(),
+  //     method: 5016,
+  //     seqId: seq_id,
+  //   };
 
-    var arr = doc;
+  //   var arr = doc;
 
-    for(let i=0, j=arr.length; i<j; i++){
-      let s = arr[i];
-      result.receiver = arr[++i];
-      if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-    }
-  };
+  //   for(let i=0, j=arr.length; i<j; i++){
+  //     let s = arr[i];
+  //     result.receiver = arr[++i];
+  //     if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  //   }
+  // };
 
-  var on_5005_fishjoy_ready = function(msg){
-    if(!msg.body) return logger.error('fishjoy ready empty');
+  // var on_5005_fishjoy_ready = function(msg){
+  //   if(!msg.body) return logger.error('fishjoy ready empty');
 
-    var data = JSON.parse(msg.body);
+  //   var data = JSON.parse(msg.body);
 
-    biz.fishjoy.ready(data.serverId, data.channelId,
-      _on_5005_fishjoy_ready_ready.bind(null, data.serverId, data.channelId, data.seqId),
-      _on_5005_fishjoy_ready_refresh.bind(null, data.seqId),
-      _on_5005_fishjoy_ready_scene.bind(null, data.seqId),
-      _on_5005_fishjoy_ready_unfreeze.bind(null, data.seqId));
-  };
+  //   biz.fishjoy.ready(data.serverId, data.channelId,
+  //     _on_5005_fishjoy_ready_ready.bind(null, data.serverId, data.channelId, data.seqId),
+  //     _on_5005_fishjoy_ready_refresh.bind(null, data.seqId),
+  //     _on_5005_fishjoy_ready_scene.bind(null, data.seqId),
+  //     _on_5005_fishjoy_ready_unfreeze.bind(null, data.seqId));
+  // };
 
   var on_5013_fishjoy_switch = function(msg){
     if(!msg.body) return logger.error('fishjoy switch empty');

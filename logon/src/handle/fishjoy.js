@@ -79,8 +79,7 @@ function _ready_scene(client, seq_id, err, doc){
 
   if(!_.isArray(doc)) return;
 
-  var arr1 = doc[0];
-  if(!arr1) return;
+  var arr1 = doc;
 
   var result = {
     timestamp: new Date().getTime(),
@@ -104,8 +103,7 @@ function _ready_unfreeze(client, seq_id, err, doc){
 
   if(!_.isArray(doc)) return;
 
-  var arr1 = doc[0];
-  if(!arr1) return;
+  var arr1 = doc;
 
   var result = {
     method: 5016,
@@ -149,6 +147,40 @@ exports.shot = function(client, msg){
 
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
+
+  biz.fishjoy.shot(data.serverId, data.channelId, data.data, function (err, doc){
+    if(err) return logger.error('fishjoy shot:', err);
+
+    if(_.isArray(doc)){
+
+      var arr1 = doc[0];
+      if(!arr1) return;
+
+      var result = {
+        method: 5002,
+        seqId:  data.seqId,
+        data:   doc[1],
+      };
+
+      return ((function(){
+
+        for(let i=0, j=arr1.length; i<j; i++){
+          let s           = arr1[i];
+          result.receiver = arr1[++i];
+
+          if(!s)               continue;
+          if(!result.receiver) continue;
+
+          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        }
+      })());
+    }
+
+    switch(doc){
+      case 'invalid_user_id':
+        return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+    }
+  });
 };
 
 exports.blast = function(client, msg){

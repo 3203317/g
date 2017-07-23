@@ -10,9 +10,9 @@ local bullet_x     = ARGV[2];
 local bullet_y     = ARGV[3];
 local bullet_level = ARGV[4];
 
--- 
-
 redis.call('SELECT', db);
+
+-- 判断子弹的等级对应的消耗是否存在
 
 local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
 
@@ -24,23 +24,29 @@ local user_id = redis.call('GET', server_id ..'::'.. channel_id);
 
 if (false == user_id) then return 'invalid_user_id'; end;
 
--- 
+-- 获取用户的最大子弹等级
 
 local max_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_level');
 
 if (tonumber(max_bullet_level) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
 
--- 不在任何群组
+-- 获取用户组id
 
 local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
 
 if (false == group_id) then return 'invalid_group_id'; end;
 
-local group_pos_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_pos_id');
+-- 获取组类型
+
+local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
+
+if (false == group_type) then return 'invalid_group_type'; end;
 
 -- 
 
-local group_type = redis.call('HGET', 'prop::group::'.. group_id, 'type');
+local group_pos_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_pos_id');
+
+-- 
 
 local s = redis.call('HGET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id);
 
@@ -54,7 +60,13 @@ if (b ~= user_id) then return 'invalid_user_id'; end;
 
 if (0 == tonumber(hand)) then return 'invalid_raise_hand' end;
 
--- 
+-- 组位置成员列表
+
+local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
+
+if (0 == #group_pos) then return 'invalid_group_pos'; end;
+
+-- 获取用户的积分
 
 local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
@@ -73,12 +85,9 @@ redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id',        
                                                                    'group_id',     group_id,
                                                                    'group_pos_id', group_pos_id,
                                                                    'group_type',   group_type,
-                                                                   'user_id',      user_id);
+                                                                   'user_id',      user_id,
+                                                                   'user_score',   current_score);
 redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
-
-local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. group_id);
-
-if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 -- 
 
@@ -93,19 +102,11 @@ for i=2, #group_pos, 2 do
   end;
 end;
 
-local user_info = {};
-
-table.insert(user_info, user_id);
-table.insert(user_info, current_score);
-
-local arr2 = {};
-
-table.insert(arr2, user_info);
-table.insert(arr2, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id));
+-- 
 
 local result = {};
 
 table.insert(result, arr1);
-table.insert(result, arr2);
+table.insert(result, redis.call('HGETALL', 'prop::bullet::'.. user_id ..'::'.. bullet_id));
 
 return result;
