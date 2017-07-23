@@ -358,10 +358,9 @@ const logger = log4js.getLogger('fishjoy');
     if(!_.isString(bullet.id))    return;
     if(!_.isNumber(bullet.x))     return;
     if(!_.isNumber(bullet.y))     return;
-    if(!_.isNumber(bullet.level)) return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, bullet.id,
-      seconds, bullet.x, bullet.y, bullet.level, (err, doc) => {
+      seconds, bullet.x, bullet.y, (err, doc) => {
         if(err) return cb(err);
         logger.debug('shot: %j', doc);
         cb(null, doc);

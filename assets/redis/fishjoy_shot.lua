@@ -8,15 +8,8 @@ local bullet_id  = KEYS[4];
 local seconds      = ARGV[1];
 local bullet_x     = ARGV[2];
 local bullet_y     = ARGV[3];
-local bullet_level = ARGV[4];
 
 redis.call('SELECT', db);
-
--- 判断子弹的等级对应的消耗是否存在
-
-local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', bullet_level);
-
-if (false == bullet_consume) then return 'invalid_bullet_level'; end;
 
 -- 
 
@@ -29,12 +22,6 @@ if (false == user_id) then return 'invalid_user_id'; end;
 local exist = redis.call('EXISTS', 'prop::bullet::'.. user_id ..'::'.. bullet_id);
 
 if (1 == exist) then return 'invalid_bullet_id'; end;
-
--- 获取用户的最大子弹等级
-
-local max_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_level');
-
-if (tonumber(max_bullet_level) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
 
 -- 获取用户组id
 
@@ -72,6 +59,16 @@ local group_pos = redis.call('HGETALL', 'pos::group::'.. group_type ..'::'.. gro
 
 if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
+-- 获取用户当前的子弹等级
+
+local current_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'current_bullet_level');
+
+-- 判断子弹的等级对应的消耗是否存在
+
+local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', current_bullet_level);
+
+if (false == bullet_consume) then return 'invalid_bullet_level'; end;
+
 -- 获取用户的积分
 
 local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
@@ -87,7 +84,7 @@ redis.call('HSET', 'prop::user::'.. user_id, 'score', current_score);
 redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id',           bullet_id,
                                                                    'x',            bullet_x,
                                                                    'y',            bullet_y,
-                                                                   'level',        bullet_level,
+                                                                   'level',        current_bullet_level,
                                                                    'group_id',     group_id,
                                                                    'group_pos_id', group_pos_id,
                                                                    'group_type',   group_type,
