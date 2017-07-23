@@ -53,8 +53,6 @@ for i=2, #group_pos, 2 do
   end;
 end;
 
-if (0 == #arr1) then return 'invalid_group_pos'; end;
-
 local arr2 = {};
 
 table.insert(arr2, user_id);

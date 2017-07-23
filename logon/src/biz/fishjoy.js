@@ -337,7 +337,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 4;
-  const sha1 = '6a9148816cf999949ef2b7574a17f9e4344679e6';
+  const sha1 = 'cb55e070e5034c2347b4e79ac1d9351251bff582';
   const seconds = 22;
 
   /**
