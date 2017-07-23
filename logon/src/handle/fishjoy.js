@@ -13,6 +13,9 @@ const logger = log4js.getLogger('handle');
 
 const _ = require('underscore');
 
+/**
+ *
+ */
 function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
   if(err) return logger.error('fishjoy ready:', err);
 
@@ -22,6 +25,7 @@ function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
     if(!arr1) return;
 
     var result = {
+      timestamp: new Date().getTime(),
       method: 5006,
       seqId:  seq_id,
       data:   doc[1],
@@ -48,6 +52,9 @@ function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
   }
 }
 
+/**
+ *
+ */
 function _ready_refresh(client, seq_id, err, doc){
   if(err) return logger.error('fishjoy refresh:', err);
 
@@ -74,6 +81,9 @@ function _ready_refresh(client, seq_id, err, doc){
   }
 }
 
+/**
+ *
+ */
 function _ready_scene(client, seq_id, err, doc){
   if(err) return logger.error('fishjoy scene:', err);
 
@@ -98,6 +108,9 @@ function _ready_scene(client, seq_id, err, doc){
   }
 }
 
+/**
+ *
+ */
 function _ready_unfreeze(client, seq_id, err, doc){
   if(err) return logger.error('fishjoy unfreeze:', err);
 
@@ -106,6 +119,7 @@ function _ready_unfreeze(client, seq_id, err, doc){
   var arr1 = doc;
 
   var result = {
+    timestamp: new Date().getTime(),
     method: 5016,
     seqId:  seq_id,
     data:   doc[1],
@@ -122,6 +136,9 @@ function _ready_unfreeze(client, seq_id, err, doc){
   }
 }
 
+/**
+ *
+ */
 exports.ready = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy ready empty');
 
@@ -135,6 +152,9 @@ exports.ready = function(client, msg){
     _ready_unfreeze.bind(null, client, data.seqId));
 };
 
+/**
+ *
+ */
 exports.switch = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy switch empty');
 
@@ -176,6 +196,9 @@ exports.switch = function(client, msg){
   });
 };
 
+/**
+ *
+ */
 exports.shot = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy shot empty');
 
@@ -191,6 +214,7 @@ exports.shot = function(client, msg){
       if(!arr1) return;
 
       var result = {
+        timestamp: new Date().getTime(),
         method: 5002,
         seqId:  data.seqId,
         data:   doc[1],
@@ -217,16 +241,92 @@ exports.shot = function(client, msg){
   });
 };
 
+/**
+ *
+ */
 exports.blast = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy blast empty');
 
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
+
+  biz.fishjoy.blast(data.serverId, data.channelId, data.data, function (err, doc){
+    if(err) return logger.error('fishjoy blast:', err);
+
+    if(_.isArray(doc)){
+
+      var arr1 = doc[0];
+      if(!arr1) return;
+
+      var result = {
+        timestamp: new Date().getTime(),
+        method: 5004,
+        seqId:  data.seqId,
+        data:   doc[1],
+      };
+
+      return ((function(){
+
+        for(let i=0, j=arr1.length; i<j; i++){
+          let s           = arr1[i];
+          result.receiver = arr1[++i];
+
+          if(!s)               continue;
+          if(!result.receiver) continue;
+
+          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        }
+      })());
+    }
+
+    switch(doc){
+      case 'invalid_user_id':
+        return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+    }
+  });
 };
 
+/**
+ *
+ */
 exports.tool = function(client, msg){
   if(!_.isString(msg.body)) return logger.error('fishjoy tool empty');
 
   try{ var data = JSON.parse(msg.body);
   }catch(ex){ return; }
+
+  biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
+    if(err) return logger.error('fishjoy tool:', err);
+
+    if(_.isArray(doc)){
+
+      var arr1 = doc[0];
+      if(!arr1) return;
+
+      var result = {
+        timestamp: new Date().getTime(),
+        method: 5012,
+        seqId:  data.seqId,
+        data:   doc[1],
+      };
+
+      return ((function(){
+
+        for(let i=0, j=arr1.length; i<j; i++){
+          let s           = arr1[i];
+          result.receiver = arr1[++i];
+
+          if(!s)               continue;
+          if(!result.receiver) continue;
+
+          client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+        }
+      })());
+    }
+
+    switch(doc){
+      case 'invalid_user_id':
+        return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+    }
+  });
 };

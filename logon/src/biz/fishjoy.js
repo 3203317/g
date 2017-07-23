@@ -438,7 +438,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = '531a864189790a8d551f29d7f210298e705c40f4';
+  const sha1 = 'e498ac52d8e53342b1663535a5584e9774b716e4';
 
   /**
    * 子弹等级切换

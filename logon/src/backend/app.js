@@ -411,44 +411,44 @@ biz.backend.open(conf.app.id, (err, code) => {
   //   });
   // };
 
-  var on_5011_fishjoy_tool = function(msg){
-    if(!msg.body) return logger.error('fishjoy tool empty');
+  // var on_5011_fishjoy_tool = function(msg){
+  //   if(!msg.body) return logger.error('fishjoy tool empty');
 
-    var data = JSON.parse(msg.body);
+  //   var data = JSON.parse(msg.body);
 
-    biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
-      if(err) return logger.error('fishjoy tool:', err);
+  //   biz.fishjoy.tool(data.serverId, data.channelId, data.data, function (err, doc){
+  //     if(err) return logger.error('fishjoy tool:', err);
 
-      if(_.isArray(doc)){
+  //     if(_.isArray(doc)){
 
-        var result = {
-          method: 5012,
-          seqId: data.seqId,
-          data: doc[1],
-        };
+  //       var result = {
+  //         method: 5012,
+  //         seqId: data.seqId,
+  //         data: doc[1],
+  //       };
 
-        return ((function(){
+  //       return ((function(){
 
-          var arr = doc[0];
+  //         var arr = doc[0];
 
-          for(let i=0, j=arr.length; i<j; i++){
-            var s = arr[i];
-            result.receiver = arr[++i];
-            if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
-          }
+  //         for(let i=0, j=arr.length; i<j; i++){
+  //           var s = arr[i];
+  //           result.receiver = arr[++i];
+  //           if(s) client.send('/queue/back.send.v2.'+ s, { priority: 9 }, JSON.stringify(result));
+  //         }
 
-        })());
-      }
+  //       })());
+  //     }
 
-      switch(doc){
-        case 'invalid_user_id':
-          return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
-        case 'invalid_group_id':
-        default: return;
-      }
+  //     switch(doc){
+  //       case 'invalid_user_id':
+  //         return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+  //       case 'invalid_group_id':
+  //       default: return;
+  //     }
 
-    });
-  };
+  //   });
+  // };
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------
