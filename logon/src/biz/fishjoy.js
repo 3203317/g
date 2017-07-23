@@ -469,28 +469,30 @@ exports.blast = function(server_id, channel_id, blast, cb){
   /**
    * 冰冻
    *
+   * fishjoy_tool.lua
+   *
    * @return
    */
   function freeze(server_id, channel_id, cb){
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, 1, (err, doc) => {
-        if(err) return cb(err);
-        if(!_.isArray(doc)) return cb(null, doc);
+      if(err) return cb(err);
+      if(!_.isArray(doc)) return cb(null, doc);
 
-        // 获取群组
-        var group_id = doc[1].shift();
+      // 获取群组
+      var group_id = doc[1].shift();
 
-        if(!group_id) return;
+      if(!group_id) return;
 
-        var fishpond = fishpondPool.get(group_id);
+      var fishpond = fishpondPool.get(group_id);
 
-        if(!fishpond) return;
+      if(!fishpond) return;
 
-        fishpond.pause(cfg.tool[0].time);
+      fishpond.pause(cfg.tool[0].time);
 
-        doc[1].push(1);
-        logger.debug('freeze: %j', doc[1]);
-        cb(null, doc);
+      doc[1].push(1);
+      logger.debug('freeze: %j', doc);
+      cb(null, doc);
     });
   }
 
@@ -503,8 +505,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
    */
   exports.tool = function(server_id, channel_id, tool, cb){
 
-    try{
-      tool = JSON.parse(tool);
+    try{ tool = JSON.parse(tool);
     }catch(ex){ return; }
 
     if(!_.isArray(tool)) return;

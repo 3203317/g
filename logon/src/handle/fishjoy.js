@@ -26,9 +26,9 @@ function _ready_ready(client, server_id, channel_id, seq_id, err, doc){
 
     var result = {
       timestamp: new Date().getTime(),
-      method: 5006,
-      seqId:  seq_id,
-      data:   doc[1],
+      method:    5006,
+      seqId:     seq_id,
+      data:      doc[1],
     };
 
     return ((function(){
@@ -120,9 +120,9 @@ function _ready_unfreeze(client, seq_id, err, doc){
 
   var result = {
     timestamp: new Date().getTime(),
-    method: 5016,
-    seqId:  seq_id,
-    data:   doc[1],
+    method:    5016,
+    seqId:     seq_id,
+    data:      doc[1],
   };
 
   for(let i=0, j=arr1.length; i<j; i++){
@@ -215,9 +215,9 @@ exports.shot = function(client, msg){
 
       var result = {
         timestamp: new Date().getTime(),
-        method: 5002,
-        seqId:  data.seqId,
-        data:   doc[1],
+        method:    5002,
+        seqId:     data.seqId,
+        data:      doc[1],
       };
 
       return ((function(){
@@ -260,9 +260,9 @@ exports.blast = function(client, msg){
 
       var result = {
         timestamp: new Date().getTime(),
-        method: 5004,
-        seqId:  data.seqId,
-        data:   doc[1],
+        method:    5004,
+        seqId:     data.seqId,
+        data:      doc[1],
       };
 
       return ((function(){
@@ -305,9 +305,9 @@ exports.tool = function(client, msg){
 
       var result = {
         timestamp: new Date().getTime(),
-        method: 5012,
-        seqId:  data.seqId,
-        data:   doc[1],
+        method:    5012,
+        seqId:     data.seqId,
+        data:      doc[1],
       };
 
       return ((function(){
