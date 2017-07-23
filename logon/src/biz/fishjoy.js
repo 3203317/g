@@ -464,7 +464,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'dd849fcc0389a3340232af70c269ad4c1abbd2ff';
+  const sha1 = 'e53e1d68dfd8f520e55d5850e5efe89a658494c4';
 
   /**
    * 冰冻
