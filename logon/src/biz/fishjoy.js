@@ -518,7 +518,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 4;
-  const sha1 = 'f0a5eea16f9410ac90c223666f109544887f889d';
+  const sha1 = 'ce43daa29f7723df93f36ca834c86476e02e28f6';
 
   /**
    * 获取子弹信息
@@ -540,7 +540,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 3;
-  const sha1 = '5c91f13d78d41d2c9e80832cdc4958e65e72f5ec';
+  const sha1 = 'e638b320c74b92bbbd8523eb9c117858385ec8ca';
 
   /**
    *
