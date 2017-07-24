@@ -109,6 +109,7 @@ for i=2, #group_pos, 2 do
 
     table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'extend_data'));
     table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'open_time'));
+    table.insert(user_info, redis.call('HGET', 'prop::user::'.. u, 'current_bullet_level'));
   else
 
     local pos = group_pos[i - 1];

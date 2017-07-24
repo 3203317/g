@@ -90,7 +90,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'a38933548d27b93b133bdf3e025d05fad4ca368d';
+  const sha1 = '213abc6db6232b4eedba337404762e917321cf98';
 
   /**
    * group_users_channel.lua
