@@ -92,7 +92,8 @@ biz.backend.open(conf.app.id, (err, code) => {
     _channel_open  = client.subscribe('/queue/channel.open',   handle.channel.open.bind(null, client));
     _channel_close = client.subscribe('/queue/channel.close', handle.channel.close.bind(null, client));
 
-    _2001_chat_1v1 = client.subscribe('/queue/qq.2001', handle.chat.one_for_one.bind(null, client));
+    _2001_chat_1v1   = client.subscribe('/queue/qq.2001',   handle.chat.one_for_one.bind(null, client));
+    _2003_chat_group = client.subscribe('/queue/qq.2003', handle.chat.one_for_group.bind(null, client));
 
     _3001_group_search = client.subscribe('/queue/qq.3001', handle.group.search.bind(null, client));
     _3005_group_quit   = client.subscribe('/queue/qq.3005',   handle.group.quit.bind(null, client));
@@ -111,7 +112,8 @@ biz.backend.open(conf.app.id, (err, code) => {
     if(_channel_open)   _channel_open.unsubscribe();
     if(_channel_close) _channel_close.unsubscribe();
 
-    if(_2001_chat_1v1) _2001_chat_1v1.unsubscribe();
+    if(_2001_chat_1v1)     _2001_chat_1v1.unsubscribe();
+    if(_2003_chat_group) _2003_chat_group.unsubscribe();
 
     if(_3001_group_search) _3001_group_search.unsubscribe();
     if(_3005_group_quit)     _3005_group_quit.unsubscribe();
@@ -168,7 +170,7 @@ biz.backend.open(conf.app.id, (err, code) => {
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------
 
-  var _2001_chat_1v1;
+  var _2001_chat_1v1, _2003_chat_group;
 
   // ----------------------------------------------------------------------------------------------------
   // ----------------------------------------------------------------------------------------------------

@@ -90,12 +90,19 @@ const _ = require('underscore');
  */
 (() => {
 
+  // 2-10个字符，支持中文，英文大小写、数字、下划线
   var regex_user_name = /^[\u4E00-\u9FA5a-zA-Z0-9_]{2,10}$/;
+  // 6-16个字符，支持英文大小写、数字、下划线，区分大小写
+  var regex_user_pass = /^[a-zA-Z0-9_]{6,16}$/;
 
   function formVali(newInfo){
     newInfo.user_name = newInfo.user_name || '';
     newInfo.user_name = newInfo.user_name.trim();
-    if(!regex_user_name.test(newInfo.user_info)) return '昵称不能为空';
+    if(!regex_user_name.test(newInfo.user_name)) return '昵称不能为空';
+
+    newInfo.user_pass = newInfo.user_pass || '';
+    newInfo.user_pass = newInfo.user_pass.trim();
+    if(!regex_user_name.test(newInfo.user_pass)) return '密码不能为空';
   }
 
   var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, sex, create_time, mobile, qq, weixin, email, device_code, score, bullet_level, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, nickname, diamond) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
