@@ -32,7 +32,7 @@ const _ = require('underscore');
    *
    * @return
    */
-  exports.getByName = function(user_name, cb){
+  exports.findByName = function(user_name, cb){
     mysql.query(sql, [user_name], (err, docs) => {
       if(err) return cb(err);
       cb(null, mysql.checkOnly(docs) ? docs[0] : null);
@@ -89,26 +89,57 @@ const _ = require('underscore');
  * @return
  */
 (() => {
-  var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, weixin, mobile, create_time, device_code) values (?, ?, ?, ?, ?, ?, ?, ?)';
 
-  exports.saveDeviceCode = function(newInfo, cb){
-    if(err) return cb(err);
+  function formVali(newInfo){
+    if(!_.isString(newInfo.user_name)) return '昵称不能为空';
+  }
 
-    // params
-    var postData = [
-      utils.replaceAll(uuid.v1(), '-', ''),
-      newInfo.user_name || '',
-      newInfo.user_pass || '',
-      newInfo.status || 0,
-      newInfo.weixin || '',
-      newInfo.mobile || '',
-      new Date(),
-      newInfo.device_code
-    ];
+  var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, sex, create_time, mobile, qq, weixin, email, device_code, score, bullet_level, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, nickname, diamond) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
-    mysql.query(sql, postData, function (err, status){
+  exports.register = function(newInfo, cb){
+
+    var self = this;
+
+    var warn = formVali(newInfo);
+
+    if(warn) return cb(null, warn);
+
+    self.findByName(newInfo.user_name, function (err, doc){
       if(err) return cb(err);
-      cb(null, postData);
+      if(doc) return cb(null, '昵称已经存在');
+
+      // params
+      var postData = [
+        utils.replaceAll(uuid.v1(), '-', ''),
+        newInfo.user_name,
+        newInfo.user_pass,
+        newInfo.status      || 0,
+        newInfo.sex         || 1,
+        new Date(),
+        newInfo.mobile      || '',
+        newInfo.qq          || '',
+        newInfo.weixin      || '',
+        newInfo.email       || '',
+        newInfo.device_code || '',
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        newInfo.nickname || '',
+        0
+      ];
+
+      mysql.query(sql, postData, function (err, status){
+        if(err) return cb(err);
+        cb(null, null, postData);
+      });
     });
   };
 })();
@@ -129,7 +160,7 @@ const _ = require('underscore');
 exports.login = function(logInfo /* 用户名及密码 */, cb){
   var self = this;
 
-  self.getByName(logInfo.user_name, (err, doc) => {
+  self.findByName(logInfo.user_name, (err, doc) => {
     if(err) return cb(err);
     if(!doc) return cb(null, '101');
 
