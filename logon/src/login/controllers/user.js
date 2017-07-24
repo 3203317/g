@@ -13,10 +13,10 @@ const utils = require('speedt-utils').utils;
 const biz = require('emag.biz');
 
 exports.register = function(req, res, next){
-  var result = { success: false },
-      data   = req._data;
+  var result = { success: false };
+  var query  = req.body;
 
-  biz.user.register(data, function (err, warn, doc){
+  biz.user.register(query, function (err, warn, doc){
     if(err) return next(err);
     if(warn){
       result.msg = warn;

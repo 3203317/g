@@ -117,7 +117,7 @@ const _ = require('underscore');
         utils.replaceAll(uuid.v1(), '-', ''),
         newInfo.user_name,
         md5.hex(newInfo.user_pass),
-        newInfo.status      || 0,
+        newInfo.status      || 1,
         newInfo.sex         || 1,
         new Date(),
         newInfo.mobile      || '',

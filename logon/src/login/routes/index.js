@@ -12,7 +12,7 @@ module.exports = function(app){
   app.get('/user/login$', user.loginUI);
   app.post('/user/login$', user.login);
 
-  app.post('/user/register$', valiPostData, user.register);
+  app.post('/user/register$', user.register);
 
   app.get('/', fishjoy.indexUI);
 };
