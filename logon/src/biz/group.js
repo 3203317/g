@@ -87,3 +87,22 @@ const _ = require('underscore');
     });
   };
 })();
+
+(() => {
+  const numkeys = 3;
+  const sha1 = 'a38933548d27b93b133bdf3e025d05fad4ca368d';
+
+  /**
+   * group_users_channel.lua
+   */
+  exports.findUsersByChannel = function(server_id, channel_id, cb){
+
+    if(!server_id) return;
+    if(!channel_id) return;
+
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, (err, doc) => {
+      if(err) return cb(err);
+      cb(null, doc);
+    });
+  };
+})();
