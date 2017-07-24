@@ -104,7 +104,7 @@ pro.refresh = function(){
 
   for(let fish of _.values(self._fishes)){
 
-    if(fish.trailLen === fish.step){
+    if((fish.trailLen - 1) === fish.step){
       if(fish.loop){
         fish.step = 0;
       }else{
@@ -144,6 +144,8 @@ pro.blast = function(bullet, fishes){
     logger.debug('blast 3: %j', trail_info);
 
     var s = trail_info[fish.step];
+
+    if(!s) continue;
 
     var d = distance(s[0], s[1], bullet.x2, bullet.y2);
 
