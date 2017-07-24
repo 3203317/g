@@ -353,15 +353,12 @@ const logger = log4js.getLogger('fishjoy');
    */
   exports.shot = function(server_id, channel_id, bullet, cb){
 
-    if(!bullet) return;
-
-    try{
-      bullet = JSON.parse(bullet);
+    try{ bullet = JSON.parse(bullet);
     }catch(ex){ return; }
 
-    if(!_.isString(bullet.id))    return;
-    if(!_.isNumber(bullet.x))     return;
-    if(!_.isNumber(bullet.y))     return;
+    if(!_.isString(bullet.id)) return;
+    if(!_.isNumber(bullet.x))  return;
+    if(!_.isNumber(bullet.y))  return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, bullet.id,
       seconds, bullet.x, bullet.y, (err, doc) => {
@@ -380,30 +377,26 @@ const logger = log4js.getLogger('fishjoy');
  */
 exports.blast = function(server_id, channel_id, blast, cb){
 
-  if(!blast) return;
-
-  try{
-    blast = JSON.parse(blast);
+  try{ blast = JSON.parse(blast);
   }catch(ex){ return; }
 
   if(!_.isArray(blast))  return;
   if(2 !== blast.length) return;
 
-  var bullet_blast = blast[0];
-  if(!_.isObject(bullet_blast))    return;
-  if(!_.isNumber(bullet_blast.x))  return;
-  if(!_.isNumber(bullet_blast.y))  return;
-  if(!_.isString(bullet_blast.id)) return;
-
+  // 被打中的
   var hit_fishes = blast[1];
   if(!_.isArray(hit_fishes)) return;
   if(0 === blast.length)     return;
 
-  logger.debug('blast info: %j', blast);
+  var blast_bullet = blast[0];
+  if(!_.isObject(blast_bullet))    return;
+  if(!_.isNumber(blast_bullet.x))  return;
+  if(!_.isNumber(blast_bullet.y))  return;
+  if(!_.isString(blast_bullet.id)) return;
 
   var self = this;
 
-  self.bullet(server_id, channel_id, bullet_blast.id, function (err, doc){
+  self.bullet(server_id, channel_id, blast_bullet.id, function (err, doc){
     if(err) return cb(err);
     if(!_.isArray(doc)) return cb(null, doc);
 
@@ -411,15 +404,15 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
     var fishpond = fishpondPool.get(user_info.group_id);
 
-    // 判断当前鱼池是否存在
+    // 判断用户所在群组的鱼池是否存在
     if(!fishpond) return;
 
     var bullet_info = cfg.arrayToObject(doc[1]);
 
-    bullet_info.x2 = bullet_blast.x;
-    bullet_info.y2 = bullet_blast.y;
+    bullet_info.x2 = blast_bullet.x;
+    bullet_info.y2 = blast_bullet.y;
 
-    logger.debug('blast bullet info: %j', bullet_info);
+    logger.debug('blast bullet: %j', bullet_info);
 
     var dead_fishes = fishpond.blast(bullet_info, hit_fishes);
 
@@ -430,7 +423,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
         if(!_.isArray(doc)) return cb(null, doc);
 
         var result = [user_info.id, fish.id, fish.money, doc[1]];
-        logger.debug('fish money: %j', result);
+        logger.debug('dead fish: %j', result);
 
         cb(null, [doc[0], result]);
       });
