@@ -151,16 +151,16 @@ pro.blast = function(bullet, fishes){
 
     logger.debug('blast 4: %s', d);
 
+    if(!(--fish.hp < 1)){
+      logger.debug('blast 5: %j', fish);
+      continue;
+    }
+
     var r = Math.random();
 
     if(!(r < cfg.fishType[fish.type].dead_probability)) continue;
 
-    logger.debug('blast 5: %s', r);
-
-    if(!(--fish.hp < 1)){
-      logger.debug('blast 6: %j', fish);
-      continue;
-    }
+    logger.debug('blast 6: %s', r);
 
     // 根据玩家的幸运值与盈亏比率在进行判断
     // 根据配置表生成特殊物品掉落率
