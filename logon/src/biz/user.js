@@ -90,8 +90,12 @@ const _ = require('underscore');
  */
 (() => {
 
+  var regex_user_name = /^[\u4E00-\u9FA5a-zA-Z0-9_]{2,10}$/;
+
   function formVali(newInfo){
-    if(!_.isString(newInfo.user_name)) return '昵称不能为空';
+    newInfo.user_name = newInfo.user_name || '';
+    newInfo.user_name = newInfo.user_name.trim();
+    if(!regex_user_name.test(newInfo.user_info)) return '昵称不能为空';
   }
 
   var sql = 'INSERT INTO s_user (id, user_name, user_pass, status, sex, create_time, mobile, qq, weixin, email, device_code, score, bullet_level, tool_1, tool_2, tool_3, tool_4, tool_5, tool_6, tool_7, tool_8, tool_9, nickname, diamond) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
