@@ -116,7 +116,7 @@ const _ = require('underscore');
       var postData = [
         utils.replaceAll(uuid.v1(), '-', ''),
         newInfo.user_name,
-        newInfo.user_pass,
+        md5.hex(newInfo.user_pass),
         newInfo.status      || 0,
         newInfo.sex         || 1,
         new Date(),
