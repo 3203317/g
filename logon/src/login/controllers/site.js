@@ -22,7 +22,10 @@ exports.indexUI = function(req, res, next){
     conf: conf,
     title: '后台管理 | '+ conf.corp.name,
     description: '',
-    keywords: ',html5'
+    keywords: ',html5',
+    data: {
+      nav_choose: ',01,'
+    }
   });
 };
 
