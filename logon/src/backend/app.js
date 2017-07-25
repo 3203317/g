@@ -109,10 +109,10 @@ biz.backend.open(conf.app.id, (err, code) => {
     _3005_group_quit   = client.subscribe('/queue/qq.3005',   handle.group.quit.bind(null, client));
 
     _5001_fishjoy_shot   = client.subscribe('/queue/qq.5001',                handle.fishjoy.shot.bind(null, client));
-    _5013_fishjoy_switch = client.subscribe('/queue/qq.5013',              handle.fishjoy.switch.bind(null, client));
     _5003_fishjoy_blast  = client.subscribe('/queue/qq.5003.'+ conf.app.id, handle.fishjoy.blast.bind(null, client));
     _5005_fishjoy_ready  = client.subscribe('/queue/qq.5005',               handle.fishjoy.ready.bind(null, client));
     _5011_fishjoy_tool   = client.subscribe('/queue/qq.5011.'+ conf.app.id,  handle.fishjoy.tool.bind(null, client));
+    _5013_fishjoy_switch = client.subscribe('/queue/qq.5013',              handle.fishjoy.switch.bind(null, client));
   };
 
   function _unsubscribe(){
