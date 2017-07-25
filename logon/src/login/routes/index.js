@@ -5,11 +5,16 @@
  */
 'use strict';
 
+const site    = require('../controllers/site');
 const manager = require('../controllers/manager');
-const user = require('../controllers/user');
+const user    = require('../controllers/user');
 const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
+
+  app.get('/manage/', site.indexUI);
+  app.get('/manage/welcome$', site.welcomeUI);
+
   app.get('/manager/login$', manager.loginUI);
   app.post('/manager/login$', manager.login);
 
