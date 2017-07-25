@@ -2,14 +2,17 @@ package net.foreworld.gws.amq;
 
 import java.net.SocketAddress;
 
+import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
 
 import org.apache.commons.codec.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.JsonElement;
@@ -31,6 +34,15 @@ import net.foreworld.util.StringUtil;
 @PropertySource("classpath:activemq.properties")
 @Component
 public class ConsumerV2 {
+
+	@Value("${server.id}")
+	private String server_id;
+
+	@Value("${queue.channel.close}")
+	private String queue_channel_close;
+
+	@Resource(name = "jmsMessagingTemplate")
+	private JmsMessagingTemplate jmsMessagingTemplate;
 
 	private static final Logger logger = LoggerFactory.getLogger(ConsumerV2.class);
 
@@ -81,8 +93,13 @@ public class ConsumerV2 {
 
 			Channel c = ChannelUtil.getDefault().getChannel(_receiver);
 
-			if (null != c)
+			if (null != c) {
 				c.writeAndFlush(jo.toString());
+				return;
+			}
+
+			jmsMessagingTemplate.convertAndSend(queue_channel_close, server_id + "::" + _receiver);
+			logger.info("channel amq close: {}:{}", server_id, _receiver);
 
 		} catch (JMSException e) {
 			logger.error("", e);
