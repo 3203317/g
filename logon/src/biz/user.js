@@ -143,7 +143,7 @@ const _ = require('underscore');
         0,
         0,
         0,
-        newInfo.nickname || '',
+        newInfo.user_name || '',
         0
       ];
 

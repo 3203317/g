@@ -2,33 +2,118 @@
 	"ver": 124,
 	"data": [{
 		"range": 0.4,
-		"style": 1
+		"style": 1,
+		"cost":1,
+		"unlock":0
 	}, {
 		"range": 0.4,
-		"style": 1
+		"style": 1,
+		"cost":2,
+		"unlock":2
 	}, {
 		"range": 0.4,
-		"style": 2
+		"style": 1,
+		"cost":3,
+		"unlock":2
 	}, {
 		"range": 0.4,
-		"style": 2
+		"style": 1,
+		"cost":4,
+		"unlock":3
 	}, {
 		"range": 0.4,
-		"style": 3
+		"style": 1,
+		"cost":5,
+		"unlock":5
 	}, {
 		"range": 0.4,
-		"style": 3
+		"style": 1,
+		"cost":6,
+		"unlock":5
 	}, {
 		"range": 0.4,
-		"style": 4
+		"style": 1,
+		"cost":7,
+		"unlock":5
 	}, {
 		"range": 0.4,
-		"style": 4
+		"style": 1,
+		"cost":8,
+		"unlock":8
 	},{
 		"range": 0.4,
-		"style": 5
+		"style": 1,
+		"cost":9,
+		"unlock":8
 	},{
 		"range": 0.4,
-		"style": 6
+		"style": 1,
+		"cost":10,
+		"unlock":8
+	},{
+		"range": 0.4,
+		"style": 1,
+		"cost":15,
+		"unlock":12
+	},{
+		"range": 0.4,
+		"style": 2,
+		"cost":20,
+		"unlock":12
+	},{
+		"range": 0.4,
+		"style": 2,
+		"cost":25,
+		"unlock":12
+	},{
+		"range": 0.4,
+		"style": 2,
+		"cost":30,
+		"unlock":17
+	},{
+		"range": 0.4,
+		"style": 2,
+		"cost":35,
+		"unlock":17
+	},{
+		"range": 0.4,
+		"style": 2,
+		"cost":40,
+		"unlock":17
+	},{
+		"range": 0.4,
+		"style": 2,
+		"cost":45,
+		"unlock":22
+	},{
+		"range": 0.4,
+		"style": 3,
+		"cost":50,
+		"unlock":22
+	},{
+		"range": 0.4,
+		"style": 3,
+		"cost":60,
+		"unlock":28
+	},{
+		"range": 0.4,
+		"style": 3,
+		"cost":70,
+		"unlock":28
+	},{
+		"range": 0.4,
+		"style": 4,
+		"cost":80,
+		"unlock":28
+	},{
+		"range": 0.4,
+		"style": 5,
+		"cost":90,
+		"unlock":35
+	},{
+		"range": 0.4,
+		"style": 6,
+		"cost":100,
+		"unlock":35
 	}]
 }

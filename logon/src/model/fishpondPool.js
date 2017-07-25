@@ -5,6 +5,11 @@
  */
 'use strict';
 
+const _      = require('underscore');
+
+const log4js = require('log4js');
+const logger = log4js.getLogger('fishpondPool');
+
 var Fishpond = require('./fishpond');
 
 var res = module.exports = {};
@@ -14,6 +19,8 @@ var fishponds = {};
 var free = {};
 
 res.create = function(opts){
+
+  logger.debug('%s', _.size(fishponds));
 
   var fishpond = this.get(opts.id);
   if(fishpond) return;
