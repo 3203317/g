@@ -6,6 +6,7 @@
 'use strict';
 
 const express = require('express'),
+      flash = require('connect-flash'),
       velocity = require('velocityjs'),
       fs = require('fs'),
       http = require('http'),
@@ -46,10 +47,11 @@ app.set('port', process.env.PORT || 8888)
    .set('views', path.join(__dirname, 'views'))
    .set('view engine', 'html')
    /* use */
+   .use(flash())
    .use(express.favicon())
    .use(express.json())
    .use(express.urlencoded())
-   // .use(express.cookieParser())
+   .use(express.cookieParser())
    .use(express.methodOverride());
 
 /* production */
@@ -69,13 +71,13 @@ if('development' === app.get('env')){
       }));
 }
 
-// app.use(express.session({
-//   secret: conf.cookie.secret,
-//   key: conf.cookie.key,
-//   cookie: {
-//     maxAge: 1000 * 60 * 60 * 24 * 1  //1 days
-//   }
-// }));
+app.use(express.session({
+  secret: conf.cookie.secret,
+  key:    conf.cookie.key,
+  cookie: {
+    maxAge: 1000 * 60 * 60 * 24 * 1  //1 days
+  }
+}));
 
 app.use(app.router)
     /* velocity */

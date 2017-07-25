@@ -26,6 +26,11 @@ exports.login = function(req, res, next){
   biz.manager.login(query, (err, code, doc) => {
     if(err)  return next(err);
     if(code) return res.send({ error: { msg: code } });
+
+    // session
+    req.session.userId = doc.id;
+    req.session.user = doc;
+
     res.send({});
   });
 };

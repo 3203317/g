@@ -9,3 +9,4 @@ exports.user = require('./user');
 exports.group = require('./group');
 exports.fishjoy = require('./fishjoy');
 exports.backend = require('./backend');
+exports.manager = require('./manager');
