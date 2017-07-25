@@ -132,7 +132,7 @@ const _ = require('underscore');
         newInfo.weixin      || '',
         newInfo.email       || '',
         newInfo.device_code || '',
-        0,
+        1000,
         1,
         0,
         0,
