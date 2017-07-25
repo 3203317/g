@@ -7,7 +7,6 @@
 
 module.exports = {
   app: {
-    id: '112aba1ad4424e7891037028ef024645',
     resHost: '127.0.0.1'
   },
   corp: {

@@ -15,6 +15,30 @@ const express = require('express'),
 const macros = require('./lib/macro'),
       conf = require('./settings');
 
+const log4js = require('log4js');
+
+log4js.configure({
+  appenders: {
+    app: {
+      type: 'dateFile',
+      filename: path.join(cwd, 'logs', 'app'),
+      pattern: 'yyyy-MM-dd.log',
+      alwaysIncludePattern: true
+    },
+    console: {
+      type: 'console'
+    }
+  },
+  categories: {
+    default: {
+      appenders: ['app', 'console'],
+      level: 'debug'
+    }
+  }
+});
+
+const logger = log4js.getLogger('app');
+
 const app = express();
 
 /* all environments */
@@ -66,10 +90,10 @@ app.use(app.router)
 var server = http.createServer(app);
 /* server.setTimeout(5000); */
 server.listen(app.get('port'), () => {
-  console.info('[INFO ] login server listening on port %s.', app.get('port'));
+  logger.info('login server listening on port %s', app.get('port'));
   require('./routes')(app);
 });
 
 process.on('uncaughtException', err => {
-  console.error('[ERROR] %s', err);
+  logger.error('uncaughtException:', err);
 });
