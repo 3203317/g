@@ -223,7 +223,7 @@
 						<img class="nav-user-photo" src="http://www.foreworld.net/js/ace/1.1.2/assets/avatars/user.jpg" alt="Jason's Photo" />
 						<span class="user-info">
 							<small>欢迎您,</small>
-							$!doc.session_user.user_name
+							$!data.session_user.user_name
 						</span>
 
 						<i class="icon-caret-down"></i>
@@ -238,7 +238,7 @@
 						</li>
 
 						<li>
-							<a href="/manager/profile">
+							<a href="$!{conf.html.virtualPath}manager/profile">
 								<i class="icon-user"></i>
 								修改资料 Profile
 							</a>
@@ -247,7 +247,7 @@
 						<li class="divider"></li>
 
 						<li>
-							<a href="/manager/logout">
+							<a href="$!{conf.html.virtualPath}manager/logout">
 								<i class="icon-off"></i>
 								安全退出 Logout
 							</a>

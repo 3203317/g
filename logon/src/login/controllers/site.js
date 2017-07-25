@@ -24,7 +24,8 @@ exports.indexUI = function(req, res, next){
     description: '',
     keywords: ',html5',
     data: {
-      nav_choose: ',01,'
+      session_user: req.session.user,
+      nav_choose:   ',01,'
     }
   });
 };
