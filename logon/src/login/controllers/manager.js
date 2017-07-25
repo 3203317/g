@@ -13,7 +13,7 @@ const utils = require('speedt-utils').utils;
 const biz = require('emag.biz');
 
 exports.loginUI = function(req, res, next){
-  res.render('login', {
+  res.render('back/login', {
     conf: conf,
     title: '管理登陆 | '+ conf.corp.name,
     data: {}

@@ -10,6 +10,9 @@ const user = require('../controllers/user');
 const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
+  app.get('/manager/login$', manager.loginUI);
+  app.post('/manager/login$', manager.login);
+
   app.get('/user/login$', user.loginUI);
   app.post('/user/login$', user.login);
 
