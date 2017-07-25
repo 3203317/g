@@ -141,7 +141,7 @@ pro.blast = function(bullet, fishes){
 
     if(!trail_info) continue;
 
-    logger.debug('blast 3: %j', trail_info);
+    logger.debug('blast 3: %s', trail_info.length);
 
     var s = trail_info[fish.step];
 

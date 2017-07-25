@@ -85,7 +85,17 @@ biz.backend.open(conf.app.id, (err, code) => {
   // client will send heartbeats every 20000ms
   client.heartbeat.incoming = 10000;
 
+  function unRegisterQueue(){
+    // todo
+  }
+
+  function registerQueue(){
+    // todo
+  }
+
   var onCb = function(frame){
+    registerQueue();
+
     _front_start = client.subscribe('/queue/front.start', handle.front.start);
     _front_stop  = client.subscribe('/queue/front.stop',  handle.front.stop);
 
@@ -106,6 +116,8 @@ biz.backend.open(conf.app.id, (err, code) => {
   };
 
   function _unsubscribe(){
+    unRegisterQueue();
+
     if(_front_start) _front_start.unsubscribe();
     if(_front_stop)   _front_stop.unsubscribe();
 
