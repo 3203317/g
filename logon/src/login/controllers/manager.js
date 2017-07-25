@@ -12,20 +12,10 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
-exports.register = function(req, res, next){
-  var query  = req.body;
-
-  biz.user.register(query, function (err, warn, doc){
-    if(err) return next(err);
-    if(warn) return res.send({ error: { msg: warn } });
-    res.send({});
-  });
-};
-
 exports.loginUI = function(req, res, next){
   res.render('login', {
     conf: conf,
-    title: '游客登陆 | '+ conf.corp.name,
+    title: '管理登陆 | '+ conf.corp.name,
     data: {}
   });
 };
@@ -33,9 +23,9 @@ exports.loginUI = function(req, res, next){
 exports.login = function(req, res, next){
   var query = req.body;
 
-  biz.user.login(query, (err, code, token /* 授权码及服务器信息 */) => {
+  biz.manager.login(query, (err, warn, doc) => {
     if(err) return next(err);
-    if(code) return res.send({ error: { code: code } });
-    res.send({ data: token });
+    if(warn) return res.send({ error: { msg: warn } });
+    res.send({});
   });
 };

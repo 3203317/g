@@ -5,6 +5,7 @@
  */
 'use strict';
 
+const manager = require('../controllers/manager');
 const user = require('../controllers/user');
 const fishjoy = require('../controllers/fishjoy');
 
