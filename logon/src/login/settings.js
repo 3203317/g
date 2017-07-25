@@ -17,6 +17,7 @@ module.exports = {
     secret: 'login'
   },
   html: {
+    virtualPath: '/client/',
     cdn: 'http://www.foreworld.net/'
   },
   activemq: {

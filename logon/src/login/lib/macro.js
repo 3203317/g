@@ -27,5 +27,10 @@ module.exports = {
       case 2: return '女';
       default: return '未知';
     }
+  },
+  indexOf: (s, b) => {
+    if(!s) return false;
+    if(!b) return false;
+    return -1 < s.indexOf(b);
   }
 };

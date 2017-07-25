@@ -12,8 +12,8 @@ const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
 
-  app.get('/manage/', site.indexUI);
-  app.get('/manage/welcome$', site.welcomeUI);
+  app.get('/manage/', manager.login_validate, site.indexUI);
+  app.get('/manage/welcome$', manager.login_validate, site.welcomeUI);
 
   app.get('/manager/login$', manager.loginUI);
   app.post('/manager/login$', manager.login);
