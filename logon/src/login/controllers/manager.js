@@ -23,9 +23,9 @@ exports.loginUI = function(req, res, next){
 exports.login = function(req, res, next){
   var query = req.body;
 
-  biz.manager.login(query, (err, warn, doc) => {
-    if(err) return next(err);
-    if(warn) return res.send({ error: { msg: warn } });
+  biz.manager.login(query, (err, code, doc) => {
+    if(err)  return next(err);
+    if(code) return res.send({ error: { msg: code } });
     res.send({});
   });
 };
