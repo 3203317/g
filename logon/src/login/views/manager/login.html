@@ -75,13 +75,13 @@
   function push(){
     var data = ser($('#logFrm'));
       $.ajax({
-        url: '$!{virtualPath}manager/login',
+        url: '/manage/manager/login',
         type: 'POST',
         dataType: 'JSON',
         data: data,
         success: function(data){
           if(data.error) return alert(JSON.stringify(data.error));
-          location.href = '$!{virtualPath}manage/';
+          location.href = '/manage/';
         },
         error: function(){
           alert(arguments[2]);
