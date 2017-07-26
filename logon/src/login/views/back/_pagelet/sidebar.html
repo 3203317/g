@@ -70,7 +70,7 @@
 
 		<li#if('true' == "#indexOf($!{data.nav_choose}, ',03,')") class='active'#end>
 			<a href='javascript:;' class="dropdown-toggle">
-				<i class="icon-comments "></i>
+				<i class="icon-cog"></i>
 				<span class="menu-text"> 用户管理 </span>
 				<b class="arrow icon-angle-down"></b>
 			</a>
@@ -90,6 +90,24 @@
 						角色设置
 					</a>
 				</li> -->*#
+			</ul>
+		</li>
+
+		<li#if('true' == "#indexOf($!{data.nav_choose}, ',04,')") class='active'#end>
+			<a href='javascript:;' class="dropdown-toggle">
+				<i class="icon-comments "></i>
+				<span class="menu-text"> 交流中心 </span>
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+
+				<li#if('true' == "#indexOf($!{data.nav_choose}, ',0401,')") class='active'#end>
+					<a href="$!{conf.html.virtualPath}manage/notice/">
+						<i class="icon-double-angle-right"></i>
+						网站公告
+					</a>
+				</li>
 			</ul>
 		</li>
 

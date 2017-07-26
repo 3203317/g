@@ -132,6 +132,7 @@ const logger = log4js.getLogger('fishjoy');
         }
 
         if(!_.isArray(doc)) return;
+        if(0 === doc.length) return;
 
         // 获取所有鱼并发送给举手的人
         refresh(null, [doc, _.values(fishpond.getFishes())]);
