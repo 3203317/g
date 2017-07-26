@@ -164,6 +164,10 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
+              if(0 === doc.length){
+                return fishpondPool.release(fishpond.id);
+              }
+
               scene(null, doc);
               fishpond.clearAll();
               scene2();
@@ -183,6 +187,10 @@ const logger = log4js.getLogger('fishjoy');
               }
 
               if(!_.isArray(doc)){
+                return fishpondPool.release(fishpond.id);
+              }
+
+              if(0 === doc.length){
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -225,6 +233,10 @@ const logger = log4js.getLogger('fishjoy');
               return fishpondPool.release(fishpond.id);
             }
 
+            if(0 === doc.length){
+              return fishpondPool.release(fishpond.id);
+            }
+
             // 把新创建的鱼群发
 
             refresh(null, [doc, [fish]]);
@@ -257,6 +269,10 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
+              if(0 === doc.length){
+                return fishpondPool.release(fishpond.id);
+              }
+
               scene(null, doc);
               fishpond.clearAll();
               scene1();
@@ -274,6 +290,10 @@ const logger = log4js.getLogger('fishjoy');
               }
 
               if(!_.isArray(doc)){
+                return fishpondPool.release(fishpond.id);
+              }
+
+              if(0 === doc.length){
                 return fishpondPool.release(fishpond.id);
               }
 
@@ -310,6 +330,10 @@ const logger = log4js.getLogger('fishjoy');
             }
 
             if(!_.isArray(doc)){
+              return fishpondPool.release(fishpond.id);
+            }
+
+            if(0 === doc.length){
               return fishpondPool.release(fishpond.id);
             }
 
