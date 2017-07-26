@@ -12,6 +12,17 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
+exports.changePwdUI = function(req, res, next){
+  res.render('manager/changePwd', {
+    conf: conf,
+    title: '修改密码 | '+ conf.corp.name,
+    data: {
+      session_user: req.session.user,
+      nav_choose:   ',03,0302,'
+    }
+  });
+};
+
 exports.profileUI = function(req, res, next){
   res.render('manager/profile', {
     conf: conf,

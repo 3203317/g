@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<title>修改资料 | 帐户管理 | 系统原型</title>
+		<title>修改密码 | 帐户管理 | 系统原型</title>
 		<link rel="stylesheet" href="$!{conf.html.cdn}js/ace/1.1.2/assets/css/jquery.gritter.css" />
 		#parse('_pagelet/header2.html')
 		<link rel="stylesheet" href="$!{conf.html.cdn}js/ace/1.1.2/assets/css/bootstrap-editable.css" />
@@ -41,7 +41,7 @@
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">修改资料</li>
+						<li class="active">修改密码</li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -58,10 +58,10 @@
 
 					<div class="page-header position-relative">
 						<h1>
-							修改资料
+							修改密码
 							<small>
 								<i class="icon-double-angle-right"></i>
-								My Profile
+								Change Password
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -79,8 +79,7 @@
 									<i class="icon-info-sign"></i>
 									系统提示：
 								</strong>
-
-								为了您的账户安全，请尽量使用真实资料。
+								
 							</div>
 
 							<div class="row-fluid">
@@ -98,28 +97,43 @@
 										<div class="tab-content">
 											<div id="home" class="tab-pane in active">
 
-												<form id='frm' role='form' class="form-horizontal">
-
-													#*<!-- <div class="control-group">
-														<label class="control-label">昵称</label>
+												<form class="form-horizontal" id='frm1'>
+													<div class="control-group">
+														<label class="control-label" for="frm1_user_pass_old">原登录密码</label>
 
 														<div class="controls">
-															<input type="text" class='input-large' value='' disabled />
+															<input type="password" class='input-large' id="frm1_user_pass_old" placeholder="原登录密码" />
 														</div>
 													</div>
+													<div class="control-group">
+														<label class="control-label" for="frm1_user_pass">新登录密码</label>
+
+														<div class="controls">
+															<input type="password" class='input-large' id="frm1_user_pass" placeholder="新登录密码" />
+														</div>
+													</div>
+													<div class="control-group">
+														<label class="control-label" for="frm1_user_pass_2">确认登录密码</label>
+
+														<div class="controls">
+															<input type="password" class='input-large' id="frm1_user_pass_2" placeholder="确认登录密码" />
+														</div>
+													</div>
+
 													<div class="form-actions">
-														<button class="btn btn-info" onclick="return false;" id='btn_submit'>
+														<button class="btn btn-info" type="button" id='btn_submit1'>
 															<i class="icon-ok bigger-110"></i>
 															提交
 														</button>
 
-														&nbsp; &nbsp;
+														&nbsp; &nbsp; &nbsp;
 														<button class="btn" type="reset">
 															<i class="icon-undo bigger-110"></i>
 															重置
 														</button>
-													</div> -->*#
+													</div>
 												</form>
+
 											</div>
 										</div>
 									</div>
