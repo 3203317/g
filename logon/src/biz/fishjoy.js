@@ -57,7 +57,7 @@ const logger = log4js.getLogger('fishjoy');
    */
   function createFish1(){
 
-    var newFish = fishPool.create(utils.replaceAll(uuid.v1(), '-', ''));
+    var newFish = fishPool.create();
 
     if(!newFish) return logger.error('create fish repeat');
 
@@ -95,7 +95,7 @@ const logger = log4js.getLogger('fishjoy');
 
       let t = cfg.fishType[k[0]];
 
-      var newFish = fishPool.create(utils.replaceAll(uuid.v1(), '-', ''));
+      var newFish = fishPool.create();
 
       if(!newFish) continue;
 

@@ -5,6 +5,9 @@
  */
 'use strict';
 
+const utils = require('speedt-utils').utils;
+const uuid = require('node-uuid');
+
 const _      = require('underscore');
 
 const log4js = require('log4js');
@@ -16,23 +19,20 @@ var fishes = {};
 
 var free = [];
 
-res.create = function(id){
+res.create = function(){
 
   logger.debug('%s::%s', free.length, _.size(fishes));
-
-  var fish = this.get(id);
-  if(fish) return;
 
   var newFish = free.shift();
 
   if(newFish){
-    newFish.id = id;
-    fishes[id] = newFish;
+    newFish.id = utils.replaceAll(uuid.v1(), '-', '');
+    fishes[newFish.id] = newFish;
     return newFish;
   }
 
-  newFish = { id: id };
-  fishes[id] = newFish;
+  newFish = { id: utils.replaceAll(uuid.v1(), '-', '') };
+  fishes[newFish.id] = newFish;
   return newFish;
 };
 

@@ -5,6 +5,9 @@
  */
 'use strict';
 
+const utils = require('speedt-utils').utils;
+const uuid = require('node-uuid');
+
 const _      = require('underscore');
 
 const log4js = require('log4js');
@@ -22,10 +25,7 @@ res.create = function(opts){
 
   logger.debug('%s', _.size(fishponds));
 
-  var fishpond = this.get(opts.id);
-  if(fishpond) return;
-
-  var type = free[opts.type];
+  var type       = free[opts.type];
 
   if(!type) type = free[opts.type] = [];
 

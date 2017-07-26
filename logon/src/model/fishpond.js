@@ -84,12 +84,14 @@ pro.put = function(fish, force){
   if(!fish) return;
 
   if(!force){
-    if(self._fishesWeight >= self.capacity) return;
+    if(self._fishesWeight >= self.capacity) return fishPool.release(fish.id);
   }
 
-  if(self._fishes[fish.id]) return;
+  if(self._fishes[fish.id]) return fishPool.release(fish.id);
   self._fishes[fish.id] = fish;
   self._fishesWeight += fish.weight;
+
+  logger.debug('%s::%s', _.size(self._fishes), self._fishesWeight);
   return fish;
 };
 
