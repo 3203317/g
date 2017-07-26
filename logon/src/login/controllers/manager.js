@@ -12,6 +12,17 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
+exports.profileUI = function(req, res, next){
+  res.render('manager/profile', {
+    conf: conf,
+    title: '用户资料 | '+ conf.corp.name,
+    data: {
+      session_user: req.session.user,
+      nav_choose:   ',03,0301,'
+    }
+  });
+};
+
 exports.loginUI = function(req, res, next){
   res.render('manager/login', {
     conf: conf,

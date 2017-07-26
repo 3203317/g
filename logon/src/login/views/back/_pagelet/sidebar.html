@@ -31,13 +31,13 @@
 
 	<ul class="nav nav-list">
 		<li#if('true' == "#indexOf($!{data.nav_choose}, ',01,')") class='active'#end>
-			<a href="$!{conf.html.virtualPath}manage/">
+			<a href="/manage/">
 				<i class="icon-dashboard"></i>
 				<span class="menu-text"> 系统首页 </span>
 			</a>
 		</li>
 
-		<li#if('true' == "#indexOf($!{data.nav_choose}, ',02,')") class='active'#end>
+		<li#if('true' == "#indexOf($!{data.nav_choose}, ',02,')") class='active open'#end>
 			<a href='javascript:;' class="dropdown-toggle">
 				<i class="icon-comments "></i>
 				<span class="menu-text"> 系统管理 </span>
@@ -46,7 +46,7 @@
 
 			<ul class="submenu">
 				<li#if('true' == "#indexOf($!{data.nav_choose}, ',0201,')") class='active'#end>
-					<a href="$!{conf.html.virtualPath}manage/settings/">
+					<a href="/manage/manage/settings/">
 						<i class="icon-double-angle-right"></i>
 						系统参数
 					</a>
@@ -68,7 +68,7 @@
 			</ul>
 		</li>
 
-		<li#if('true' == "#indexOf($!{data.nav_choose}, ',03,')") class='active'#end>
+		<li#if('true' == "#indexOf($!{data.nav_choose}, ',03,')") class='active open'#end>
 			<a href='javascript:;' class="dropdown-toggle">
 				<i class="icon-cog"></i>
 				<span class="menu-text"> 用户管理 </span>
@@ -78,7 +78,7 @@
 			<ul class="submenu">
 
 				<li#if('true' == "#indexOf($!{data.nav_choose}, ',0301,')") class='active'#end>
-					<a href="$!{conf.html.virtualPath}manage/user/">
+					<a href="/manage/manager/profile">
 						<i class="icon-double-angle-right"></i>
 						用户资料
 					</a>
@@ -93,7 +93,7 @@
 			</ul>
 		</li>
 
-		<li#if('true' == "#indexOf($!{data.nav_choose}, ',04,')") class='active'#end>
+		<li#if('true' == "#indexOf($!{data.nav_choose}, ',04,')") class='active open'#end>
 			<a href='javascript:;' class="dropdown-toggle">
 				<i class="icon-comments "></i>
 				<span class="menu-text"> 交流中心 </span>
@@ -103,7 +103,7 @@
 			<ul class="submenu">
 
 				<li#if('true' == "#indexOf($!{data.nav_choose}, ',0401,')") class='active'#end>
-					<a href="$!{conf.html.virtualPath}manage/notice/">
+					<a href="/manage/manage/notice/">
 						<i class="icon-double-angle-right"></i>
 						网站公告
 					</a>
@@ -112,7 +112,7 @@
 		</li>
 
 		<li>
-			<a href="$!{conf.html.virtualPath}manager/logout">
+			<a href="/manage/manager/logout">
 				<i class="icon-lock"></i>
 				<span class="menu-text"> 安全退出 </span>
 			</a>

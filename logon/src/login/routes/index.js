@@ -14,6 +14,7 @@ module.exports = function(app){
 
   app.get('/manage/', manager.login_validate, site.indexUI);
   app.get('/manage/welcome$', manager.login_validate, site.welcomeUI);
+  app.get('/manage/manager/profile$', manager.login_validate, manager.profileUI);
 
   app.get('/manage/manager/login$', manager.loginUI);
   app.post('/manage/manager/login$', manager.login);
