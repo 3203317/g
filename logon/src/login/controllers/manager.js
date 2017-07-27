@@ -15,7 +15,6 @@ const biz = require('emag.biz');
 exports.changePwdUI = function(req, res, next){
   res.render('manager/changePwd', {
     conf: conf,
-    title: '修改密码 | '+ conf.corp.name,
     data: {
       session_user: req.session.user,
       nav_choose:   ',03,0302,'
@@ -26,7 +25,6 @@ exports.changePwdUI = function(req, res, next){
 exports.profileUI = function(req, res, next){
   res.render('manager/profile', {
     conf: conf,
-    title: '用户资料 | '+ conf.corp.name,
     data: {
       session_user: req.session.user,
       nav_choose:   ',03,0301,'
@@ -37,7 +35,6 @@ exports.profileUI = function(req, res, next){
 exports.loginUI = function(req, res, next){
   res.render('manager/login', {
     conf: conf,
-    title: '管理登陆 | '+ conf.corp.name,
     data: {}
   });
 };

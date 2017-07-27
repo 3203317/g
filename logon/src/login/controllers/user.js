@@ -25,7 +25,6 @@ exports.register = function(req, res, next){
 exports.loginUI = function(req, res, next){
   res.render('front/login', {
     conf: conf,
-    title: '游客登陆 | '+ conf.corp.name,
     data: {}
   });
 };

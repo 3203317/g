@@ -13,15 +13,17 @@ const utils = require('speedt-utils').utils;
 const biz = require('emag.biz');
 
 exports.settingsUI = function(req, res, next){
-  res.render('settings/index', {
-    conf: conf,
-    title: '后台管理 | '+ conf.corp.name,
-    description: '',
-    keywords: ',html5',
-    data: {
-      session_user: req.session.user,
-      nav_choose:   ',02,0201,'
-    }
+
+  biz.cfg.findAll(function (err, docs){
+
+    res.render('settings/index', {
+      conf: conf,
+      data: {
+        list_cfg:     docs,
+        session_user: req.session.user,
+        nav_choose:   ',02,0201,'
+      }
+    });
   });
 };
 
@@ -33,7 +35,6 @@ exports.settingsUI = function(req, res, next){
 exports.indexUI = function(req, res, next){
   res.render('back/index', {
     conf: conf,
-    title: '后台管理 | '+ conf.corp.name,
     description: '',
     keywords: ',html5',
     data: {
@@ -51,7 +52,6 @@ exports.indexUI = function(req, res, next){
 exports.welcomeUI = function(req, res, next){
   res.render('back/welcome', {
     conf: conf,
-    title: '欢迎页 | 后台管理 | '+ conf.corp.name,
     description: '',
     keywords: ',html5'
   });

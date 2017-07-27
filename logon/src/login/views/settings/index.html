@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<title>系统参数 | 系统管理 | 后台管理</title>
+		<title>系统参数 | 系统管理 | $!conf.corp.name</title>
 		#parse('_pagelet/header2.html')
 	</head>
 
@@ -81,6 +81,17 @@
 										<div class="tab-content">
 											<div id="home" class="tab-pane in active">
 												<form id='frm' class="form-horizontal">
+
+												#foreach($doc in $!{data.list_cfg})
+													<div class="control-group">
+														<label class="control-label" for="$!{doc.key_}">$!{doc.title}</label>
+
+														<div class="controls">
+															<input type="text" onchange='changeSetting("$!{doc.key_}")' class='input-large' id="$!{doc.key_}"
+																placeholder="$!{doc.title}" value='$!{doc.value_}' title='$!{doc.comment}' />
+														</div>
+													</div>
+												#end
 
 												</form>
 											</div>
