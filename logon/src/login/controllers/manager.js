@@ -31,9 +31,12 @@ exports.profileUI = function(req, res, next){
 };
 
 exports.loginUI = function(req, res, next){
+
   res.render('manager/login', {
     conf: conf,
-    data: {}
+    data: {
+      refererUrl: req.query.refererUrl || ''
+    }
   });
 };
 
