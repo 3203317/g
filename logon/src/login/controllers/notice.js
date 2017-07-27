@@ -21,7 +21,7 @@ exports.indexUI = function(req, res, next){
       data: {
         list_notice:     docs,
         session_user: req.session.user,
-        nav_choose:   ',03,0301,'
+        nav_choose:   ',04,0401,'
       }
     });
   });
