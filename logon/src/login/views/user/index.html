@@ -37,6 +37,15 @@
 						<li class="active">会员信息</li>
 					</ul><!--.breadcrumb-->
 
+					<div class="nav-search" id="nav-search">
+						<form class="form-search" />
+							<span class="input-icon">
+								<input type="text" placeholder="搜索" class="input-small nav-search-input" id="nav-search-input" autocomplete="off" />
+								<i class="icon-search nav-search-icon"></i>
+							</span>
+						</form>
+					</div><!--#nav-search-->
+
 				</div>
 
 				<div class="page-content">
@@ -81,7 +90,7 @@
 										删除
 									</a>
 
-									<a href='javascript:;' class="btn btn-app btn-danger btn-mini">
+									<a href='javascript:;' class="btn btn-app btn-primary btn-mini">
 										<i class="icon-undo bigger-200"></i>
 										重置密码
 									</a>
@@ -141,7 +150,7 @@
 															<i class="icon-trash bigger-120"></i>
 														</a>
 
-														<a class="btn btn-mini btn-primary" title='统计分析' href='javascript:analysis("$!{doc.id}")'>
+														<a class="btn btn-mini btn-primary" title='统计分析' href='./analysis?id=$!{doc.id}'>
 															<i class="icon-info-sign bigger-120"></i>
 														</a>
 
@@ -172,7 +181,7 @@
 																</li>
 
 																<li>
-																	<a href='javascript:analysis("$!{doc.id}")' class="tooltip-error" data-rel="tooltip" title="统计分析">
+																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="统计分析">
 																		<span class="blue">
 																			<i class="icon-info-sign bigger-120"></i>
 																		</span>
