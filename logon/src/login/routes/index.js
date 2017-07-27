@@ -5,6 +5,7 @@
  */
 'use strict';
 
+const cfg    = require('../controllers/cfg');
 const site    = require('../controllers/site');
 const manager = require('../controllers/manager');
 const user    = require('../controllers/user');
@@ -17,7 +18,8 @@ module.exports = function(app){
   app.get('/manage/manager/profile$', manager.login_validate, manager.profileUI);
   app.get('/manage/manager/changePwd$', manager.login_validate, manager.changePwdUI);
 
-  app.get('/manage/settings/', manager.login_validate, site.settingsUI);
+  app.get('/manage/settings/', manager.login_validate, cfg.indexUI);
+  app.post('/manage/settings/edit', manager.login_validate, cfg.edit);
 
   app.get('/manage/manager/login$', manager.loginUI);
   app.post('/manage/manager/login$', manager.login);

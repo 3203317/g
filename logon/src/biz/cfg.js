@@ -32,14 +32,12 @@ const _ = require('underscore');
 })();
 
 (() => {
-  var sql = 'UPDATE s_cfg SET value_=?, title=?, comment=? WHERE key_=?';
+  var sql = 'UPDATE s_cfg SET value_=? WHERE key_=?';
 
   exports.editInfo = function(newInfo, cb){
 
     var postData = [
       newInfo.value_,
-      newInfo.title,
-      newInfo.comment,
       newInfo.key_
     ];
 

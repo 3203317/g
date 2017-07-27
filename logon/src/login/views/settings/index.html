@@ -64,6 +64,7 @@
 									<i class="icon-info-sign"></i>
 									系统提示：
 								</strong>
+								修改完后，鼠标点击其它位置便可以保存
 							</div>
 
 							<div class="row-fluid">
@@ -113,6 +114,36 @@
 		#parse('_pagelet/js2.html')
 
 		<script>
+		function changeSetting(key){
+
+			var val = $('#'+ key).val().trim();
+
+			if('' === val){
+				alert('值不能为空');
+				$('#frm')[0].reset();
+				return;
+			}
+
+			$.ajax({
+				url : '/manage/settings/edit',
+				type : 'POST',
+				dataType : 'JSON',
+				data : {
+					key_: key,
+					value_: val
+				},
+				success : function(data) {
+					if (data.success){
+						return location.href = '/manage/settings/';
+					}
+					if (data.msg) alert(data.msg);
+					location.href = '/manage/settings/';
+				},
+				error : function() {
+					alert(arguments[2]);
+				}
+			});
+		}
 		</script>
 	</body>
 </html>
