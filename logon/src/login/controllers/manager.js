@@ -17,7 +17,6 @@ exports.changePwdUI = function(req, res, next){
     conf: conf,
     data: {
       session_user: req.session.user,
-      nav_choose:   ',03,0302,'
     }
   });
 };
@@ -27,7 +26,6 @@ exports.profileUI = function(req, res, next){
     conf: conf,
     data: {
       session_user: req.session.user,
-      nav_choose:   ',03,0301,'
     }
   });
 };
