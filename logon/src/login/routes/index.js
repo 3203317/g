@@ -5,13 +5,16 @@
  */
 'use strict';
 
-const cfg    = require('../controllers/cfg');
+const notice  = require('../controllers/notice');
+const cfg     = require('../controllers/cfg');
 const site    = require('../controllers/site');
 const manager = require('../controllers/manager');
 const user    = require('../controllers/user');
 const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
+
+  app.get('/manage/notice/', manager.login_validate, notice.indexUI);
 
   app.get('/manage/', manager.login_validate, site.indexUI);
   app.get('/manage/welcome$', manager.login_validate, site.welcomeUI);

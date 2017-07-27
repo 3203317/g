@@ -11,3 +11,4 @@ exports.fishjoy = require('./fishjoy');
 exports.backend = require('./backend');
 exports.manager = require('./manager');
 exports.cfg     = require('./cfg');
+exports.notice  = require('./notice');
