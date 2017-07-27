@@ -38,3 +38,28 @@ exports.login = function(req, res, next){
     res.send({ data: token });
   });
 };
+
+exports.indexUI = function(req, res, next){
+
+  biz.user.findAll(function (err, docs){
+
+    res.render('user/index', {
+      conf: conf,
+      data: {
+        list_user:    docs,
+        session_user: req.session.user,
+        nav_choose:   ',03,0301,'
+      }
+    });
+  });
+};
+
+exports.editUI = function(req, res, next){
+  res.render('user/edit', {
+    conf: conf,
+    data: {
+      session_user: req.session.user,
+      nav_choose:   ',03,0301,'
+    }
+  });
+};

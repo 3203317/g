@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<title>网站公告 | 交流中心 | $!conf.corp.name</title>
+		<title>会员信息 | 会员管理 | $!conf.corp.name</title>
 		#parse('_pagelet/header2.html')
 	</head>
 
@@ -29,12 +29,12 @@
 						</li>
 
 						<li>
-							交流中心
+							会员管理
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">网站公告</li>
+						<li class="active">会员信息</li>
 					</ul><!--.breadcrumb-->
 
 				</div>
@@ -43,10 +43,10 @@
 
 					<div class="page-header position-relative">
 						<h1>
-							网站公告
+							会员信息
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Notice
+								User Info
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -69,11 +69,6 @@
 
 							<div class="row-fluid">
 								<p>
-									<a href='./add' class="btn btn-app btn-info btn-mini">
-										<i class="icon-save bigger-200"></i>
-										添加
-										<span class="label label-inverse arrowed-in">6+</span>
-									</a>
 
 									<a href='javascript:;' class="btn btn-app btn-primary btn-mini">
 										<i class="icon-edit bigger-230"></i>
@@ -84,6 +79,11 @@
 									<a href='javascript:;' class="btn btn-app btn-danger btn-mini">
 										<i class="icon-trash bigger-200"></i>
 										删除
+									</a>
+
+									<a href='javascript:;' class="btn btn-app btn-danger btn-mini">
+										<i class="icon-undo bigger-200"></i>
+										重置密码
 									</a>
 
 								</p>
@@ -102,26 +102,21 @@
 														<span class="lbl"></span>
 													</label>
 												</th>
-												<th>公告标题</th>
-												<th class="hidden-480">公告内容</th>
-
-												<th class="hidden-phone">
-													<i class="icon-time bigger-110 hidden-phone"></i>
-													上次发送
-												</th>
+												<th>用户名</th>
+												<th>金币数</th>
+												<th class="hidden-480">炮弹等级</th>
 
 												<th class="hidden-phone">
 													<i class="icon-time bigger-110 hidden-phone"></i>
 													创建时间
 												</th>
-												<th>创建人</th>
 
 												<th>操作</th>
 											</tr>
 										</thead>
 
 										<tbody>
-										#foreach($doc in $!{data.list_notice})
+										#foreach($doc in $!{data.list_user})
 											<tr>
 												<td class="center">
 													<label>
@@ -130,11 +125,10 @@
 													</label>
 												</td>
 
-												<td>$!{doc.title}</a></td>
-												<td class="hidden-480">$!{doc.content}</td>
-												<td class="hidden-phone">#formatDate($!{doc.last_time})</td>
-												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
 												<td>$!{doc.user_name}</a></td>
+												<td>#num2Money($!{doc.score})</td>
+												<td class="hidden-480">$!{doc.bullet_level}</td>
+												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
 
 												<td>
 													<div class="hidden-phone visible-desktop btn-group">
@@ -147,8 +141,8 @@
 															<i class="icon-trash bigger-120"></i>
 														</a>
 
-														<a class="btn btn-mini btn-success" title='开始发送' href='javascript:send("$!{doc.id}")'>
-															<i class="icon-bullhorn bigger-120"></i>
+														<a class="btn btn-mini btn-primary" title='统计分析' href='javascript:analysis("$!{doc.id}")'>
+															<i class="icon-info-sign bigger-120"></i>
 														</a>
 
 													</div>
@@ -178,9 +172,9 @@
 																</li>
 
 																<li>
-																	<a href='javascript:send("$!{doc.id}")' class="tooltip-success" data-rel="tooltip" title="开始发送">
-																		<span class="red">
-																			<i class="icon-bullhorn bigger-120"></i>
+																	<a href='javascript:analysis("$!{doc.id}")' class="tooltip-error" data-rel="tooltip" title="统计分析">
+																		<span class="blue">
+																			<i class="icon-info-sign bigger-120"></i>
 																		</span>
 																	</a>
 																</li>

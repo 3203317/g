@@ -59,5 +59,8 @@ module.exports = {
     if(!s) return false;
     if(!b) return false;
     return -1 < s.indexOf(b);
+  },
+  num2Money: function(n){
+    return utils.currencyformat(n);
   }
 };
