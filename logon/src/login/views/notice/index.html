@@ -85,6 +85,11 @@
 
 												<th class="hidden-phone">
 													<i class="icon-time bigger-110 hidden-phone"></i>
+													上次发送
+												</th>
+
+												<th class="hidden-phone">
+													<i class="icon-time bigger-110 hidden-phone"></i>
 													创建时间
 												</th>
 												<th>创建人</th>
@@ -105,8 +110,9 @@
 
 												<td>$!{doc.title}</a></td>
 												<td class="hidden-480">$!{doc.content}</td>
+												<td class="hidden-phone">#formatDate($!{doc.last_time})</td>
 												<td class="hidden-phone">#formatDate($!{doc.create_time})</td>
-												<td>$!{doc.user_id}</a></td>
+												<td>$!{doc.user_name}</a></td>
 
 												<td>
 													<div class="hidden-phone visible-desktop btn-group">
@@ -117,6 +123,10 @@
 
 														<a class="btn btn-mini btn-danger" title='删除' href='./del?id=$!{doc.id}'>
 															<i class="icon-trash bigger-120"></i>
+														</a>
+
+														<a class="btn btn-mini btn-success" title='开始发送' href='./send?id=$!{doc.id}'>
+															<i class="icon-bullhorn bigger-120"></i>
 														</a>
 
 													</div>
@@ -141,6 +151,14 @@
 																	<a href='./del?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="删除">
 																		<span class="red">
 																			<i class="icon-trash bigger-120"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href='./send?id=$!{doc.id}' class="tooltip-success" data-rel="tooltip" title="开始发送">
+																		<span class="red">
+																			<i class="icon-bullhorn bigger-120"></i>
 																		</span>
 																	</a>
 																</li>

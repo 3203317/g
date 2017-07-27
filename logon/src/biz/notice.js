@@ -21,7 +21,7 @@ const redis = require('emag.db').redis;
 const _ = require('underscore');
 
 (() => {
-  var sql = 'SELECT a.* FROM w_notice a ORDER BY a.create_time DESC';
+  var sql = 'SELECT a.*, b.user_name FROM (SELECT * FROM w_notice ORDER BY create_time DESC) a LEFT JOIN s_manager b ON (a.user_id=b.id) WHERE b.id IS NOT NULL';
 
   exports.findAll = function(cb){
     mysql.query(sql, null, (err, docs) => {

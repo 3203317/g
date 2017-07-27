@@ -12,6 +12,7 @@ const fs = require('fs'),
 const utils = require('speedt-utils').utils;
 
 function format(date, format){
+  if(!date) return '';
   date = date || new Date;
   format = format || 'hh:mm:ss.S';
   var o = {
