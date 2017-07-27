@@ -26,3 +26,23 @@ exports.indexUI = function(req, res, next){
     });
   });
 };
+
+exports.addUI = function(req, res, next){
+  res.render('notice/add', {
+    conf: conf,
+    data: {
+      session_user: req.session.user,
+      nav_choose:   ',04,0401,'
+    }
+  });
+};
+
+exports.editUI = function(req, res, next){
+  res.render('notice/edit', {
+    conf: conf,
+    data: {
+      session_user: req.session.user,
+      nav_choose:   ',04,0401,'
+    }
+  });
+};

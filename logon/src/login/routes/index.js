@@ -14,6 +14,8 @@ const fishjoy = require('../controllers/fishjoy');
 
 module.exports = function(app){
 
+  app.get('/manage/notice/edit$', manager.login_validate, notice.editUI);
+  app.get('/manage/notice/add$', manager.login_validate, notice.addUI);
   app.get('/manage/notice/', manager.login_validate, notice.indexUI);
 
   app.get('/manage/', manager.login_validate, site.indexUI);
