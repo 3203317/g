@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="zh">
 	<head>
-		<title>修改公告 | 交流中心 | $!conf.corp.name</title>
+		<title>修改信息 | 会员管理 | $!conf.corp.name</title>
 		<link rel="stylesheet" href="$!{conf.html.cdn}js/ace/1.1.2/assets/css/jquery.gritter.css" />
 		#parse('_pagelet/header2.html')
 		<link rel="stylesheet" href="$!{conf.html.cdn}js/ace/1.1.2/assets/css/bootstrap-editable.css" />
@@ -36,12 +36,12 @@
 						</li>
 
 						<li>
-							交流中心
+							会员管理
 							<span class="divider">
 								<i class="icon-angle-right arrow-icon"></i>
 							</span>
 						</li>
-						<li class="active">修改公告</li>
+						<li class="active">修改信息</li>
 					</ul><!--.breadcrumb-->
 
 					<div class="nav-search" id="nav-search">
@@ -58,10 +58,10 @@
 
 					<div class="page-header position-relative">
 						<h1>
-							修改公告
+							修改信息
 							<small>
 								<i class="icon-double-angle-right"></i>
-								Edit Notice
+								Edit User Info
 							</small>
 						</h1>
 					</div><!--/.page-header-->
@@ -89,14 +89,14 @@
 											<li class="active">
 												<a data-toggle="tab" href="#info">
 													<i class="green icon-edit bigger-110"></i>
-													公告信息
+													用户信息
 												</a>
 											</li>
 										</ul>
 
 										<div class="tab-content">
 											<div id="home" class="tab-pane in active">
-												#parse('notice/_pagelet/form.html')
+												#parse('user/_pagelet/form.html')
 											</div>
 										</div>
 									</div>
