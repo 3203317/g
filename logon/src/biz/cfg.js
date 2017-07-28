@@ -21,7 +21,7 @@ const redis = require('emag.db').redis;
 const _ = require('underscore');
 
 (() => {
-  var sql = 'SELECT a.* FROM s_cfg a ORDER BY a.key_ ASC';
+  var sql = 'SELECT a.* FROM s_cfg a ORDER BY a.type_, a.key_ ASC';
 
   exports.findAll = function(cb){
     mysql.query(sql, null, (err, docs) => {
