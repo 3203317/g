@@ -74,3 +74,12 @@ exports.edit = function(req, res, next){
     res.send({});
   });
 };
+
+exports.del = function(req, res, next){
+  var query = req.body;
+
+  biz.notice.del(query.id, function (err, status){
+    if(err) return next(err);
+    res.send({});
+  });
+};

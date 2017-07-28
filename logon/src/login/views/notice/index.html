@@ -242,8 +242,22 @@
 
 		function del(id){
 			if(confirm("确认要删除数据吗？")){
-				alert(id)
-			}
+		      $.ajax({
+		        url: '/manage/notice/del',
+		        type: 'POST',
+		        dataType: 'JSON',
+		        data: { id: id },
+		        success: function(data){
+		          if(data.error) return alert(data.error.msg);
+		          console.log(data)
+		          alert('删除成功');
+		          location.reload();
+		        },
+		        error: function(){
+		          alert(arguments[2]);
+		        }
+			});
+		  }
 		}
 
 		function changeSetting(key){

@@ -91,3 +91,18 @@ const _ = require('underscore');
     });
   };
 })();
+
+(() => {
+  var sql = 'DELETE FROM w_notice WHERE id=?';
+
+  /**
+   *
+   * @return
+   */
+  exports.del = function(id, cb){
+    mysql.query(sql, [id], (err, status) => {
+      if(err) return cb(err);
+        cb(null, status);
+    });
+  };
+})();

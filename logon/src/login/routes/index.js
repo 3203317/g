@@ -18,6 +18,7 @@ module.exports = function(app){
   app.get('/manage/user/edit$', manager.login_validate, user.editUI);
   app.get('/manage/user/', manager.login_validate, user.indexUI);
 
+  app.post('/manage/notice/del$', manager.login_validate, notice.del);
   app.post('/manage/notice/edit$', manager.login_validate, notice.edit);
   app.get('/manage/notice/edit$', manager.login_validate, notice.editUI);
   app.post('/manage/notice/add$', manager.login_validate, notice.add);
