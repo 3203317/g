@@ -50,7 +50,7 @@ exports.login = function(req, res, next){
 
 exports.indexUI = function(req, res, next){
 
-  biz.user.findAll(function (err, docs){
+  biz.user.findAll(1, function (err, docs){
 
     res.render('user/index', {
       conf: conf,

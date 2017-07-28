@@ -26,10 +26,10 @@ const server = require('./server');
 const _ = require('underscore');
 
 (() => {
-  var sql = 'SELECT a.* FROM s_user a ORDER BY a.create_time DESC';
+  var sql = 'SELECT a.* FROM s_user a WHERE a.status=? ORDER BY a.create_time DESC';
 
-  exports.findAll = function(cb){
-    mysql.query(sql, null, (err, docs) => {
+  exports.findAll = function(status, cb){
+    mysql.query(sql, [status], (err, docs) => {
       if(err) return cb(err);
       cb(null, docs);
     });

@@ -111,6 +111,7 @@
 														<span class="lbl"></span>
 													</label>
 												</th>
+												<th class="hidden-480">#</th>
 												<th>用户名</th>
 												<th>金币数</th>
 												<th class="hidden-480">炮弹等级</th>
@@ -124,7 +125,7 @@
 											</tr>
 										</thead>
 
-										<tbody>
+										<tbody>#set ($i=1)
 										#foreach($doc in $!{data.list_user})
 											<tr>
 												<td class="center">
@@ -133,6 +134,7 @@
 														<span class="lbl"></span>
 													</label>
 												</td>
+												<td class="hidden-480">$i#set($i=$i+1)</td>
 
 												<td>$!{doc.user_name}</a></td>
 												<td>#num2Money($!{doc.score})</td>
