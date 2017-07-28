@@ -373,3 +373,18 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     });
   };
 })();
+
+(() => {
+  var sql = 'UPDATE s_user SET STATUS=? WHERE id=?';
+
+  /**
+   *
+   * @return
+   */
+  exports.del = function(id, status, cb){
+    mysql.query(sql, [status, id], (err, status) => {
+      if(err) return cb(err);
+        cb(null, status);
+    });
+  };
+})();

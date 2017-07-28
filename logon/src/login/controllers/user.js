@@ -12,6 +12,15 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
+exports.del = function(req, res, next){
+  var query = req.body;
+
+  biz.user.del(query.id, 0, function (err, status){
+    if(err) return next(err);
+    res.send({});
+  });
+};
+
 exports.register = function(req, res, next){
   var query  = req.body;
 
