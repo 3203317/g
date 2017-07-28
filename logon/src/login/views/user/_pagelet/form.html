@@ -30,7 +30,7 @@
 		<label class="control-label">炮等级</label>
 
 		<div class="controls">
-			<input type="text" class='input-large' name='bullet_level' id='frm_bullet_level' value='$!doc.bullet_level' />
+			<input type="text" class='input-large' name='bullet_level' id='frm_bullet_level' />
 		</div>
 	</div>
 
@@ -47,3 +47,17 @@
 		</button>
 	</div>
 </form>
+<script>
+$(function(){
+  $('#frm_bullet_level').ace_spinner({
+    value: $!doc.bullet_level,
+    min: 1,
+    max: 100,
+    step: 1,
+    btn_up_class: 'btn-info',
+    btn_down_class: 'btn-info'
+  }).on('change', function(){
+    // alert(this.value)
+  });
+});
+</script>

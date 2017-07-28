@@ -362,6 +362,9 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    */
   exports.saveBaseInfo = function(newInfo, cb){
 
+    newInfo.bullet_level = newInfo.bullet_level || 1;
+    newInfo.bullet_level = (1 > newInfo.bullet_level || 100 < newInfo.bullet_level) ? 1 : newInfo.bullet_level;
+
     var postData = [
       newInfo.nickname,
       newInfo.score,
