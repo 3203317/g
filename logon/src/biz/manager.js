@@ -83,3 +83,34 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     cb(null, null, doc);
   });
 };
+
+(() => {
+  var sql = 'UPDATE s_manager set USER_PASS=? WHERE id=?';
+
+  /**
+   *
+   */
+  exports.changePwd = function(newInfo, cb){
+    newInfo.user_pass = utils.isEmpty(newInfo.user_pass);
+    if(!newInfo.user_pass) return cb(null, '新密码不能为空');
+
+    this.getById(newInfo.id, function (err, doc){
+      if(err) return cb(err);
+      if(!doc) return cb(null, '修改密码失败');
+
+      if(md5.hex(newInfo.old_pass) !== doc.user_pass){
+        return cb(null, '原始密码错误');
+      }
+
+      var postData = [
+        md5.hex(newInfo.user_pass || '123456'),
+        newInfo.id
+      ];
+
+      mysql.query(sql, postData, function (err, status){
+        if(err) return cb(err);
+        cb(null, null, status);
+      });
+    });
+  };
+})();

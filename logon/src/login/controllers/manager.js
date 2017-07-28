@@ -12,6 +12,18 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
+exports.changePwd = function(req, res, next){
+  var query = req.body;
+
+  query.id = req.session.userId;
+
+  biz.manager.changePwd(query, function (err, warn, status){
+    if(err) return next(err);
+    if(warn) return res.send({ error: { msg: warn } });
+    res.send({});
+  });
+};
+
 exports.changePwdUI = function(req, res, next){
   res.render('manager/changePwd', {
     conf: conf,

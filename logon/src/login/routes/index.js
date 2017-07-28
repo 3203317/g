@@ -27,6 +27,7 @@ module.exports = function(app){
   app.get('/manage/', manager.login_validate, site.indexUI);
   app.get('/manage/welcome$', manager.login_validate, site.welcomeUI);
   app.get('/manage/manager/profile$', manager.login_validate, manager.profileUI);
+  app.post('/manage/manager/changePwd', manager.login_validate, manager.changePwd);
   app.get('/manage/manager/changePwd$', manager.login_validate, manager.changePwdUI);
 
   app.get('/manage/settings/', manager.login_validate, cfg.indexUI);

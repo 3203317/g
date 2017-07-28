@@ -83,31 +83,31 @@
 										<div class="tab-content">
 											<div id="home" class="tab-pane in active">
 
-												<form class="form-horizontal" id='frm1'>
+												<form class="form-horizontal" id='frm' onsubmit='return push();'>
 													<div class="control-group">
-														<label class="control-label" for="frm1_user_pass_old">原登录密码</label>
+														<label class="control-label" for="frm_user_pass_old">原登录密码</label>
 
 														<div class="controls">
-															<input type="password" class='input-large' id="frm1_user_pass_old" placeholder="原登录密码" />
+															<input type="password" class='input-large' id="frm_user_pass_old" name='old_pass' placeholder="原登录密码" />
 														</div>
 													</div>
 													<div class="control-group">
-														<label class="control-label" for="frm1_user_pass">新登录密码</label>
+														<label class="control-label" for="frm_user_pass">新登录密码</label>
 
 														<div class="controls">
-															<input type="password" class='input-large' id="frm1_user_pass" placeholder="新登录密码" />
+															<input type="password" class='input-large' id="frm_user_pass" name='user_pass' placeholder="新登录密码" />
 														</div>
 													</div>
 													<div class="control-group">
-														<label class="control-label" for="frm1_user_pass_2">确认登录密码</label>
+														<label class="control-label" for="frm_user_pass_2">确认登录密码</label>
 
 														<div class="controls">
-															<input type="password" class='input-large' id="frm1_user_pass_2" placeholder="确认登录密码" />
+															<input type="password" class='input-large' id="frm_user_pass_2" placeholder="确认登录密码" />
 														</div>
 													</div>
 
 													<div class="form-actions">
-														<button class="btn btn-info" type="button" id='btn_submit1'>
+														<button class="btn btn-info" type='submit'>
 															<i class="icon-ok bigger-110"></i>
 															提交
 														</button>
@@ -139,6 +139,43 @@
 		#parse('_pagelet/js2.html')
 
 		<script>
+  function ser(frmObj){
+    var __a = frmObj.serializeArray();
+    var __b = _.pluck(__a, "name");
+    var __c = _.pluck(__a, "value");
+    var __d = _.object(__b, __c);
+    return __d;
+  }
+
+  function push(){
+
+    if(_.isEmpty($('#frm_user_pass').val().trim())){
+      alert('新登录密码不能为空');
+      return false;
+    }
+
+    if($('#frm_user_pass').val() !== $('#frm_user_pass_2').val()){
+      alert('两次输入的密码不一致');
+      return false;
+    }
+
+    var data = ser($('#frm'));
+      $.ajax({
+        url: '/manage/manager/changePwd',
+        type: 'POST',
+        dataType: 'JSON',
+        data: data,
+        success: function(data){
+          if(data.error) return alert(data.error.msg);
+          console.log(data)
+          alert('修改密码成功')
+        },
+        error: function(){
+          alert(arguments[2]);
+        }
+    });
+    return false;
+  }
 		</script>
 	</body>
 </html>
