@@ -116,6 +116,32 @@
 		#parse('_pagelet/js2.html')
 
 		<script>
+  function ser(frmObj){
+    var __a = frmObj.serializeArray();
+    var __b = _.pluck(__a, "name");
+    var __c = _.pluck(__a, "value");
+    var __d = _.object(__b, __c);
+    return __d;
+  }
+
+  function push(){
+    var data = ser($('#frm'));
+      $.ajax({
+        url: '/manage/user/edit',
+        type: 'POST',
+        dataType: 'JSON',
+        data: data,
+        success: function(data){
+          if(data.error) return alert(data.error.msg);
+          console.log(data)
+          alert('修改成功')
+        },
+        error: function(){
+          alert(arguments[2]);
+        }
+    });
+    return false;
+  }
 		</script>
 	</body>
 </html>

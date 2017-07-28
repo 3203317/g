@@ -55,11 +55,28 @@ exports.indexUI = function(req, res, next){
 };
 
 exports.editUI = function(req, res, next){
-  res.render('user/edit', {
-    conf: conf,
-    data: {
-      session_user: req.session.user,
-      nav_choose:   ',03,0301,'
-    }
+
+  var id = req.query.id;
+
+  biz.user.getById(id, function (err, doc){
+    if(err) return next(err);
+
+    res.render('user/edit', {
+      conf: conf,
+      data: {
+        user:         doc,
+        session_user: req.session.user,
+        nav_choose:   ',03,0301,'
+      }
+    });
+  });
+};
+
+exports.edit = function(req, res, next){
+  var query = req.body;
+
+  biz.user.saveBaseInfo(query, function (err, status){
+    if(err) return next(err);
+    res.send({});
   });
 };

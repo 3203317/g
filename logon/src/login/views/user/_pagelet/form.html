@@ -1,10 +1,12 @@
-<form id='frm' role='form' class="form-horizontal">
+#set($doc=$data.user)
+<form id='frm' role='form' class="form-horizontal" onsubmit='return push();'>
+	<input type='hidden' name='id' id='frm_id' value='$!doc.id'>
 
 	<div class="control-group">
 		<label class="control-label">用户名</label>
 
 		<div class="controls">
-			<input type="text" class='input-large' id='frm_title' name='title' value='' />
+			<input type="text" class='input-large' id='frm_user_name' value='$!doc.user_name'#if(null != $!doc.id) readonly#end />
 		</div>
 	</div>
 
@@ -12,12 +14,12 @@
 		<label class="control-label">昵称</label>
 
 		<div class="controls">
-			<input type="text" class='input-large' id='frm_content' name='content' value='' />
+			<input type="text" class='input-large' id='frm_nickname' name='nickname' value='$!doc.nickname' />
 		</div>
 	</div>
 
 	<div class="form-actions">
-		<button class="btn btn-info" onclick="return false;" id='btn_submit'>
+		<button class="btn btn-info" type='submit'>
 			<i class="icon-ok bigger-110"></i>
 			提交
 		</button>

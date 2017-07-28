@@ -319,7 +319,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 })();
 
 (() => {
-  const sql = 'UPDATE s_user set SCORE=? WHERE id=?';
+  const sql = 'UPDATE s_user SET SCORE=? WHERE id=?';
 
   /**
    *
@@ -347,6 +347,29 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
         if(err) return cb(err);
         cb(null, status);
       });
+    });
+  };
+})();
+
+(() => {
+  const sql = 'UPDATE s_user SET NICKNAME=? WHERE id=?';
+
+  /**
+   *
+   * 修改用户基本信息
+   *
+   * @return
+   */
+  exports.saveBaseInfo = function(newInfo, cb){
+
+    var postData = [
+      newInfo.nickname,
+      newInfo.id
+    ];
+
+    mysql.query(sql, postData, function (err, status){
+      if(err) return cb(err);
+      cb(null, status);
     });
   };
 })();
