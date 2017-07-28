@@ -37,12 +37,40 @@ exports.addUI = function(req, res, next){
   });
 };
 
+exports.add = function(req, res, next){
+  var query = req.body;
+
+  query.user_id = req.session.userId;
+
+  biz.notice.saveNew(query, function (err, status){
+    if(err) return next(err);
+    res.send({});
+  });
+};
+
 exports.editUI = function(req, res, next){
-  res.render('notice/edit', {
-    conf: conf,
-    data: {
-      session_user: req.session.user,
-      nav_choose:   ',04,0401,'
-    }
+
+  var id = req.query.id;
+
+  biz.notice.getById(id, function (err, doc){
+    if(err) return next(err);
+
+    res.render('notice/edit', {
+      conf: conf,
+      data: {
+        notice:       doc,
+        session_user: req.session.user,
+        nav_choose:   ',04,0401,'
+      }
+    });
+  });
+};
+
+exports.edit = function(req, res, next){
+  var query = req.body;
+
+  biz.notice.saveInfo(query, function (err, status){
+    if(err) return next(err);
+    res.send({});
   });
 };

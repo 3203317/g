@@ -30,3 +30,64 @@ const _ = require('underscore');
     });
   };
 })();
+
+(() => {
+  const sql = 'INSERT INTO w_notice (id, title, content, create_time, user_id) values (?, ?, ?, ?, ?)';
+
+  /**
+   *
+   * @return
+   */
+  exports.saveNew = function(newInfo, cb){
+
+    var postData = [
+      utils.replaceAll(uuid.v1(), '-', ''),
+      newInfo.title,
+      newInfo.content,
+      new Date(),
+      newInfo.user_id
+    ];
+
+    mysql.query(sql, postData, function (err, status){
+      if(err) return cb(err);
+      cb(null, status);
+    });
+  };
+})();
+
+(() => {
+  const sql = 'UPDATE w_notice SET TITLE=?, CONTENT=? WHERE id=?';
+
+  /**
+   *
+   * @return
+   */
+  exports.saveInfo = function(newInfo, cb){
+
+    var postData = [
+      newInfo.title,
+      newInfo.content,
+      newInfo.id
+    ];
+
+    mysql.query(sql, postData, function (err, status){
+      if(err) return cb(err);
+      cb(null, status);
+    });
+  };
+})();
+
+(() => {
+  var sql = 'SELECT a.* FROM w_notice a WHERE a.id=?';
+
+  /**
+   *
+   * @return
+   */
+  exports.getById = function(id, cb){
+    mysql.query(sql, [id], (err, docs) => {
+      if(err) return cb(err);
+      cb(null, mysql.checkOnly(docs) ? docs[0] : null);
+    });
+  };
+})();
