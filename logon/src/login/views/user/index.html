@@ -156,6 +156,10 @@
 															<i class="icon-info-sign bigger-120"></i>
 														</a>
 
+														<a class="btn btn-mini btn-danger" title='重置密码' href='javascript:resetPwd("$!{doc.id}")'>
+															<i class="icon-undo bigger-120"></i>
+														</a>
+
 													</div>
 
 													<div class="hidden-desktop visible-phone">
@@ -186,6 +190,14 @@
 																	<a href='./analysis?id=$!{doc.id}' class="tooltip-error" data-rel="tooltip" title="统计分析">
 																		<span class="blue">
 																			<i class="icon-info-sign bigger-120"></i>
+																		</span>
+																	</a>
+																</li>
+
+																<li>
+																	<a href='javascript:resetPwd("$!{doc.id}")' class="tooltip-error" data-rel="tooltip" title="重置密码">
+																		<span class="red">
+																			<i class="icon-undo bigger-120"></i>
 																		</span>
 																	</a>
 																</li>
@@ -243,6 +255,24 @@
 			if(confirm("频繁操作将影响服务器性能，确认执行吗？")){
 				alert(id)
 			}
+		}
+
+		function resetPwd(id){
+			if(confirm("确认要执行此操作吗？")){
+		      $.ajax({
+		        url: '/manage/user/resetPwd',
+		        type: 'POST',
+		        dataType: 'JSON',
+		        data: { id: id },
+		        success: function(data){
+		          if(data.error) return alert(data.error.msg);
+		          alert('操作成功');
+		        },
+		        error: function(){
+		          alert(arguments[2]);
+		        }
+			});
+		  }
 		}
 
 		function del(id){

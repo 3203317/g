@@ -388,3 +388,18 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     });
   };
 })();
+
+(() => {
+  var sql = 'UPDATE s_user SET USER_PASS=? WHERE id=?';
+
+  /**
+   *
+   * @return
+   */
+  exports.resetPwd = function(id, user_pass, cb){
+    mysql.query(sql, [md5.hex(user_pass), id], (err, status) => {
+      if(err) return cb(err);
+        cb(null, status);
+    });
+  };
+})();

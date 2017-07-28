@@ -12,6 +12,15 @@ const utils = require('speedt-utils').utils;
 
 const biz = require('emag.biz');
 
+exports.resetPwd = function(req, res, next){
+  var query = req.body;
+
+  biz.user.resetPwd(query.id, '123456', function (err, status){
+    if(err) return next(err);
+    res.send({});
+  });
+};
+
 exports.del = function(req, res, next){
   var query = req.body;
 
