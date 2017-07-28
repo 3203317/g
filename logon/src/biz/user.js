@@ -352,7 +352,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 })();
 
 (() => {
-  const sql = 'UPDATE s_user SET NICKNAME=? WHERE id=?';
+  const sql = 'UPDATE s_user SET NICKNAME=?, SCORE=?, BULLET_LEVEL=? WHERE id=?';
 
   /**
    *
@@ -364,6 +364,8 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
     var postData = [
       newInfo.nickname,
+      newInfo.score,
+      newInfo.bullet_level,
       newInfo.id
     ];
 
