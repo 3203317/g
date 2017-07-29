@@ -85,10 +85,10 @@
 
 												#foreach($doc in $!{data.list_cfg})
 													<div class="control-group">
-														<label class="control-label" for="$!{doc.key_}">$!{doc.title}</label>
+														<label class="control-label span3" for="$!{doc.key_}">$!{doc.title}</label>
 
 														<div class="controls">
-															<input type="text" onchange='changeSetting("$!{doc.key_}")' class='input-large' id="$!{doc.key_}"
+															<input type="text" onchange='changeSetting("$!{doc.type_}", "$!{doc.key_}")' class='input-large' id="$!{doc.type_}_$!{doc.key_}"
 																placeholder="$!{doc.title}" value='$!{doc.value_}' title='$!{doc.comment}' />
 														</div>
 													</div>
@@ -114,9 +114,9 @@
 		#parse('_pagelet/js2.html')
 
 		<script>
-		function changeSetting(key){
+		function changeSetting(type, key){
 
-			var val = $('#'+ key).val().trim();
+			var val = $('#'+ type +'_'+ key).val().trim();
 
 			if('' === val){
 				alert('值不能为空');
@@ -129,15 +129,13 @@
 				type : 'POST',
 				dataType : 'JSON',
 				data : {
+					type_: type,
 					key_: key,
 					value_: val
 				},
 				success : function(data) {
-					if (data.success){
-						return location.href = '/manage/settings/';
-					}
-					if (data.msg) alert(data.msg);
-					location.href = '/manage/settings/';
+					if(data.error) return alert(data.error.msg);
+					location.reload();
 				},
 				error : function() {
 					alert(arguments[2]);

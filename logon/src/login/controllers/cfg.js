@@ -14,7 +14,7 @@ const biz = require('emag.biz');
 
 exports.indexUI = function(req, res, next){
 
-  biz.cfg.findAll(function (err, docs){
+  biz.cfg.findAll(1, function (err, docs){
 
     res.render('settings/index', {
       conf: conf,

@@ -21,10 +21,10 @@ const redis = require('emag.db').redis;
 const _ = require('underscore');
 
 (() => {
-  var sql = 'SELECT a.* FROM s_cfg a ORDER BY a.type_, a.key_ ASC';
+  var sql = 'SELECT a.* FROM s_cfg a WHERE a.status=? ORDER BY a.type_, a.key_ ASC';
 
-  exports.findAll = function(cb){
-    mysql.query(sql, null, (err, docs) => {
+  exports.findAll = function(status, cb){
+    mysql.query(sql, [status || 0], (err, docs) => {
       if(err) return cb(err);
       cb(null, docs);
     });
@@ -32,13 +32,14 @@ const _ = require('underscore');
 })();
 
 (() => {
-  var sql = 'UPDATE s_cfg SET value_=? WHERE key_=?';
+  var sql = 'UPDATE s_cfg SET value_=? WHERE key_=? AND type_=?';
 
   exports.editInfo = function(newInfo, cb){
 
     var postData = [
       newInfo.value_,
-      newInfo.key_
+      newInfo.key_,
+      newInfo.type_
     ];
 
     mysql.query(sql, postData, function (err, status){
