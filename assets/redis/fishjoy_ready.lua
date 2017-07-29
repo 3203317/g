@@ -47,7 +47,7 @@ if (1 == tonumber(hand)) then return 'already_raise_hand' end;
 
 -- 
 
-redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, user_id ..'::1');
+redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, user_id ..'::1::0::0');
 
 -- 群组对应的后置服务器
 
