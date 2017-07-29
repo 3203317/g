@@ -45,7 +45,7 @@ redis.call('HSET', 'prop::user::'.. user_id, 'current_bullet_level', bullet_leve
 local arr1 = {};
 
 for i=2, #group_pos, 2 do
-  local u, hand = string.match(group_pos[i], '(.*)::(.*)');
+  local u, hand = string.match(group_pos[i], '(.*)::(.*)::(.*)::(.*)');
 
   if ('1' == hand) then
     table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));

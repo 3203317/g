@@ -35,7 +35,7 @@ redis.call('SELECT', db);
 local result = {};
 
 for i=2, #group_pos_info, 2 do
-  local u, hand = string.match(group_pos_info[i], '(.*)::(.*)');
+  local u, hand = string.match(group_pos_info[i], '(.*)::(.*)::(.*)::(.*)');
 
   if ('1' == hand) then
     table.insert(result, redis.call('HGET', 'prop::'.. u, 'server_id'));
