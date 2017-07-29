@@ -252,6 +252,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
       1,
       doc.bullet_consume_count || 0,
       doc.gain_score_count     || 0,
+      doc.gift_count           || 0,
       (err, code) => {
         if(err) return cb(err);
         cb(null, code);
@@ -321,7 +322,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 })();
 
 (() => {
-  const sql = 'UPDATE s_user SET SCORE=? WHERE id=?';
+  const sql = 'UPDATE s_user SET SCORE=?, BULLET_CONSUME_COUNT=?, GAIN_SCORE_COUNT=?, GIFT_COUNT=? WHERE id=?';
 
   /**
    *
@@ -342,6 +343,9 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 
       var postData = [
         doc.score,
+        doc.bullet_consume_count,
+        doc.gain_score_count,
+        doc.gift_count,
         doc.id
       ];
 

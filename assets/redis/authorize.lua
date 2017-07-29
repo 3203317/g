@@ -45,7 +45,8 @@ redis.call('HMSET', code, 'client_id',            client_id,
                           'diamond',              ARGV[14],
                           'current_bullet_level', ARGV[15],
                           'bullet_consume_count', ARGV[16],
-                          'gain_score_count',     ARGV[17]);
+                          'gain_score_count',     ARGV[17],
+                          'gift_count',           ARGV[18]);
 
 redis.call('EXPIRE', code, seconds);
 
