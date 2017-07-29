@@ -62,7 +62,7 @@ end;
 
 -- 
 
-local group_id, group_pos_id = string.match(idle_group, '(.*)%::(.*)');
+local group_id, group_pos_id = string.match(idle_group, '(.*)::(.*)');
 
 -- 把用户放到这个座位上
 
@@ -84,7 +84,7 @@ local arr1 = {};
 local user_info = {};
 
 for i=2, #group_pos, 2 do
-  local u = string.match(group_pos[i], '(.*)%::(.*)');
+  local u = string.match(group_pos[i], '(.*)::(.*)');
 
   table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));
   table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));

@@ -47,7 +47,7 @@ if (false == s) then return 'invalid_group_pos_id'; end;
 
 -- 判断是否是本人
 
-local b, hand = string.match(s, '(.*)%::(.*)');
+local b, hand = string.match(s, '(.*)::(.*)');
 
 if (b ~= user_id) then return 'invalid_user_id'; end;
 
@@ -98,7 +98,7 @@ redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
 local arr1 = {};
 
 for i=2, #group_pos, 2 do
-  local u, hand = string.match(group_pos[i], '(.*)%::(.*)');
+  local u, hand = string.match(group_pos[i], '(.*)::(.*)');
 
   if ('1' == hand) then
     table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));

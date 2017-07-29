@@ -38,7 +38,7 @@ if (false == s) then return 'OK'; end;
 
 -- 
 
-local b, hand = string.match(s, '(.*)%::(.*)');
+local b, hand = string.match(s, '(.*)::(.*)');
 
 if (b ~= user_id) then return 'OK'; end;
 
@@ -59,7 +59,7 @@ local arr1 = {};
 
 for i=2, #group_pos, 2 do
   -- table.insert(arr1, group_pos[i - 1]);
-  local u = string.match(group_pos[i], '(.*)%::(.*)');
+  local u = string.match(group_pos[i], '(.*)::(.*)');
 
   local sb = redis.call('HGET', 'prop::user::'.. u, 'server_id');
 

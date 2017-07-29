@@ -20,7 +20,7 @@ if (0 == #group_pos) then return 'invalid_group_pos'; end;
 local result = {};
 
 for i=2, #group_pos, 2 do
-  local u, hand = string.match(group_pos[i], '(.*)%::(.*)');
+  local u, hand = string.match(group_pos[i], '(.*)::(.*)');
 
   local sb = redis.call('HGET', 'prop::user::'.. u, 'server_id');
 
