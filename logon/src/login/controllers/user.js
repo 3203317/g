@@ -33,6 +33,8 @@ exports.del = function(req, res, next){
 exports.register = function(req, res, next){
   var query  = req.body;
 
+  query.score = 1000;
+
   biz.user.register(query, function (err, warn, doc){
     if(err) return next(err);
     if(warn) return res.send({ error: { msg: warn } });

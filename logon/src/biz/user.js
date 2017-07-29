@@ -143,7 +143,7 @@ const _ = require('underscore');
         newInfo.weixin      || '',
         newInfo.email       || '',
         newInfo.device_code || '',
-        1000,
+        newInfo.score       || 0,
         1,
         0,
         0,
@@ -358,7 +358,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
 })();
 
 (() => {
-  const sql = 'UPDATE s_user SET NICKNAME=?, SCORE=?, BULLET_LEVEL=? WHERE id=?';
+  const sql = 'UPDATE s_user SET NICKNAME=?, SCORE=? WHERE id=?';
 
   /**
    *
@@ -368,13 +368,13 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
    */
   exports.saveBaseInfo = function(newInfo, cb){
 
-    newInfo.bullet_level = newInfo.bullet_level || 1;
-    newInfo.bullet_level = (1 > newInfo.bullet_level || 100 < newInfo.bullet_level) ? 1 : newInfo.bullet_level;
+    // newInfo.bullet_level = newInfo.bullet_level || 1;
+    // newInfo.bullet_level = (1 > newInfo.bullet_level || 100 < newInfo.bullet_level) ? 1 : newInfo.bullet_level;
 
     var postData = [
       newInfo.nickname,
       newInfo.score,
-      newInfo.bullet_level,
+      // newInfo.bullet_level,
       newInfo.id
     ];
 
