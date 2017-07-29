@@ -21,7 +21,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 5;
-  const sha1 = 'f9d221987f8003f97e5ce2a429d442c1903dea39';
+  const sha1 = '397dc20dea7794e9bff6d502e43190a365d48ea9';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
@@ -38,7 +38,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 3;
-  const sha1 = '052580cff3f665a9d4534bda0db92728c6f23fe8';
+  const sha1 = 'a9f9f40f9b73957c0836c2af78553a902f3a1958';
 
   exports.quit = function(server_id, channel_id, cb){
 
@@ -72,7 +72,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 2;
-  const sha1 = 'adeefa381434d261f55cc20d420c0412f855b280';
+  const sha1 = '0f6ddf9c031e55216f6b4b619cfd285916918263';
 
   /**
    * group_users.lua
