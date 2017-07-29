@@ -247,9 +247,11 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
       doc.tool_7 || 0,
       doc.tool_8 || 0,
       doc.tool_9 || 0,
-      doc.bullet_level,
-      doc.diamond,
+      doc.bullet_level || 1,
+      doc.diamond      || 0,
       1,
+      doc.bullet_consume_count || 0,
+      doc.gain_score_count     || 0,
       (err, code) => {
         if(err) return cb(err);
         cb(null, code);
