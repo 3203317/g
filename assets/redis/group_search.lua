@@ -33,7 +33,7 @@ if (false == idle_group) then
   if (false == total_players) then return 'invalid_group_type'; end;
 
   for i=1, tonumber(total_players) do
-    redis.call('SADD', 'idle::groupType::'.. group_type, group_uuid ..'::'.. i);
+    redis.call('SADD', 'idle::groupType::'.. group_type, group_uuid ..'::'.. i ..'::0::0');
   end;
 
   -- 为新创建的群组设置群组类型

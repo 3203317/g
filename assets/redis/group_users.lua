@@ -32,7 +32,7 @@ for i=2, #group_pos, 2 do
 
     local pos = group_pos[i - 1];
     redis.call('HDEL', 'pos::group::'.. group_type ..'::'.. group_id, pos);
-    redis.call('SADD', 'idle::groupType::'.. group_type,              group_id ..'::'.. pos);
+    redis.call('SADD', 'idle::groupType::'.. group_type,              group_id ..'::'.. pos ..'::0::0');
   end;
 end;
 

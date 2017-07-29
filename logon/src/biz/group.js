@@ -21,7 +21,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 5;
-  const sha1 = '24f8347964d6c614d681851a6232b1152680e2d5';
+  const sha1 = 'f9d221987f8003f97e5ce2a429d442c1903dea39';
 
   exports.search = function(server_id, channel_id, group_type, cb){
 
@@ -38,7 +38,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 3;
-  const sha1 = 'dcd26c256b539abb06537c870b7aa9edc8493870';
+  const sha1 = '052580cff3f665a9d4534bda0db92728c6f23fe8';
 
   exports.quit = function(server_id, channel_id, cb){
 
@@ -54,7 +54,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 2;
-  const sha1 = '36dd2f395a42b46d0aeaeb4916038cec021a5252';
+  const sha1 = 'e6ed84abc1e1fea7a5de4a8a69d05e6147b5268c';
 
   /**
    * group_users_ready.lua
@@ -72,7 +72,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 2;
-  const sha1 = 'c47ce9507e3bd83983b15d788a53809aadc4fa69';
+  const sha1 = 'adeefa381434d261f55cc20d420c0412f855b280';
 
   /**
    * group_users.lua
@@ -90,7 +90,7 @@ const _ = require('underscore');
 
 (() => {
   const numkeys = 3;
-  const sha1 = '8777f3896f54ebdbedb136f5b7befe7d6261c824';
+  const sha1 = 'b03ad26d0631698ce29ed9804abaae900b7e610c';
 
   /**
    * group_users_channel.lua
