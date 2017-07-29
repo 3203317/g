@@ -80,7 +80,7 @@
         dataType: 'JSON',
         data: data,
         success: function(data){
-          if(data.error) return alert(JSON.stringify(data.error));
+          if(data.error) return alert(data.error.code);
           location.href = '$!{virtualPath}?code='+ data.data[0] +'&s='+ data.data[1];
         },
         error: function(){
