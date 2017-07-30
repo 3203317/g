@@ -85,7 +85,7 @@
 
 												#foreach($doc in $!{data.list_cfg})
 													<div class="control-group">
-														<label class="control-label span3" for="$!{doc.key_}">$!{doc.title}</label>
+														<label class="control-label span3" for="$!{doc.type_}_$!{doc.key_}">$!{doc.title}</label>
 
 														<div class="controls">
 															<input type="text" onchange='changeSetting("$!{doc.type_}", "$!{doc.key_}")' class='input-large' id="$!{doc.type_}_$!{doc.key_}"
