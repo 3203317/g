@@ -30,17 +30,17 @@ if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 -- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-local x = redis.call('HGET', 'prop::user::'.. user_id, 'tool_'.. tool_type);
+-- 道具消耗金币数
 
-if (false == x) then return 'invalid_tool_'.. tool_type; end;
+local tool_consume = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_consume_'.. tool_type);
 
-local y = tonumber(x) - 1;
+local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
--- 判断道具余额不足
+user_score = tonumber(user_score) - tonumber(tool_consume);
 
-if (0 > y) then return 'balance_tool_'.. tool_type; end;
+if (0 > user_score) then return 'invalid_user_score'; end;
 
-redis.call('HSET', 'prop::user::'.. user_id, 'tool_'.. tool_type, y);
+redis.call('HSET', 'prop::user::'.. user_id, 'score', user_score);
 
 -- 
 
@@ -60,7 +60,7 @@ local arr2 = {};
 
 table.insert(arr2, group_id);
 table.insert(arr2, user_id);
-table.insert(arr2, y);
+table.insert(arr2, user_score);
 
 local result = {};
 

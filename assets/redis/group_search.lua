@@ -45,7 +45,7 @@ if (false == idle_group) then
 
   local bullet_lv_max    = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_max');
   local bullet_lv_min    = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_min');
-  local freeze_consume   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_freeze_consume');
+  local consume_freeze   = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_consume_freeze');
   local profit_loss_rate = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_profit_loss_rate');
 
   redis.call('HMSET', 'prop::group::'.. group_uuid, 'id',               group_uuid,
@@ -57,7 +57,7 @@ if (false == idle_group) then
                                                     'free_swim_time',   free_swim_time,
                                                     'bullet_lv_max',    bullet_lv_max,
                                                     'bullet_lv_min',    bullet_lv_min,
-                                                    'freeze_consume',   freeze_consume,
+                                                    'consume_freeze',   consume_freeze,
                                                     'profit_loss_rate', profit_loss_rate);
 
   -- 再次找一个空闲的群组

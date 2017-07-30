@@ -5,9 +5,9 @@ local server_id  = KEYS[2];
 local channel_id = KEYS[3];
 local bullet_id  = KEYS[4];
 
-local seconds      = ARGV[1];
-local bullet_x     = ARGV[2];
-local bullet_y     = ARGV[3];
+local seconds  = ARGV[1];
+local bullet_x = ARGV[2];
+local bullet_y = ARGV[3];
 
 redis.call('SELECT', db);
 
