@@ -33,7 +33,7 @@ if (false == idle_group) then
   if (false == total_players) then return 'invalid_group_type'; end;
 
   for i=1, tonumber(total_players) do
-    redis.call('SADD', 'idle::groupType::'.. group_type, group_uuid ..'::'.. i ..'::0::0');
+    redis.call('SADD', 'idle::groupType::'.. group_type, group_uuid ..'::'.. i);
   end;
 
   -- 为新创建的群组设置群组类型
@@ -71,11 +71,11 @@ end;
 
 -- 
 
-local group_id, group_pos_id = string.match(idle_group, '(.*)::(.*)::(.*)::(.*)');
+local group_id, group_pos_id = string.match(idle_group, '(.*)::(.*)');
 
 -- 把用户放到这个座位上
 
-redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, user_id ..'::0::0::0');
+redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, user_id ..'::0');
 
 -- 获取现在座位上的所有人
 
@@ -93,7 +93,7 @@ local arr1 = {};
 local user_info = {};
 
 for i=2, #group_pos, 2 do
-  local u = string.match(group_pos[i], '(.*)::(.*)::(.*)::(.*)');
+  local u = string.match(group_pos[i], '(.*)::(.*)');
 
   table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));
   table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'channel_id'));

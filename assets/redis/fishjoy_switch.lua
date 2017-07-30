@@ -16,10 +16,6 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
--- local max_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_level');
-
--- if (tonumber(max_bullet_level) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
-
 -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 local group_id = redis.call('HGET', 'prop::user::'.. user_id, 'group_id');
@@ -50,12 +46,12 @@ if (tonumber(bullet_lv_min) > bullet_level) then return 'invalid_bullet_level'; 
 
 redis.call('HSET', 'prop::user::'.. user_id, 'current_bullet_level', bullet_level);
 
--- ========================================================================================
+-- 
 
 local arr1 = {};
 
 for i=2, #group_pos, 2 do
-  local u, hand = string.match(group_pos[i], '(.*)::(.*)::(.*)::(.*)');
+  local u, hand = string.match(group_pos[i], '(.*)::(.*)');
 
   if ('1' == hand) then
     table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));

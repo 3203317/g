@@ -47,7 +47,7 @@ if (false == s) then return 'invalid_group_pos_id'; end;
 
 -- 判断是否是本人
 
-local b, hand, consume_score, gain_score = string.match(s, '(.*)::(.*)::(.*)::(.*)');
+local b, hand = string.match(s, '(.*)::(.*)');
 
 if (b ~= user_id) then return 'invalid_user_id'; end;
 
@@ -67,27 +67,33 @@ local current_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'curre
 
 local bullet_consume = redis.call('HGET', 'cfg', 'bullet_lv_'.. current_bullet_level ..'_consume');
 
-if (false == bullet_consume) then return 'invalid_bullet_level'; end;
-
 bullet_consume = tonumber(bullet_consume);
 
 -- 获取用户的积分
 
 local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
-local current_score = tonumber(user_score) - bullet_consume;
+user_score = tonumber(user_score) - bullet_consume;
 
-if (0 > current_score) then return 'invalid_user_score'; end;
+if (0 > user_score) then return 'invalid_user_score'; end;
 
-redis.call('HSET', 'prop::user::'.. user_id, 'score', current_score);
+redis.call('HSET', 'prop::user::'.. user_id, 'score', user_score);
 
--- 记录用户消耗的金币数
+-- 所在组消耗的金币数
 
-consume_score = tonumber(consume_score);
+local group_consume_score = redis.call('HGET', 'prop::user::'.. user_id, 'group_consume_score');
 
-consume_score = consume_score + bullet_consume;
+group_consume_score = tonumber(group_consume_score) + bullet_consume;
 
-redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, b ..'::'.. hand ..'::'.. consume_score ..'::'.. gain_score);
+redis.call('HSET', 'prop::user::'.. user_id, 'group_consume_score', group_consume_score);
+
+-- 历史以来消耗的金币数
+
+local bullet_consume_count = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_consume_count');
+
+bullet_consume_count = tonumber(bullet_consume_count) + bullet_consume;
+
+redis.call('HSET', 'prop::user::'.. user_id, 'bullet_consume_count', bullet_consume_count);
 
 -- 
 
@@ -100,7 +106,9 @@ redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id',        
                                                                    'group_pos_id', group_pos_id,
                                                                    'group_type',   group_type,
                                                                    'user_id',      user_id,
-                                                                   'user_score',   current_score);
+                                                                   'user_score',   user_score,
+                                                                   'group_consume_score',  group_consume_score,
+                                                                   'bullet_consume_count', bullet_consume_count);
 redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
 
 -- 
@@ -108,7 +116,7 @@ redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
 local arr1 = {};
 
 for i=2, #group_pos, 2 do
-  local u, hand = string.match(group_pos[i], '(.*)::(.*)::(.*)::(.*)');
+  local u, hand = string.match(group_pos[i], '(.*)::(.*)');
 
   if ('1' == hand) then
     table.insert(arr1, redis.call('HGET', 'prop::user::'.. u, 'server_id'));

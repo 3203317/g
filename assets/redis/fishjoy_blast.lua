@@ -103,7 +103,7 @@ local arr2 = {};
 
 table.insert(arr2, user_score);           -- 用户现有总金币数
 table.insert(arr2, group_gain_score);     -- 所在组获得的金币数
-table.insert(arr2, gift_count);           -- 用户现有礼券数
+table.insert(arr2, gift);                 -- 用户打死鱼得到的礼券数
 table.insert(arr2, gain_score_count);     -- 历史以来获得的金币数
 
 -- 
