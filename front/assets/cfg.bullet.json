@@ -83,11 +83,6 @@
 	},{
 		"range": 0.4,
 		"style": 2,
-		"cost": 45,
-		"unlock": 22
-	},{
-		"range": 0.4,
-		"style": 3,
 		"cost": 700,
 		"unlock": 22
 	},{

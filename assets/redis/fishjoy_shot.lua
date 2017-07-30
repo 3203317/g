@@ -106,9 +106,7 @@ redis.call('HMSET', 'prop::bullet::'.. user_id ..'::'.. bullet_id, 'id',        
                                                                    'group_pos_id', group_pos_id,
                                                                    'group_type',   group_type,
                                                                    'user_id',      user_id,
-                                                                   'user_score',   user_score,
-                                                                   'group_consume_score',  group_consume_score,
-                                                                   'bullet_consume_count', bullet_consume_count);
+                                                                   'user_score',   user_score);
 redis.call('EXPIRE', 'prop::bullet::'.. user_id ..'::'.. bullet_id, seconds);
 
 -- 

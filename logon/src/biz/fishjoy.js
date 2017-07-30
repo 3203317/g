@@ -445,7 +445,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
     logger.debug('blast bullet: %j', bullet_info);
 
-    var dead_fishes = fishpond.blast(bullet_info, hit_fishes);
+    var dead_fishes = fishpond.blast(bullet_info, hit_fishes, user_info);
 
     for(let fish of dead_fishes){
 
