@@ -105,7 +105,7 @@ const logger = log4js.getLogger('fishjoy');
       newFish.probability = t.probability;
       newFish.weight      = t.weight;
       newFish.hp          = t.hp;
-      newFish.loop        = t.loop;
+      newFish.loop        = false;
       newFish.trailLen    = cfg.fishTrail[newFish.path].length;
 
       fishes.push(newFish);
@@ -445,7 +445,10 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
     logger.debug('blast bullet: %j', bullet_info);
 
-    var dead_fishes = fishpond.blast(bullet_info, hit_fishes, user_info);
+    // 群组信息
+    var group_info = cfg.arrayToObject(doc[2]);
+
+    var dead_fishes = fishpond.blast(bullet_info, hit_fishes, user_info, group_info);
 
     for(let fish of dead_fishes){
 

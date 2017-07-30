@@ -120,7 +120,7 @@ pro.refresh = function(){
   return self._fishes;
 }
 
-pro.blast = function(bullet, fishes, user_info){
+pro.blast = function(bullet, fishes, user_info, group_info){
   var self = this;
 
   var result = [];
