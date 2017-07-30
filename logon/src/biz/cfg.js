@@ -73,7 +73,7 @@ exports.init = function(cb){
       info[i.type_ +'_'+ i.key_] = i.value_;
     }
 
-    redis.select(1, function (err){
+    redis.select(conf.redis.database, function (err){
       if(err) return cb(err);
 
       redis.hmset('cfg', info, function (err, res){
