@@ -94,9 +94,9 @@ local group_info = redis.call('HGETALL', 'prop::group::'.. group_id);
 
 local bullet_lv_min = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_min');
 
-redis.call('HSET', 'prop::user::'.. user_id, 'current_bullet_level', bullet_lv_min,
-                                             'group_consume_score',  0,
-                                             'group_gain_score',     0);
+redis.call('HMSET', 'prop::user::'.. user_id, 'current_bullet_level', bullet_lv_min,
+                                              'group_consume_score',  0,
+                                              'group_gain_score',     0);
 
 -- 
 
