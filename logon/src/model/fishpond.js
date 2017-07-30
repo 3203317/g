@@ -173,6 +173,7 @@ pro.blast = function(bullet, fishes){
       id:     fish.id,
       type:   fish.type,
       money:  cfg.fishType[fish.type].money * bullet.consume,
+      gift:   0,
       tool_1: 0,
       tool_2: 0,
     });

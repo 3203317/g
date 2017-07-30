@@ -449,7 +449,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
     for(let fish of dead_fishes){
 
-      self.deadFish(user_info.id, fish.id, fish.type, fish.money, function (err, doc){
+      self.deadFish(user_info.id, fish.id, fish.type, fish.money, fish.gift, function (err, doc){
         if(err) return cb(err);
         if(!_.isArray(doc)) return cb(null, doc);
 
@@ -502,7 +502,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
    */
   function freeze(server_id, channel_id, cb){
 
-    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, 1, (err, doc) => {
+    redis.evalsha(sha1, numkeys, conf.redis.database, server_id, channel_id, 'freeze', (err, doc) => {
       if(err) return cb(err);
       if(!_.isArray(doc)) return cb(null, doc);
 
@@ -572,6 +572,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 (() => {
   const numkeys = 3;
   const sha1 = 'df28e86c8228c5bca3b8914054c40b393ed7b334';
+  const seconds = 60;
 
   /**
    *
@@ -579,15 +580,16 @@ exports.blast = function(server_id, channel_id, blast, cb){
    *
    * @return
    */
-  exports.deadFish = function(user_id, fish_id, fish_type, money, cb){
+  exports.deadFish = function(user_id, fish_id, fish_type, money, gift, cb){
 
     if(!user_id)   return;
     if(!fish_id)   return;
     if(!fish_type) return;
     if(!money)     return;
+    if(!gift)      return;
 
     redis.evalsha(sha1, numkeys, conf.redis.database, user_id, fish_id,
-      fish_type, money, _.now(), (err, doc) => {
+      seconds, fish_type, money, gift, _.now(), (err, doc) => {
         if(err) return cb(err);
         cb(null, doc);
     });
