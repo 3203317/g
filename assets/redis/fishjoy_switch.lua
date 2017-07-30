@@ -16,9 +16,9 @@ if (false == user_id) then return 'invalid_user_id'; end;
 
 -- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-local max_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_level');
+-- local max_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_level');
 
-if (tonumber(max_bullet_level) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
+-- if (tonumber(max_bullet_level) < tonumber(bullet_level)) then return 'invalid_bullet_level'; end;
 
 -- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -37,6 +37,16 @@ if (0 == #group_pos) then return 'invalid_group_pos'; end;
 -- <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 -- 为用户设置当前使用的子弹等级
+
+bullet_level = tonumber(bullet_level);
+
+local bullet_lv_max = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_max');
+
+if (tonumber(bullet_lv_max) < bullet_level) then return 'invalid_bullet_level'; end;
+
+local bullet_lv_min = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_bullet_lv_min');
+
+if (tonumber(bullet_lv_min) > bullet_level) then return 'invalid_bullet_level'; end;
 
 redis.call('HSET', 'prop::user::'.. user_id, 'current_bullet_level', bullet_level);
 

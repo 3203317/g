@@ -47,7 +47,7 @@ if (false == s) then return 'invalid_group_pos_id'; end;
 
 -- 判断是否是本人
 
-local b, hand = string.match(s, '(.*)::(.*)::(.*)::(.*)');
+local b, hand, consume_score, gain_score = string.match(s, '(.*)::(.*)::(.*)::(.*)');
 
 if (b ~= user_id) then return 'invalid_user_id'; end;
 
@@ -65,19 +65,29 @@ local current_bullet_level = redis.call('HGET', 'prop::user::'.. user_id, 'curre
 
 -- 判断子弹的等级对应的消耗是否存在
 
-local bullet_consume = redis.call('HGET', 'cfg::bullet::consume', current_bullet_level);
+local bullet_consume = redis.call('HGET', 'cfg', 'bullet_lv_'.. current_bullet_level ..'_consume');
 
 if (false == bullet_consume) then return 'invalid_bullet_level'; end;
+
+bullet_consume = tonumber(bullet_consume);
 
 -- 获取用户的积分
 
 local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
-local current_score = tonumber(user_score) - tonumber(bullet_consume);
+local current_score = tonumber(user_score) - bullet_consume;
 
 if (0 > current_score) then return 'invalid_user_score'; end;
 
 redis.call('HSET', 'prop::user::'.. user_id, 'score', current_score);
+
+-- 记录用户消耗的金币数
+
+consume_score = tonumber(consume_score);
+
+consume_score = consume_score + bullet_consume;
+
+redis.call('HSET', 'pos::group::'.. group_type ..'::'.. group_id, group_pos_id, b ..'::'.. hand ..'::'.. consume_score ..'::'.. gain_score);
 
 -- 
 
