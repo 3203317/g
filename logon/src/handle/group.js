@@ -21,7 +21,7 @@ exports.search = function(client, msg){
 
   _quit(client, data.serverId, data.channelId, data.seqId, function (err){
     if(err) return logger.error('group quit:', err);
-    logger.info('group quit: %j', data);
+    logger.info('group quit: success');
 
     biz.group.search(data.serverId, data.channelId, data.data, function (err, doc){
       if(err) return logger.error('group search:', err);
@@ -68,7 +68,7 @@ exports.quit = function(client, msg){
 
   _quit(client, data.serverId, data.channelId, data.seqId, function (err){
     if(err) return logger.error('group quit:', err);
-    logger.info('group quit: %j', data);
+    logger.info('group quit: success');
   });
 };
 
