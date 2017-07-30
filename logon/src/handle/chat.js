@@ -77,7 +77,7 @@ exports.one_for_group = function(client, msg){
 
     switch(doc){
       case 'invalid_user_id':
-        return client.send('/queue/front.force.v2.'+ server_id, { priority: 9 }, channel_id);
+        return client.send('/queue/front.force.v2.'+ data.serverId, { priority: 9 }, data.channelId);
     }
   });
 };
