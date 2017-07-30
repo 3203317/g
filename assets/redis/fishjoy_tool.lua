@@ -34,13 +34,31 @@ if (0 == #group_pos) then return 'invalid_group_pos'; end;
 
 local tool_consume = redis.call('HGET', 'cfg', 'group_type_'.. group_type ..'_consume_'.. tool_type);
 
+tool_consume = tonumber(tool_consume);
+
 local user_score = redis.call('HGET', 'prop::user::'.. user_id, 'score');
 
-user_score = tonumber(user_score) - tonumber(tool_consume);
+user_score = tonumber(user_score) - tool_consume;
 
 if (0 > user_score) then return 'invalid_user_score'; end;
 
 redis.call('HSET', 'prop::user::'.. user_id, 'score', user_score);
+
+-- 所在组消耗的金币数
+
+local group_consume_score = redis.call('HGET', 'prop::user::'.. user_id, 'group_consume_score');
+
+group_consume_score = tonumber(group_consume_score) + tool_consume;
+
+redis.call('HSET', 'prop::user::'.. user_id, 'group_consume_score', group_consume_score);
+
+-- 历史以来消耗的金币数
+
+local bullet_consume_count = redis.call('HGET', 'prop::user::'.. user_id, 'bullet_consume_count');
+
+bullet_consume_count = tonumber(bullet_consume_count) + tool_consume;
+
+redis.call('HSET', 'prop::user::'.. user_id, 'bullet_consume_count', bullet_consume_count);
 
 -- 
 
