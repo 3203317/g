@@ -32,7 +32,7 @@ exports.findAll = function(status, cb){
     sql += ' WHERE a.status=?';
   }
 
-  sql += ' ORDER BY a.key_ ASC';
+  sql += ' ORDER BY a.title ASC';
 
   mysql.query(sql, [status], (err, docs) => {
     if(err) return cb(err);

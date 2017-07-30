@@ -175,6 +175,9 @@ const logger = log4js.getLogger('fishjoy');
             });
           }
 
+          // 给房间加上当前时间
+          fishpond.timestamp = new Date().getTime();
+
           // 检测是否被冰冻
 
           var pause = fishpond.pause();
@@ -274,11 +277,14 @@ const logger = log4js.getLogger('fishjoy');
                 return fishpondPool.release(fishpond.id);
               }
 
-              scene(null, doc);
+              // scene(null, doc);
               fishpond.clearAll();
               scene1();
             });
           }
+
+          // 给房间加上当前时间
+          fishpond.timestamp = new Date().getTime();
 
           var pause = fishpond.pause();
 
