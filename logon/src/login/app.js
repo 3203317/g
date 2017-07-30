@@ -16,6 +16,8 @@ const express = require('express'),
 const macros = require('./lib/macro'),
       conf = require('./settings');
 
+const redis = require('emag.db').redis;
+
 const log4js = require('log4js');
 
 log4js.configure({
@@ -104,4 +106,8 @@ server.listen(app.get('port'), () => {
 
 process.on('uncaughtException', err => {
   logger.error('uncaughtException:', err);
+});
+
+process.on('exit', () => {
+  if(redis) redis.quit();
 });

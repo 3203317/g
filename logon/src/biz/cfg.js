@@ -20,16 +20,25 @@ const redis = require('emag.db').redis;
 
 const _ = require('underscore');
 
-(() => {
-  var sql = 'SELECT a.* FROM s_cfg a WHERE a.status=? ORDER BY a.key_ ASC';
+/**
+ *
+ * @return
+ */
+exports.findAll = function(status, cb){
 
-  exports.findAll = function(status, cb){
-    mysql.query(sql, [status || 0], (err, docs) => {
-      if(err) return cb(err);
-      cb(null, docs);
-    });
-  };
-})();
+  var sql = 'SELECT a.* FROM s_cfg a';
+
+  if(null !== status){
+    sql += ' WHERE a.status=?';
+  }
+
+  sql += ' ORDER BY a.key_ ASC';
+
+  mysql.query(sql, [status], (err, docs) => {
+    if(err) return cb(err);
+    cb(null, docs);
+  });
+};
 
 (() => {
   var sql = 'UPDATE s_cfg SET value_=? WHERE key_=? AND type_=?';
@@ -48,3 +57,29 @@ const _ = require('underscore');
     });
   };
 })();
+
+/**
+ *
+ * @return
+ */
+exports.init = function(cb){
+
+  this.findAll(null, function (err, docs){
+    if(err) return cb(err);
+
+    var info = {};
+
+    for(let i of docs){
+      info[i.type_ +'_'+ i.key_] = i.value_;
+    }
+
+    redis.select(1, function (err){
+      if(err) return cb(err);
+
+      redis.hmset('cfg', info, function (err, res){
+        if(err) return cb(err);
+        cb(null, res);
+      });
+    });
+  });
+};

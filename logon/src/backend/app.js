@@ -16,6 +16,8 @@ const biz    = require('emag.biz');
 const cfg    = require('emag.cfg');
 const handle = require('emag.handle');
 
+const redis = require('emag.db').redis;
+
 const log4js = require('log4js');
 
 log4js.configure({
@@ -55,12 +57,19 @@ process.on('exit', () => {
   biz.backend.close(conf.app.id, (err, code) => {
     if(err) return logger.error('backend %j close:', conf.app.id, err);
     logger.info('backend %j close: %j', conf.app.id, code);
+
+    if(redis) redis.quit();
   });
 });
 
 biz.backend.open(conf.app.id, (err, code) => {
   if(err) return logger.error('backend %j open:', conf.app.id, err);
   logger.info('backend %j open: %j', conf.app.id, code);
+});
+
+biz.cfg.init(function (err, res){
+  if(err) return process.exit(1);
+  logger.info('cfg init: %s', res);
 });
 
 // ----------------------------------------------------------------------------------------------------
