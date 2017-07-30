@@ -193,25 +193,32 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     if(md5.hex(logInfo.user_pass) !== doc.user_pass)
       return cb(null, '103');
 
-    var p1 = new Promise((resolve, reject) => {
-      self.authorize(doc, (err, code) => {
+    self.getUserVip(doc.id, function (err, vip){
+      if(err) return cb(err);
+
+      // 设置用户的vip等级
+      doc.vip = (!vip) ? 0 : vip.lv;
+
+      var p1 = new Promise((resolve, reject) => {
+        self.authorize(doc, (err, code) => {
+            if(err) return reject(err);
+            resolve(code);
+        });
+      });
+
+      var p2 = new Promise((resolve, reject) => {
+        // 服务器可用性
+        server.available((err, info) => {
           if(err) return reject(err);
-          resolve(code);
+          resolve(info);
+        });
       });
+
+      Promise.all([p1, p2]).then(values => {
+        cb(null, null, values);
+      }).catch(cb);
+
     });
-
-    var p2 = new Promise((resolve, reject) => {
-      // 服务器可用性
-      server.available((err, info) => {
-        if(err) return reject(err);
-        resolve(info);
-      });
-    });
-
-    Promise.all([p1, p2]).then(values => {
-      cb(null, null, values);
-    }).catch(cb);
-
   });
 };
 
@@ -253,6 +260,7 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
       doc.bullet_consume_count || 0,
       doc.gain_score_count     || 0,
       doc.gift_count           || 0,
+      doc.vip,
       (err, code) => {
         if(err) return cb(err);
         cb(null, code);
@@ -411,6 +419,22 @@ exports.login = function(logInfo /* 用户名及密码 */, cb){
     mysql.query(sql, [md5.hex(user_pass), id], (err, status) => {
       if(err) return cb(err);
         cb(null, status);
+    });
+  };
+})();
+
+(() => {
+  var sql = 'SELECT a.* FROM s_user_vip a WHERE a.user_id=? AND NOW() BETWEEN a.create_time AND a.end_time ORDER BY a.lv DESC LIMIT 1';
+
+  /**
+   * 获取用户的VIP等级
+   *
+   * @return
+   */
+  exports.getUserVip = function(user_id, cb){
+    mysql.query(sql, [user_id], (err, docs) => {
+      if(err) return cb(err);
+      cb(null, mysql.checkOnly(docs) ? docs[0] : null);
     });
   };
 })();
