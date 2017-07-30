@@ -1,0 +1,1 @@
+npm install ..\db & npm install ..\cfg & npm install ..\biz & npm install ..\model & npm install ..\handle & node app.js
