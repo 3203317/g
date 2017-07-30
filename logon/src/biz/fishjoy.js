@@ -372,7 +372,7 @@ const logger = log4js.getLogger('fishjoy');
 
 (() => {
   const numkeys = 4;
-  const sha1 = '4f2574e993590e3ee080dd4e5e85e55d5ad54394';
+  const sha1 = 'ac60e0435402f89ba69d29b5326830b9be82c4ca';
   const seconds = 22;
 
   /**
@@ -552,7 +552,7 @@ exports.blast = function(server_id, channel_id, blast, cb){
 
 (() => {
   const numkeys = 4;
-  const sha1 = 'ce43daa29f7723df93f36ca834c86476e02e28f6';
+  const sha1 = '96d65399e3f50cf8c24e33295e1b9d818ecd2995';
 
   /**
    * 获取子弹信息

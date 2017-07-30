@@ -121,6 +121,10 @@ pro.refresh = function(){
 }
 
 pro.blast = function(bullet, fishes, user_info, group_info){
+
+  logger.debug(user_info);
+  logger.debug(group_info);
+
   var self = this;
 
   var result = [];
