@@ -43,35 +43,45 @@ public class JSONCodecV3 extends MessageToMessageCodec<TextWebSocketFrame, Strin
 	protected void decode(ChannelHandlerContext ctx, TextWebSocketFrame msg, List<Object> out) throws Exception {
 		String text = msg.text();
 
-		if (msg_body_max >= text.length()) {
-
-			JsonArray jo = new JsonParser().parse(text).getAsJsonArray();
-
-			if (6 == jo.size()) {
-
-				ProtocolModel model = new ProtocolModel();
-
-				model.setVersion(jo.get(0).getAsInt());
-				model.setMethod(jo.get(1).getAsInt());
-				model.setSeqId(jo.get(2).getAsLong());
-				model.setTimestamp(jo.get(3).getAsLong());
-
-				JsonElement _je4 = jo.get(4);
-
-				if (!_je4.isJsonNull()) {
-					model.setData(_je4.getAsString());
-				}
-
-				JsonElement _je5 = jo.get(5);
-
-				if (!_je5.isJsonNull()) {
-					model.setBackendId(_je5.getAsString());
-				}
-
-				out.add(model);
-				return;
-			}
+		if (msg_body_max < text.length()) {
+			logout(ctx);
+			return;
 		}
+
+		JsonElement je = null;
+
+		try {
+			je = new JsonParser().parse(text);
+		} catch (Exception ex) {
+			logout(ctx);
+			return;
+		}
+
+		JsonArray ja = je.getAsJsonArray();
+
+		if (6 != ja.size()) {
+			logout(ctx);
+			return;
+		}
+
+		ProtocolModel model = new ProtocolModel();
+
+		try {
+			model.setVersion(ja.get(0).getAsInt());
+			model.setMethod(ja.get(1).getAsInt());
+			model.setSeqId(ja.get(2).getAsLong());
+			model.setTimestamp(ja.get(3).getAsLong());
+			model.setData(ja.get(4).getAsString());
+			model.setBackendId(ja.get(5).getAsString());
+		} catch (Exception ex) {
+			logout(ctx);
+			return;
+		}
+
+		out.add(model);
+	}
+
+	private void logout(ChannelHandlerContext ctx) {
 
 		ChannelFuture future = ctx.close();
 
