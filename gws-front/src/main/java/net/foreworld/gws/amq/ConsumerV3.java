@@ -1,10 +1,17 @@
 package net.foreworld.gws.amq;
 
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelFutureListener;
+
 import java.net.SocketAddress;
 
 import javax.annotation.Resource;
 import javax.jms.BytesMessage;
 import javax.jms.JMSException;
+
+import net.foreworld.gws.util.ChannelUtil;
+import net.foreworld.gws.util.Constants;
 
 import org.apache.commons.codec.Charsets;
 import org.slf4j.Logger;
@@ -15,16 +22,8 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.jms.core.JmsMessagingTemplate;
 import org.springframework.stereotype.Component;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import net.foreworld.gws.util.ChannelUtil;
-import net.foreworld.gws.util.Constants;
-import net.foreworld.util.StringUtil;
 
 /**
  *
@@ -44,7 +43,8 @@ public class ConsumerV3 {
 	@Resource(name = "jmsMessagingTemplate")
 	private JmsMessagingTemplate jmsMessagingTemplate;
 
-	private static final Logger logger = LoggerFactory.getLogger(ConsumerV3.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(ConsumerV3.class);
 
 	@JmsListener(destination = "${queue.back.send.v3}.${server.id}")
 	public void back_send(BytesMessage msg) {
@@ -55,33 +55,28 @@ public class ConsumerV3 {
 
 			String s = new String(data, Charsets.UTF_8);
 
-			JsonObject jo = new JsonParser().parse(s).getAsJsonObject();
+			JsonArray ja = new JsonParser().parse(s).getAsJsonArray();
 
-			JsonElement joo = jo.get("receiver");
+			String _receiver = ja.get(0).getAsString();
 
-			if (null == joo)
-				return;
+			String _data = ja.get(1).getAsString();
 
-			String _receiver = StringUtil.isEmpty(joo.getAsString());
-
-			if (null == _receiver)
-				return;
-
-			//
+			// 开始发送
 
 			if (Constants.ALL.equals(_receiver)) {
-				ChannelUtil.getDefault().broadcast(jo.get("data").getAsString());
+				ChannelUtil.getDefault().broadcast(_data);
 				return;
 			}
 
 			Channel c = ChannelUtil.getDefault().getChannel(_receiver);
 
 			if (null != c) {
-				c.writeAndFlush(jo.get("data").getAsString());
+				c.writeAndFlush(_data);
 				return;
 			}
 
-			jmsMessagingTemplate.convertAndSend(queue_channel_close, server_id + "::" + _receiver);
+			jmsMessagingTemplate.convertAndSend(queue_channel_close, server_id
+					+ "::" + _receiver);
 			logger.info("channel amq close: {}:{}", server_id, _receiver);
 
 		} catch (JMSException e) {
@@ -108,7 +103,8 @@ public class ConsumerV3 {
 			future.addListener(new ChannelFutureListener() {
 
 				@Override
-				public void operationComplete(ChannelFuture future) throws Exception {
+				public void operationComplete(ChannelFuture future)
+						throws Exception {
 					SocketAddress addr = c.remoteAddress();
 
 					if (future.isSuccess()) {
