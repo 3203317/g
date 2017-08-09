@@ -1,5 +1,8 @@
 package net.foreworld.gws.server;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -17,7 +20,10 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import net.foreworld.gws.initializer.WsNormalInitializer;
 import net.foreworld.gws.util.ChannelUtil;
+import net.foreworld.gws.util.Constants;
+import net.foreworld.gws.util.RedisUtil;
 import net.foreworld.util.Server;
+import redis.clients.jedis.Jedis;
 
 /**
  *
@@ -25,8 +31,18 @@ import net.foreworld.util.Server;
  *
  */
 @PropertySource("classpath:activemq.properties")
+@PropertySource("classpath:redis.properties")
 @Component
 public class WsNormalServer extends Server {
+
+	@Value("${sha.server.open}")
+	private String sha_server_open;
+
+	@Value("${sha.server.close}")
+	private String sha_server_close;
+
+	@Value("${db.redis.database}")
+	private String db_redis_database;
 
 	private static final Logger logger = LoggerFactory.getLogger(WsNormalServer.class);
 
@@ -62,6 +78,9 @@ public class WsNormalServer extends Server {
 
 	@Override
 	public void start() {
+
+		if (!beforeStart())
+			return;
 
 		bossGroup = new NioEventLoopGroup(bossThread);
 		workerGroup = new NioEventLoopGroup(workerThread);
@@ -114,13 +133,54 @@ public class WsNormalServer extends Server {
 
 	private void beforeShut() {
 		ChannelUtil.getDefault().close();
-		jmsMessagingTemplate.convertAndSend(queue_front_stop, server_id);
-		logger.info("front amq stop: {}", server_id);
+
+		List<String> s = new ArrayList<String>();
+		s.add(db_redis_database);
+		s.add(server_id);
+
+		List<String> b = new ArrayList<String>();
+
+		Jedis j = RedisUtil.getDefault().getJedis();
+
+		if (null == j)
+			return;
+
+		Object o = j.evalsha(sha_server_close, s, b);
+		j.close();
+
+		String str = o.toString();
+
+		if (Constants.OK.equals(str)) {
+			jmsMessagingTemplate.convertAndSend(queue_front_stop, server_id);
+			logger.info("front amq stop: {}", server_id);
+		}
 	}
 
 	private void afterStart() {
 		jmsMessagingTemplate.convertAndSend(queue_front_start, server_id);
 		logger.info("front amq start: {}", server_id);
+	}
+
+	private boolean beforeStart() {
+
+		List<String> s = new ArrayList<String>();
+		s.add(db_redis_database);
+		s.add(server_id);
+
+		List<String> b = new ArrayList<String>();
+		b.add(String.valueOf(System.currentTimeMillis()));
+
+		Jedis j = RedisUtil.getDefault().getJedis();
+
+		if (null == j)
+			return false;
+
+		Object o = j.evalsha(sha_server_open, s, b);
+		j.close();
+
+		String str = o.toString();
+
+		return Constants.OK.equals(str);
 	}
 
 }
