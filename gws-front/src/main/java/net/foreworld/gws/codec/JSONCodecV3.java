@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 
 import io.netty.channel.ChannelFuture;
@@ -54,8 +55,18 @@ public class JSONCodecV3 extends MessageToMessageCodec<TextWebSocketFrame, Strin
 				model.setMethod(jo.get(1).getAsInt());
 				model.setSeqId(jo.get(2).getAsLong());
 				model.setTimestamp(jo.get(3).getAsLong());
-				model.setBackendId(jo.get(4).getAsString());
-				model.setData(jo.get(5).getAsString());
+
+				JsonElement _je4 = jo.get(4);
+
+				if (!_je4.isJsonNull()) {
+					model.setData(_je4.getAsString());
+				}
+
+				JsonElement _je5 = jo.get(5);
+
+				if (!_je5.isJsonNull()) {
+					model.setBackendId(_je5.getAsString());
+				}
 
 				out.add(model);
 				return;
@@ -79,6 +90,26 @@ public class JSONCodecV3 extends MessageToMessageCodec<TextWebSocketFrame, Strin
 				ctx.close();
 			}
 		});
+	}
+
+	public static void main(String[] args) {
+		String arrStr = "['a', 'b', 3, , ]";
+
+		System.err.println(arrStr);
+
+		JsonArray jo = new JsonParser().parse(arrStr).getAsJsonArray();
+
+		System.err.println(jo);
+
+		System.err.println(jo.size());
+
+		System.err.println(jo.get(0).getAsString());
+
+		System.err.println(jo.get(2).getAsString());
+
+		System.err.println(jo.get(3).isJsonNull());
+
+		System.err.println(jo.get(4).isJsonNull());
 	}
 
 }

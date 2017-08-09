@@ -1,5 +1,12 @@
 package net.foreworld.gws.initializer;
 
+import java.util.concurrent.TimeUnit;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.nio.NioSocketChannel;
@@ -10,12 +17,7 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import io.netty.handler.timeout.IdleStateHandler;
-
-import java.util.concurrent.TimeUnit;
-
-import javax.annotation.Resource;
-
-import net.foreworld.gws.codec.JSONCodec;
+import net.foreworld.gws.codec.JSONCodecV3;
 import net.foreworld.gws.handler.BlacklistHandler;
 import net.foreworld.gws.handler.ExceptionHandler;
 import net.foreworld.gws.handler.HeartbeatV2Handler;
@@ -24,9 +26,6 @@ import net.foreworld.gws.handler.ProtocolSafeV2Handler;
 import net.foreworld.gws.handler.TimeV2Handler;
 import net.foreworld.gws.handler.TimeVersionV2Handler;
 import net.foreworld.gws.handler.TimeoutHandler;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 
 /**
  *
@@ -40,7 +39,7 @@ public class WsNormalInitializer extends ChannelInitializer<NioSocketChannel> {
 	// private EchoHandler echoHandler;
 
 	@Resource
-	private JSONCodec jSONCodec;
+	private JSONCodecV3 jSONCodecV3;
 
 	@Value("${server.idle.readerIdleTime:3}")
 	private int readerIdleTime;
@@ -84,8 +83,7 @@ public class WsNormalInitializer extends ChannelInitializer<NioSocketChannel> {
 		pipe.addLast(exceptionHandler);
 		pipe.addLast(blacklistHandler);
 
-		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime,
-				allIdleTime, TimeUnit.SECONDS));
+		pipe.addLast(new IdleStateHandler(readerIdleTime, writerIdleTime, allIdleTime, TimeUnit.SECONDS));
 		pipe.addLast(timeoutHandler);
 
 		pipe.addLast(new HttpServerCodec());
@@ -97,7 +95,7 @@ public class WsNormalInitializer extends ChannelInitializer<NioSocketChannel> {
 
 		pipe.addLast(new WebSocketServerCompressionHandler());
 
-		pipe.addLast(jSONCodec);
+		pipe.addLast(jSONCodecV3);
 
 		pipe.addLast(timeVersionV2Handler);
 		pipe.addLast(loginV2Handler);
