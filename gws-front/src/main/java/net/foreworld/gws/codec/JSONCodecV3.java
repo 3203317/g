@@ -71,8 +71,19 @@ public class JSONCodecV3 extends MessageToMessageCodec<TextWebSocketFrame, Strin
 			model.setMethod(ja.get(1).getAsInt());
 			model.setSeqId(ja.get(2).getAsLong());
 			model.setTimestamp(ja.get(3).getAsLong());
-			model.setData(ja.get(4).getAsString());
-			model.setBackendId(ja.get(5).getAsString());
+
+			JsonElement _je_4 = ja.get(4);
+
+			if (!_je_4.isJsonNull()) {
+				model.setData(_je_4.getAsString());
+			}
+
+			JsonElement _je_5 = ja.get(5);
+
+			if (!_je_5.isJsonNull()) {
+				model.setBackendId(_je_5.getAsString());
+			}
+
 		} catch (Exception ex) {
 			logout(ctx);
 			return;
