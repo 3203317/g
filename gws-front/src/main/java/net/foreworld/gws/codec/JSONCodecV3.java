@@ -48,18 +48,16 @@ public class JSONCodecV3 extends MessageToMessageCodec<TextWebSocketFrame, Strin
 			return;
 		}
 
-		JsonElement je = null;
+		JsonArray ja = null;
 
 		try {
-			je = new JsonParser().parse(text);
+			ja = new JsonParser().parse(text).getAsJsonArray();
 		} catch (Exception ex) {
 			logout(ctx);
 			return;
 		}
 
-		JsonArray ja = je.getAsJsonArray();
-
-		if (6 != ja.size()) {
+		if (null == ja || 6 != ja.size()) {
 			logout(ctx);
 			return;
 		}
