@@ -1,12 +1,12 @@
 package net.foreworld.util;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import org.apache.commons.codec.Charsets;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
@@ -24,15 +24,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author huangxin
  *
  */
 public class HttpClientUtil {
 
 	private static PoolingHttpClientConnectionManager poolMgr;
-
-	private static final String UTF_8 = "UTF-8";
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HttpClientUtil.class);
@@ -109,11 +107,7 @@ public class HttpClientUtil {
 	private static HttpPost buildHttpPost(String url, Map<String, Object> params) {
 		HttpPost httpPost = new HttpPost(url);
 		ArrayList<NameValuePair> pairs = covertParams(params);
-		try {
-			httpPost.setEntity(new UrlEncodedFormEntity(pairs, UTF_8));
-		} catch (UnsupportedEncodingException e) {
-			logger.error("{}", e);
-		}
+		httpPost.setEntity(new UrlEncodedFormEntity(pairs, Charsets.UTF_8));
 		return httpPost;
 	}
 
