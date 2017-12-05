@@ -7,11 +7,11 @@ package net.foreworld.util;
  */
 public abstract class Client {
 
-	public abstract void start();
+	public abstract void start() throws Exception;
 
-	public abstract void shutdown();
+	public abstract void shutdown() throws Exception;
 
-	public void restart() {
+	public void restart() throws Exception {
 		shutdown();
 		start();
 	}

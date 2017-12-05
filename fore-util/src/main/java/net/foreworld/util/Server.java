@@ -5,7 +5,7 @@ package net.foreworld.util;
  * @author huangxin <3203317@qq.com>
  *
  */
-public abstract class Server {
+public abstract class Server extends Client {
 
 	public enum Status {
 		START(1), STOP(0);
@@ -19,15 +19,6 @@ public abstract class Server {
 		public int value() {
 			return this.value;
 		}
-	}
-
-	public abstract void start();
-
-	public abstract void shutdown();
-
-	public void restart() {
-		shutdown();
-		start();
 	}
 
 }
