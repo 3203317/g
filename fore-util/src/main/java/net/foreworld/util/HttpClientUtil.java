@@ -20,8 +20,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -31,9 +29,6 @@ import org.slf4j.LoggerFactory;
 public class HttpClientUtil {
 
 	private static PoolingHttpClientConnectionManager poolMgr;
-
-	private static final Logger logger = LoggerFactory
-			.getLogger(HttpClientUtil.class);
 
 	private static void init() {
 		if (poolMgr != null)
@@ -99,7 +94,7 @@ public class HttpClientUtil {
 		try {
 			uri = ub.build();
 		} catch (URISyntaxException e) {
-			logger.error("{}", e);
+			e.printStackTrace();
 		}
 		return uri;
 	}
@@ -127,9 +122,9 @@ public class HttpClientUtil {
 		try {
 			return httpClient.execute(request, responseHandler);
 		} catch (ClientProtocolException e) {
-			logger.error("{}", e);
+			e.printStackTrace();
 		} catch (IOException e) {
-			logger.error("{}", e);
+			e.printStackTrace();
 		}
 		return null;
 	}
